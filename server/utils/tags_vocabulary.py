@@ -180,3 +180,353 @@ GENRE_KEYWORDS = {
     "mystery", "romance", "historical", "literary", "non-fiction",
     "dystopian", "gothic", "crime", "adventure",
 }
+
+TAG_VOCABULARY.update({
+    "cozy": [
+        "cozy", "cosy", "comfort read", "warm hug", "wholesome",
+        "gentle", "low stakes", "cozy fantasy", "slice of life",
+        "soft", "comforting", "peaceful", "charming",
+    ],
+
+    "grimdark": [
+        "grimdark", "extremely dark", "nihilistic", "relentless",
+        "everyone suffers", "no happy endings", "morally bankrupt world",
+        "violent and bleak",
+    ],
+
+    "gothic": [
+        "gothic", "gothic horror", "haunted mansion", "decaying estate",
+        "atmospheric", "brooding", "victorian feel", "eerie atmosphere",
+        "dark romance", "ominous",
+    ],
+
+    "horror": [
+        "horror", "terrifying", "scary", "creepy", "nightmarish",
+        "spine chilling", "spine-chilling", "unsettling",
+        "frightening", "horror elements", "haunting",
+    ],
+
+    "body-horror": [
+        "body horror", "grotesque transformation", "disturbing body changes",
+        "flesh horror", "physical horror",
+    ],
+
+    "psychological": [
+        "psychological", "mind bending", "mind-bending",
+        "psychological horror", "psychological thriller",
+        "gets inside your head", "mental breakdown",
+    ],
+
+    "mystery": [
+        "mystery", "whodunit", "who done it", "investigation",
+        "detective story", "murder mystery", "crime mystery",
+    ],
+
+    "thriller": [
+        "thriller", "high stakes", "race against time",
+        "kept me turning pages", "adrenaline filled",
+    ],
+
+    "literary": [
+        "literary", "literary fiction", "character study",
+        "theme driven", "beautifully written", "thought provoking",
+        "thought-provoking",
+    ],
+
+    "historical": [
+        "historical", "historical fiction", "period piece",
+        "set in the past", "historically inspired",
+    ],
+
+    "post-apocalyptic": [
+        "post apocalyptic", "post-apocalyptic", "after the apocalypse",
+        "end of the world", "societal collapse", "collapsed society",
+    ],
+
+    "cyberpunk": [
+        "cyberpunk", "megacorporation", "corporate dystopia",
+        "high tech low life", "neon future", "cybernetic",
+    ],
+
+    "steampunk": [
+        "steampunk", "clockwork", "victorian technology",
+        "airships", "steam powered",
+    ],
+
+    "urban-fantasy": [
+        "urban fantasy", "modern fantasy", "magic in the modern world",
+        "hidden magical world", "supernatural city",
+    ],
+
+    "dark-academia": [
+        "dark academia", "elite school", "academic rivalry",
+        "obsession with knowledge", "secret society",
+    ],
+
+    "academia": [
+        "academia", "university setting", "college setting",
+        "scholarly", "academic environment",
+    ],
+
+    "military": [
+        "military", "military sci fi", "military fantasy",
+        "army", "soldiers", "war campaign",
+        "battle strategy", "combat focused",
+    ],
+
+    "war": [
+        "war", "wartime", "battlefield", "conflict",
+        "military conflict", "war story",
+    ],
+
+    "heist": [
+        "heist", "robbery", "crew assembling",
+        "one last job", "criminal mastermind",
+        "elaborate plan",
+    ],
+
+    "courtroom": [
+        "courtroom drama", "legal thriller", "trial",
+        "lawyer protagonist", "court case",
+    ],
+
+    "pirates": [
+        "pirates", "pirate adventure", "swashbuckling",
+        "high seas", "sea voyage",
+    ],
+
+    "dragons": [
+        "dragons", "dragon riders", "dragon bonds",
+        "dragon companion", "dragon magic",
+    ],
+
+    "vampires": [
+        "vampires", "vampire romance", "bloodsucker",
+        "undead", "immortal vampire",
+    ],
+
+    "werewolves": [
+        "werewolves", "shifters", "wolf shifters",
+        "lycanthrope", "pack dynamics",
+    ],
+
+    "fae": [
+        "fae", "fair folk", "fairy court",
+        "faerie", "seelie", "unseelie",
+    ],
+
+    "gods": [
+        "gods", "deities", "divine beings",
+        "godly powers", "pantheon",
+    ],
+
+    "chosen-one": [
+        "chosen one", "chosen-one", "prophesied hero",
+        "destined hero", "the chosen",
+    ],
+
+    "reluctant-hero": [
+        "reluctant hero", "doesn't want the responsibility",
+        "unwilling hero", "forced into adventure",
+    ],
+
+    "mentor": [
+        "mentor figure", "wise mentor",
+        "teacher student relationship",
+        "guiding figure",
+    ],
+
+    "antihero": [
+        "antihero", "anti-hero", "deeply flawed",
+        "questionable morality",
+    ],
+
+    "villain-protagonist": [
+        "villain protagonist", "villain main character",
+        "follows the villain", "evil protagonist",
+    ],
+
+    "redemption-arc": [
+        "redemption arc", "seeking redemption",
+        "making amends", "redemptive journey",
+    ],
+
+    "enemies-to-lovers": [
+        "enemies to lovers", "enemies-to-lovers",
+        "hate to love", "rivals to lovers",
+        "cannot stand each other at first",
+    ],
+
+    "friends-to-lovers": [
+        "friends to lovers", "friends-to-lovers",
+        "best friends romance", "longtime friends",
+    ],
+
+    "second-chance-romance": [
+        "second chance romance", "former lovers",
+        "rekindled romance", "old flame",
+    ],
+
+    "slow-burn-romance": [
+        "slow burn romance", "slow-burn romance",
+        "takes forever to get together",
+        "years of tension", "romantic tension",
+    ],
+
+    "love-triangle": [
+        "love triangle", "romantic triangle",
+        "torn between two people",
+    ],
+
+    "forbidden-romance": [
+        "forbidden romance", "star crossed lovers",
+        "star-crossed", "shouldn't be together",
+    ],
+
+    "queer": [
+        "queer", "lgbt", "lgbtq", "gay romance",
+        "lesbian romance", "bisexual protagonist",
+        "trans character", "sapphic", "achillean",
+    ],
+
+    "found-family-romance": [
+        "romance and found family",
+        "chosen family and romance",
+    ],
+
+    "character-driven": [
+        "character driven", "character-driven",
+        "focused on characters", "strong character work",
+        "character focused", "character-focused",
+    ],
+
+    "plot-driven": [
+        "plot driven", "plot-driven",
+        "story focused", "event driven",
+        "action focused narrative",
+    ],
+
+    "immersive-worldbuilding": [
+        "immersive worldbuilding", "rich worldbuilding",
+        "deep lore", "extensive lore",
+        "detailed setting", "living world",
+    ],
+
+    "philosophical": [
+        "philosophical", "existential",
+        "asks big questions", "deep themes",
+        "thought experiment",
+    ],
+
+    "social-commentary": [
+        "social commentary", "social critique",
+        "commentary on society", "politically relevant",
+    ],
+
+    "addictive": [
+        "addictive", "obsessed", "couldn't stop reading",
+        "binged", "read in one sitting",
+        "consumed me", "hooked immediately",
+    ],
+
+    "emotional": [
+        "emotional", "emotionally impactful",
+        "emotionally charged", "wrecked me",
+        "broke my heart", "gut punch",
+        "gut-punch", "devastating",
+    ],
+
+    "comfort-read": [
+        "comfort read", "comfort reread",
+        "always come back to it",
+        "safe read",
+    ],
+
+    "atmospheric": [
+        "atmospheric", "moody", "vivid atmosphere",
+        "strong sense of place", "immersive atmosphere",
+    ],
+
+    "beautiful-ending": [
+        "beautiful ending", "perfect ending",
+        "satisfying conclusion", "excellent finale",
+    ],
+
+    "twisty": [
+        "twisty", "twists and turns",
+        "shocking twists", "plot twists",
+        "unexpected reveal",
+    ],
+
+    "booktok-popular": [
+        "booktok", "book tok", "viral book",
+        "everyone is talking about it",
+        "internet favorite",
+    ],
+
+    "underrated": [
+        "underrated", "hidden gem",
+        "deserves more attention",
+        "criminally underrated",
+    ],
+
+    "dnf-worthy": [
+        "dnf", "did not finish",
+        "couldn't finish", "gave up on it",
+        "abandoned it",
+    ],
+})
+
+MOOD_KEYWORDS.update({
+    "cozy", "comforting", "wholesome",
+    "atmospheric", "haunting",
+    "terrifying", "creepy", "scary",
+    "emotional", "heartbreaking",
+    "devastating", "gut-wrenching",
+    "romantic", "passionate",
+    "hopeful", "optimistic",
+    "melancholic", "wistful",
+    "chaotic", "intense",
+})
+
+LENGTH_KEYWORDS.update({
+    "novella",
+    "short story",
+    "standalone",
+    "trilogy",
+    "series",
+    "multi-book series",
+    "long series",
+    "chunky",
+    "lengthy",
+    "compact",
+    "brief",
+})
+
+GENRE_KEYWORDS.update({
+    "epic fantasy",
+    "urban fantasy",
+    "dark fantasy",
+    "grimdark",
+    "cozy fantasy",
+    "space opera",
+    "hard sci-fi",
+    "cyberpunk",
+    "steampunk",
+    "post-apocalyptic",
+    "supernatural",
+    "paranormal",
+    "gothic",
+    "dark academia",
+    "young adult",
+    "new adult",
+    "middle grade",
+    "literary fiction",
+    "contemporary",
+    "magical realism",
+    "historical fantasy",
+    "historical romance",
+    "military sci-fi",
+    "western",
+    "adventure fantasy",
+})

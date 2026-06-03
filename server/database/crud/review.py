@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from decimal import Decimal
+import logging
 from server.database.crud.helpers.tag_extractor import extract_tags
 from server.database.models.book import Book
 from server.database.models.genres import BookTag
@@ -14,7 +15,8 @@ from server.helpers.reviews.adjust_star_count import adjust_star_count
 from server.utils.errors import raise_http_error
 from sqlalchemy.orm import Session, joinedload
 
-from server.utils.logger import logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 def create_new_review(db: Session, review: ReviewCreate, user_id: int) -> Review:
     db_book = (
@@ -55,6 +57,7 @@ def create_new_review(db: Session, review: ReviewCreate, user_id: int) -> Review
             end_date=date.today()
         )
         db.add(new_review)
+        db.flush()
 
         new_average = (Decimal(str(book_reviews_count)) * (Decimal(str(book_average))) + Decimal(str(review.rating))) / (Decimal(str(book_reviews_count)) + Decimal('1'))
         db_book.average_rating = new_average
