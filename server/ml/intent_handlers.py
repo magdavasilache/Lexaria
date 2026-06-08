@@ -4,8 +4,6 @@ from sqlalchemy import func
 from server.database.models.book import Book
 from server.database.models.genres import BookTag, Genre
 
-
-import random
 from sqlalchemy.orm import Session
 
 from server.ml.schemas import InferenceContext
@@ -15,7 +13,7 @@ def _format_books(books: list, include_rating: bool = True) -> str:
         return None
     parts = []
     for b in books[:3]:
-        part = f"'{b.title}' by {b.author.name}"
+        part = f"'{b.title}' by {b.author.first_name} {b.author.last_name}"
         if include_rating and b.average_rating:
             part += f" ({b.average_rating:.1f}★)"
         parts.append(part)

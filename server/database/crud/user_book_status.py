@@ -1,12 +1,13 @@
 from datetime import datetime
 from sqlalchemy.orm import Session
 
-from server.database.crud.user import get_user_by_id
 from server.database.models.user_book_status import UserBookStatus
 from server.utils.errors import raise_http_error
 
 def create_or_update_user_book_status(db: Session, user_id: int, book_id: int, status: str):
-    validate_status(status)
+    valid_status = validate_status(status)
+    if not valid_status:
+        return 
     try:
         existing_status = get_user_book_status(db=db, user_id=user_id, book_id=book_id, status=status)
         if existing_status:
@@ -31,9 +32,5 @@ def get_user_book_status(db: Session, user_id: int, book_id: int, status: str):
 def validate_status(status: str):
     allowed_statuses = {"want_to_read", "currently_reading", "read", 'did_not_finish'}
     if status not in allowed_statuses:
-        raise_http_error(
-            status_code=400,
-            detail=f"Invalid status '{status}'. Allowed statuses are: {', '.join(allowed_statuses)}.",
-            code="INVALID_STATUS",
-            hint="Please provide a valid status."
-        )
+        return False
+    return True

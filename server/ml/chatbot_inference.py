@@ -29,7 +29,6 @@ CONFIDENCE_THRESHOLD = 0.75
 
 _model_cache: dict = {}
 
-
 def load_model() -> dict:
     if not os.path.exists(MODEL_PATH):
         raise FileNotFoundError(
