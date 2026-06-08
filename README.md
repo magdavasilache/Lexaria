@@ -58,8 +58,7 @@ Lexaria follows a clear client-server architecture:
 2. Zustand manages local UI state
 3. TanStack Query handles API requests, caching, and synchronization
 4. FastAPI processes requests and interacts with the database
-5. AI layer, a chatbot that<img width="1440" height="810" alt="Screenshot 2026-06-08 at 21 51 05" src="https://github.com/user-attachments/assets/52f442b2-3e81-4382-8fd3-9de6895fb24f" />
- interprets simple natural language queries
+5. AI layer, a chatbot that interprets simple natural language queries
 
 ## Core Concept
 
@@ -72,3 +71,6 @@ Example user inputs:
 
 These are processed through a lightweight intent system and mapped to backend queries.
 
+![Main Page](./client/assets/presentation/books.png)
+![Book page](./client/assets/presentation/book-page.png)
+![Chatbot](./client/assets/presentation/chatbot.png)
