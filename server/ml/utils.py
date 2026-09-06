@@ -97,31 +97,6 @@ GENRE_KEYWORDS = {
 }
 
 
-def extract_modifiers(message: str) -> dict:
-    text = message.lower()
-    words = set(text.split())
-
-    modifiers = {
-        "moods": [m for m in MOOD_KEYWORDS if m in text],
-        "genres": [g for g in GENRE_KEYWORDS if g in text],
-        "length": next((l for l in LENGTH_KEYWORDS if l in text), None),
-        "unread_only": any(w in text for w in ["haven't read", "not read", "new to me", "haven't tried"]),
-        "series_only": any(w in text for w in ["series", "saga", "trilogy", "sequence"]),
-        "standalone_only": any(w in text for w in ["standalone", "one book", "single book", "not a series"]),
-        "highly_rated": any(w in text for w in ["best", "top rated", "highest rated", "acclaimed", "award"]),
-    }
-
-    # "like X", "similar to X", "after X", "if I liked X"
-    similar_match = re.search(
-        r"(?:like|similar to|after(?:\s+reading)?|if\s+i\s+(?:liked|loved|enjoyed))\s+['\"]?([A-Z][^,.?!]+?)['\"]?(?:\s|$|[,.?!])",
-        message
-    )
-    if similar_match:
-        modifiers["similar_to"] = similar_match.group(1).strip()
-
-    return modifiers
-
-
 def build_context(message: str, intent: str, confidence: float, user_id: int | None, conversation_id: int | None, db: Session) -> InferenceContext:
     ctx = InferenceContext(
         message=message,
