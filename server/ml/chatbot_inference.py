@@ -13,8 +13,7 @@ from server.ml.model import (
     ChatbotIntent,
     ChatbotMessage,
     ChatbotConversation,
-    ChatbotUnknownMessage,
-    ChatbotResponse
+    ChatbotUnknownMessage
 )
 from server.ml.utils import bag_of_words, build_context, tokenize
 from server.database.database import get_db
@@ -67,14 +66,21 @@ def predict(message: str) -> tuple[str | None, float]:
     tags: list[str] = cache["tags"]
 
     tokens = tokenize(message)
+    print(f"TOKENS: {tokens}")
     X = bag_of_words(tokens, all_words)
     X = torch.from_numpy(X).unsqueeze(0)
+
+    print(f"X: {X}")
 
     with torch.no_grad():
         output = model(X)
 
     probs = torch.softmax(output, dim=1)
     confidence, predicted_idx = torch.max(probs, dim=1)
+
+    for word, value in zip(all_words, X):
+        if value == 1:
+            print(word)
 
     tag = tags[predicted_idx.item()]
     return tag, confidence.item()
