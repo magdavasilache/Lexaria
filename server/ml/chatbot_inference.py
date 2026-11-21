@@ -78,7 +78,7 @@ def predict(message: str) -> tuple[str | None, float]:
     probs = torch.softmax(output, dim=1)
     confidence, predicted_idx = torch.max(probs, dim=1)
 
-    for word, value in zip(all_words, X):
+    for word, value in zip(all_words, X[0].tolist()):
         if value == 1:
             print(word)
 
@@ -153,6 +153,7 @@ def chat(body: MessageRequest, db: Session = Depends(get_db), user: User = Depen
                 if intent and intent.responses
                 else "I know what you mean, but I don't have a response for that yet!"
             )
+            intent_id = intent.id
 
     bot_msg = ChatbotMessage(
         conversation_id=conversation.id,

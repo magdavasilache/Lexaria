@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, Numeric, String, ARRAY, Text, text
+from sqlalchemy import Boolean, Column, Date, DateTime, ForeignKey, Integer, Numeric, String, ARRAY, Text, text
 from server.database.database import Base
 from sqlalchemy.orm import relationship
 from server.database.models.genres import book_genres
@@ -22,13 +22,14 @@ class Book(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     parent_id = Column(Integer, ForeignKey("books.id"), nullable=True)
     country_id = Column(Integer, ForeignKey("countries.id"), nullable=True)
-    average_rating = Column(Numeric(3,2), nullable=True)
+    average_rating = Column(Numeric(4,2), nullable=True)
     zero_stars_count = Column(Integer, nullable=False, default=0, server_default=text("0"))
     one_stars_count = Column(Integer, nullable=False, default=0, server_default=text("0"))
     two_stars_count = Column(Integer, nullable=False, default=0, server_default=text("0"))
     three_stars_count = Column(Integer, nullable=False, default=0, server_default=text("0"))
     four_stars_count = Column(Integer, nullable=False, default=0, server_default=text("0"))
     five_stars_count = Column(Integer, nullable=False, default=0, server_default=text("0"))
+    is_series = Column(Boolean, server_default=text('false'), nullable=False, default=False)
 
     user = relationship("User", back_populates="books")
     author = relationship("Author", back_populates="books")

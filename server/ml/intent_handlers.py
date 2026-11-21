@@ -227,8 +227,7 @@ def handle_book_info(ctx: InferenceContext) -> str:
 
 def handle_book_search(ctx: InferenceContext, db: Session) -> str:
     if ctx.matched_books:
-        book = ctx.matched_books[0]
-        return handle_book_info(ctx, db)  
+        return handle_book_info(ctx=ctx)  
 
     if ctx.matched_authors:
         author = ctx.matched_authors[0]

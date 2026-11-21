@@ -121,9 +121,8 @@ def build_context(message: str, intent: str, confidence: float, user_id: int | N
         if book and book not in ctx.matched_books:
             ctx.matched_books.append(book)
         name_parts = name.split()
-        if len(name_parts) > 1:
-            first_name = name_parts[0]
-            last_name = " ".join(name_parts[1:])
+        first_name = name_parts[0]
+        last_name = " ".join(name_parts[1:]) if len(name_parts) > 1 else name_parts[0]
         author = (
             db.query(Author)
             .filter(

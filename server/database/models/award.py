@@ -19,6 +19,6 @@ class Award(Base):
     year = Column(Integer, nullable=True)
     image = Column(String, nullable=True)
     description = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.now())
+    created_at = Column(DateTime, default=datetime.now)
 
     books = relationship("Book", secondary=book_award, back_populates="awards")

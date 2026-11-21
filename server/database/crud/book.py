@@ -86,7 +86,7 @@ def get_all_books(db: Session, offset: int = 0, limit: int = 15, max_limit: int 
                     )
                 base_query = base_query.filter(or_(*rating_conditions))
         
-        total_count = db.scalar(select(func.count()).select_from(Book))
+        total_count = db.scalar(select(func.count()).select_from(base_query.subquery()))
         books = (
             base_query
             .offset(offset)
