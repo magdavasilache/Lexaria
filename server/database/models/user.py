@@ -15,6 +15,8 @@ USERNAME_PATTERN = r"^[A-Za-z0-9_.-]+$"
 DISPLAY_NAME_MAX_LENGTH = 60
 AVATAR_URL_MAX_LENGTH = 500
 BIO_MAX_LENGTH = 500
+READING_GOAL_MINUTES_MIN = 1
+READING_GOAL_MINUTES_MAX = 1440
 
 
 class UserRole(IntEnum):
@@ -31,6 +33,10 @@ class User(Base):
             f"role IN ({', '.join(str(int(role)) for role in UserRole)})",
             name="ck_users_role_valid",
         ),
+        CheckConstraint(
+            f"daily_reading_goal_minutes BETWEEN {READING_GOAL_MINUTES_MIN} AND {READING_GOAL_MINUTES_MAX}",
+            name="ck_users_daily_reading_goal_range",
+        ),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -42,6 +48,7 @@ class User(Base):
     display_name: Mapped[str | None] = mapped_column(String(DISPLAY_NAME_MAX_LENGTH))
     avatar_url: Mapped[str | None] = mapped_column(String(AVATAR_URL_MAX_LENGTH))
     bio: Mapped[str | None] = mapped_column(String(BIO_MAX_LENGTH))
+    daily_reading_goal_minutes: Mapped[int | None] = mapped_column(Integer)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )
@@ -50,13 +57,14 @@ class User(Base):
     )
 
     created_books = relationship("Book", back_populates="created_by", passive_deletes=True)
-    user_book_statuses = relationship("UserBookStatus", back_populates="user", cascade="all, delete-orphan")
+    user_book_statuses = relationship("UserBookStatus", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     favorite_genres = relationship("Genre", secondary=user_genres)
-    liked_reviews = relationship(ReviewLike, back_populates="user", cascade="all, delete-orphan")
-    liked_comments = relationship(CommentLike, back_populates="user", cascade="all, delete-orphan")
-    reviews = relationship("Review", back_populates="user", cascade="all, delete-orphan")
-    comments = relationship("Comment", back_populates="user", cascade="all, delete-orphan")
+    liked_reviews = relationship(ReviewLike, back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
+    liked_comments = relationship(CommentLike, back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
+    reviews = relationship("Review", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
+    comments = relationship("Comment", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     sessions = relationship("UserSession", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
+    readings = relationship("Reading", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
 
     @hybrid_property
     def is_admin(self) -> bool:

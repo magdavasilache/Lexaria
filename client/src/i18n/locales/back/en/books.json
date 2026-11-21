@@ -9,5 +9,13 @@
   "awardsNotFound": "Some selected awards don't exist (ids: {{ids}}).",
   "tooManyImages": "A book can have at most {{max}} images.",
   "imageNotOnBook": "{{filename}} is not one of this book's images.",
-  "publishedTooFar": "The publication date can be at most one year from today."
+  "publishedTooFar": "The publication date can be at most one year from today.",
+  "descriptionLanguage": "Use a language code such as en, ro or pt-BR.",
+  "duplicateDescription": "There is more than one description in {{language}}.",
+  "readingStatus": {
+    "want_to_read": "Want to read",
+    "currently_reading": "Currently reading",
+    "read": "Read",
+    "did_not_finish": "Did not finish"
+  }
 }

@@ -50,4 +50,42 @@ AUDIT_ACTIONS: dict[AuditAction, AuditActionSpec] = {
         MessageKey.AUDIT_GOODREADS_IMPORTED,
         MessageKey.AUDIT_GOODREADS_IMPORT_FAILED,
     ),
+    AuditAction.REVIEW_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_REVIEW_CREATE, MessageKey.AUDIT_REVIEW_CREATED, MessageKey.AUDIT_REVIEW_CREATE_FAILED
+    ),
+    AuditAction.REVIEW_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_REVIEW_UPDATE, MessageKey.AUDIT_REVIEW_UPDATED, MessageKey.AUDIT_REVIEW_UPDATE_FAILED
+    ),
+    AuditAction.REVIEW_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_REVIEW_DELETE, MessageKey.AUDIT_REVIEW_DELETED, MessageKey.AUDIT_REVIEW_DELETE_FAILED
+    ),
+    AuditAction.COMMENT_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_COMMENT_CREATE, MessageKey.AUDIT_COMMENT_CREATED, MessageKey.AUDIT_COMMENT_CREATE_FAILED
+    ),
+    AuditAction.COMMENT_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_COMMENT_UPDATE, MessageKey.AUDIT_COMMENT_UPDATED, MessageKey.AUDIT_COMMENT_UPDATE_FAILED
+    ),
+    AuditAction.COMMENT_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_COMMENT_DELETE, MessageKey.AUDIT_COMMENT_DELETED, MessageKey.AUDIT_COMMENT_DELETE_FAILED
+    ),
+    AuditAction.REVIEW_LIKE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_REVIEW_LIKE, MessageKey.AUDIT_REVIEW_LIKED, MessageKey.AUDIT_REVIEW_LIKE_FAILED
+    ),
+    AuditAction.REVIEW_UNLIKE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_REVIEW_UNLIKE, MessageKey.AUDIT_REVIEW_UNLIKED, MessageKey.AUDIT_REVIEW_UNLIKE_FAILED
+    ),
+    AuditAction.COMMENT_LIKE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_COMMENT_LIKE, MessageKey.AUDIT_COMMENT_LIKED, MessageKey.AUDIT_COMMENT_LIKE_FAILED
+    ),
+    AuditAction.COMMENT_UNLIKE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_COMMENT_UNLIKE, MessageKey.AUDIT_COMMENT_UNLIKED, MessageKey.AUDIT_COMMENT_UNLIKE_FAILED
+    ),
+    AuditAction.READING_STATUS_SET: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_STATUS_SET, MessageKey.AUDIT_READING_STATUS_SET, MessageKey.AUDIT_READING_STATUS_SET_FAILED
+    ),
+    AuditAction.READING_STATUS_REMOVE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_STATUS_REMOVE,
+        MessageKey.AUDIT_READING_STATUS_REMOVED,
+        MessageKey.AUDIT_READING_STATUS_REMOVE_FAILED,
+    ),
 }

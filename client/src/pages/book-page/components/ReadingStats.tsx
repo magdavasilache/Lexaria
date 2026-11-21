@@ -1,13 +1,17 @@
 import { useTranslation } from "react-i18next";
+import Button from "../../../global-components/buttons/Button";
+import { StarsDisplay } from "../../../forms/components/RatingField";
 import type { RatingBucket } from "../../../types/book-types/bookTypes";
 
 interface Props {
     averageRating: number | null;
     ratingsCount: number;
     histogram: RatingBucket[];
+    activeStars: number | null;
+    onSelectStars: (stars: number | null) => void;
 }
 
-export default function RatingStats({ averageRating, ratingsCount, histogram }: Props) {
+export default function RatingStats({ averageRating, ratingsCount, histogram, activeStars, onSelectStars }: Props) {
     const { t, i18n } = useTranslation("front/books");
     const average = averageRating === null
         ? "–"
@@ -15,28 +19,49 @@ export default function RatingStats({ averageRating, ratingsCount, histogram }: 
 
     return (
         <section
-            aria-label={t("stats.title")}
-            className="flex flex-col gap-5 w-full lg:w-72 bg-panelLight dark:bg-panelDark border border-panelBorderLight dark:border-panelBorderDark rounded-panel p-4 sm:p-5 shadow-soft-md dark:shadow-deep-md text-fontPrimaryLight dark:text-fontPrimaryDark"
+            aria-labelledby="ratings-heading"
+            className="flex w-full flex-col gap-4 rounded-panel border border-panelBorderLight bg-panelLight p-4 text-fontPrimaryLight shadow-soft-md dark:border-panelBorderDark dark:bg-panelDark dark:text-fontPrimaryDark dark:shadow-deep-md sm:p-5"
         >
-            <div className="flex flex-col items-center">
-                <p className="text-3xl sm:text-4xl font-bold text-primaryLight dark:text-primaryDark">{average}</p>
-                <p className="text-sm opacity-70">{t("stats.ratings", { count: ratingsCount })}</p>
+            <h2 id="ratings-heading" className="text-xs font-semibold uppercase tracking-wider text-fontMutedLight dark:text-fontMutedDark">{t("stats.title")}</h2>
+            <div className="flex items-center gap-3">
+                <p className="text-3xl font-bold text-primaryLight dark:text-primaryDark sm:text-4xl">{average}</p>
+                <div className="flex flex-col gap-1">
+                    {averageRating !== null && <StarsDisplay value={averageRating} />}
+                    <a href="#reviews" className="text-sm underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight dark:focus-visible:ring-primaryDark rounded-control">
+                        {t("stats.ratings", { count: ratingsCount })}
+                    </a>
+                </div>
             </div>
 
-            <ul className="flex flex-col gap-2">
-                {histogram.map((bucket) => {
-                    const percent = ratingsCount ? (bucket.count / ratingsCount) * 100 : 0;
-                    return (
-                        <li key={bucket.stars} className="flex items-center gap-3">
-                            <span className="w-8 text-sm" aria-label={t("stats.stars", { count: bucket.stars })}>{bucket.stars}★</span>
-                            <div className="flex-1 h-2 bg-dividerLight dark:bg-dividerDark rounded-full" aria-hidden="true">
-                                <div className="h-2 bg-primaryLight dark:bg-primaryDark rounded-full transition-all" style={{ width: `${percent}%` }} />
-                            </div>
-                            <span className="text-xs w-8 text-right tabular-nums">{bucket.count}</span>
-                        </li>
-                    );
-                })}
-            </ul>
+            {ratingsCount > 0 && (
+                <ul className="flex flex-col gap-0.5">
+                    {histogram.map((bucket) => {
+                        const percent = (bucket.count / ratingsCount) * 100;
+                        const active = activeStars === bucket.stars;
+                        return (
+                            <li key={bucket.stars}>
+                                <Button
+                                    variant="option"
+                                    size="sm"
+                                    fullWidth
+                                    aria-pressed={active}
+                                    aria-label={t("stats.filter", { count: bucket.stars })}
+                                    onClick={() => onSelectStars(active ? null : bucket.stars)}
+                                    className="min-h-10"
+                                >
+                                    <span className="flex h-full w-full items-center gap-3" aria-hidden="true">
+                                        <span className="w-7 shrink-0 text-left text-sm tabular-nums">{bucket.stars}★</span>
+                                        <span className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-dividerLight dark:bg-dividerDark">
+                                            <span className="block h-full rounded-full bg-primaryLight transition-all dark:bg-primaryDark" style={{ width: `${percent}%` }} />
+                                        </span>
+                                        <span className="w-6 shrink-0 text-right text-xs tabular-nums">{bucket.count}</span>
+                                    </span>
+                                </Button>
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
         </section>
     );
 }

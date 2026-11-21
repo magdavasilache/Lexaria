@@ -1,68 +1,158 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight, BookOpen, FileText, Languages, Star, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { BookResponseBase } from "../../../types/book-types/bookTypes";
-import { memo, useMemo } from "react";
+import type { BookListItem } from "../../../types/book-types/bookTypes";
 import Button from "../../../global-components/buttons/Button";
-import { COVER_PLACEHOLDER } from "../../../utils/assets";
+import { serverAssetUrl, useCoverPlaceholder } from "../../../utils/assets";
+import { pickDescription } from "../../../utils/descriptions";
+import { BOOK_RULES } from "../../../schemas/bookRules";
+
+const SYNOPSIS_PREVIEW_LENGTH = 600;
+const STARS = Array.from({ length: BOOK_RULES.ratingMax }, (_, index) => index + 1);
 
 interface Props {
-    book: BookResponseBase;
+    book: BookListItem;
     onClose: () => void;
 }
 
-const BookCard = memo(function BookCard({ book, onClose }: Props) {
-    const { t } = useTranslation("front/books");
+export default function BookCard({ book, onClose }: Props) {
+    const { t, i18n } = useTranslation("front/books");
+    const navigate = useNavigate();
+    const placeholder = useCoverPlaceholder();
+    const [expanded, setExpanded] = useState(false);
+    const language = i18n.resolvedLanguage ?? "en";
+    const titleId = `book-card-title-${book.id}`;
 
-    const truncatedSynopsis = useMemo(
-        () => (book.synopsis ? `${book.synopsis.slice(0, 220)}...` : ""),
-        [book.synopsis]
-    );
-
-    const tags = useMemo(() => book.tags?.join(", "), [book.tags]);
+    const fullSynopsis = pickDescription(book.descriptions, language)?.synopsis ?? null;
+    const isLong = Boolean(fullSynopsis && fullSynopsis.length > SYNOPSIS_PREVIEW_LENGTH);
+    const synopsis = fullSynopsis && isLong && !expanded
+        ? `${fullSynopsis.slice(0, SYNOPSIS_PREVIEW_LENGTH).trimEnd()}…`
+        : fullSynopsis;
+    const filledStars = book.average_rating === null ? 0 : Math.round(book.average_rating);
+    const rating = book.average_rating === null
+        ? t("card.noRatings")
+        : t("card.ratingSummary", {
+            count: book.ratings_count,
+            rating: new Intl.NumberFormat(language, { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(book.average_rating),
+        });
 
     return (
-        <div className="h-auto w-full p-2 sm:p-3 overflow-hidden">
-            <Button
-                variant="ghost"
-                icon={ArrowLeft}
-                aria-label={t("card.close")}
-                onClick={onClose}
-                className="mb-2 min-h-10 min-w-10"
-            />
+        <article aria-labelledby={titleId} className="h-full lg:h-auto lg:max-h-full flex flex-col overflow-hidden bg-panelLight dark:bg-panelDark text-fontPrimaryLight dark:text-fontPrimaryDark lg:rounded-panel lg:border lg:border-panelBorderLight lg:dark:border-panelBorderDark lg:shadow-soft-md lg:dark:shadow-deep-md">
+            <header className="shrink-0 flex items-center gap-2 bg-primaryLight dark:bg-primaryDark px-3 py-1.5 sm:px-4 text-onPrimaryLight dark:text-onPrimaryDark shadow-soft-sm dark:shadow-deep-sm">
+                <BookOpen className="w-4 h-4 shrink-0" aria-hidden="true" />
+                <span className="flex-1 truncate font-libre text-sm font-semibold">{t("card.heading")}</span>
+                <Button variant="inverse" icon={X} aria-label={t("card.close")} onClick={onClose} className="min-h-10 min-w-10 -mr-1" />
+            </header>
 
-            <div className="w-full flex flex-col items-start p-3 gap-4 bg-panelLight dark:bg-panelDark border border-panelBorderLight dark:border-panelBorderDark shadow-soft-md dark:shadow-deep-md rounded-panel overflow-hidden">
-                <img
-                    src={book.image ?? COVER_PLACEHOLDER}
-                    alt={book.title}
-                    className="max-h-[60vh] max-w-full object-contain self-center sm:self-start"
-                />
+            <div className="min-h-0 overflow-y-auto flex flex-col gap-5 p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
+                    <Link
+                        to={`/book/${book.id}`}
+                        tabIndex={-1}
+                        aria-hidden="true"
+                        className="shrink-0 w-32 sm:w-36 xl:w-40"
+                    >
+                        <img
+                            src={serverAssetUrl(book.cover_url) ?? placeholder}
+                            alt=""
+                            className="w-full aspect-[2/3] object-cover rounded-control bg-panelSelectedLight dark:bg-panelSelectedDark shadow-book dark:shadow-bookDark transition-transform duration-300 hover:-translate-y-1"
+                        />
+                    </Link>
 
-                <div className="min-w-0 w-full text-fontPrimaryLight dark:text-fontPrimaryDark">
-                    <h2 className="font-libre text-xl sm:text-2xl font-bold mb-1 break-words">
-                        <Link
-                            to={`/book/${book.id}`}
-                            className="underline rounded-control hover:text-primaryLight dark:hover:text-primaryDark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight dark:focus-visible:ring-primaryDark"
-                        >
-                            {book.title}
-                        </Link>
-                    </h2>
+                    <div className="min-w-0 w-full flex flex-col items-center sm:items-start text-center sm:text-left gap-3">
+                        <div className="min-w-0 w-full">
+                            <h2 id={titleId} className="font-libre text-xl sm:text-2xl xl:text-3xl font-bold leading-tight break-words">
+                                <Link
+                                    to={`/book/${book.id}`}
+                                    className="rounded-control hover:text-primaryLight dark:hover:text-primaryDark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight dark:focus-visible:ring-primaryDark"
+                                >
+                                    {book.title}
+                                </Link>
+                            </h2>
+                            {book.author_name && (
+                                <p className="mt-1 font-libre italic text-fontMutedLight dark:text-fontMutedDark break-words">
+                                    {t("card.by", { author: book.author_name })}
+                                </p>
+                            )}
+                        </div>
 
-                    {book.author_name && (
-                        <p className="font-libre mb-2 italic">{t("card.by", { author: book.author_name })}</p>
-                    )}
+                        <dl className="flex flex-col items-center sm:items-start gap-3 font-libre text-sm">
+                            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1">
+                                <dt className="sr-only">{t("card.rating")}</dt>
+                                <dd className="flex items-center gap-0.5" aria-hidden="true">
+                                    {STARS.map((star) => (
+                                        <Star
+                                            key={star}
+                                            className={`w-4 h-4 ${star <= filledStars
+                                                ? "fill-ratingLight text-ratingLight dark:fill-ratingDark dark:text-ratingDark"
+                                                : "text-ratingEmptyLight dark:text-ratingEmptyDark"}`}
+                                        />
+                                    ))}
+                                </dd>
+                                <dd className="text-fontMutedLight dark:text-fontMutedDark">{rating}</dd>
+                            </div>
 
-                    <p className="font-libre text-sm mb-4 break-words">{truncatedSynopsis}</p>
+                            {(book.language_name || book.pages) && (
+                                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                                    {book.language_name && (
+                                        <div className="inline-flex items-center gap-1.5 rounded-control bg-panelSelectedLight dark:bg-panelSelectedDark px-2.5 py-1">
+                                            <Languages className="w-4 h-4 shrink-0 text-primaryLight dark:text-primaryDark" aria-hidden="true" />
+                                            <dt className="sr-only">{t("card.language")}</dt>
+                                            <dd>{book.language_name}</dd>
+                                        </div>
+                                    )}
+                                    {book.pages && (
+                                        <div className="inline-flex items-center gap-1.5 rounded-control bg-panelSelectedLight dark:bg-panelSelectedDark px-2.5 py-1">
+                                            <FileText className="w-4 h-4 shrink-0 text-primaryLight dark:text-primaryDark" aria-hidden="true" />
+                                            <dt className="sr-only">{t("card.pages")}</dt>
+                                            <dd>{t("card.pageCount", { count: book.pages, pages: new Intl.NumberFormat(language).format(book.pages) })}</dd>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </dl>
+                    </div>
+                </div>
 
-                    <dl className="font-libre text-sm space-y-1">
-                        {book.language_name && <div><dt className="inline font-bold">{t("card.language")}:</dt> <dd className="inline">{book.language_name}</dd></div>}
-                        {book.pages && <div><dt className="inline font-bold">{t("card.pages")}:</dt> <dd className="inline">{book.pages}</dd></div>}
-                        {tags && <div><dt className="inline font-bold">{t("card.tags")}:</dt> <dd className="inline break-words">{tags}</dd></div>}
-                    </dl>
+                {book.genres.length > 0 && (
+                    <section>
+                        <h3 className="mb-2 font-libre text-xs font-semibold uppercase tracking-wider text-fontMutedLight dark:text-fontMutedDark">
+                            {t("card.genres")}
+                        </h3>
+                        <ul className="flex flex-wrap gap-2">
+                            {book.genres.map((genre) => (
+                                <li
+                                    key={genre.id}
+                                    className="rounded-control border border-countChipBorderLight dark:border-countChipBorderDark bg-countChipLight dark:bg-countChipDark px-2.5 py-1 font-libre text-xs text-countChipTextLight dark:text-countChipTextDark break-words"
+                                >
+                                    {genre.name}
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                )}
+
+                {synopsis && (
+                    <section>
+                        <h3 className="mb-2 font-libre text-xs font-semibold uppercase tracking-wider text-fontMutedLight dark:text-fontMutedDark">
+                            {t("card.about")}
+                        </h3>
+                        <p className="font-libre text-sm leading-relaxed break-words whitespace-pre-line">{synopsis}</p>
+                        {isLong && (
+                            <Button variant="link" size="sm" onClick={() => setExpanded((value) => !value)} aria-expanded={expanded} className="mt-2 min-h-10">
+                                {expanded ? t("card.showLess") : t("card.readMore")}
+                            </Button>
+                        )}
+                    </section>
+                )}
+
+                <div className="pt-1">
+                    <Button fullWidth rightIcon={ArrowRight} onClick={() => navigate(`/book/${book.id}`)}>
+                        {t("card.viewBook")}
+                    </Button>
                 </div>
             </div>
-        </div>
+        </article>
     );
-});
-
-export default BookCard;
+}

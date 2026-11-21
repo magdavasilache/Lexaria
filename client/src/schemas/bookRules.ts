@@ -12,6 +12,19 @@ export const BOOK_RULES = {
   ratingMax: 5,
 } as const;
 
+export const DESCRIPTION_LANGUAGES = [
+  "en", "ro", "fr", "de", "es", "it", "pt", "pt-BR", "nl", "pl", "hu", "cs", "sk", "bg",
+  "el", "ru", "uk", "sv", "da", "no", "fi", "tr", "ar", "he", "ja", "zh", "ko",
+] as const;
+
+export const IMPORT_RULES = {
+  fileMaxMb: 10,
+  fileTypes: ["application/json", ""],
+  fileExtension: ".json",
+} as const;
+
+export const MB = 1024 * 1024;
+
 export const splitList = (value: string) =>
   Array.from(new Set(value.split(",").map((item) => item.trim()).filter(Boolean)));
 

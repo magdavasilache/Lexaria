@@ -9,5 +9,13 @@
   "awardsNotFound": "Unele premii selectate nu există (id-uri: {{ids}}).",
   "tooManyImages": "O carte poate avea cel mult {{max}} imagini.",
   "imageNotOnBook": "{{filename}} nu este una dintre imaginile acestei cărți.",
-  "publishedTooFar": "Data publicării poate fi cel mult peste un an de azi."
+  "publishedTooFar": "Data publicării poate fi cel mult peste un an de azi.",
+  "descriptionLanguage": "Folosește un cod de limbă, de exemplu en, ro sau pt-BR.",
+  "duplicateDescription": "Există mai multe descrieri în {{language}}.",
+  "readingStatus": {
+    "want_to_read": "Vreau să citesc",
+    "currently_reading": "Citesc acum",
+    "read": "Citită",
+    "did_not_finish": "Abandonată"
+  }
 }

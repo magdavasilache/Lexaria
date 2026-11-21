@@ -1,25 +1,13 @@
 import { useCallback, useRef, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { authorizedAxios } from "../../../api/authorizedAxios";
-import { TrainingRecord, TrainingStatus } from "../../../types/chatbot-types";
+import { TrainingStatus } from "../../../types/chatbot-types";
 import { useAuthStore } from "../../context/authentication/useAuthStore";
 import { API_URL } from "../../../utils/constants";
+import i18n from "../../../i18n";
 
 const ML_BASE = `${API_URL}ml`;
 const CHATBOT_BASE = "ml-inference/";
-
-export const getTrainingHistoryQuery = async (): Promise<TrainingRecord[]> => {
-    const response = await authorizedAxios(`${CHATBOT_BASE}/trainings`).get("");
-    if (response.status === 200) return response.data.data;
-    return [];
-};
-
-export const useGetTrainingHistory = () =>
-    useQuery({
-        queryKey: ["training-history"],
-        queryFn: getTrainingHistoryQuery,
-    });
-
 
 const reloadModel = async (): Promise<void> => {
     await authorizedAxios(`${CHATBOT_BASE}reload`).post("");
@@ -65,19 +53,19 @@ export function useTraining(): UseTrainingReturn {
             });
         } catch {
             setStatus("error");
-            setLogs(prev => [...prev, "[ERROR] Could not connect to the server."]);
+            setLogs(prev => [...prev, `[ERROR] ${i18n.t("front/admin:chatbot.training.log.connectFailed")}`]);
             return;
         }
 
         if (!response.ok) {
             setStatus("error");
-            setLogs(prev => [...prev, `[ERROR] Server responded with ${response.status}.`]);
+            setLogs(prev => [...prev, `[ERROR] ${i18n.t("front/admin:chatbot.training.log.serverStatus", { status: response.status })}`]);
             return;
         }
 
         if (!response.body) {
             setStatus("error");
-            setLogs(prev => [...prev, "[ERROR] No stream body in response."]);
+            setLogs(prev => [...prev, `[ERROR] ${i18n.t("front/admin:chatbot.training.log.noStream")}`]);
             return;
         }
 
@@ -107,9 +95,9 @@ export function useTraining(): UseTrainingReturn {
                         setStatus("done");
                         try {
                             await reloadModel();
-                            setLogs(prev => [...prev, "[✓] Model reloaded on server."]);
+                            setLogs(prev => [...prev, `[✓] ${i18n.t("front/admin:chatbot.training.log.reloaded")}`]);
                         } catch {
-                            setLogs(prev => [...prev, "[WARN] Model saved but reload failed. Restart the server."]);
+                            setLogs(prev => [...prev, `[WARN] ${i18n.t("front/admin:chatbot.training.log.reloadFailed")}`]);
                         }
 
                         queryClient.invalidateQueries({ queryKey: ["training-history"] });
@@ -130,7 +118,7 @@ export function useTraining(): UseTrainingReturn {
         } catch (err) {
             if ((err as Error)?.name !== "AbortError") {
                 setStatus("error");
-                setLogs(prev => [...prev, "[ERROR] Stream interrupted unexpectedly."]);
+                setLogs(prev => [...prev, `[ERROR] ${i18n.t("front/admin:chatbot.training.log.interrupted")}`]);
             }
         }
     }, [queryClient]);

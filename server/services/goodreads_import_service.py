@@ -13,11 +13,17 @@ from server.core.errors import ErrorCode, ValidationAppError
 from server.core.message_keys import MessageKey, render_english
 from server.core.responses import ApiWarning
 from server.database.models.audit_log import AuditAction
-from server.database.models.book import RATING_MAX, RATING_MIN, TITLE_MAX_LENGTH, Book
+from server.database.models.book import TITLE_MAX_LENGTH, Book
 from server.database.models.genres import Genre, user_genres
-from server.database.models.review import Review
+from server.database.models.review import (
+    REVIEW_CONTENT_MAX_LENGTH,
+    REVIEW_RATING_MAX,
+    REVIEW_RATING_MIN,
+    REVIEW_RATING_STEP,
+    Review,
+)
 from server.database.models.user import User
-from server.database.models.user_book_status import UserBookStatus
+from server.database.models.user_book_status import ReadingStatus, UserBookStatus
 from server.database.schemas.goodreads_import import (
     IMPORT_FILE_MAX_BYTES,
     GoodreadsImportForm,
@@ -28,9 +34,9 @@ from server.services import audit_service
 
 GENRE_NAME_MAX_LENGTH = 100
 GOODREADS_STATUSES = {
-    "to-read": "want_to_read",
-    "currently-reading": "currently_reading",
-    "read": "read",
+    "to-read": ReadingStatus.WANT_TO_READ,
+    "currently-reading": ReadingStatus.CURRENTLY_READING,
+    "read": ReadingStatus.READ,
 }
 GOODREADS_DATE_FORMATS = ("%Y-%m-%d %H:%M:%S %Z", "%Y-%m-%d %H:%M:%S", "%Y-%m-%d")
 NOT_PROVIDED = "(not provided)"
@@ -40,7 +46,7 @@ NOT_PROVIDED = "(not provided)"
 class ImportRow:
     number: int
     title: str
-    status: str
+    status: ReadingStatus
     rating: Decimal | None
     review: str | None
     started: date
@@ -117,7 +123,7 @@ def _parse_rating(value: Any) -> Decimal | None:
         rating = Decimal(str(value))
     except InvalidOperation:
         raise RowError(MessageKey.IMPORT_ROW_INVALID_RATING) from None
-    if not RATING_MIN < rating <= RATING_MAX:
+    if not REVIEW_RATING_MIN <= rating <= REVIEW_RATING_MAX or rating % REVIEW_RATING_STEP != 0:
         raise RowError(MessageKey.IMPORT_ROW_INVALID_RATING)
     return rating
 
@@ -133,11 +139,13 @@ def _parse_row(number: int, raw: Any) -> ImportRow:
         raise RowError(MessageKey.IMPORT_ROW_INVALID_STATUS)
     review = raw.get("review")
     review_text = review.strip() if isinstance(review, str) and review.strip() != NOT_PROVIDED else None
+    if review_text and len(review_text) > REVIEW_CONTENT_MAX_LENGTH:
+        raise RowError(MessageKey.IMPORT_ROW_REVIEW_TOO_LONG)
     return ImportRow(
         number=number,
         title=title.strip()[:TITLE_MAX_LENGTH],
         status=status,
-        rating=_parse_rating(raw.get("rating")) if status == "read" else None,
+        rating=_parse_rating(raw.get("rating")) if status == ReadingStatus.READ else None,
         review=review_text or None,
         started=_parse_date(raw.get("created_at")),
     )
@@ -217,13 +225,13 @@ def _import_rows(db: Session, rows: list[ImportRow], books: dict[str, Book], use
         else:
             status.status = row.status
         saved_statuses += 1
-        if row.status == "read" and book.id not in reviewed and (row.rating is not None or row.review):
+        if row.status == ReadingStatus.READ and book.id not in reviewed and (row.rating is not None or row.review):
             db.add(
                 Review(
                     user_id=user.id,
                     book_id=book.id,
                     rating=row.rating,
-                    review_content=row.review,
+                    content=row.review,
                     start_date=row.started,
                 )
             )

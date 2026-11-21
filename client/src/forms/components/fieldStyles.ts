@@ -22,11 +22,20 @@ export const STATUS_STYLES: Record<FieldStatus, string> = {
     "focus-within:shadow-focusLight dark:focus-within:shadow-focusDark",
 };
 
-export const CONTROL_BASE =
+const CONTROL_SHAPE =
   "w-full min-h-10 border rounded-control shadow-inputInset text-base sm:text-sm " +
-  "text-onInputLight dark:text-onInputDark placeholder:text-fontMutedLight dark:placeholder:text-espresso-400 " +
   "outline-none transition-[border-color,box-shadow,background-color] duration-200 " +
   "disabled:cursor-not-allowed disabled:opacity-60";
+
+export const CONTROL_BASE =
+  `${CONTROL_SHAPE} text-onInputLight dark:text-onInputDark placeholder:text-fontMutedLight dark:placeholder:text-espresso-400`;
+
+const PANEL_CONTROL =
+  `${CONTROL_SHAPE} border-panelBorderLight dark:border-panelBorderDark bg-panelLight dark:bg-panelDark ` +
+  "text-fontPrimaryLight dark:text-fontPrimaryDark hover:bg-panelHoverLight dark:hover:bg-panelHoverDark " +
+  "focus-visible:shadow-focusLight dark:focus-visible:shadow-focusDark";
+
+export const panelControlClass = (extra = "") => `${PANEL_CONTROL} ${extra}`;
 
 export const controlClass = (status: FieldStatus, extra = "") => `${CONTROL_BASE} ${STATUS_STYLES[status]} ${extra}`;
 

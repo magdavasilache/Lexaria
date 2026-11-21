@@ -23,7 +23,7 @@ export default function RegisterForm() {
   const formId = useId()
   const { t } = useTranslation(["front/users", "front/common"])
 
-  const { register, handleSubmit, setError, watch, control, reset, formState: { errors, isSubmitting } } = useForm<RegisterFormData>({
+  const { register, handleSubmit, setError, watch, control, reset, formState: { errors, isSubmitting, isDirty } } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     mode: "onTouched",
     defaultValues: { username: "", password: "", confirmPassword: "" },
@@ -59,6 +59,7 @@ export default function RegisterForm() {
         icon={UserPlus}
         description={t("register.description")}
         dismissible={!isSubmitting}
+        unsavedChanges={isDirty}
         footer={
           <>
             <Button variant="ghost" size="sm" onClick={closeRegisterForm} disabled={isSubmitting}>{t("front/common:actions.cancel")}</Button>

@@ -60,7 +60,7 @@ export class ApiError extends Error {
 
 const STATUSES_WITH_MESSAGE = new Set([400, 401, 403, 404, 500]);
 
-export const messageOf = (item: ApiErrorItem): Message => ({ key: serverKey(item.key), params: serverParams(item.params) });
+export const messageOf = (item: Pick<ApiErrorItem, "key" | "params">): Message => ({ key: serverKey(item.key), params: serverParams(item.params) });
 
 export const hintOf = (item: ApiErrorItem | undefined): Message | null =>
   item?.hint_key ? { key: serverKey(item.hint_key) } : null;

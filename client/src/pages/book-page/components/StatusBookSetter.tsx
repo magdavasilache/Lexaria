@@ -1,10 +1,9 @@
-import { useId, useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { KeyboardEvent, useEffect, useId, useRef, useState } from "react";
+import { BookmarkX, Check, ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import Button from "../../../global-components/buttons/Button";
-import { ReadingStatus, useUserBookStatus } from "../../../api-handling/rtk-hooks/useUserBookStatus";
-
-const STATUSES: ReadingStatus[] = ["want_to_read", "currently_reading", "read", "did_not_finish"];
+import { useReadingStatus } from "../../../api-handling/rtk-hooks/books/useReadingStatus";
+import { READING_STATUSES, ReadingStatus } from "../../../types/user-book-status-types/UserBookStatusTypes";
 
 const STATUS_COLORS: Record<ReadingStatus, string> = {
     want_to_read: "bg-statusWantToReadLight text-statusWantToReadTextLight dark:bg-statusWantToReadDark dark:text-statusWantToReadTextDark",
@@ -13,29 +12,51 @@ const STATUS_COLORS: Record<ReadingStatus, string> = {
     did_not_finish: "bg-statusDidNotFinishLight text-statusDidNotFinishTextLight dark:bg-statusDidNotFinishDark dark:text-statusDidNotFinishTextDark",
 };
 
-const isReadingStatus = (value: string | undefined): value is ReadingStatus => STATUSES.includes(value as ReadingStatus);
-
 interface Props {
     bookId: number;
-    status: string | undefined;
+    status: ReadingStatus | undefined;
 }
 
 export default function StatusBookSetter({ bookId, status }: Props) {
     const { t } = useTranslation("front/books");
     const menuId = useId();
+    const rootRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(false);
-    const setStatus = useUserBookStatus();
-    const current = isReadingStatus(status) ? status : null;
+    const setStatus = useReadingStatus(bookId);
+    const current = status ?? null;
 
-    const choose = (next: ReadingStatus) => {
-        setStatus.mutate({ book_id: bookId, status: next });
+    useEffect(() => {
+        if (!open) return;
+        const closeOutside = (event: PointerEvent) => {
+            if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+        };
+        document.addEventListener("pointerdown", closeOutside);
+        return () => document.removeEventListener("pointerdown", closeOutside);
+    }, [open]);
+
+    const close = () => {
         setOpen(false);
+        triggerRef.current?.focus();
+    };
+
+    const choose = (next: ReadingStatus | null) => {
+        if (next !== current) setStatus.mutate(next);
+        close();
+    };
+
+    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === "Escape" && open) {
+            event.stopPropagation();
+            close();
+        }
     };
 
     return (
-        <div className="w-full max-w-xs mx-auto lg:mx-0">
+        <div ref={rootRef} onKeyDown={handleKeyDown} className="relative mx-auto w-full max-w-xs md:mx-0">
             <Button
-                variant="outline"
+                ref={triggerRef}
+                variant={current ? "outline" : "field"}
                 fullWidth
                 rightIcon={ChevronDown}
                 iconClassName={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
@@ -49,8 +70,11 @@ export default function StatusBookSetter({ bookId, status }: Props) {
             </Button>
 
             {open && (
-                <ul id={menuId} className="mt-1 flex flex-col overflow-hidden rounded-panel border border-panelBorderLight dark:border-panelBorderDark bg-panelLight dark:bg-panelDark animate-slide-down">
-                    {STATUSES.map((value) => (
+                <ul
+                    id={menuId}
+                    className="absolute inset-x-0 top-full z-30 mt-1 flex flex-col overflow-hidden rounded-panel border border-panelBorderLight bg-panelLight shadow-soft-lg animate-slide-down dark:border-panelBorderDark dark:bg-panelDark dark:shadow-deep-lg"
+                >
+                    {READING_STATUSES.map((value) => (
                         <li key={value}>
                             <Button
                                 variant="menu"
@@ -64,6 +88,13 @@ export default function StatusBookSetter({ bookId, status }: Props) {
                             </Button>
                         </li>
                     ))}
+                    {current && (
+                        <li className="border-t border-dividerLight dark:border-dividerDark">
+                            <Button variant="menuDanger" fullWidth leftIcon={BookmarkX} onClick={() => choose(null)} className="min-h-10">
+                                {t("status.remove")}
+                            </Button>
+                        </li>
+                    )}
                 </ul>
             )}
         </div>

@@ -21,8 +21,3 @@ export type AccessToken = {
     token_type: string;
     expires_in: number;
 }
-
-export type UserOut = {
-    username: string;
-    profile_picture: string | null
-}

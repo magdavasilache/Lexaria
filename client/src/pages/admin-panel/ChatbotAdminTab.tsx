@@ -1,42 +1,36 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import Button from "../../global-components/buttons/Button";
 import { ChatbotSubTab } from "../../types/chatbot-types";
 import IntentsSection from "./components/IntentsSection";
 import ResponsesSection from "./components/ResponseSection";
 import TrainingSection from "./components/TrainingSection";
 import HistorySection from "./components/HistorySection";
 
-export function formatDate(iso: string) {
-    return new Date(iso).toLocaleString();
-}
-
-const subTabs: { key: ChatbotSubTab; label: string }[] = [
-    { key: "intents", label: "Intents" },
-    { key: "responses", label: "Responses" },
-    { key: "training", label: "Training" },
-    { key: "history", label: "History" },
-];
+const SUB_TABS: ChatbotSubTab[] = ["intents", "responses", "training", "history"];
 
 export default function ChatbotAdminTab() {
+    const { t } = useTranslation("front/admin");
     const [activeSubTab, setActiveSubTab] = useState<ChatbotSubTab>("intents");
 
     return (
-        <div className="flex flex-col h-full gap-0 overflow-hidden">
-            <div className="flex gap-1 border-b border-dividerLight dark:border-dividerDark pb-3 mb-4 shrink-0 flex-wrap">
-                {subTabs.map(({ key, label }) => (
-                    <button
+        <div className="flex h-full min-h-0 flex-col overflow-hidden">
+            <div className="mb-4 flex shrink-0 gap-1 overflow-x-auto border-b border-dividerLight pb-3 dark:border-dividerDark">
+                {SUB_TABS.map((key) => (
+                    <Button
                         key={key}
+                        variant="menu"
+                        size="sm"
+                        aria-current={activeSubTab === key ? "page" : undefined}
                         onClick={() => setActiveSubTab(key)}
-                        className={`text-sm px-3 py-1.5 rounded-xs transition-all ${activeSubTab === key
-                                ? "bg-primaryLight dark:bg-primaryDark text-white shadow-buttonShadow dark:shadow-buttonShadowDark"
-                                : "opacity-60 hover:opacity-100 hover:bg-inputLight dark:hover:bg-inputDark hover:text-onInputLight dark:hover:text-onInputDark"
-                            }`}
+                        className="min-h-10 shrink-0"
                     >
-                        {label}
-                    </button>
+                        {t(`chatbot.tabs.${key}`)}
+                    </Button>
                 ))}
             </div>
 
-            <div className="flex-1 overflow-hidden">
+            <div className="min-h-0 flex-1 overflow-hidden">
                 {activeSubTab === "intents" && <IntentsSection />}
                 {activeSubTab === "responses" && <ResponsesSection />}
                 {activeSubTab === "training" && <TrainingSection />}

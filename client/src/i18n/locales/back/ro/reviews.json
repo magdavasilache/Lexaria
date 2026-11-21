@@ -1,0 +1,11 @@
+{
+  "notFound": "Această recenzie nu există sau a fost ștearsă.",
+  "alreadyReviewed": "Ai scris deja o recenzie pentru această carte.",
+  "alreadyReviewedHint": "Editează recenzia existentă.",
+  "empty": "Adaugă o notă sau scrie o recenzie.",
+  "notAuthor": "Poți modifica doar recenziile tale.",
+  "futureDate": "Datele de lectură nu pot fi în viitor.",
+  "ratingStep": "Notele merg de la {{min}} la {{max}}, din jumătate în jumătate de stea.",
+  "commentNotFound": "Acest comentariu nu există sau a fost șters.",
+  "commentNotAuthor": "Poți modifica doar comentariile tale."
+}

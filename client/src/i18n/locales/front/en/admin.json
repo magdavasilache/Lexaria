@@ -1,7 +1,5 @@
 {
   "activity": {
-    "title": "Activity",
-    "filters": "Filters",
     "action": "Action",
     "allActions": "All actions",
     "outcome": "Outcome",
@@ -10,17 +8,177 @@
     "failure": "Failed",
     "from": "From",
     "to": "To",
-    "resetFilters": "Reset filters",
     "time": "Time",
     "user": "User",
     "description": "Description",
     "request": "Request",
-    "anonymous": "Anonymous",
-    "empty": "No activity matches these filters.",
-    "loading": "Loading activity…",
-    "retry": "Try again",
-    "range": "{{from}}–{{to}} of {{total}}",
-    "previous": "Previous page",
-    "next": "Next page"
+    "anonymous": "Anonymous"
+  },
+  "panel": {
+    "heading": "Admin",
+    "close": "Close",
+    "notConfigured": "There's no table for this section yet.",
+    "nameColumn": "Name",
+    "count_one": "{{count}} entry",
+    "count_other": "{{count}} entries"
+  },
+  "tabs": {
+    "authors": "Authors",
+    "genres": "Genres",
+    "languages": "Languages",
+    "awards": "Awards",
+    "countries": "Countries",
+    "books": "Books",
+    "chatbot": "Chatbot",
+    "activity": "Activity"
+  },
+  "add": {
+    "authors": "Add author",
+    "genres": "Add genre",
+    "languages": "Add language",
+    "awards": "Add award",
+    "countries": "Add country",
+    "books": "Add book"
+  },
+  "edit": {
+    "authors": "Edit author",
+    "genres": "Edit genre",
+    "languages": "Edit language",
+    "awards": "Edit award",
+    "countries": "Edit country",
+    "books": "Edit book"
+  },
+  "chatbot": {
+    "tabs": {
+      "intents": "Intents",
+      "responses": "Responses",
+      "training": "Training",
+      "history": "History"
+    },
+    "history": {
+      "views": "History view",
+      "trainings": "Training history",
+      "unknowns": "Unknown messages",
+      "unknownCount_one": "{{count}} unknown message",
+      "unknownCount_other": "{{count}} unknown messages",
+      "id": "ID",
+      "epochs": "Epochs",
+      "status": "Status",
+      "allStatuses": "All statuses",
+      "success": "Success",
+      "failure": "Failed",
+      "date": "Date",
+      "message": "Message",
+      "confidence": "Confidence",
+      "addPattern": "Add as pattern",
+      "addPatternFor": "Add \"{{label}}\" as a pattern"
+    },
+    "promote": {
+      "title": "Add as training pattern",
+      "description": "This message is added as a pattern to the intent you pick and removed from unknown messages.",
+      "confidence": "{{value}} confidence",
+      "intent": "Assign to intent",
+      "selectIntent": "Select an intent…",
+      "intentOption_one": "{{tag}} ({{count}} pattern)",
+      "intentOption_other": "{{tag}} ({{count}} patterns)",
+      "submit": "Add pattern",
+      "submitting": "Adding…"
+    },
+    "intents": {
+      "add": "Add intent",
+      "addTitle": "Add intent",
+      "editTitle": "Edit intent",
+      "tag": "Tag",
+      "tagHelper": "Lowercase words joined by underscores, e.g. book_search.",
+      "type": "Type",
+      "allTypes": "All types",
+      "types": {
+        "informational": "Informational",
+        "action": "Action",
+        "fallback": "Fallback"
+      },
+      "patterns": "Patterns",
+      "responses": "Responses",
+      "patternsHeading_one": "Patterns ({{count}})",
+      "patternsHeading_other": "Patterns ({{count}})",
+      "noPatterns": "No patterns yet. Add one below.",
+      "patternsAfterCreate": "You can add patterns after you create the intent.",
+      "pattern": "Pattern",
+      "newPattern": "New pattern",
+      "newPatternPlaceholder": "Add a pattern…",
+      "addPattern": "Add",
+      "editPattern": "Edit pattern “{{label}}”",
+      "deletePattern": "Delete pattern “{{label}}”",
+      "savePattern": "Save pattern",
+      "cancelEdit": "Cancel editing",
+      "create": "Create",
+      "creating": "Creating…",
+      "save": "Save",
+      "saving": "Saving…",
+      "deleteTitle": "Delete intent",
+      "deleteConfirm": "Delete \"{{tag}}\"? Its patterns and responses are deleted too. This can't be undone.",
+      "delete": "Delete",
+      "deleting": "Deleting…"
+    },
+    "responses": {
+      "add": "Add response",
+      "addTitle": "Add response",
+      "editTitle": "Edit response",
+      "response": "Response",
+      "responseHelper": "What the chatbot replies when it recognises this intent.",
+      "intent": "Intent",
+      "selectIntent": "Select an intent…",
+      "intentLocked": "A response stays with the intent it was created for.",
+      "addIntentFilter": "Add intent…",
+      "create": "Create",
+      "creating": "Creating…",
+      "save": "Save",
+      "saving": "Saving…",
+      "deleteTitle": "Delete response",
+      "deleteConfirm": "Delete this response from \"{{tag}}\"? This can't be undone.",
+      "delete": "Delete",
+      "deleting": "Deleting…"
+    },
+    "training": {
+      "epochs": "Epochs",
+      "epochsHelper": "How many passes over the training data.",
+      "epochsInteger": "Use a whole number.",
+      "epochsMin": "Must be at least {{epochsMin}}.",
+      "start": "Start training",
+      "running": "Training…",
+      "clear": "Clear logs",
+      "status": {
+        "running": "Training",
+        "done": "Complete",
+        "error": "Failed"
+      },
+      "progress": "Progress",
+      "percent": "{{value}}%",
+      "note": {
+        "done": "Model saved and reloaded. New conversations use it immediately.",
+        "error": "Training failed. Check the error lines in the log."
+      },
+      "line": "#",
+      "level": "Level",
+      "message": "Message",
+      "allLevels": "All levels",
+      "levels": {
+        "success": "Success",
+        "error": "Error",
+        "warning": "Warning",
+        "info": "Info",
+        "log": "Log"
+      },
+      "emptyIdle": "Logs appear here once training starts.",
+      "emptyConnecting": "Connecting to the training stream…",
+      "log": {
+        "connectFailed": "Could not connect to the server.",
+        "serverStatus": "The server responded with {{status}}.",
+        "noStream": "The response has no stream.",
+        "reloaded": "Model reloaded on the server.",
+        "reloadFailed": "Model saved but the reload failed. Restart the server.",
+        "interrupted": "The stream was interrupted unexpectedly."
+      }
+    }
   }
 }

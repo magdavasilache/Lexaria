@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, ReactElement, ReactNode, Ref, isValidElement } from "react";
 import { Loader2, LucideIcon } from "lucide-react";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "inverse" | "danger" | "link" | "card" | "menu" | "menuDanger" | "segment";
+export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "inverse" | "danger" | "link" | "card" | "menu" | "menuDanger" | "segment" | "field" | "option" | "calendar";
 export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonIcon = LucideIcon | ReactElement;
 
@@ -72,6 +72,23 @@ const VARIANTS: Record<ButtonVariant, string> = {
     "flex-1 min-w-0 bg-transparent text-primaryLight dark:text-primaryDark hover:bg-panelHoverLight dark:hover:bg-panelHoverDark " +
     "aria-pressed:bg-primaryLight dark:aria-pressed:bg-primaryDark aria-pressed:text-onPrimaryLight dark:aria-pressed:text-onPrimaryDark " +
     "active:scale-100 focus-visible:ring-offset-0 focus-visible:ring-inset disabled:opacity-50",
+  field:
+    "border border-panelBorderLight dark:border-panelBorderDark bg-panelLight dark:bg-panelDark " +
+    "text-primaryLight dark:text-primaryDark hover:bg-panelHoverLight dark:hover:bg-panelHoverDark " +
+    "aria-expanded:bg-panelHoverLight dark:aria-expanded:bg-panelHoverDark disabled:opacity-50",
+  option:
+    "bg-transparent text-fontPrimaryLight dark:text-fontPrimaryDark hover:bg-panelHoverLight dark:hover:bg-panelHoverDark " +
+    "aria-pressed:bg-panelSelectedLight dark:aria-pressed:bg-panelSelectedDark " +
+    "aria-pressed:text-primaryLight dark:aria-pressed:text-primaryDark active:scale-100 disabled:opacity-50 " +
+    "[&>span]:min-w-0 [&>span]:flex-1 [&>span]:self-stretch",
+  calendar:
+    "bg-transparent text-fontPrimaryLight dark:text-fontPrimaryDark hover:bg-panelHoverLight dark:hover:bg-panelHoverDark " +
+    "aria-[current=date]:font-semibold [&[aria-current=date]:not([aria-pressed=true])]:text-primaryLight dark:[&[aria-current=date]:not([aria-pressed=true])]:text-primaryDark " +
+    "[&[aria-current=date]:not([aria-pressed=true])]:ring-1 [&[aria-current=date]:not([aria-pressed=true])]:ring-inset " +
+    "[&[aria-current=date]:not([aria-pressed=true])]:ring-panelBorderLight dark:[&[aria-current=date]:not([aria-pressed=true])]:ring-panelBorderDark " +
+    "aria-pressed:bg-primaryLight dark:aria-pressed:bg-primaryDark aria-pressed:text-onPrimaryLight dark:aria-pressed:text-onPrimaryDark " +
+    "aria-pressed:font-semibold aria-pressed:shadow-buttonShadow dark:aria-pressed:shadow-buttonShadowDark " +
+    "focus-visible:ring-offset-0 active:scale-95 disabled:opacity-40 disabled:hover:bg-transparent",
   card:
     "flex-col whitespace-normal text-left [&>span]:w-full bg-panelLight dark:bg-panelDark text-fontPrimaryLight dark:text-fontPrimaryDark " +
     "border border-panelBorderLight dark:border-panelBorderDark hover:bg-panelHoverLight dark:hover:bg-panelHoverDark " +
@@ -121,7 +138,7 @@ export default function Button(props: ButtonProps) {
   const classes = [
     BASE,
     VARIANTS[variant],
-    variant === "link" ? "p-0 gap-1.5" : variant === "card" ? "p-2 text-sm" : variant === "segment" ? "px-1 py-2 gap-1 text-sm" : isIconOnly ? sizing.iconOnly : sizing.label,
+    variant === "link" ? "p-0 gap-1.5" : variant === "card" ? "p-2 text-sm" : variant === "segment" ? "px-1 py-2 gap-1 text-sm" : variant === "calendar" ? "p-0 text-sm tabular-nums" : isIconOnly ? sizing.iconOnly : sizing.label,
     variant === "menu" || variant === "menuDanger" ? "justify-start text-left" : "justify-center",
     rounded || isIconOnly ? "rounded-full" : variant === "card" ? "rounded-panel" : variant === "segment" ? "" : "rounded-control",
     fullWidth ? "w-full" : "",

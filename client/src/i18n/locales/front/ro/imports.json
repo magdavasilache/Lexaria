@@ -1,0 +1,24 @@
+{
+  "title": "Importă datele din Goodreads",
+  "intro": "Descarcă-ți datele din Goodreads, apoi încarcă fișierele JSON favorite_genres și reviews. Genurile preferate, rafturile și notele tale sunt adăugate în contul Lexaria. Dacă imporți din nou aceleași fișiere, nu se creează duplicate.",
+  "fields": {
+    "favoriteGenres": "Fișierul cu genuri preferate",
+    "reviews": "Fișierul cu recenzii"
+  },
+  "helper": "Fișier JSON, cel mult {{importFileMaxMb}} MB.",
+  "submit": "Importă",
+  "submitting": "Se importă…",
+  "validation": {
+    "jsonType": "Alege un fișier .json.",
+    "fileSize": "Fișierul poate avea cel mult {{importFileMaxMb}} MB."
+  },
+  "result": {
+    "title": "Import finalizat",
+    "booksCreated": "Cărți adăugate în catalog",
+    "genresAdded": "Genuri preferate adăugate",
+    "statusesSaved": "Statusuri de lectură salvate",
+    "ratingsAdded": "Note adăugate",
+    "rowsSkipped": "Rânduri omise",
+    "skippedTitle": "Rânduri omise"
+  }
+}

@@ -32,6 +32,7 @@
   },
   "navbar": {
     "home": "Pagina principală Lexaria",
+    "mainNav": "Navigare principală",
     "openUserMenu": "Deschide meniul utilizatorului",
     "admin": "Administrator",
     "browseBooks": "Răsfoiește cărțile",
@@ -53,6 +54,60 @@
     "dateSpan_other": "{{count}} de zile",
     "clear": "Șterge selecția",
     "remove": "Elimină {{label}}",
-    "noResults": "Niciun rezultat"
+    "noResults": "Niciun rezultat",
+    "ratingValue": "{{value}} din {{max}} stele",
+    "noRating": "Fără notă",
+    "clearRating": "Șterge",
+    "calendar": {
+      "label": "Alege o dată",
+      "open": "Deschide calendarul",
+      "previousMonth": "Luna anterioară",
+      "nextMonth": "Luna următoare",
+      "previousYear": "Anul anterior",
+      "nextYear": "Anul următor",
+      "previousYears": "Anii anteriori",
+      "nextYears": "Anii următori",
+      "chooseMonth": "{{value}}, alege luna și anul",
+      "chooseYear": "{{value}}, alege anul",
+      "today": "Azi",
+      "clear": "Șterge"
+    }
+  },
+  "modal": {
+    "close": "Închide",
+    "unsavedChanges": "Modificări nesalvate"
+  },
+  "filters": {
+    "title": "Filtre",
+    "clearAll": "Șterge tot",
+    "reset": "Resetează"
+  },
+  "table": {
+    "search": "Caută",
+    "rowsPerPage": "Rânduri pe pagină",
+    "rows_one": "{{count}} rând",
+    "rows_few": "{{count}} rânduri",
+    "rows_other": "{{count}} de rânduri",
+    "actions": "Acțiuni",
+    "view": "Vezi {{label}}",
+    "edit": "Editează {{label}}",
+    "delete": "Șterge {{label}}",
+    "empty": "Niciun rezultat.",
+    "loading": "Se încarcă…",
+    "pagination": "Paginare",
+    "range": "{{from}}–{{to}} din {{total}}",
+    "first": "Prima pagină",
+    "previous": "Pagina anterioară",
+    "next": "Pagina următoare",
+    "last": "Ultima pagină",
+    "page": "Pagina {{page}}",
+    "searchPlaceholder": "Caută…",
+    "retry": "Încearcă din nou"
+  },
+  "pageTitle": {
+    "home": "Acasă",
+    "book": "Carte",
+    "goodreadsImport": "Import Goodreads",
+    "adminPanel": "Panou de administrare"
   }
 }

@@ -1,114 +1,134 @@
-import { FormEvent, useState } from "react";
-import { authorizedAxios } from "../../api/authorizedAxios";
+import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CircleAlert, CircleCheck, FileJson, Upload } from "lucide-react";
 import Button from "../../global-components/buttons/Button";
+import FormField from "../../forms/components/FormField";
+import RequiredFieldsNote from "../../forms/components/RequiredFieldsNote";
+import { applyFieldErrors } from "../../forms/applyFieldErrors";
+import { useFieldStatus } from "../../forms/useFieldStatus";
+import { GoodreadsImportValues, goodreadsImportSchema } from "../../schemas/bookSchemas";
+import { IMPORT_RULES } from "../../schemas/bookRules";
+import { useGoodreadsImport } from "../../api-handling/rtk-hooks/books/useGoodreadsImport";
+import { messageOf } from "../../api/apiTypes";
+import { translate } from "../../i18n/message";
+import type { GoodreadsImportSummary } from "../../types/book-types/bookTypes";
+import { useDocumentTitle } from "../../utils/useDocumentTitle";
 
-const GOODREADS_UPLOAD_TIMEOUT_MS = 60_000;
+const SUMMARY_ROWS: { key: keyof GoodreadsImportSummary; label: "booksCreated" | "genresAdded" | "statusesSaved" | "ratingsAdded" | "rowsSkipped" }[] = [
+    { key: "books_created", label: "booksCreated" },
+    { key: "genres_added", label: "genresAdded" },
+    { key: "statuses_saved", label: "statusesSaved" },
+    { key: "ratings_added", label: "ratingsAdded" },
+    { key: "rows_skipped", label: "rowsSkipped" },
+];
+
+const ACCEPT = `${IMPORT_RULES.fileExtension},application/json`;
 
 export default function GoodreadsImportPage() {
-    const [favoriteGenres, setFavoriteGenres] = useState<File | null>(null);
-    const [reviews, setReviews] = useState<File | null>(null);
-  
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-    
-      if (!favoriteGenres || !reviews) {
-        alert("Please select both files before uploading.");
-        return;
-      }
-    
-      const formData = new FormData();
-      formData.append("favorite_genres", favoriteGenres);
-      formData.append("reviews", reviews);
-    
-      try {
-        await authorizedAxios("book").post("/process_goodreads_data", formData, { timeout: GOODREADS_UPLOAD_TIMEOUT_MS });
-        alert("Files imported successfully!");
-      } catch {
-        return;
-      }
+    const { t, i18n } = useTranslation("front/imports");
+    useDocumentTitle(t("pageTitle.goodreadsImport", { ns: "front/common" }));
+    const importGoodreads = useGoodreadsImport();
+    const numberFormat = new Intl.NumberFormat(i18n.resolvedLanguage);
+
+    const { register, handleSubmit, control, setError, formState: { errors, isSubmitting } } = useForm<GoodreadsImportValues>({
+        resolver: zodResolver(goodreadsImportSchema),
+        mode: "onTouched",
+    });
+    const fieldStatus = useFieldStatus(goodreadsImportSchema, control);
+
+    const submit = async (values: GoodreadsImportValues) => {
+        const data = new FormData();
+        data.append("favorite_genres", values.favorite_genres[0]);
+        data.append("reviews", values.reviews[0]);
+        try {
+            await importGoodreads.mutateAsync(data);
+        } catch (error) {
+            applyFieldErrors(error, setError, ["favorite_genres", "reviews"]);
+        }
     };
-    
+
+    const result = importGoodreads.data;
+
     return (
-<div className="w-full h-screen p-6 flex items-center justify-center bg-backgroundLight dark:bg-backgroundDark">
-  <form
-    onSubmit={handleSubmit}
-    className="max-w-2xl w-full bg-paperLight dark:bg-paperDark rounded-xs shadow-cardShadowLight dark:shadow-cardShadowDark p-8 space-y-6 animate-slide-in"
-  >
-    <h1 className="text-3xl font-libre font-bold text-fontPrimaryLight dark:text-fontPrimaryDark">
-      Import Your Goodreads Data
-    </h1>
+        <div className="w-full min-h-[calc(100dvh-60px)] flex justify-center px-4 py-6 sm:px-6 sm:py-10 bg-backgroundLight dark:bg-backgroundDark text-fontPrimaryLight dark:text-fontPrimaryDark">
+            <div className="flex w-full max-w-2xl flex-col gap-6">
+                <form
+                    noValidate
+                    onSubmit={handleSubmit(submit)}
+                    className="flex flex-col gap-5 rounded-panel border border-panelBorderLight bg-panelLight p-4 shadow-soft-md dark:border-panelBorderDark dark:bg-panelDark dark:shadow-deep-md sm:p-6 lg:p-8"
+                >
+                    <header className="flex flex-col gap-2">
+                        <h1 className="font-libre text-2xl font-bold sm:text-3xl">{t("title")}</h1>
+                        <p className="text-sm leading-relaxed sm:text-base">{t("intro")}</p>
+                    </header>
 
-    <p className="text-fontPrimaryLight dark:text-fontPrimaryDark leading-relaxed">
-      Extract the{" "}
-      <span className="font-semibold text-primaryLight dark:text-primaryDark">
-        favorite_genres
-      </span>{" "}
-      and{" "}
-      <span className="font-semibold text-primaryLight dark:text-primaryDark">
-        reviews
-      </span>{" "}
-      JSON files from your Goodreads account and upload them below. Then press{" "}
-      <span className="italic text-secondaryLight dark:text-secondaryDark">
-        "Add Goodreads Files"
-      </span>{" "}
-      to save your preferences and reading history to your Lexaria account.
-    </p>
+                    <FormField
+                        type="file"
+                        accept={ACCEPT}
+                        label={t("fields.favoriteGenres")}
+                        leftIcon={FileJson}
+                        required
+                        helperText={t("helper")}
+                        error={errors.favorite_genres}
+                        status={fieldStatus("favorite_genres")}
+                        className="file:mr-3 file:border-0 file:bg-transparent file:font-semibold file:text-primaryLight dark:file:text-primaryDark"
+                        {...register("favorite_genres")}
+                    />
+                    <FormField
+                        type="file"
+                        accept={ACCEPT}
+                        label={t("fields.reviews")}
+                        leftIcon={FileJson}
+                        required
+                        helperText={t("helper")}
+                        error={errors.reviews}
+                        status={fieldStatus("reviews")}
+                        className="file:mr-3 file:border-0 file:bg-transparent file:font-semibold file:text-primaryLight dark:file:text-primaryDark"
+                        {...register("reviews")}
+                    />
 
-    {/* Favorite Genres */}
-    <div>
-      <label className="block mb-2 font-medium text-fontPrimaryLight dark:text-fontPrimaryDark">
-        Favorite Genres JSON
-      </label>
-      <label className="flex items-center justify-center px-4 py-2 rounded-xs cursor-pointer bg-primaryLight dark:bg-primaryDark text-onPrimaryLight dark:text-onPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:bg-primaryHoverLight dark:hover:bg-primaryHoverDark active:bg-primaryActiveLight dark:active:bg-primaryActiveDark transition-all duration-300">
-        Choose File
-        <input
-          type="file"
-          accept="application/json"
-          onChange={(e) => {
-            if (e.target.files?.[0]) setFavoriteGenres(e.target.files[0]);
-          }}
-          className="hidden"
-        />
-      </label>
-      {favoriteGenres && (
-        <p className="mt-2 text-sm text-primaryLight dark:text-primaryDark">
-          {favoriteGenres.name}
-        </p>
-      )}
-    </div>
+                    <RequiredFieldsNote />
 
-    {/* Reviews */}
-    <div>
-      <label className="block mb-2 font-medium text-fontPrimaryLight dark:text-fontPrimaryDark">
-        Reviews JSON
-      </label>
-      <label className="flex items-center justify-center px-4 py-2 rounded-xs cursor-pointer bg-primaryLight dark:bg-primaryDark text-onPrimaryLight dark:text-onPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:bg-primaryHoverLight dark:hover:bg-primaryHoverDark active:bg-primaryActiveLight dark:active:bg-primaryActiveDark transition-all duration-300">
-        Choose File
-        <input
-          type="file"
-          accept="application/json"
-          onChange={(e) => {
-            if (e.target.files?.[0]) setReviews(e.target.files[0]);
-          }}
-          className="hidden"
-        />
-      </label>
-      {reviews && (
-        <p className="mt-2 text-sm text-primaryLight dark:text-primaryDark">
-          {reviews.name}
-        </p>
-      )}
-    </div>
+                    <Button type="submit" leftIcon={Upload} loading={isSubmitting} loadingText={t("submitting")} className="min-h-10 self-stretch justify-center sm:self-end">
+                        {t("submit")}
+                    </Button>
+                </form>
 
-    {/* Submit */}
-    <div className="flex justify-center">
-      <Button type="submit" variant="secondary" size="lg">
-        Add Goodreads Files
-      </Button>
-    </div>
-  </form>
-</div>
+                {result && (
+                    <section
+                        aria-live="polite"
+                        className="flex flex-col gap-4 rounded-panel border border-panelBorderLight bg-panelLight p-4 dark:border-panelBorderDark dark:bg-panelDark sm:p-6"
+                    >
+                        <h2 className="flex items-center gap-2 font-libre text-lg font-semibold sm:text-xl">
+                            <CircleCheck className="h-5 w-5 text-successLight dark:text-successSolidLight" aria-hidden="true" />
+                            {t("result.title")}
+                        </h2>
+                        <dl className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                            {SUMMARY_ROWS.map(({ key, label }) => (
+                                <div key={key} className="flex items-baseline justify-between gap-3 rounded-control bg-panelSelectedLight px-3 py-2 dark:bg-panelSelectedDark">
+                                    <dt className="text-sm">{t(`result.${label}`)}</dt>
+                                    <dd className="text-lg font-semibold tabular-nums">{numberFormat.format(result.summary[key])}</dd>
+                                </div>
+                            ))}
+                        </dl>
 
+                        {result.warnings.length > 0 && (
+                            <div className="flex flex-col gap-2">
+                                <h3 className="text-sm font-semibold">{t("result.skippedTitle")}</h3>
+                                <ul className="flex max-h-72 flex-col gap-1 overflow-y-auto text-sm">
+                                    {result.warnings.map((warning, index) => (
+                                        <li key={index} className="flex items-start gap-2 rounded-control bg-warningLightTone/50 px-3 py-2 dark:bg-warningDarkTone/40">
+                                            <CircleAlert className="mt-0.5 h-4 w-4 shrink-0 text-warningLight dark:text-warningDark" aria-hidden="true" />
+                                            <span className="break-words">{translate(messageOf(warning))}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </section>
+                )}
+            </div>
+        </div>
     );
-  }
-  
+}

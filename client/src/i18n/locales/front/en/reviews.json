@@ -1,0 +1,91 @@
+{
+  "section": {
+    "title": "Reviews",
+    "count_one": "{{count}} review",
+    "count_other": "{{count}} reviews",
+    "sort": "Sort reviews",
+    "sortOptions": {
+      "newest": "Newest",
+      "top": "Most liked"
+    },
+    "loading": "Loading reviews…",
+    "empty": "No written reviews yet. Be the first!",
+    "loadError": "Reviews couldn't be loaded.",
+    "loadMore": "Show more reviews",
+    "filtered_one": "{{count}}-star reviews",
+    "filtered_other": "{{count}}-star reviews",
+    "clearFilter": "Show all",
+    "emptyFiltered": "No written reviews with this rating."
+  },
+  "form": {
+    "openWrite": "Write a review",
+    "openEdit": "Edit your review",
+    "writeTitle": "Write a review",
+    "editTitle": "Edit your review",
+    "description": "Rate the book, write about it, or both.",
+    "rating": "Rating",
+    "ratingHelper": "Click a star or use the arrow keys. Half stars are allowed.",
+    "content": "Your review",
+    "contentPlaceholder": "What did you think?",
+    "contentHelper": "Optional if you give a rating. Up to {{reviewContentMax}} characters.",
+    "dates": "Reading dates",
+    "datesHelper": "Optional. Dates can't be in the future.",
+    "submitWrite": "Publish",
+    "submitEdit": "Save changes",
+    "submitting": "Saving…",
+    "delete": "Delete review",
+    "deleteConfirm": "Delete your review? Its comments and likes are deleted too. This can't be undone.",
+    "deleting": "Deleting…",
+    "keep": "Keep it",
+    "loading": "Loading your review…"
+  },
+  "card": {
+    "rated": "Rated {{value}} out of 5",
+    "read": "Read {{from}} – {{to}}",
+    "started": "Started {{date}}",
+    "finished": "Finished {{date}}",
+    "edited": "edited",
+    "like": "Like review by {{username}}",
+    "unlike": "Remove your like from the review by {{username}}",
+    "likes_one": "{{count}} like",
+    "likes_other": "{{count}} likes",
+    "showComments_one": "Show {{count}} comment",
+    "showComments_other": "Show {{count}} comments",
+    "hideComments": "Hide comments",
+    "comment": "Comment",
+    "edit": "Edit review",
+    "delete": "Delete review",
+    "deleteTitle": "Delete review",
+    "deleteConfirm": "Delete the review by {{username}}? Its comments and likes are deleted too. This can't be undone.",
+    "readOn": "Read on {{date}}"
+  },
+  "comments": {
+    "label": "Comment on the review by {{username}}",
+    "editLabel": "Edit comment",
+    "placeholder": "Write a comment…",
+    "helper": "Up to {{commentMax}} characters.",
+    "submit": "Post",
+    "save": "Save",
+    "submitting": "Posting…",
+    "like": "Like comment by {{username}}",
+    "unlike": "Remove your like from the comment by {{username}}",
+    "edit": "Edit comment",
+    "delete": "Delete comment",
+    "deleteTitle": "Delete comment",
+    "deleteConfirm": "Delete this comment? This can't be undone."
+  },
+  "validation": {
+    "empty": "Add a rating or write a review.",
+    "ratingStep": "Ratings go from 0.5 to 5 in half-star steps.",
+    "contentMax": "Must be at most {{reviewContentMax}} characters.",
+    "commentMax": "Must be at most {{commentMax}} characters.",
+    "futureDate": "Dates can't be in the future.",
+    "dateRange": "The end date must be on or after the start date."
+  },
+  "snackbar": {
+    "created": "Your review was published.",
+    "updated": "Your review was saved.",
+    "deleted": "The review was deleted.",
+    "commentDeleted": "The comment was deleted."
+  }
+}

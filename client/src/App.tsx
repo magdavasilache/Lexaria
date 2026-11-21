@@ -8,7 +8,6 @@ import WelcomePage from "./pages/welcome/WelcomePage"
 import HomePage from "./pages/homepage/HomePage";
 import BookPage from "./pages/book-page/BookPage";
 import GoodreadsImportPage from "./pages/goodreads-import-page/GoodreadImportPage";
-import BookForm from "./forms/BookForm";
 import { memo } from "react";
 import AdminPanel from "./pages/admin-panel/AdminPanel";
 import Chatbot from "./global-components/chatbot/Chatbot";
@@ -44,7 +43,6 @@ function App() {
                 </Route>
                 <Route element={<ProtectedRoute requireAdmin />}>
                     <Route path="/admin-panel" element={<AdminPanel />} />
-                    <Route path="/add-book" element={<BookForm />} />
                 </Route>
             </Routes>
             <ThemeButton onClick={toggleTheme} />

@@ -1,18 +1,16 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from server.database.models.user_book_status import ReadingStatus
+from server.database.schemas.base import InputSchema, OutputSchema
 
-from server.database.schemas.base import OutputSchema
 
-
-class UserBookStatusCreate(BaseModel):
-    book_id: int
-    status: str
+class UserBookStatusSet(InputSchema):
+    status: ReadingStatus
 
 
 class UserBookStatusOut(OutputSchema):
     user_id: int
     book_id: int
-    status: str
+    status: ReadingStatus
     added_at: datetime
     updated_at: datetime

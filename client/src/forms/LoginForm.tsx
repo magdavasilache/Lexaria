@@ -23,7 +23,7 @@ export default function LoginForm() {
     const formId = useId()
     const { t } = useTranslation(["front/users", "front/common"])
 
-    const { register, handleSubmit, setError, control, reset, formState: { errors, isSubmitting } } = useForm<LoginFormData>({
+    const { register, handleSubmit, setError, control, reset, formState: { errors, isSubmitting, isDirty } } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
         mode: "onTouched",
         defaultValues: { username: "", password: "", remember_me: false },
@@ -57,6 +57,7 @@ export default function LoginForm() {
                 icon={LogIn}
                 description={t("login.description")}
                 dismissible={!isSubmitting}
+                unsavedChanges={isDirty}
                 footer={
                     <>
                         <Button variant="ghost" size="sm" onClick={closeLoginForm} disabled={isSubmitting}>{t("front/common:actions.cancel")}</Button>

@@ -1,14 +1,12 @@
-import { UserBookStatus } from "../types/user-book-status-types/UserBookStatusTypes";
+import type { ApiResponse } from "./apiTypes";
 import { authorizedAxios } from "./authorizedAxios";
+import type { ReadingStatus, UserBookStatus } from "../types/user-book-status-types/UserBookStatusTypes";
 
-const USER_BOOK_STATUS_URL = 'user_book_status/set_status'
+export const setReadingStatusMutation = async ({ bookId, status }: { bookId: number; status: ReadingStatus }): Promise<UserBookStatus> => {
+    const response = await authorizedAxios("books").put<ApiResponse<UserBookStatus>>(`/${bookId}/status`, { status });
+    return response.data.data as UserBookStatus;
+};
 
-export const setUserBookStatusAPI = {
-    setUserBookStatusMutation: async (book_id: number, status: 'want_to_read' | 'currently_reading' | 'read' | 'did_not_finish'): Promise<UserBookStatus> => {
-        const { data } = await authorizedAxios(`${USER_BOOK_STATUS_URL}`).post('', {
-            book_id,
-            status,
-        });
-        return data
-    }
-}
+export const removeReadingStatusMutation = async (bookId: number): Promise<void> => {
+    await authorizedAxios("books").delete(`/${bookId}/status`);
+};

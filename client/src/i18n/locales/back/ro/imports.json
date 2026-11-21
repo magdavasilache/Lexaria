@@ -7,5 +7,6 @@
   "rowMissingTitle": "lipsește titlul cărții",
   "rowInvalidRating": "nota nu este între 0 și 5",
   "rowInvalidDate": "data nu este validă",
-  "rowInvalidStatus": "statusul de lectură nu este recunoscut"
+  "rowInvalidStatus": "statusul de lectură nu este recunoscut",
+  "rowReviewTooLong": "textul recenziei este prea lung"
 }

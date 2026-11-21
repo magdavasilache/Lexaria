@@ -5,9 +5,8 @@ from sqlalchemy import ColumnElement, case, func, select
 from sqlalchemy.orm import Session, joinedload, selectinload
 
 from server.database.models.book import RATING_MAX, Book
-from server.database.models.genres import Genre
+from server.database.models.genres import BookTag, Genre
 from server.database.models.review import Review
-from server.database.models.user_book_status import UserBookStatus
 from server.database.schemas.book import BookListQuery, BookSort
 
 _RATING_STEP = Decimal("0.01")
@@ -41,7 +40,12 @@ def list_books(db: Session, query: BookListQuery) -> tuple[Sequence[Book], int]:
     total = db.scalar(select(func.count()).select_from(Book).where(*conditions)) or 0
     statement = (
         select(Book)
-        .options(joinedload(Book.author), joinedload(Book.language), selectinload(Book.genres))
+        .options(
+            joinedload(Book.author),
+            joinedload(Book.language),
+            selectinload(Book.genres),
+            selectinload(Book.descriptions),
+        )
         .where(*conditions)
         .order_by(*_ordering(query.sort))
         .offset(query.offset)
@@ -59,14 +63,11 @@ def get_book(db: Session, book_id: int) -> Book | None:
             joinedload(Book.country),
             selectinload(Book.genres),
             selectinload(Book.awards),
+            selectinload(Book.descriptions),
         )
         .where(Book.id == book_id)
     )
     return db.scalars(statement).first()
-
-
-def get_user_status(db: Session, user_id: int, book_id: int) -> UserBookStatus | None:
-    return db.get(UserBookStatus, (user_id, book_id))
 
 
 def rating_histogram(db: Session, book_id: int) -> dict[int, int]:
@@ -80,6 +81,18 @@ def rating_histogram(db: Session, book_id: int) -> dict[int, int]:
         .group_by(bucket)
     ).all()
     return {int(stars): count for stars, count in rows}
+
+
+def reader_tags(db: Session, book_id: int, limit: int) -> list[tuple[str, int]]:
+    mentions = func.count(func.distinct(BookTag.review_id))
+    rows = db.execute(
+        select(BookTag.tag, mentions)
+        .where(BookTag.book_id == book_id, BookTag.review_id.is_not(None))
+        .group_by(BookTag.tag)
+        .order_by(mentions.desc(), BookTag.tag)
+        .limit(limit)
+    ).all()
+    return [(tag, count) for tag, count in rows]
 
 
 def find_missing_ids(db: Session, model: type, ids: Iterable[int]) -> list[int]:

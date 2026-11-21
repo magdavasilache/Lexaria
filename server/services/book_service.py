@@ -7,25 +7,29 @@ from server.core.message_keys import MessageKey
 from server.database.models.audit_log import AuditAction
 from server.database.models.author import Author
 from server.database.models.award import Award
-from server.database.models.book import BOOK_IMAGES_MAX, RATING_MAX, Book
+from server.database.models.book import BOOK_IMAGES_MAX, RATING_MAX, Book, BookDescription
 from server.database.models.country import Country
 from server.database.models.genres import Genre
 from server.database.models.language import Language
 from server.database.models.user import User
 from server.database.schemas.book import (
     AwardRef,
+    BookDescriptionOut,
     BookCreate,
     BookDetail,
     BookListItem,
     BookListQuery,
     BookUpdate,
     RatingBucket,
+    ReaderTag,
 )
 from server.database.schemas.genre import GenreOut
 from server.database.schemas.user_book_status import UserBookStatusOut
-from server.repositories import book_repository
+from server.repositories import book_repository, reading_status_repository
 from server.services import audit_service
 from server.services.book_images import delete_book_images, image_url, save_book_images
+
+READER_TAGS_SHOWN = 8
 
 _REFERENCES: tuple[tuple[str, type, MessageKey, ErrorCode], ...] = (
     ("author_id", Author, MessageKey.AUTHOR_NOT_FOUND, ErrorCode.AUTHOR_NOT_FOUND),
@@ -44,6 +48,10 @@ def _rating(book: Book) -> float | None:
     return float(book.average_rating) if book.average_rating is not None else None
 
 
+def _descriptions(book: Book) -> list[BookDescriptionOut]:
+    return [BookDescriptionOut.model_validate(description) for description in book.descriptions]
+
+
 def _list_item(book: Book) -> BookListItem:
     return BookListItem(
         id=book.id,
@@ -52,7 +60,7 @@ def _list_item(book: Book) -> BookListItem:
         language_name=book.language.name if book.language else None,
         cover_url=image_url(book.images[0]) if book.images else None,
         pages=book.pages,
-        synopsis=book.synopsis,
+        descriptions=_descriptions(book),
         genres=[GenreOut.model_validate(genre) for genre in book.genres],
         average_rating=_rating(book),
         ratings_count=book.ratings_count,
@@ -61,7 +69,7 @@ def _list_item(book: Book) -> BookListItem:
 
 def _detail(db: Session, book: Book, user: User) -> BookDetail:
     histogram = book_repository.rating_histogram(db, book.id)
-    status = book_repository.get_user_status(db, user.id, book.id)
+    status = reading_status_repository.get_status(db, user.id, book.id)
     return BookDetail(
         id=book.id,
         title=book.title,
@@ -75,7 +83,7 @@ def _detail(db: Session, book: Book, user: User) -> BookDetail:
         image_urls=[image_url(name) for name in book.images],
         pages=book.pages,
         published_at=book.published_at,
-        synopsis=book.synopsis,
+        descriptions=_descriptions(book),
         settings=list(book.settings),
         characters=list(book.characters),
         is_series=book.is_series,
@@ -85,6 +93,10 @@ def _detail(db: Session, book: Book, user: User) -> BookDetail:
         ratings_count=book.ratings_count,
         rating_histogram=[
             RatingBucket(stars=stars, count=histogram.get(stars, 0)) for stars in range(RATING_MAX, 0, -1)
+        ],
+        reader_tags=[
+            ReaderTag(tag=tag, count=count)
+            for tag, count in book_repository.reader_tags(db, book.id, READER_TAGS_SHOWN)
         ],
         user_book_status=UserBookStatusOut.model_validate(status) if status else None,
         created_at=book.created_at,
@@ -118,6 +130,21 @@ def _load_many(db: Session, model: type, ids: Sequence[int], key: MessageKey, co
     return items
 
 
+def _apply_descriptions(book: Book, form: BookCreate) -> None:
+    existing = {description.language: description for description in book.descriptions}
+    wanted = {description.language: description.synopsis for description in form.descriptions}
+    book.descriptions = [
+        _described(existing.get(language), language, synopsis) for language, synopsis in wanted.items()
+    ]
+
+
+def _described(current: BookDescription | None, language: str, synopsis: str) -> BookDescription:
+    if current is None:
+        return BookDescription(language=language, synopsis=synopsis)
+    current.synopsis = synopsis
+    return current
+
+
 def _apply(db: Session, book: Book, form: BookCreate) -> None:
     _check_references(db, form)
     book.title = form.title
@@ -126,7 +153,7 @@ def _apply(db: Session, book: Book, form: BookCreate) -> None:
     book.country_id = form.country_id
     book.pages = form.pages
     book.published_at = form.published_at
-    book.synopsis = form.synopsis
+    _apply_descriptions(book, form)
     book.is_series = form.is_series
     book.settings = list(form.settings)
     book.characters = list(form.characters)

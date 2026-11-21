@@ -1,0 +1,11 @@
+{
+  "notFound": "This review doesn't exist or was removed.",
+  "alreadyReviewed": "You have already reviewed this book.",
+  "alreadyReviewedHint": "Edit your existing review instead.",
+  "empty": "Add a rating or write a review.",
+  "notAuthor": "You can only change your own reviews.",
+  "futureDate": "Reading dates can't be in the future.",
+  "ratingStep": "Ratings go from {{min}} to {{max}} in half-star steps.",
+  "commentNotFound": "This comment doesn't exist or was removed.",
+  "commentNotAuthor": "You can only change your own comments."
+}

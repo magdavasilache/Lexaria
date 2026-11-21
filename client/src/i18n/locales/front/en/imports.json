@@ -1,0 +1,24 @@
+{
+  "title": "Import your Goodreads data",
+  "intro": "Download your data from Goodreads, then upload the favorite_genres and reviews JSON files. Your favourite genres, shelves and ratings are added to your Lexaria account. Importing the same files again won't create duplicates.",
+  "fields": {
+    "favoriteGenres": "Favourite genres file",
+    "reviews": "Reviews file"
+  },
+  "helper": "JSON file, up to {{importFileMaxMb}} MB.",
+  "submit": "Import",
+  "submitting": "Importing…",
+  "validation": {
+    "jsonType": "Choose a .json file.",
+    "fileSize": "The file must be at most {{importFileMaxMb}} MB."
+  },
+  "result": {
+    "title": "Import finished",
+    "booksCreated": "Books added to the catalog",
+    "genresAdded": "Favourite genres added",
+    "statusesSaved": "Reading statuses saved",
+    "ratingsAdded": "Ratings added",
+    "rowsSkipped": "Rows skipped",
+    "skippedTitle": "Skipped rows"
+  }
+}

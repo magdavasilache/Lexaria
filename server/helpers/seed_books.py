@@ -2,7 +2,7 @@ from datetime import date
 from sqlalchemy.orm import Session
 
 from server.database.models.author import Author
-from server.database.models.book import Book
+from server.database.models.book import Book, BookDescription
 from server.database.models.country import Country
 from server.database.models.genres import Genre
 from server.database.models.language import Language
@@ -61,7 +61,7 @@ def seed_books(db: Session):
             pages=296,
             language_id=english.id,
             published_at=date(1988, 1, 1),
-            synopsis="A dystopian graphic novel about a masked vigilante opposing totalitarian rule.",
+            descriptions=[BookDescription(language="en", synopsis="A dystopian graphic novel about a masked vigilante opposing totalitarian rule.")],
             awards=[],
             settings=["London"],
             characters=["V", "Evey Hammond"],
@@ -75,7 +75,7 @@ def seed_books(db: Session):
             pages=262,
             language_id=english.id,
             published_at=date(1980, 1, 1),
-            synopsis="A collection of short stories and personal narratives blending fiction and nonfiction.",
+            descriptions=[BookDescription(language="en", synopsis="A collection of short stories and personal narratives blending fiction and nonfiction.")],
             awards=[],
             settings=[],
             characters=[],
@@ -89,7 +89,7 @@ def seed_books(db: Session):
             pages=455,
             language_id=english.id,
             published_at=date(2014, 1, 1),
-            synopsis="A detective investigates the murder of a novelist whose manuscript may have led to his death.",
+            descriptions=[BookDescription(language="en", synopsis="A detective investigates the murder of a novelist whose manuscript may have led to his death.")],
             awards=[],
             settings=["London"],
             characters=["Cormoran Strike", "Robin Ellacott"],
@@ -103,7 +103,7 @@ def seed_books(db: Session):
             pages=510,
             language_id=polish.id,
             published_at=date(1895, 1, 1),
-            synopsis="A novel exploring family, love, and business in Polish society.",
+            descriptions=[BookDescription(language="en", synopsis="A novel exploring family, love, and business in Polish society.")],
             awards=[],
             settings=["Warsaw"],
             characters=["Stanislaw Polaniecki", "Marynia"],

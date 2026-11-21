@@ -16,6 +16,7 @@ type FieldShellProps = {
   errorId: string;
   as?: "div" | "fieldset";
   labelAddon?: ReactNode;
+  onLabelClick?: () => void;
   children: ReactNode;
 };
 
@@ -23,7 +24,7 @@ const LABEL_CLASS =
   "flex items-baseline gap-0.5 text-sm font-libre text-fontPrimaryLight dark:text-fontPrimaryDark transition-colors duration-200 " +
   "group-focus-within/field:text-primaryLight dark:group-focus-within/field:text-primaryDark";
 
-export default function FieldShell({ label, hideLabel, required, helperText, error, inputId, helperId, errorId, as = "div", labelAddon, children }: FieldShellProps) {
+export default function FieldShell({ label, hideLabel, required, helperText, error, inputId, helperId, errorId, as = "div", labelAddon, onLabelClick, children }: FieldShellProps) {
   useTranslation();
   const Wrapper = as;
   const labelContent = (
@@ -39,7 +40,7 @@ export default function FieldShell({ label, hideLabel, required, helperText, err
         <legend className={`${hideLabel ? "sr-only" : `${LABEL_CLASS} mb-1`}`}>{labelContent}</legend>
       ) : (
         <div className={hideLabel ? "sr-only" : "flex items-baseline justify-between gap-2"}>
-          <label htmlFor={inputId} className={LABEL_CLASS}>{labelContent}</label>
+          <label htmlFor={inputId} onClick={onLabelClick} className={LABEL_CLASS}>{labelContent}</label>
           {labelAddon}
         </div>
       )}

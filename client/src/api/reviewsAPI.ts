@@ -1,17 +1,56 @@
-import { ReviewCreate } from "../types/reviews/reviewTypes";
+import type { ApiResponse } from "./apiTypes";
 import { authorizedAxios } from "./authorizedAxios";
+import type { CommentOut, LikeOut, ReviewOut, ReviewPage, ReviewPayload, ReviewSort } from "../types/reviews/reviewTypes";
 
-const URL_BASE = `review`
+type ListParams = { bookId: number; sort: ReviewSort; stars: number | null; offset: number; limit: number };
 
-const CREATE_REVIEWS = `${URL_BASE}/create-review`
-const GET_BOOK_REVIEWS = `${URL_BASE}/get-book-reviews/`
+export const getBookReviewsQuery = async ({ bookId, stars, ...params }: ListParams): Promise<ReviewPage> => {
+    const response = await authorizedAxios("books").get<ApiResponse<ReviewOut[]>>(`/${bookId}/reviews`, {
+        params: stars === null ? params : { ...params, stars },
+    });
+    return {
+        items: response.data.data ?? [],
+        total: typeof response.data.meta?.total === "number" ? response.data.meta.total : 0,
+    };
+};
 
-export const createReviewMutation = async (data: ReviewCreate) => {
-    const response = await authorizedAxios(`${CREATE_REVIEWS}`).post('', data )
-    return response
-}
+export const getMyReviewQuery = async (bookId: number): Promise<ReviewOut | null> => {
+    const response = await authorizedAxios("books").get<ApiResponse<ReviewOut | null>>(`/${bookId}/reviews/mine`);
+    return response.data.data;
+};
 
-export const getBookReviews = async (bookId: number) => {
-    const response = await authorizedAxios(`${GET_BOOK_REVIEWS}${bookId}`).get("")
-    return response.data.data
-}
+export const createReviewMutation = async ({ bookId, data }: { bookId: number; data: ReviewPayload }): Promise<ReviewOut> => {
+    const response = await authorizedAxios("books").post<ApiResponse<ReviewOut>>(`/${bookId}/reviews`, data, { handlesFieldErrors: true });
+    return response.data.data as ReviewOut;
+};
+
+export const updateReviewMutation = async ({ reviewId, data }: { reviewId: number; data: ReviewPayload }): Promise<ReviewOut> => {
+    const response = await authorizedAxios("reviews").put<ApiResponse<ReviewOut>>(`/${reviewId}`, data, { handlesFieldErrors: true });
+    return response.data.data as ReviewOut;
+};
+
+export const deleteReviewMutation = async (reviewId: number): Promise<void> => {
+    await authorizedAxios("reviews").delete(`/${reviewId}`);
+};
+
+export const createCommentMutation = async ({ reviewId, content }: { reviewId: number; content: string }): Promise<CommentOut> => {
+    const response = await authorizedAxios("reviews").post<ApiResponse<CommentOut>>(`/${reviewId}/comments`, { content }, { handlesFieldErrors: true });
+    return response.data.data as CommentOut;
+};
+
+export const updateCommentMutation = async ({ commentId, content }: { commentId: number; content: string }): Promise<CommentOut> => {
+    const response = await authorizedAxios("comments").put<ApiResponse<CommentOut>>(`/${commentId}`, { content }, { handlesFieldErrors: true });
+    return response.data.data as CommentOut;
+};
+
+export const deleteCommentMutation = async (commentId: number): Promise<void> => {
+    await authorizedAxios("comments").delete(`/${commentId}`);
+};
+
+export const setLikeMutation = async ({ target, id, liked }: { target: "reviews" | "comments"; id: number; liked: boolean }): Promise<LikeOut> => {
+    const client = authorizedAxios(target);
+    const response = liked
+        ? await client.put<ApiResponse<LikeOut>>(`/${id}/like`)
+        : await client.delete<ApiResponse<LikeOut>>(`/${id}/like`);
+    return response.data.data as LikeOut;
+};

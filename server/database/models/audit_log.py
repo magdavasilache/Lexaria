@@ -33,6 +33,18 @@ class AuditAction(StrEnum):
     BOOK_UPDATE = "book.update"
     BOOK_DELETE = "book.delete"
     GOODREADS_IMPORT = "import.goodreads"
+    REVIEW_CREATE = "review.create"
+    REVIEW_UPDATE = "review.update"
+    REVIEW_DELETE = "review.delete"
+    COMMENT_CREATE = "comment.create"
+    COMMENT_UPDATE = "comment.update"
+    COMMENT_DELETE = "comment.delete"
+    REVIEW_LIKE = "review.like"
+    REVIEW_UNLIKE = "review.unlike"
+    COMMENT_LIKE = "comment.like"
+    COMMENT_UNLIKE = "comment.unlike"
+    READING_STATUS_SET = "readingStatus.set"
+    READING_STATUS_REMOVE = "readingStatus.remove"
 
 
 class AuditOutcome(StrEnum):

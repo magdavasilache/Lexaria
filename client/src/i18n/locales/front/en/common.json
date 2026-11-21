@@ -32,6 +32,7 @@
   },
   "navbar": {
     "home": "Lexaria home",
+    "mainNav": "Main navigation",
     "openUserMenu": "Open user menu",
     "admin": "Admin",
     "browseBooks": "Browse books",
@@ -51,6 +52,59 @@
     "dateSpan_other": "{{count}} days",
     "clear": "Clear selection",
     "remove": "Remove {{label}}",
-    "noResults": "No results"
+    "noResults": "No results",
+    "ratingValue": "{{value}} of {{max}} stars",
+    "noRating": "No rating",
+    "clearRating": "Clear",
+    "calendar": {
+      "label": "Choose a date",
+      "open": "Open calendar",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "previousYear": "Previous year",
+      "nextYear": "Next year",
+      "previousYears": "Previous years",
+      "nextYears": "Next years",
+      "chooseMonth": "{{value}}, choose month and year",
+      "chooseYear": "{{value}}, choose year",
+      "today": "Today",
+      "clear": "Clear"
+    }
+  },
+  "modal": {
+    "close": "Close",
+    "unsavedChanges": "Unsaved changes"
+  },
+  "filters": {
+    "title": "Filters",
+    "clearAll": "Clear all",
+    "reset": "Reset"
+  },
+  "table": {
+    "search": "Search",
+    "rowsPerPage": "Rows per page",
+    "rows_one": "{{count}} row",
+    "rows_other": "{{count}} rows",
+    "actions": "Actions",
+    "view": "View {{label}}",
+    "edit": "Edit {{label}}",
+    "delete": "Delete {{label}}",
+    "empty": "No results found.",
+    "loading": "Loading…",
+    "pagination": "Pagination",
+    "range": "{{from}}–{{to}} of {{total}}",
+    "first": "First page",
+    "previous": "Previous page",
+    "next": "Next page",
+    "last": "Last page",
+    "page": "Page {{page}}",
+    "searchPlaceholder": "Search…",
+    "retry": "Try again"
+  },
+  "pageTitle": {
+    "home": "Home",
+    "book": "Book",
+    "goodreadsImport": "Goodreads Import",
+    "adminPanel": "Admin Panel"
   }
 }

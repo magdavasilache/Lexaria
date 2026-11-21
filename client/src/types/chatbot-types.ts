@@ -1,7 +1,11 @@
+import { INTENT_TYPES } from "../schemas/chatbotRules";
+
+export type IntentType = (typeof INTENT_TYPES)[number];
+
 export type Intent = {
     id: number;
     tag: string;
-    type: 'informational' | 'action' | 'fallback';
+    type: IntentType;
     patterns: { id: number; pattern: string }[];
     responses: { id: number; response: string }[];
 };
@@ -32,19 +36,14 @@ export type Pattern = {
     pattern: string;
 };
 
-export type BotResponse = {
-    id: number;
-    response: string;
-};
-
 export type IntentCreate = {
     tag: string;
-    type: "informational" | "action" | "fallback";
+    type: IntentType;
 };
 
 export type IntentUpdate = {
     tag?: string;
-    type?: "informational" | "action" | "fallback";
+    type?: IntentType;
 };
 
 export type PatternCreate = {

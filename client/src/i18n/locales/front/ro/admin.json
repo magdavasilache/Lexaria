@@ -1,7 +1,5 @@
 {
   "activity": {
-    "title": "Activitate",
-    "filters": "Filtre",
     "action": "Acțiune",
     "allActions": "Toate acțiunile",
     "outcome": "Rezultat",
@@ -10,17 +8,181 @@
     "failure": "Eșuat",
     "from": "De la",
     "to": "Până la",
-    "resetFilters": "Resetează filtrele",
     "time": "Data",
     "user": "Utilizator",
     "description": "Descriere",
     "request": "Cerere",
-    "anonymous": "Anonim",
-    "empty": "Nicio activitate nu corespunde filtrelor.",
-    "loading": "Se încarcă activitatea…",
-    "retry": "Încearcă din nou",
-    "range": "{{from}}–{{to}} din {{total}}",
-    "previous": "Pagina anterioară",
-    "next": "Pagina următoare"
+    "anonymous": "Anonim"
+  },
+  "panel": {
+    "heading": "Administrare",
+    "close": "Închide",
+    "notConfigured": "Această secțiune nu are încă un tabel.",
+    "nameColumn": "Nume",
+    "count_one": "{{count}} înregistrare",
+    "count_few": "{{count}} înregistrări",
+    "count_other": "{{count}} de înregistrări"
+  },
+  "tabs": {
+    "authors": "Autori",
+    "genres": "Genuri",
+    "languages": "Limbi",
+    "awards": "Premii",
+    "countries": "Țări",
+    "books": "Cărți",
+    "chatbot": "Chatbot",
+    "activity": "Activitate"
+  },
+  "add": {
+    "authors": "Adaugă un autor",
+    "genres": "Adaugă un gen",
+    "languages": "Adaugă o limbă",
+    "awards": "Adaugă un premiu",
+    "countries": "Adaugă o țară",
+    "books": "Adaugă o carte"
+  },
+  "edit": {
+    "authors": "Editează autorul",
+    "genres": "Editează genul",
+    "languages": "Editează limba",
+    "awards": "Editează premiul",
+    "countries": "Editează țara",
+    "books": "Editează cartea"
+  },
+  "chatbot": {
+    "tabs": {
+      "intents": "Intenții",
+      "responses": "Răspunsuri",
+      "training": "Antrenare",
+      "history": "Istoric"
+    },
+    "history": {
+      "views": "Vizualizare istoric",
+      "trainings": "Istoric antrenări",
+      "unknowns": "Mesaje necunoscute",
+      "unknownCount_one": "{{count}} mesaj necunoscut",
+      "unknownCount_few": "{{count}} mesaje necunoscute",
+      "unknownCount_other": "{{count}} de mesaje necunoscute",
+      "id": "ID",
+      "epochs": "Epoci",
+      "status": "Stare",
+      "allStatuses": "Toate stările",
+      "success": "Reușit",
+      "failure": "Eșuat",
+      "date": "Data",
+      "message": "Mesaj",
+      "confidence": "Încredere",
+      "addPattern": "Adaugă ca tipar",
+      "addPatternFor": "Adaugă „{{label}}” ca tipar"
+    },
+    "promote": {
+      "title": "Adaugă ca tipar de antrenare",
+      "description": "Mesajul este adăugat ca tipar la intenția aleasă și eliminat din mesajele necunoscute.",
+      "confidence": "încredere {{value}}",
+      "intent": "Atribuie intenției",
+      "selectIntent": "Alege o intenție…",
+      "intentOption_one": "{{tag}} ({{count}} tipar)",
+      "intentOption_few": "{{tag}} ({{count}} tipare)",
+      "intentOption_other": "{{tag}} ({{count}} de tipare)",
+      "submit": "Adaugă tiparul",
+      "submitting": "Se adaugă…"
+    },
+    "intents": {
+      "add": "Adaugă o intenție",
+      "addTitle": "Adaugă o intenție",
+      "editTitle": "Editează intenția",
+      "tag": "Etichetă",
+      "tagHelper": "Cuvinte cu litere mici legate prin liniuță jos, de ex. book_search.",
+      "type": "Tip",
+      "allTypes": "Toate tipurile",
+      "types": {
+        "informational": "Informativă",
+        "action": "Acțiune",
+        "fallback": "Rezervă"
+      },
+      "patterns": "Tipare",
+      "responses": "Răspunsuri",
+      "patternsHeading_one": "Tipare ({{count}})",
+      "patternsHeading_few": "Tipare ({{count}})",
+      "patternsHeading_other": "Tipare ({{count}})",
+      "noPatterns": "Niciun tipar încă. Adaugă unul mai jos.",
+      "patternsAfterCreate": "Poți adăuga tipare după ce creezi intenția.",
+      "pattern": "Tipar",
+      "newPattern": "Tipar nou",
+      "newPatternPlaceholder": "Adaugă un tipar…",
+      "addPattern": "Adaugă",
+      "editPattern": "Editează tiparul „{{label}}”",
+      "deletePattern": "Șterge tiparul „{{label}}”",
+      "savePattern": "Salvează tiparul",
+      "cancelEdit": "Anulează editarea",
+      "create": "Creează",
+      "creating": "Se creează…",
+      "save": "Salvează",
+      "saving": "Se salvează…",
+      "deleteTitle": "Șterge intenția",
+      "deleteConfirm": "Ștergi „{{tag}}”? Tiparele și răspunsurile ei sunt șterse și ele. Acțiunea nu poate fi anulată.",
+      "delete": "Șterge",
+      "deleting": "Se șterge…"
+    },
+    "responses": {
+      "add": "Adaugă un răspuns",
+      "addTitle": "Adaugă un răspuns",
+      "editTitle": "Editează răspunsul",
+      "response": "Răspuns",
+      "responseHelper": "Ce răspunde chatbotul când recunoaște această intenție.",
+      "intent": "Intenție",
+      "selectIntent": "Alege o intenție…",
+      "intentLocked": "Un răspuns rămâne la intenția pentru care a fost creat.",
+      "addIntentFilter": "Adaugă o intenție…",
+      "create": "Creează",
+      "creating": "Se creează…",
+      "save": "Salvează",
+      "saving": "Se salvează…",
+      "deleteTitle": "Șterge răspunsul",
+      "deleteConfirm": "Ștergi acest răspuns din „{{tag}}”? Acțiunea nu poate fi anulată.",
+      "delete": "Șterge",
+      "deleting": "Se șterge…"
+    },
+    "training": {
+      "epochs": "Epoci",
+      "epochsHelper": "De câte ori se parcurg datele de antrenare.",
+      "epochsInteger": "Folosește un număr întreg.",
+      "epochsMin": "Trebuie să fie cel puțin {{epochsMin}}.",
+      "start": "Pornește antrenarea",
+      "running": "Se antrenează…",
+      "clear": "Golește jurnalul",
+      "status": {
+        "running": "În antrenare",
+        "done": "Finalizat",
+        "error": "Eșuat"
+      },
+      "progress": "Progres",
+      "percent": "{{value}}%",
+      "note": {
+        "done": "Modelul a fost salvat și reîncărcat. Conversațiile noi îl folosesc imediat.",
+        "error": "Antrenarea a eșuat. Verifică liniile de eroare din jurnal."
+      },
+      "line": "#",
+      "level": "Nivel",
+      "message": "Mesaj",
+      "allLevels": "Toate nivelurile",
+      "levels": {
+        "success": "Reușit",
+        "error": "Eroare",
+        "warning": "Avertisment",
+        "info": "Info",
+        "log": "Jurnal"
+      },
+      "emptyIdle": "Jurnalul apare aici după ce pornește antrenarea.",
+      "emptyConnecting": "Se conectează la fluxul de antrenare…",
+      "log": {
+        "connectFailed": "Nu s-a putut face conexiunea cu serverul.",
+        "serverStatus": "Serverul a răspuns cu {{status}}.",
+        "noStream": "Răspunsul nu conține un flux.",
+        "reloaded": "Modelul a fost reîncărcat pe server.",
+        "reloadFailed": "Modelul a fost salvat, dar reîncărcarea a eșuat. Repornește serverul.",
+        "interrupted": "Fluxul s-a întrerupt neașteptat."
+      }
+    }
   }
 }

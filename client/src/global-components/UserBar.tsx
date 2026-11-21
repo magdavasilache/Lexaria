@@ -26,7 +26,7 @@ export default function UserBar({ user, logout, onNavigate, onClose }: Props) {
         { path: "/goodreads-import", label: t("navbar.goodreadsImport"), icon: Upload },
         ...(isAdmin
             ? [
-                { path: "/add-book", label: t("navbar.addBook"), icon: BookPlus },
+                { path: "/admin-panel?new=book", label: t("navbar.addBook"), icon: BookPlus },
                 { path: "/admin-panel", label: t("navbar.adminPanel"), icon: ShieldCheck },
             ]
             : []),

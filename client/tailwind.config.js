@@ -234,6 +234,13 @@ export default {
         panelBorderLight: forest[200],
         panelHoverLight: forest[100],
         panelSelectedLight: forest[200],
+        tableLight: gold[50],
+        tableStripeLight: '#FAF0D8',
+        tableHoverLight: gold[100],
+        tableBorderLight: '#EBD6A8',
+        tableHeaderLight: gold[400],
+        tableHeaderTextLight: gold[950],
+        tableFooterLight: '#F8EACB',
 
         primaryLight: forest[600],
         primaryHoverLight: forest[700],
@@ -289,6 +296,10 @@ export default {
         onSecondaryLight: '#2E2620',
         onInputLight: '#2E2620',
 
+        countChipLight: plum[100],
+        countChipTextLight: plum[700],
+        countChipBorderLight: plum[200],
+
         ratingLight: gold[500],
         ratingEmptyLight: parchment[400],
 
@@ -317,6 +328,13 @@ export default {
         panelBorderDark: '#4D2D32',
         panelHoverDark: 'rgb(229 127 132 / 0.12)',
         panelSelectedDark: 'rgb(229 127 132 / 0.22)',
+        tableDark: '#2B2419',
+        tableStripeDark: '#30281C',
+        tableHoverDark: 'rgb(212 168 83 / 0.12)',
+        tableBorderDark: '#4A3C24',
+        tableHeaderDark: '#5A4724',
+        tableHeaderTextDark: gold[100],
+        tableFooterDark: '#33291B',
 
         primaryDark: rose[400],
         primaryHoverDark: rose[500],
@@ -372,6 +390,10 @@ export default {
         onSecondaryDark: '#1F1F1F',
         onInputDark: '#1F1F1F',
         onImage: '#F0FDF4',
+
+        countChipDark: 'rgb(168 122 171 / 0.18)',
+        countChipTextDark: plum[200],
+        countChipBorderDark: plum[700],
 
         ratingDark: gold[400],
         ratingEmptyDark: espresso[600],

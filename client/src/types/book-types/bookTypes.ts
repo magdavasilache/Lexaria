@@ -14,6 +14,16 @@ export type RatingBucket = {
   count: number;
 };
 
+export type BookDescription = {
+  language: string;
+  synopsis: string;
+};
+
+export type ReaderTag = {
+  tag: string;
+  count: number;
+};
+
 export type BookListItem = {
   id: number;
   title: string;
@@ -21,7 +31,7 @@ export type BookListItem = {
   language_name: string | null;
   cover_url: string | null;
   pages: number | null;
-  synopsis: string | null;
+  descriptions: BookDescription[];
   genres: NamedRef[];
   average_rating: number | null;
   ratings_count: number;
@@ -40,7 +50,7 @@ export type BookDetail = {
   image_urls: string[];
   pages: number | null;
   published_at: string | null;
-  synopsis: string | null;
+  descriptions: BookDescription[];
   settings: string[];
   characters: string[];
   is_series: boolean;
@@ -49,6 +59,7 @@ export type BookDetail = {
   average_rating: number | null;
   ratings_count: number;
   rating_histogram: RatingBucket[];
+  reader_tags: ReaderTag[];
   user_book_status: UserBookStatus | null;
   created_at: string;
   updated_at: string;

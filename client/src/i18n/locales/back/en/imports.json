@@ -7,5 +7,6 @@
   "rowMissingTitle": "the book title is missing",
   "rowInvalidRating": "the rating is not between 0 and 5",
   "rowInvalidDate": "the date is not valid",
-  "rowInvalidStatus": "the reading status is not recognised"
+  "rowInvalidStatus": "the reading status is not recognised",
+  "rowReviewTooLong": "the review text is too long"
 }

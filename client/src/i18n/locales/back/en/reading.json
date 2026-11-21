@@ -1,0 +1,6 @@
+{
+  "editionPagesRequired": "Printed editions need a page count.",
+  "isbnInvalid": "Enter a valid ISBN-10 or ISBN-13.",
+  "progressOneOf": "Enter either a page or a percentage, not both.",
+  "futureTime": "Reading times can't be in the future."
+}

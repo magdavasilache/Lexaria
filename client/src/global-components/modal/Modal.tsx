@@ -1,5 +1,6 @@
-import { KeyboardEvent, MouseEvent, ReactNode, RefObject, useEffect, useId, useRef } from "react";
+import { KeyboardEvent, ReactNode, RefObject, useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { LucideIcon, X } from "lucide-react";
 import Button from "../buttons/Button";
 
@@ -15,7 +16,7 @@ type ModalProps = {
     footer?: ReactNode;
     size?: ModalSize;
     dismissible?: boolean;
-    closeOnBackdropClick?: boolean;
+    unsavedChanges?: boolean;
     initialFocusRef?: RefObject<HTMLElement | null>;
     bodyClassName?: string;
 };
@@ -40,7 +41,7 @@ export default function Modal({
     footer,
     size = "md",
     dismissible = true,
-    closeOnBackdropClick = true,
+    unsavedChanges = false,
     initialFocusRef,
     bodyClassName = "",
 }: ModalProps) {
@@ -48,6 +49,7 @@ export default function Modal({
     const descriptionId = useId();
     const panelRef = useRef<HTMLDivElement>(null);
     const bodyRef = useRef<HTMLDivElement>(null);
+    const { t } = useTranslation("front/common");
 
     useEffect(() => {
         if (!open) return;
@@ -91,14 +93,9 @@ export default function Modal({
         }
     };
 
-    const handleBackdropMouseDown = (event: MouseEvent<HTMLDivElement>) => {
-        if (event.target === event.currentTarget && dismissible && closeOnBackdropClick) onClose();
-    };
-
     return createPortal(
         <div
             className="fixed inset-0 z-[80] flex items-center justify-center bg-black/50 backdrop-blur-[2px] p-4"
-            onMouseDown={handleBackdropMouseDown}
             onKeyDown={handleKeyDown}
         >
             <div
@@ -120,7 +117,7 @@ export default function Modal({
                             variant="inverse"
                             size="sm"
                             icon={X}
-                            aria-label="Close"
+                            aria-label={t("modal.close")}
                             onClick={onClose}
                             className="-mr-1"
                         />
@@ -136,9 +133,21 @@ export default function Modal({
                     {children}
                 </div>
 
-                {footer && (
-                    <footer className="flex items-center justify-end gap-2 border-t border-dividerLight dark:border-dividerDark bg-surfaceLight dark:bg-paperDark px-4 py-2.5">
-                        {footer}
+                {(footer || unsavedChanges) && (
+                    <footer className="flex flex-wrap items-center justify-end gap-2 border-t border-dividerLight dark:border-dividerDark bg-surfaceLight dark:bg-paperDark px-4 py-2.5">
+                        {unsavedChanges && (
+                            <span
+                                role="status"
+                                className="mr-auto inline-flex min-w-0 items-center gap-2 text-xs font-medium text-warningTextLight dark:text-warningTextDark"
+                            >
+                                <span className="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
+                                    <span className="absolute inset-0 rounded-full bg-warningLight dark:bg-warningDark opacity-60 animate-ping motion-reduce:animate-none" />
+                                    <span className="relative h-2.5 w-2.5 rounded-full bg-warningLight dark:bg-warningDark" />
+                                </span>
+                                <span className="truncate">{t("modal.unsavedChanges")}</span>
+                            </span>
+                        )}
+                        <div className="flex items-center gap-2">{footer}</div>
                     </footer>
                 )}
             </div>

@@ -8,7 +8,7 @@ from server.database.models.author import Author
 from server.database.models.book import Book
 from server.database.models.genres import Genre
 from server.database.models.review import Review
-from server.database.models.user_book_status import UserBookStatus
+from server.database.models.user_book_status import ReadingStatus, UserBookStatus
 from server.ml.schemas import InferenceContext
 from server.utils.tags_vocabulary import GENRE_KEYWORDS, LENGTH_KEYWORDS, MOOD_KEYWORDS
 nlp = spacy.load("en_core_web_sm")
@@ -152,7 +152,7 @@ def build_context(message: str, intent: str, confidence: float, user_id: int | N
             db.query(UserBookStatus)
             .filter(
                 UserBookStatus.user_id == user_id,
-                UserBookStatus.status == "read",
+                UserBookStatus.status == ReadingStatus.READ,
             )
             .all()
         )

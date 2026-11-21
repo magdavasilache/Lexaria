@@ -24,6 +24,9 @@ from server.database.models.genres import book_genres
 
 TITLE_MAX_LENGTH = 255
 SYNOPSIS_MAX_LENGTH = 5000
+DESCRIPTION_LANGUAGE_MAX_LENGTH = 8
+DESCRIPTION_LANGUAGE_PATTERN = r"^[a-z]{2,3}(-[A-Za-z0-9]{2,4})?$"
+DESCRIPTIONS_MAX = 20
 PAGES_MAX = 20000
 LIST_ITEM_MAX_LENGTH = 100
 LIST_MAX_ITEMS = 30
@@ -60,7 +63,6 @@ class Book(Base):
     )
     pages: Mapped[int | None] = mapped_column(Integer)
     published_at: Mapped[date | None] = mapped_column(Date)
-    synopsis: Mapped[str | None] = mapped_column(String(SYNOPSIS_MAX_LENGTH))
     settings: Mapped[list[str]] = mapped_column(
         StringList, nullable=False, default=list, server_default=text("'{}'")
     )
@@ -85,5 +87,27 @@ class Book(Base):
         "UserBookStatus", back_populates="book", cascade="all, delete-orphan", passive_deletes=True
     )
     editions = relationship("Edition", back_populates="book", cascade="all, delete-orphan", passive_deletes=True)
+    readings = relationship("Reading", back_populates="book", cascade="all, delete-orphan", passive_deletes=True)
     reviews = relationship("Review", back_populates="book", cascade="all, delete-orphan", passive_deletes=True)
     tags = relationship("BookTag", back_populates="book", cascade="all, delete-orphan", passive_deletes=True)
+    descriptions = relationship(
+        "BookDescription",
+        back_populates="book",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+        order_by="BookDescription.language",
+    )
+
+
+class BookDescription(Base):
+    __tablename__ = "book_descriptions"
+
+    book_id: Mapped[int] = mapped_column(ForeignKey("books.id", ondelete="CASCADE"), primary_key=True)
+    language: Mapped[str] = mapped_column(String(DESCRIPTION_LANGUAGE_MAX_LENGTH), primary_key=True)
+    synopsis: Mapped[str] = mapped_column(String(SYNOPSIS_MAX_LENGTH), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now()
+    )
+
+    book = relationship("Book", back_populates="descriptions")

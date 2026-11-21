@@ -4,6 +4,9 @@ import server.database.models.award
 import server.database.models.book
 import server.database.models.country
 import server.database.models.edition
+import server.database.models.reading
+import server.database.models.reading_session
+import server.database.models.reading_event
 import server.database.models.likes
 import server.database.models.language
 import server.database.models.user

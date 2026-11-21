@@ -38,7 +38,7 @@ class BookTag(Base):
     tag = Column(String, nullable=False)
     source = Column(String, nullable=False)
     confidence = Column(Float, nullable=True)
-    review_id = Column(Integer, ForeignKey("reviews.id", ondelete="SET NULL"), nullable=True)
+    review_id = Column(Integer, ForeignKey("reviews.id", ondelete="CASCADE"), nullable=True)
     created_at = Column(DateTime, default=datetime.now)
 
     book = relationship("Book", back_populates="tags")

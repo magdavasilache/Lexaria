@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowRight, Hourglass } from "lucide-react";
 import { FieldStatus } from "../useFieldStatus";
 import FieldShell from "./FieldShell";
-import { CalendarBadge, DATE_INPUT_CLASS } from "./DateField";
-import { FieldErrorLike, controlClass, resolveStatus } from "./fieldStyles";
+import { DateInput } from "./DateField";
+import { FieldErrorLike, resolveStatus } from "./fieldStyles";
 
 export type DateRange = { from: string; to: string };
 
@@ -54,24 +54,20 @@ export default function DateRangeField({ label, hideLabel, error, helperText, st
         <label htmlFor={id} className="text-xs uppercase tracking-wider text-fontMutedLight dark:text-fontMutedDark">
           {partLabel}
         </label>
-        <div className="group/date relative">
-          <input
-            id={id}
-            ref={key === "from" ? ref : undefined}
-            type="date"
-            disabled={disabled}
-            value={range[key]}
-            min={key === "to" ? range.from || min : min}
-            max={key === "from" ? range.to || max : max}
-            onChange={(event) => onChange({ ...range, [key]: event.target.value })}
-            onBlur={onBlur}
-            aria-required={required || undefined}
-            aria-invalid={message ? true : undefined}
-            aria-describedby={describedBy}
-            className={controlClass(partStatus, DATE_INPUT_CLASS)}
-          />
-          <CalendarBadge status={partStatus} />
-        </div>
+        <DateInput
+          id={id}
+          ref={key === "from" ? ref : undefined}
+          status={partStatus}
+          disabled={disabled}
+          required={required}
+          value={range[key]}
+          min={key === "to" ? range.from || min : min}
+          max={key === "from" ? range.to || max : max}
+          onChange={(event) => onChange({ ...range, [key]: event.target.value })}
+          onBlur={onBlur}
+          aria-invalid={message ? true : undefined}
+          aria-describedby={describedBy}
+        />
       </div>
     );
   };
