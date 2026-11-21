@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { ReviewOut } from "../../../../types/reviews/reviewTypes";
 import CommentCard from "./CommentCard";
-import { Reply } from 'lucide-react';
 import CommentForm from "../../../../forms/CommentForm";
-import { Heart } from 'lucide-react';
-import { Star } from 'lucide-react';
+import { Heart, Reply, Star } from 'lucide-react';
 import { useToggleReviewLike } from "../../../../api-handling/rtk-hooks/likes/useToggleReviewLike";
+import { DEFAULT_AVATAR } from "../../../../utils/assets";
+import Button from "../../../../global-components/buttons/Button";
 
 interface Props {
   review: ReviewOut
 }
 
 export default function ReviewCard({ review }: Props) {
-  const avatar = review.user.profile_picture ?? "/default_avatar.png";
+  const avatar = review.user.profile_picture ?? DEFAULT_AVATAR;
   const [showCommentForm, setShowCommentForm] = useState<boolean>(false)
   const [userLiked, setUserLiked] = useState<boolean>(review.user_liked)
   const [likesCount, setLikesCount] = useState<number>(review.likes_count)
@@ -43,7 +43,7 @@ export default function ReviewCard({ review }: Props) {
           border border-dividerLight dark:border-dividerDark
           rounded-sm
           shadow-cardShadowLight dark:shadow-cardShadowDark
-          text-fontPrimaryLight dark:text-fontSecondaryDark
+          text-fontPrimaryLight dark:text-fontPrimaryDark
         "
     >
       <div className="flex items-center justify-between">
@@ -58,7 +58,7 @@ export default function ReviewCard({ review }: Props) {
 
         {review.rating && (
           <span className="px-4 py-1 text-md flex gap-1 items-center rounded-sm dark:text-primaryDarkDarkTone bg-inputLight dark:bg-inputDark">
-            <Star className="w-4 h-4 text-yellow-500" /> {review.rating}
+            <Star className="w-4 h-4 text-ratingLight dark:text-ratingDark fill-current" /> {review.rating}
           </span>
         )}
       </div>
@@ -73,16 +73,24 @@ export default function ReviewCard({ review }: Props) {
         </div>
         <div className="flex items-center gap-2">
 
-          <button
-            className="flex bg-primaryLightTone text-fontPrimaryLight shadow-buttonShadow px-4 py-1 rounded-sm gap-1 dark:bg-secondaryLightDarkTone"
+          <Button
+            variant="secondary"
+            size="sm"
+            icon={Reply}
+            aria-label="Reply to review"
+            aria-expanded={showCommentForm}
             onClick={() => setShowCommentForm(prev => !prev)}
+          />
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-pressed={userLiked}
+            aria-label={`${userLiked ? "Unlike" : "Like"} (${likesCount} likes)`}
+            leftIcon={<Heart className={`w-5 h-5 ${userLiked ? "fill-current text-errorLight dark:text-errorDark" : ""}`} />}
+            onClick={handleLikeReview}
           >
-            <Reply />
-          </button>
-          <button className="text-fontPrimaryLight flex items-center px-4 py-1 gap-1" onClick={handleLikeReview}>
-            <Heart className={`w-5 h-5 ${userLiked && 'text-red-700'}`} />
             ({likesCount})
-          </button>
+          </Button>
         </div>
       </div>
 

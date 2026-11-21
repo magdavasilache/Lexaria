@@ -1,25 +1,18 @@
 import { useMutation } from "@tanstack/react-query"
 import { useAuthStore } from "../context/authentication/useAuthStore"
-import { LoginType } from "../../types/auth-types/loginType"
-import { loginMutation } from "../../api/registrationAPI"
+import { LoginFormData } from "../../schemas/loginSchema"
+import { loginRequest } from "../../api/authAPI"
 import { useSnackbarStore } from "../context/snackbar/useSnackbarStore"
 
 export const useLogin = () => {
-    const setAccessToken = useAuthStore(state => state.setAccessToken)
+    const setSession = useAuthStore(state => state.setSession)
     const showSnackBar = useSnackbarStore(state => state.showSnackBar)
 
     return useMutation({
-        mutationFn:(data: LoginType) => {
-            const response = loginMutation(data)
-            return response
-        },
+        mutationFn: (data: LoginFormData) => loginRequest(data),
         onSuccess: (data) => {
-            setAccessToken(data.token.access_token)
-            useAuthStore.setState({user: data.user})
-            showSnackBar("Login was successful!", 'success')
+            setSession(data.token, data.user)
+            showSnackBar({ key: "front/users:login.success" }, 'success')
         },
-        onError: () => {
-            showSnackBar("Login failed. Please check your credentials and try again.", 'error')
-        }
     })
 }

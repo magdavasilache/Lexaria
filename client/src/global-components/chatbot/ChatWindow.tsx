@@ -9,13 +9,13 @@ function TypingIndicator() {
     return (
         <div className="flex items-end gap-2">
             <div className="w-7 h-7 rounded-full bg-primaryLight dark:bg-primaryDark flex items-center justify-center shrink-0">
-                <Bot size={14} className="text-white dark:text-fontPrimaryDark" />
+                <Bot size={14} className="text-onPrimaryLight dark:text-onPrimaryDark" />
             </div>
             <div className="px-4 py-3 rounded-2xl rounded-bl-xs bg-paperLight dark:bg-paperDark border border-dividerLight dark:border-dividerDark">
                 <div className="flex gap-1 items-center h-4">
-                    <span className="w-1.5 h-1.5 rounded-full bg-fontPrimaryLight dark:bg-fontSecondaryDark opacity-40 animate-bounce [animation-delay:0ms]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-fontPrimaryLight dark:bg-fontSecondaryDark opacity-40 animate-bounce [animation-delay:150ms]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-fontPrimaryLight dark:bg-fontSecondaryDark opacity-40 animate-bounce [animation-delay:300ms]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-fontPrimaryLight dark:bg-fontPrimaryDark opacity-40 animate-bounce [animation-delay:0ms]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-fontPrimaryLight dark:bg-fontPrimaryDark opacity-40 animate-bounce [animation-delay:150ms]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-fontPrimaryLight dark:bg-fontPrimaryDark opacity-40 animate-bounce [animation-delay:300ms]" />
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
         <div className={`flex items-end gap-2 ${isUser ? "flex-row-reverse" : "flex-row"}`}>
             {!isUser && (
                 <div className="w-7 h-7 rounded-full bg-primaryLight dark:bg-primaryDark flex items-center justify-center shrink-0 mb-0.5">
-                    <Bot size={14} className="text-white dark:text-fontPrimaryDark" />
+                    <Bot size={14} className="text-onPrimaryLight dark:text-onPrimaryDark" />
                 </div>
             )}
 
@@ -37,8 +37,8 @@ function MessageBubble({ message }: { message: ChatMessage }) {
                 <div className={`
                     px-4 py-2.5 text-sm leading-relaxed
                     ${isUser
-                        ? "bg-primaryLight dark:bg-primaryDark text-white dark:text-fontPrimaryDark rounded-2xl rounded-br-xs"
-                        : "bg-paperLight dark:bg-paperDark text-fontPrimaryLight dark:text-fontSecondaryDark border border-dividerLight dark:border-dividerDark rounded-2xl rounded-bl-xs"
+                        ? "bg-primaryLight dark:bg-primaryDark text-onPrimaryLight dark:text-onPrimaryDark rounded-2xl rounded-br-xs"
+                        : "bg-paperLight dark:bg-paperDark text-fontPrimaryLight dark:text-fontPrimaryDark border border-dividerLight dark:border-dividerDark rounded-2xl rounded-bl-xs"
                     }
                 `}>
                     {message.text}
@@ -164,11 +164,11 @@ export default function ChatWindow({ onClose }: ChatWindowProps) {
         ">
             <div className="flex items-center gap-3 px-4 py-3 border-b border-dividerLight dark:border-dividerDark bg-paperLight dark:bg-paperDark shrink-0">
                 <div className="w-8 h-8 rounded-full bg-primaryLight dark:bg-primaryDark flex items-center justify-center">
-                    <Bot size={16} className="text-white dark:text-fontPrimaryDark" />
+                    <Bot size={16} className="text-onPrimaryLight dark:text-onPrimaryDark" />
                 </div>
                 <div className="flex-1 min-w-0">
-                    <p className="text-sm font-libre leading-none dark:text-fontSecondaryDark">Book Assistant</p>
-                    <p className="text-[11px] opacity-50 mt-0.5 dark:text-fontSecondaryDark dark:opacity-75">
+                    <p className="text-sm font-libre leading-none dark:text-fontPrimaryDark">Book Assistant</p>
+                    <p className="text-[11px] opacity-50 mt-0.5 dark:text-fontPrimaryDark dark:opacity-75">
                         {sendMessage.isPending ? "Typing…" : "Ask me anything about books"}
                     </p>
                 </div>
@@ -176,14 +176,14 @@ export default function ChatWindow({ onClose }: ChatWindowProps) {
                     <button
                         onClick={reset}
                         title="New conversation"
-                        className="p-1.5 rounded-xs opacity-50 hover:opacity-100 hover:bg-inputLight hover:text-fontPrimaryLight dark:hover:bg-inputDark transition-all"
+                        className="p-1.5 rounded-xs opacity-50 hover:opacity-100 hover:bg-inputLight hover:text-onInputLight dark:hover:text-onInputDark dark:hover:bg-inputDark transition-all"
                     >
                         <RotateCcw size={14} />
                     </button>
                     <button
                         onClick={onClose}
                         title="Close"
-                        className="p-1.5 rounded-xs opacity-50 hover:opacity-100 hover:bg-inputLight hover:text-fontPrimaryLight dark:hover:bg-inputDark transition-all"
+                        className="p-1.5 rounded-xs opacity-50 hover:opacity-100 hover:bg-inputLight hover:text-onInputLight dark:hover:text-onInputDark dark:hover:bg-inputDark transition-all"
                     >
                         <X size={14} />
                     </button>
@@ -217,7 +217,7 @@ export default function ChatWindow({ onClose }: ChatWindowProps) {
 
             {/* Input */}
             <div className="px-3 py-3 border-t border-dividerLight dark:border-dividerDark bg-paperLight dark:bg-paperDark shrink-0">
-                <div className="flex items-end gap-2 bg-inputLight text-fontPrimaryLight dark:bg-inputDark rounded-xl px-3 py-2 border border-dividerLight dark:border-dividerDark focus-within:border-primaryLight dark:focus-within:border-primaryDark transition-colors">
+                <div className="flex items-end gap-2 bg-inputLight text-onInputLight dark:text-onInputDark dark:bg-inputDark rounded-xl px-3 py-2 border border-dividerLight dark:border-dividerDark focus-within:border-primaryLight dark:focus-within:border-primaryDark transition-colors">
                     <textarea
                         ref={inputRef}
                         value={input}
@@ -226,7 +226,7 @@ export default function ChatWindow({ onClose }: ChatWindowProps) {
                         placeholder="Type a message… (Enter to send)"
                         rows={1}
                         disabled={sendMessage.isPending}
-                        className="flex-1 bg-transparent resize-none text-sm text-fontPrimaryLight dark:text-fontPrimaryDark placeholder:opacity-40 focus:outline-none leading-relaxed max-h-[120px] overflow-y-auto disabled:opacity-50"
+                        className="flex-1 bg-transparent resize-none text-sm text-onInputLight dark:text-onInputDark placeholder:opacity-40 focus:outline-none leading-relaxed max-h-[120px] overflow-y-auto disabled:opacity-50"
                     />
                     <button
                         onClick={submit}
@@ -234,7 +234,7 @@ export default function ChatWindow({ onClose }: ChatWindowProps) {
                         className="
                             shrink-0 w-7 h-7 rounded-lg mb-0.5
                             bg-primaryLight dark:bg-primaryDark
-                            text-white dark:text-fontPrimaryDark
+                            text-onPrimaryLight dark:text-onPrimaryDark
                             flex items-center justify-center
                             disabled:opacity-30 disabled:cursor-not-allowed
                             hover:scale-110 active:scale-95 transition-transform

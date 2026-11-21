@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String, Table
+from sqlalchemy import Column, DateTime, Float, ForeignKey, Index, Integer, String, Table
 from sqlalchemy.orm import relationship
 
 from server.database.database import Base
@@ -8,8 +8,9 @@ from server.database.database import Base
 book_genres = Table(
     "book_genres",
     Base.metadata,
-    Column("book_id", ForeignKey("books.id"), primary_key=True),
-    Column("genre_id", ForeignKey("genres.id"), primary_key=True),
+    Column("book_id", ForeignKey("books.id", ondelete="CASCADE"), primary_key=True),
+    Column("genre_id", ForeignKey("genres.id", ondelete="CASCADE"), primary_key=True),
+    Index("ix_book_genres_genre_id", "genre_id"),
 )
 
 class Genre(Base):

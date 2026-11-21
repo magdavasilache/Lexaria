@@ -1,10 +1,12 @@
-export default function Badge({ success }: { success: boolean }) {
+import { ReactNode } from "react";
+
+export default function Badge({ success, children }: { success: boolean; children?: ReactNode }) {
     return (
-        <span className={`text-xs px-2 py-0.5 rounded-xs font-medium ${success
-                ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+        <span className={`inline-block text-xs px-2 py-0.5 rounded-xs font-medium ${success
+                ? "bg-successLightTone text-successTextLight dark:bg-successDarkTone dark:text-successTextDark"
+                : "bg-errorLightTone text-errorTextLight dark:bg-errorDarkTone dark:text-errorTextDark"
             }`}>
-            {success ? "Success" : "Failed"}
+            {children ?? (success ? "Success" : "Failed")}
         </span>
     );
 }

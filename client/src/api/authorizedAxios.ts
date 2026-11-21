@@ -1,7 +1,11 @@
 import axios from "axios"
 import { API_URL } from "../utils/constants"
+import { currentLanguage } from "../i18n";
 import { useAuthStore } from "../api-handling/context/authentication/useAuthStore"
-import { useSnackbarStore } from "../api-handling/context/snackbar/useSnackbarStore";
+import { toApiError } from "./apiTypes";
+import { reportApiError } from "./reportApiError";
+
+const REFRESHABLE_CODES = new Set(["TOKEN_EXPIRED", "INVALID_TOKEN"]);
 
 export const authorizedAxios = (url: string) => {
   const instance = axios.create({
@@ -10,8 +14,11 @@ export const authorizedAxios = (url: string) => {
   });
 
   instance.interceptors.request.use(
-    (config) => {
-      const token = useAuthStore.getState().accessToken;
+    async (config) => {
+      config.headers["Accept-Language"] = currentLanguage();
+      const token = config.retriedAfterRefresh
+        ? useAuthStore.getState().accessToken
+        : await useAuthStore.getState().getFreshAccessToken();
       if (token) config.headers.Authorization = `Bearer ${token}`;
       return config;
     },
@@ -20,50 +27,24 @@ export const authorizedAxios = (url: string) => {
 
   instance.interceptors.response.use(
     (response) => response,
-    (error) => {
-      const response = error.response;
-      const snackbar = useSnackbarStore.getState();
+    async (error) => {
+      const apiError = toApiError(error);
+      const config = error.config;
 
-      let message = "An unexpected error occurred.";
-      let hint: string | null = null;
-      let type: "error" | "warning" | "info" | "success" = "error";
-
-      const detail = response?.data?.detail;
-
-      if (typeof detail === "string") {
-        message = detail;
-      } else if (typeof detail === "object" && detail !== null) {
-        message = detail.detail || message;
-        hint = detail.hint || null;
-      }
-
-      if (!response?.data?.detail && response?.status) {
-        switch (response.status) {
-          case 400:
-            message = "Bad request.";
-            break;
-          case 401:
-            message = "Unauthorized. Please log in again.";
-            break;
-          case 404:
-            message = "Resource not found.";
-            break;
-          case 500:
-            message = "Server error.";
-            break;
+      if (apiError.status === 401 && config && !config.retriedAfterRefresh && REFRESHABLE_CODES.has(apiError.code ?? "")) {
+        const refreshed = await useAuthStore.getState().refreshAccessToken();
+        if (refreshed) {
+          return instance.request({ ...config, retriedAfterRefresh: true });
         }
-      } else if (error.message.includes("timeout")) {
-        message = "Request timed out. Please check your connection.";
-        type = "warning";
       }
 
-      snackbar.showSnackBar(message, type, 2500, hint);
+      reportApiError(apiError, config, 2500);
 
-      if (response?.status === 401) {
-        useAuthStore.getState().logout?.();
+      if (apiError.status === 401) {
+        useAuthStore.getState().clearSession();
       }
 
-      return Promise.reject(error);
+      return Promise.reject(apiError);
     }
   );
 

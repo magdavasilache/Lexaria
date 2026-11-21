@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 
 from server.database.crud.helpers.name_checks import is_similar, normalize
-from server.database.crud.user import get_user_by_id
+from server.repositories.user_repository import get_user_by_id
 from server.database.models.country import Country
 from server.database.schemas.country import CountryCreateSchema, FormCountryOut
 from server.utils.errors import raise_http_error

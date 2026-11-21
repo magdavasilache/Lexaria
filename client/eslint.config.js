@@ -23,6 +23,17 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      'no-restricted-syntax': [
+        'warn',
+        {
+          selector: "JSXOpeningElement[name.name='button']",
+          message: 'Use <Button> from src/global-components/buttons/Button.tsx instead of a raw <button>.',
+        },
+      ],
     },
+  },
+  {
+    files: ['src/global-components/buttons/Button.tsx'],
+    rules: { 'no-restricted-syntax': 'off' },
   },
 )

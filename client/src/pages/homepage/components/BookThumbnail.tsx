@@ -1,5 +1,7 @@
 import { memo } from "react";
 import { BookResponseBase } from "../../../types/book-types/bookTypes";
+import { COVER_PLACEHOLDER } from "../../../utils/assets";
+import Button from "../../../global-components/buttons/Button";
 
 interface Props {
     book: BookResponseBase;
@@ -9,33 +11,28 @@ interface Props {
 
 const BookThumbnail = memo(function BookThumbnail({ book, isSelected, onSelect }: Props) {
     return (
-        <div
-            onClick={() => onSelect(book)}
-            className={`
-        bg-paperLight dark:bg-paperDark flex flex-col items-center gap-2 p-2
-        rounded-xs shadow-sm hover:cursor-pointer transition-all duration-300
-        ${isSelected ? "w-40 scale-95 opacity-80" : "w-52"}
-      `}
-        >
-            <div className="w-full h-60 rounded-xs overflow-hidden bg-dividerLight dark:bg-dividerDark">
-                <img
-                    src={book.image ?? "/default-cover.jpg"}
-                    alt={book.title}
-                    className="w-full h-full object-contain"
-                />
-            </div>
+        <Button variant="card" fullWidth aria-pressed={isSelected} onClick={() => onSelect(book)} className="min-w-0">
+            <span className="flex flex-col gap-2">
+                <span className="block w-full aspect-[2/3] rounded-control overflow-hidden bg-panelSelectedLight dark:bg-panelSelectedDark">
+                    <img
+                        src={book.image ?? COVER_PLACEHOLDER}
+                        alt=""
+                        className="w-full h-full object-contain"
+                    />
+                </span>
 
-            <div className="text-center w-full px-1">
-                <p className="font-libre text-fontPrimaryLight dark:text-fontSecondaryDark text-sm font-semibold line-clamp-2">
-                    {book.title}
-                </p>
-                {book.author_name && (
-                    <p className="font-libre text-fontPrimaryLight dark:text-fontSecondaryDark text-xs opacity-70 line-clamp-1">
-                        {book.author_name}
-                    </p>
-                )}
-            </div>
-        </div>
+                <span className="block text-center px-1">
+                    <span className="block font-semibold line-clamp-2 break-words">
+                        {book.title}
+                    </span>
+                    {book.author_name && (
+                        <span className="block text-xs opacity-70 line-clamp-1">
+                            {book.author_name}
+                        </span>
+                    )}
+                </span>
+            </span>
+        </Button>
     );
 });
 

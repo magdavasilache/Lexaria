@@ -1,0 +1,58 @@
+{
+  "actions": {
+    "cancel": "Anulează",
+    "dismissNotification": "Închide notificarea"
+  },
+  "snackbar": {
+    "error": "Eroare",
+    "warning": "Atenție",
+    "info": "Notificare",
+    "success": "Succes"
+  },
+  "network": {
+    "timeout": "Cererea a durat prea mult. Verifică-ți conexiunea.",
+    "offline": "Serverul nu poate fi contactat. Verifică-ți conexiunea."
+  },
+  "status": {
+    "400": "Cerere invalidă.",
+    "401": "Te rugăm să te autentifici din nou.",
+    "403": "Nu ai permisiunea să faci asta.",
+    "404": "Resursa nu a fost găsită.",
+    "500": "Eroare de server.",
+    "unexpected": "A apărut o eroare neașteptată."
+  },
+  "language": {
+    "label": "Limbă",
+    "switchTo": "Schimbă limba în {{language}}",
+    "en": "English",
+    "ro": "Română"
+  },
+  "form": {
+    "requiredField": "Câmp obligatoriu"
+  },
+  "navbar": {
+    "home": "Pagina principală Lexaria",
+    "openUserMenu": "Deschide meniul utilizatorului",
+    "admin": "Administrator",
+    "browseBooks": "Răsfoiește cărțile",
+    "goodreadsImport": "Import din Goodreads",
+    "addBook": "Adaugă o carte",
+    "adminPanel": "Panou de administrare",
+    "logout": "Deconectare"
+  },
+  "fields": {
+    "charactersLeft_one": "{{count}} caracter rămas",
+    "charactersLeft_few": "{{count}} caractere rămase",
+    "charactersLeft_other": "{{count}} de caractere rămase",
+    "decrement": "Scade",
+    "increment": "Crește",
+    "dateFrom": "De la",
+    "dateTo": "Până la",
+    "dateSpan_one": "{{count}} zi",
+    "dateSpan_few": "{{count}} zile",
+    "dateSpan_other": "{{count}} de zile",
+    "clear": "Șterge selecția",
+    "remove": "Elimină {{label}}",
+    "noResults": "Niciun rezultat"
+  }
+}

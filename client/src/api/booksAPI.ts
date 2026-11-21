@@ -1,71 +1,63 @@
-import { GetBooksFilters, GetBooksOutput } from "../types/book-types/bookTypes";
+import type { ApiResponse, ApiWarning } from "./apiTypes";
 import { authorizedAxios } from "./authorizedAxios";
+import type { BookDetail, BookListItem, BookListQuery, BookPage, GoodreadsImportSummary } from "../types/book-types/bookTypes";
 
-const BOOK_URL = 'book/get_all_books'
-const BOOK_BY_ID_URL = 'book/get_book_by_id'
-const BOOK_CREATE_URL = 'book/create'
-const BOOK_IMAGES_BATCH_URL = 'book/images'
+const BOOKS_URL = "books";
+const GOODREADS_IMPORT_URL = "imports/goodreads";
+const UPLOAD_TIMEOUT_MS = 60_000;
 
-export const booksAPI = {
-    getBooks: async (params: {
-        offset: number;
-        limit: number;
-        filters?: GetBooksFilters;
-    }): Promise<GetBooksOutput> => {
-        const { offset, limit, filters } = params;
+const toSearchParams = (query: BookListQuery) => {
+  const params = new URLSearchParams();
+  Object.entries(query).forEach(([key, value]) => {
+    if (value === null || value === undefined || value === "") return;
+    if (Array.isArray(value)) value.forEach((item) => params.append(key, String(item)));
+    else params.append(key, String(value));
+  });
+  return params;
+};
 
-        const queryParams: Record<string, unknown> = { offset, limit };
+export const getBooksQuery = async (query: BookListQuery): Promise<BookPage> => {
+  const response = await authorizedAxios(BOOKS_URL).get<ApiResponse<BookListItem[]>>("", { params: toSearchParams(query) });
+  return {
+    items: response.data.data ?? [],
+    total: typeof response.data.meta?.total === "number" ? response.data.meta.total : 0,
+  };
+};
 
-        if (filters?.genres?.length) queryParams.genres = filters.genres;
-        if (filters?.authors?.length) queryParams.authors = filters.authors;
-        if (filters?.languages?.length) queryParams.languages = filters.languages;
-        if (filters?.ratings?.length) queryParams.ratings = filters.ratings;
+export const getBookQuery = async (bookId: number): Promise<BookDetail> => {
+  const response = await authorizedAxios(BOOKS_URL).get<ApiResponse<BookDetail>>(`/${bookId}`);
+  return response.data.data as BookDetail;
+};
 
-        const { data } = await authorizedAxios(BOOK_URL).get('', {
-            params: queryParams,
-            paramsSerializer: (p) =>
-                new URLSearchParams(
-                    Object.entries(p).flatMap(([key, val]) =>
-                        Array.isArray(val)
-                            ? val.map((v) => [key, String(v)])
-                            : [[key, String(val)]]
-                    )
-                ).toString(),
-        });
+export const createBookMutation = async (data: FormData): Promise<BookDetail> => {
+  const response = await authorizedAxios(BOOKS_URL).post<ApiResponse<BookDetail>>("", data, {
+    handlesFieldErrors: true,
+    timeout: UPLOAD_TIMEOUT_MS,
+  });
+  return response.data.data as BookDetail;
+};
 
-        const filenames = data.books.map((b: any) => b.image).filter(Boolean);
-        if (filenames.length) {
-            const images = await booksAPI.getBookImagesBatch(filenames);
-            data.books = data.books.map((b: any) => ({
-                ...b,
-                image: images[b.image] ?? null
-            }));
-        }
+export const updateBookMutation = async ({ bookId, data }: { bookId: number; data: FormData }): Promise<BookDetail> => {
+  const response = await authorizedAxios(BOOKS_URL).put<ApiResponse<BookDetail>>(`/${bookId}`, data, {
+    handlesFieldErrors: true,
+    timeout: UPLOAD_TIMEOUT_MS,
+  });
+  return response.data.data as BookDetail;
+};
 
-        return data;
-    },
+export const deleteBookMutation = async (bookId: number): Promise<void> => {
+  await authorizedAxios(BOOKS_URL).delete(`/${bookId}`);
+};
 
-    getBookImagesBatch: async (filenames: string[]): Promise<Record<string, string>> => {
-        const { data } = await authorizedAxios(BOOK_IMAGES_BATCH_URL).post('', filenames);
-        return data;
-    },
+export type GoodreadsImportResult = {
+  summary: GoodreadsImportSummary;
+  warnings: ApiWarning[];
+};
 
-    getBookImages: async (filenames: string[]): Promise<Record<string, string>> => {
-        const { data } = await authorizedAxios(BOOK_IMAGES_BATCH_URL).post('', filenames);
-        return data;
-    },
-    getBookById: async (bookId: number) => {
-        const { data } = await authorizedAxios(`${BOOK_BY_ID_URL}`).get(`/${bookId}`);
-        return data;
-    },
-
-    createBookMutation: async (data: FormData) => {
-        const response = await authorizedAxios(`${BOOK_CREATE_URL}`).post("", data, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-
-        return response;
-    },
-}
+export const importGoodreadsMutation = async (data: FormData): Promise<GoodreadsImportResult> => {
+  const response = await authorizedAxios(GOODREADS_IMPORT_URL).post<ApiResponse<GoodreadsImportSummary>>("", data, {
+    handlesFieldErrors: true,
+    timeout: UPLOAD_TIMEOUT_MS,
+  });
+  return { summary: response.data.data as GoodreadsImportSummary, warnings: response.data.warnings };
+};

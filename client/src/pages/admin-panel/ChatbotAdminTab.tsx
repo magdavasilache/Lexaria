@@ -28,7 +28,7 @@ export default function ChatbotAdminTab() {
                         onClick={() => setActiveSubTab(key)}
                         className={`text-sm px-3 py-1.5 rounded-xs transition-all ${activeSubTab === key
                                 ? "bg-primaryLight dark:bg-primaryDark text-white shadow-buttonShadow dark:shadow-buttonShadowDark"
-                                : "opacity-60 hover:opacity-100 hover:bg-inputLight dark:hover:bg-inputDark dark:hover:text-fontPrimaryLight"
+                                : "opacity-60 hover:opacity-100 hover:bg-inputLight dark:hover:bg-inputDark hover:text-onInputLight dark:hover:text-onInputDark"
                             }`}
                     >
                         {label}

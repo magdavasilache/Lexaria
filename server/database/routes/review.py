@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from server.database.crud.helpers.create_access_token import get_authenticated_user
+from server.core.dependencies import get_authenticated_user
 from server.database.crud.review import create_new_review, update_existing_review, delete_existing_review, get_book_reviews
 from server.database.database import get_db
 from sqlalchemy.orm import Session

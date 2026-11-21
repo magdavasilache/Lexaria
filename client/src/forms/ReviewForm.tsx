@@ -3,23 +3,19 @@ import { X } from "lucide-react";
 import { StarsRating } from "./components/StarsRating";
 import { useReviewsStore } from "../api-handling/context/reviews/useReviewsStore";
 import { useCreateReviews } from "../api-handling/rtk-hooks/reviews/useCreateReviews";
-import { useCurrentBookStore } from "../state_management/current-book/useCurrentBookStore";
 
-const ReviewForm = memo(() => {
+const ReviewForm = memo(({ bookId }: { bookId: number }) => {
     const [rating, setRating] = useState(0);
     const [content, setContent] = useState("");
-    const currentBook = useCurrentBookStore(state => state.currentBook)
 
     const open = useReviewsStore(state => state.openReviewForm);
     const setOpenReviewForm = useReviewsStore(state => state.setOpenReviewForm)
     const createReview = useCreateReviews()
     const handleSave = useCallback(() => {
-        if (currentBook) {
-            createReview.mutate({ book_id: currentBook.id, rating: rating, review_content: content })
-        }
+        createReview.mutate({ book_id: bookId, rating: rating, review_content: content })
         setOpenReviewForm(false)
         return
-    }, [rating, content]);
+    }, [bookId, rating, content, createReview, setOpenReviewForm]);
     const onClose = useCallback(() => {
         setOpenReviewForm(false);
     }, []);
@@ -31,7 +27,7 @@ const ReviewForm = memo(() => {
             <div className="
       w-full max-w-md rounded-xl p-6 shadow-lg
       bg-paperLight dark:bg-paperDark
-      text-fontPrimaryLight dark:text-fontSecondaryDark
+      text-fontPrimaryLight dark:text-fontPrimaryDark
     "
             >
                 <div className="flex items-center justify-between mb-4">
@@ -56,7 +52,7 @@ const ReviewForm = memo(() => {
         w-full min-h-[120px] rounded-md p-3 text-sm
         bg-inputLight dark:bg-inputDark
         border border-dividerLight dark:border-dividerDark
-        text-fontPrimaryLight dark:text-fontPrimaryDark
+        text-onInputLight dark:text-onInputDark
         focus:outline-none focus:ring-2
         focus:ring-primaryLight dark:focus:ring-primaryDark
       "
@@ -84,7 +80,7 @@ const ReviewForm = memo(() => {
                         className="
           px-4 py-2 text-sm rounded-md
           bg-primaryLight dark:bg-primaryDark
-          text-fontSecondaryLight dark:text-fontPrimaryDark
+          text-onPrimaryLight dark:text-onPrimaryDark
           hover:bg-primaryHoverLight dark:hover:bg-primaryHoverDark
           active:bg-primaryActiveLight dark:active:bg-primaryActiveDark
           disabled:bg-primaryDisabledLight dark:disabled:bg-primaryDisabledDark

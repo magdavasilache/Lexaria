@@ -10,7 +10,7 @@ interface Props {
     if (isLoading) {
       return (
         <div className="flex flex-col gap-4 p-6 max-w-2xl w-full">
-          <p className="text-fontPrimaryLight dark:text-fontSecondaryDark">
+          <p className="text-fontPrimaryLight dark:text-fontPrimaryDark">
             Loading reviews...
           </p>
         </div>
@@ -20,7 +20,7 @@ interface Props {
     if (!reviews?.length) {
       return (
         <div className="flex flex-col gap-4 p-6 max-w-2xl w-full">
-          <p className="text-fontPrimaryLight dark:text-fontSecondaryDark">
+          <p className="text-fontPrimaryLight dark:text-fontPrimaryDark">
             No reviews yet.
           </p>
         </div>

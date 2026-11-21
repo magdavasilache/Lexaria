@@ -99,7 +99,7 @@ function PromoteModal({ unknown, onClose }: PromoteModalProps) {
                     <button
                         onClick={handlePromote}
                         disabled={!selectedIntentId || promote.isPending}
-                        className="text-sm px-4 py-1.5 rounded-xs bg-primaryLight dark:bg-primaryDark text-white dark:text-fontPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
+                        className="text-sm px-4 py-1.5 rounded-xs bg-primaryLight dark:bg-primaryDark text-onPrimaryLight dark:text-onPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
                     >
                         {promote.isPending ? <Spinner /> : "Add pattern"}
                     </button>
@@ -154,7 +154,7 @@ export default function HistorySection() {
                             key={v}
                             onClick={() => setSubView(v)}
                             className={`text-sm px-3 py-1 rounded-xs transition-all ${subView === v
-                                    ? "bg-paperLight dark:bg-paperDark dark:text-fontSecondaryLight shadow-buttonShadow dark:shadow-buttonShadowDark"
+                                    ? "bg-paperLight dark:bg-paperDark dark:text-fontPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark"
                                     : "opacity-60 hover:opacity-100"
                                 }`}
                         >

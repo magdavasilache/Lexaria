@@ -88,7 +88,7 @@ export function AdminTable<T extends { id: number }>({
                         bg-inputLight dark:bg-inputDark
                         border border-dividerLight dark:border-dividerDark
                         outline-none focus:border-primaryLight dark:focus:border-primaryDark
-                        text-fontPrimaryLight dark:text-fontSecondaryDark
+                        text-fontPrimaryLight dark:text-fontPrimaryDark
                         transition-colors
                     "
                 />
@@ -101,7 +101,7 @@ export function AdminTable<T extends { id: number }>({
                             bg-inputLight dark:bg-inputDark
                             border border-dividerLight dark:border-dividerDark
                             rounded-xs px-2 py-1 text-sm outline-none
-                            text-fontPrimaryLight dark:text-fontSecondaryDark
+                            text-fontPrimaryLight dark:text-fontPrimaryDark
                         "
                     >
                         {PAGE_SIZE_OPTIONS.map((s) => (
@@ -113,7 +113,7 @@ export function AdminTable<T extends { id: number }>({
 
             {/* Table */}
             <div className="overflow-auto rounded-xs border border-dividerLight dark:border-dividerDark flex-1">
-                <table className="w-full text-sm text-fontPrimaryLight dark:text-fontSecondaryDark">
+                <table className="w-full text-sm text-fontPrimaryLight dark:text-fontPrimaryDark">
                     <thead>
                         <tr className="border-b border-dividerLight dark:border-dividerDark bg-paperLight dark:bg-paperDark">
                             {columns.map((col) => (
@@ -157,7 +157,7 @@ export function AdminTable<T extends { id: number }>({
                             paginated.map((row) => (
                                 <tr
                                     key={row.id}
-                                    className="border-b border-dividerLight dark:border-dividerDark hover:bg-inputLight dark:hover:bg-inputDark transition-colors dark:hover:text-fontPrimaryLight"
+                                    className="border-b border-dividerLight dark:border-dividerDark hover:bg-inputLight dark:hover:bg-inputDark transition-colors hover:text-onInputLight dark:hover:text-onInputDark"
                                 >
                                     {columns.map((col) => (
                                         <td key={String(col.key)} className="px-4 py-3">
@@ -185,8 +185,8 @@ export function AdminTable<T extends { id: number }>({
                                                     <button onClick={() => handleDelete(row)}
                                                         className={`px-2.5 py-1 text-xs rounded-xs border transition-all
                                                             ${deletingId === row.id
-                                                                ? "border-red-500 text-red-500 bg-red-500/10"
-                                                                : "border-dividerLight dark:border-dividerDark opacity-70 hover:opacity-100 hover:border-red-400 hover:text-red-400"
+                                                                ? "border-errorLight text-errorLight bg-errorLightTone dark:border-errorDark dark:text-errorDark dark:bg-errorDarkTone"
+                                                                : "border-dividerLight dark:border-dividerDark opacity-70 hover:opacity-100 hover:border-errorLight hover:text-errorLight dark:hover:border-errorDark dark:hover:text-errorDark"
                                                             }`}>
                                                         {deletingId === row.id ? "Confirm?" : "Delete"}
                                                     </button>

@@ -1,0 +1,12 @@
+{
+  "notAuthenticated": "You need to be logged in to do this.",
+  "loginAndRetry": "Please log in and try again.",
+  "loginAgain": "Please log in again.",
+  "sessionExpired": "Your session has expired.",
+  "invalidToken": "Invalid token.",
+  "accountGone": "Your account no longer exists.",
+  "invalidCredentials": "Invalid username or password.",
+  "invalidCredentialsHint": "Check your spelling, or register if you don't have an account yet.",
+  "usernameExists": "This username is already taken.",
+  "usernameExistsHint": "Try another username."
+}

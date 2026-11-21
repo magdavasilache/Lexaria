@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112" role="img" aria-label="Lexaria open-book mark">
+<rect width="112" height="112" rx="12" fill="none"/>
+<g transform="translate(8 7)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- quiet arch, drawn like an old library doorway -->
+  <path d="M12 91V43C12 19 29 5 48 5s36 14 36 38v48" stroke="#D4A853" stroke-width="2.2"/>
+  <!-- open book, gently irregular hand-inked contours -->
+  <path d="M48 42C37 34 25 33 17 37v36c11-4 21-2 31 5 10-7 20-9 31-5V37c-8-4-20-3-31 5Z" stroke="#074F1E" stroke-width="3.2"/>
+  <path d="M48 42v36" stroke="#074F1E" stroke-width="2.5"/>
+  <path d="M22 45c7-2 14-1 20 3M22 53c7-2 14-1 20 3M55 48c7-4 14-5 20-3M55 56c7-4 14-5 20-3" stroke="#8FCBA3" stroke-width="1.8"/>
+  <!-- tiny sprig as a thoughtful reading / growth detail -->
+  <path d="M48 30c0-8 4-13 10-17M53 25c-7 0-11-3-13-8 7-1 12 2 13 8ZM57 20c0-6 3-10 8-12 1 6-2 10-8 12Z" stroke="#D4A853" stroke-width="2"/>
+</g></svg>

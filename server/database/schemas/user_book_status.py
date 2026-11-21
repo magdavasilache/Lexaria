@@ -1,17 +1,18 @@
 from datetime import datetime
+
 from pydantic import BaseModel
+
+from server.database.schemas.base import OutputSchema
 
 
 class UserBookStatusCreate(BaseModel):
     book_id: int
     status: str
 
-class UserBookStatusOut(BaseModel):
+
+class UserBookStatusOut(OutputSchema):
     user_id: int
     book_id: int
     status: str
     added_at: datetime
     updated_at: datetime
-
-    class Config:
-        from_attributes = True

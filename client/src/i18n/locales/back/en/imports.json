@@ -1,0 +1,11 @@
+{
+  "fileType": "{{filename}} must be a JSON file.",
+  "fileTooLarge": "{{filename}} is larger than {{max_mb}} MB.",
+  "invalidJson": "{{filename}} is not valid JSON.",
+  "unexpectedStructure": "{{filename}} doesn't look like a Goodreads export.",
+  "rowSkipped": "Row {{row}} was skipped: {{reason}}.",
+  "rowMissingTitle": "the book title is missing",
+  "rowInvalidRating": "the rating is not between 0 and 5",
+  "rowInvalidDate": "the date is not valid",
+  "rowInvalidStatus": "the reading status is not recognised"
+}

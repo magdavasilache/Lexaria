@@ -2,7 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { authorFormSchema, AuthorFormValues } from "../schemas/authorSchema";
 import { useCreateAuthor } from "../api-handling/rtk-hooks/author/useAuthorCreate";
-import SearchableSelect from "./components/SearchableSelect";
+import AutocompleteField from "./components/AutocompleteField";
+import Button from "../global-components/buttons/Button";
 import { useGetFormCountries } from "../api-handling/rtk-hooks/country/useGetFormCountries";
 
 export default function AuthorForm() {
@@ -42,7 +43,7 @@ export default function AuthorForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4 h-full text-fontPrimaryLight dark:text-fontSecondaryDark"
+            className="flex flex-col gap-4 h-full text-fontPrimaryLight dark:text-fontPrimaryDark"
         >
             <div className="flex flex-col gap-1">
                 <input
@@ -81,12 +82,14 @@ export default function AuthorForm() {
                 name="country_id"
                 control={control}
                 render={({ field }) => (
-                    <SearchableSelect
+                    <AutocompleteField
+                        label="Country"
                         options={countires || []}
                         value={field.value}
-                        onChange={field.onChange}
+                        onChange={(id) => field.onChange(id ?? undefined)}
+                        onBlur={field.onBlur}
+                        ref={field.ref}
                         placeholder="Select country"
-                        isForFiltering={false}
                     />
                 )}
             />
@@ -115,13 +118,9 @@ export default function AuthorForm() {
                 )}
             </div>
 
-            <button
-                type="submit"
-                disabled={createAuthor.isPending}
-                className="mt-auto px-4 py-2 rounded-xs bg-primaryLight dark:bg-primaryDark text-fontSecondaryLight dark:text-fontPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:brightness-95 disabled:opacity-50 disabled:cursor-not-allowed transition"
-            >
-                {createAuthor.isPending ? "Saving..." : "Save"}
-            </button>
+            <Button type="submit" loading={createAuthor.isPending} loadingText="Saving..." className="mt-auto">
+                Save
+            </Button>
         </form>
     );
 }

@@ -1,99 +1,151 @@
-from datetime import date, datetime
-from typing import List, Optional
-from fastapi import File, Form, UploadFile
-from pydantic import BaseModel
+from datetime import date, datetime, timedelta
+from enum import StrEnum
+from typing import Annotated
 
+from fastapi import UploadFile
+from pydantic import Field, field_validator
+
+from server.core.message_keys import MessageKey, key_error
+from server.database.models.book import (
+    BOOK_IMAGES_MAX,
+    IMAGE_NAME_MAX_LENGTH,
+    LIST_ITEM_MAX_LENGTH,
+    LIST_MAX_ITEMS,
+    PAGES_MAX,
+    RATING_MAX,
+    SYNOPSIS_MAX_LENGTH,
+    TITLE_MAX_LENGTH,
+)
+from server.database.schemas.base import InputSchema, OutputSchema
 from server.database.schemas.genre import GenreOut
-from server.database.schemas.global_schemas import RequestResponse
 from server.database.schemas.user_book_status import UserBookStatusOut
 
-class BookBase(BaseModel):
-    title: str
+BOOK_PAGE_SIZE_DEFAULT = 24
+BOOK_PAGE_SIZE_MAX = 100
+FILTER_IDS_MAX = 50
+PUBLISHED_AT_MAX_DAYS_AHEAD = 365
 
-class CreateBook:
-    def __init__(
-        self,
-        title: str = Form(...),
-        author_id: Optional[int] = Form(None),
-        pages: Optional[int] = Form(None),
-        language_id: Optional[int] = Form(None),
-        published_at: Optional[date] = Form(None),
-        synopsis: Optional[str] = Form(None),
-        parent_id: Optional[int] = Form(None),
-        country_id: Optional[int] = Form(None),
-        awards: Optional[List[int]] = Form(None),
-        settings: Optional[List[str]] = Form(None),
-        characters: Optional[List[str]] = Form(None),
-        images: List[UploadFile] = File(default=[]),
-    ):
-        self.title = title
-        self.author_id = author_id
-        self.pages = pages
-        self.language_id = language_id
-        self.published_at = published_at
-        self.synopsis = synopsis
-        self.parent_id = parent_id
-        self.country_id = country_id
-        self.awards = awards
-        self.settings = settings
-        self.characters = characters
-        self.images = images
+Id = Annotated[int, Field(ge=1)]
+ListItem = Annotated[str, Field(min_length=1, max_length=LIST_ITEM_MAX_LENGTH)]
+ImageName = Annotated[str, Field(min_length=1, max_length=IMAGE_NAME_MAX_LENGTH)]
+Title = Annotated[str, Field(min_length=1, max_length=TITLE_MAX_LENGTH)]
 
-class BookOutBase(BookBase):
+
+def _unique(values: list) -> list:
+    return list(dict.fromkeys(values))
+
+
+class BookCreate(InputSchema):
+    title: Title
+    author_id: Id | None = None
+    language_id: Id | None = None
+    country_id: Id | None = None
+    pages: Annotated[int | None, Field(ge=1, le=PAGES_MAX)] = None
+    published_at: date | None = None
+    synopsis: Annotated[str | None, Field(max_length=SYNOPSIS_MAX_LENGTH)] = None
+    is_series: bool = False
+    settings: Annotated[list[ListItem], Field(max_length=LIST_MAX_ITEMS)] = []
+    characters: Annotated[list[ListItem], Field(max_length=LIST_MAX_ITEMS)] = []
+    genre_ids: Annotated[list[Id], Field(max_length=LIST_MAX_ITEMS)] = []
+    award_ids: Annotated[list[Id], Field(max_length=LIST_MAX_ITEMS)] = []
+    images: Annotated[
+        list[UploadFile],
+        Field(max_length=BOOK_IMAGES_MAX, description="JPG, PNG or WebP, the first one is the cover."),
+    ] = []
+
+    @field_validator("published_at")
+    @classmethod
+    def published_at_not_too_far(cls, value: date | None) -> date | None:
+        if value is not None and value > date.today() + timedelta(days=PUBLISHED_AT_MAX_DAYS_AHEAD):
+            raise key_error(MessageKey.PUBLISHED_TOO_FAR)
+        return value
+
+    @field_validator("synopsis")
+    @classmethod
+    def empty_synopsis_is_none(cls, value: str | None) -> str | None:
+        return value or None
+
+    @field_validator("settings", "characters", "genre_ids", "award_ids")
+    @classmethod
+    def drop_duplicates(cls, value: list) -> list:
+        return _unique(value)
+
+
+class BookUpdate(BookCreate):
+    kept_images: Annotated[
+        list[ImageName],
+        Field(max_length=BOOK_IMAGES_MAX, description="Current image names to keep, in display order."),
+    ] = []
+
+    @field_validator("kept_images")
+    @classmethod
+    def drop_duplicate_images(cls, value: list[str]) -> list[str]:
+        return _unique(value)
+
+
+class BookSort(StrEnum):
+    TITLE = "title"
+    RATING = "rating"
+    NEWEST = "newest"
+
+
+class BookListQuery(InputSchema):
+    q: Annotated[str | None, Field(max_length=TITLE_MAX_LENGTH, description="Part of the title.")] = None
+    genre_ids: Annotated[list[Id], Field(max_length=FILTER_IDS_MAX)] = []
+    author_ids: Annotated[list[Id], Field(max_length=FILTER_IDS_MAX)] = []
+    language_ids: Annotated[list[Id], Field(max_length=FILTER_IDS_MAX)] = []
+    min_rating: Annotated[int | None, Field(ge=1, le=RATING_MAX, description="Minimum average rating.")] = None
+    sort: BookSort = BookSort.TITLE
+    offset: Annotated[int, Field(ge=0)] = 0
+    limit: Annotated[int, Field(ge=1, le=BOOK_PAGE_SIZE_MAX)] = BOOK_PAGE_SIZE_DEFAULT
+
+
+class AwardRef(OutputSchema):
     id: int
-    pages: Optional[int] = None
-    language_name: Optional[str] = None
-    image: Optional[str] = None
-    synopsis: Optional[str] = None
-    tags: Optional[List[str]] = None
-    author_name: Optional[str] = None
+    name: str
+    year: int | None
 
-class BookOut(BookBase):
+
+class RatingBucket(OutputSchema):
+    stars: int
+    count: int
+
+
+class BookListItem(OutputSchema):
     id: int
-    images: Optional[List[str]] = None
-    author_name: Optional[str] = None
-    pages: Optional[int] = None
-    language_name: Optional[str] = None
-    published_at: Optional[date] = None
-    created_at: Optional[datetime] = None
-    synopsis: Optional[str] = None
-    settings: Optional[List[str]] = None
-    characters: Optional[List[str]] = None
-    parent_id: Optional[int] = None
-    country_name: Optional[str] = None
-    genres: Optional[list[GenreOut]] = None
-    user_book_status: Optional[UserBookStatusOut] = None
-    tags: Optional[List[str]] = None
-    average_rating: Optional[float] = None
-    five_stars: Optional[int] = None
-    four_stars: Optional[int] = None
-    three_stars: Optional[int] = None
-    two_stars: Optional[int] = None
-    one_star: Optional[int] = None
-    zero_stars: Optional[int] = None
+    title: Annotated[str, Field(max_length=TITLE_MAX_LENGTH)]
+    author_name: str | None
+    language_name: str | None
+    cover_url: str | None
+    pages: int | None
+    synopsis: Annotated[str | None, Field(max_length=SYNOPSIS_MAX_LENGTH)]
+    genres: list[GenreOut]
+    average_rating: float | None
+    ratings_count: int
 
-    class Config:
-        from_attributes = True
 
-class GetBooksOutput(BaseModel):
-    total_count: int
-    books: list[BookOutBase]
-
-class GoodreadsImportData(BaseModel):
-    favorite_genres: UploadFile
-    reviews: UploadFile
-
-class CreateBookOut(BaseModel):
+class BookDetail(OutputSchema):
     id: int
-    title: str
-    author_name: Optional[str] = None
-    image: Optional[str] = None
-
-class BookCreateResponse(RequestResponse):
-    data: CreateBookOut
-
-class GetBooksFilters(BaseModel):
-    genres: Optional[List[int]] = None
-    languages: Optional[List[int]] = None
-    authors: Optional[List[int]] = None
-    ratings: Optional[List[int]] = None
+    title: Annotated[str, Field(max_length=TITLE_MAX_LENGTH)]
+    author_id: int | None
+    author_name: str | None
+    language_id: int | None
+    language_name: str | None
+    country_id: int | None
+    country_name: str | None
+    images: list[str]
+    image_urls: list[str]
+    pages: int | None
+    published_at: date | None
+    synopsis: Annotated[str | None, Field(max_length=SYNOPSIS_MAX_LENGTH)]
+    settings: list[str]
+    characters: list[str]
+    is_series: bool
+    genres: list[GenreOut]
+    awards: list[AwardRef]
+    average_rating: float | None
+    ratings_count: int
+    rating_histogram: list[RatingBucket]
+    user_book_status: UserBookStatusOut | None
+    created_at: datetime
+    updated_at: datetime

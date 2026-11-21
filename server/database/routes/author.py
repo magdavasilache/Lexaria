@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Optional
 from fastapi import APIRouter, Depends, File, Form, UploadFile
-from server.database.crud.helpers.create_access_token import get_authenticated_user
+from server.core.dependencies import get_admin_user, get_authenticated_user
 from server.database.database import get_db
 from sqlalchemy.orm import Session
 from server.database.models.user import User
@@ -10,7 +10,7 @@ from server.database.crud.author import get_existing_author, create_author, get_
 
 router = APIRouter(prefix='/author', tags=["Author"], dependencies=[Depends(get_authenticated_user)])
 
-@router.post('/create', response_model=AuthorCreateResponse)
+@router.post('/create', response_model=AuthorCreateResponse, dependencies=[Depends(get_admin_user)])
 def create_author_entry(
     first_name: str = Form(...),
     last_name: Optional[str] = Form(None),

@@ -1,14 +1,15 @@
 import { Controller, useForm } from "react-hook-form"
 import { bookFormSchema, BookFormValues } from "../schemas/bookSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import SearchableSelect from "./components/SearchableSelect";
+import AutocompleteField from "./components/AutocompleteField";
+import Button from "../global-components/buttons/Button";
 import { useGetFormCountries } from "../api-handling/rtk-hooks/country/useGetFormCountries";
 import { useGetLanguages } from "../api-handling/rtk-hooks/language/useGetLanguages";
 import { useGetFormAuthors } from "../api-handling/rtk-hooks/author/useGetFormAuthors";
 import { useCreateBook } from "../api-handling/rtk-hooks/books/useCreateBook";
 
 const inputClass =
-    "w-full px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border border-dividerLight dark:border-dividerDark outline-none focus:ring-1 focus:ring-primaryLight dark:focus:ring-primaryDark transition-shadow text-fontPrimaryLight dark:text-fontPrimaryDark";
+    "w-full px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border border-dividerLight dark:border-dividerDark outline-none focus:ring-1 focus:ring-primaryLight dark:focus:ring-primaryDark transition-shadow text-onInputLight dark:text-onInputDark";
 
 const errorClass = "text-errorLight dark:text-errorDark text-sm";
 
@@ -102,7 +103,7 @@ export default function BookForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4 h-full text-fontPrimaryLight dark:text-fontSecondaryDark"
+            className="flex flex-col gap-4 h-full text-fontPrimaryLight dark:text-fontPrimaryDark"
         >
             <div className="flex flex-col gap-1">
                 <input
@@ -117,12 +118,14 @@ export default function BookForm() {
                 name="author_id"
                 control={control}
                 render={({ field }) => (
-                    <SearchableSelect
+                    <AutocompleteField
+                        label="Author"
                         options={authors || []}
-                        value={field.value ?? 0}
-                        onChange={(opt) => field.onChange(opt.id)}
+                        value={field.value || null}
+                        onChange={(id) => field.onChange(id ?? undefined)}
+                        onBlur={field.onBlur}
+                        ref={field.ref}
                         placeholder="Select author"
-                        isForFiltering={false}
                     />
                 )}
             />
@@ -131,12 +134,14 @@ export default function BookForm() {
                 name="language_id"
                 control={control}
                 render={({ field }) => (
-                    <SearchableSelect
+                    <AutocompleteField
+                        label="Language"
                         options={languages || []}
-                        value={field.value ?? 0}
-                        onChange={(opt) => field.onChange(opt.id)}
+                        value={field.value || null}
+                        onChange={(id) => field.onChange(id ?? undefined)}
+                        onBlur={field.onBlur}
+                        ref={field.ref}
                         placeholder="Select language"
-                        isForFiltering={false}
                     />
                 )}
             />
@@ -145,12 +150,14 @@ export default function BookForm() {
                 name="country_id"
                 control={control}
                 render={({ field }) => (
-                    <SearchableSelect
+                    <AutocompleteField
+                        label="Country"
                         options={countries || []}
-                        value={field.value ?? 0}
-                        onChange={(opt) => field.onChange(opt.id)}
+                        value={field.value || null}
+                        onChange={(id) => field.onChange(id ?? undefined)}
+                        onBlur={field.onBlur}
+                        ref={field.ref}
                         placeholder="Select country"
-                        isForFiltering={false}
                     />
                 )}
             />
@@ -180,7 +187,7 @@ export default function BookForm() {
                     {...register("synopsis")}
                     placeholder="Synopsis"
                     rows={4}
-                    className="px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border border-dividerLight dark:border-dividerDark outline-none resize-none focus:ring-1 focus:ring-primaryLight dark:focus:ring-primaryDark transition-shadow text-fontPrimaryLight dark:text-fontPrimaryDark"
+                    className="px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border border-dividerLight dark:border-dividerDark outline-none resize-none focus:ring-1 focus:ring-primaryLight dark:focus:ring-primaryDark transition-shadow text-onInputLight dark:text-onInputDark"
                 />
                 {errors.synopsis && <p className={errorClass}>{errors.synopsis.message}</p>}
             </div>
@@ -212,7 +219,7 @@ export default function BookForm() {
                     ] as const
                 ).map(({ field, label, suffix }) => (
                     <div key={field} className="flex flex-col gap-1">
-                        <label className="text-sm text-fontPrimaryLight dark:text-fontSecondaryDark">
+                        <label className="text-sm text-fontPrimaryLight dark:text-fontPrimaryDark">
                             {label}
                             {title && (
                                 <span className="ml-1 text-xs opacity-60">
@@ -224,7 +231,7 @@ export default function BookForm() {
                             type="file"
                             accept="image/*"
                             onChange={(e) => setValue(field, e.target.files?.[0] || null)}
-                            className="px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border border-dividerLight dark:border-dividerDark text-fontPrimaryLight dark:text-fontPrimaryDark"
+                            className="px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border border-dividerLight dark:border-dividerDark text-onInputLight dark:text-onInputDark"
                         />
                         {errors[field] && (
                             <p className={errorClass}>{errors[field]?.message as string}</p>
@@ -233,13 +240,9 @@ export default function BookForm() {
                 ))}
             </div>
 
-            <button
-                type="submit"
-                disabled={createBook.isPending}
-                className="mt-auto px-4 py-2 rounded-xs bg-primaryLight dark:bg-primaryDark text-fontSecondaryLight dark:text-fontPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:brightness-95 disabled:opacity-50 disabled:cursor-not-allowed transition"
-            >
-                {createBook.isPending ? "Saving..." : "Save"}
-            </button>
+            <Button type="submit" loading={createBook.isPending} loadingText="Saving..." className="mt-auto">
+                Save
+            </Button>
         </form>
     );
 }

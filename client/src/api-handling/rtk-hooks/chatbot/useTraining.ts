@@ -53,7 +53,7 @@ export function useTraining(): UseTrainingReturn {
         setStatus("running");
         setLogs([]);
         setProgress(0);
-        const token = useAuthStore.getState().accessToken
+        const token = await useAuthStore.getState().getFreshAccessToken()
 
         let response: Response;
         try {

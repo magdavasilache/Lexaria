@@ -9,19 +9,19 @@ class Review(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    book_id = Column(Integer, ForeignKey("books.id"), nullable=False)
+    book_id = Column(Integer, ForeignKey("books.id", ondelete="CASCADE"), nullable=False)
     rating = Column(Numeric(3, 2), nullable=True)
     review_content = Column(String, nullable=True)
     start_date = Column(Date, nullable=False)
     end_date = Column(Date, nullable=True)
     created_at = Column(DateTime, default=datetime.now)
 
-    likes = relationship("ReviewLike", back_populates="review")
-    comments = relationship("Comment", back_populates="review")
+    likes = relationship("ReviewLike", back_populates="review", passive_deletes=True)
+    comments = relationship("Comment", back_populates="review", passive_deletes=True)
     book = relationship("Book", back_populates="reviews")
     user = relationship("User", back_populates="reviews")
 
     __table_args__ = (
-        CheckConstraint('rating >= 0 AND rating <= 5', name='check_rating_range'),
+        CheckConstraint('rating > 0 AND rating <= 5', name='check_rating_range'),
     )
     

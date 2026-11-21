@@ -7,6 +7,8 @@ import server.database.models.edition
 import server.database.models.likes
 import server.database.models.language
 import server.database.models.user
+import server.database.models.audit_log
+import server.database.models.user_session
 import server.database.models.user_book_status
 import server.database.models.genres
 import server.database.models.review

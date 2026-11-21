@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { AdminTable, Column } from "./AdminTable";
 import { BookResponseBase } from "../../../types/book-types/bookTypes";
+import { COVER_PLACEHOLDER } from "../../../utils/assets";
 
 interface Props {
     books: BookResponseBase[];
@@ -17,7 +18,7 @@ const columns: Column<BookResponseBase>[] = [
         render: (book) => (
             <div className="w-9 h-12 rounded-xs overflow-hidden bg-dividerLight dark:bg-dividerDark shrink-0">
                 <img
-                    src={book.image ?? "/default-cover.jpg"}
+                    src={book.image ?? COVER_PLACEHOLDER}
                     alt={book.title}
                     className="w-full h-full object-cover"
                 />

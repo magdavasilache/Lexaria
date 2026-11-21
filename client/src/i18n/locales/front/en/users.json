@@ -1,0 +1,46 @@
+{
+  "fields": {
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm password"
+  },
+  "login": {
+    "open": "Login",
+    "title": "Log in",
+    "description": "Welcome back! Log in to continue to your library.",
+    "submit": "Log in",
+    "submitting": "Logging in…",
+    "success": "Login was successful!",
+    "rememberMe": "Remember me",
+    "rememberMeHelp": "Stay logged in on this device for up to 30 days. Leave unchecked on shared computers."
+  },
+  "register": {
+    "open": "Register",
+    "title": "Create an account",
+    "description": "Start tracking what you read, rate books and join the conversation.",
+    "submit": "Create account",
+    "submitting": "Creating account…",
+    "success": "Registration was successful!"
+  },
+  "usernameHelper": "{{usernameMin}}–{{usernameMax}} characters: letters, numbers, dots, dashes and underscores.",
+  "passwordRequirements": {
+    "label": "Password requirements",
+    "met": "(met)",
+    "notMet": "(not met)",
+    "length": "At least {{passwordMin}} characters",
+    "uppercase": "An uppercase letter",
+    "lowercase": "A lowercase letter",
+    "number": "A number",
+    "special": "A special character (e.g. !, @, #, ?)"
+  },
+  "validation": {
+    "usernameMin": "Must be at least {{usernameMin}} characters.",
+    "usernameMax": "Must be at most {{usernameMax}} characters.",
+    "usernamePattern": "Username can only contain letters, numbers, dots, dashes and underscores.",
+    "loginPasswordMax": "Must be at most {{loginPasswordMax}} characters.",
+    "passwordMaxBytes": "Password must be at most {{passwordMaxBytes}} bytes long.",
+    "passwordMissing": "Password doesn't meet all the requirements above.",
+    "confirmPassword": "Please confirm your password.",
+    "passwordsMismatch": "Passwords do not match."
+  }
+}

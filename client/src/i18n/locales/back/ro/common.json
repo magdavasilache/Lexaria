@@ -1,0 +1,11 @@
+{
+  "unexpected": "Ceva nu a funcționat pe serverul nostru.",
+  "tryLater": "Te rugăm să încerci din nou mai târziu.",
+  "requestFailed": "Cererea a eșuat.",
+  "badRequest": "Cerere invalidă.",
+  "notFound": "Resursa nu a fost găsită.",
+  "methodNotAllowed": "Această acțiune nu este permisă.",
+  "conflict": "Această modificare intră în conflict cu datele existente.",
+  "forbidden": "Nu ai permisiunea să faci asta.",
+  "database": "A apărut o eroare a bazei de date."
+}

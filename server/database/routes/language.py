@@ -1,14 +1,14 @@
 from server.database.schemas.language import CreateLanguageResponse, DeleteLanguageResponse, GetLanguagesResponse, LanguageCreate
 from server.utils.errors import raise_http_error
 from fastapi import APIRouter, Depends, HTTPException
-from server.database.crud.helpers.create_access_token import get_authenticated_user
+from server.core.dependencies import get_admin_user, get_authenticated_user
 from server.database.database import get_db
 from sqlalchemy.orm import Session
 from server.database.crud.language import create_new_language, delete_language, get_languages
 
 router = APIRouter(prefix='/language', tags=["Language"], dependencies=[Depends(get_authenticated_user)])
 
-@router.post('', response_model=CreateLanguageResponse)
+@router.post('', response_model=CreateLanguageResponse, dependencies=[Depends(get_admin_user)])
 def create_language_request(payload: LanguageCreate,db: Session = Depends(get_db)):
     try: 
         data = create_new_language(db=db, payload=payload)
@@ -39,7 +39,7 @@ def get_languages_request(db: Session = Depends(get_db)):
     except Exception as e:
         raise_http_error(500, f"Error fetching languages: {str(e)}")
 
-@router.delete('/{id}', response_model=DeleteLanguageResponse)
+@router.delete('/{id}', response_model=DeleteLanguageResponse, dependencies=[Depends(get_admin_user)])
 def delete_language_request(id: int, db: Session = Depends(get_db)):
     try:
         delete_language(db=db, id=id)

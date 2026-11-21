@@ -1,9 +1,6 @@
-from pydantic import BaseModel
+from server.database.schemas.base import OutputSchema
 
 
-class GenreOut(BaseModel):
+class GenreOut(OutputSchema):
     id: int
     name: str
-
-    class Config:
-        from_attributes = True

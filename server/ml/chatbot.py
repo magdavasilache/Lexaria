@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session, selectinload
 import queue
-from server.database.crud.helpers.create_access_token import get_authenticated_user
+from server.core.dependencies import get_authenticated_user
 from server.database.database import SessionLocal, get_db
 from server.ml.model import ChatbotIntent, ChatbotPattern, ChatbotResponse
 from server.ml.schemas import IntentCreate, IntentOut, IntentUpdate, PatternCreate, PatternOut, PatternUpdate, PromoteUnknownBody, ResponseCreate, ResponseOut, ResponseUpdate

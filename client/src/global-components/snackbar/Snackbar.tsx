@@ -1,8 +1,39 @@
-import { X, CheckCheck, TriangleAlert, Info, Ban } from 'lucide-react';
-import { useSnackbarStore } from '../../api-handling/context/snackbar/useSnackbarStore';
 import { useEffect, useState } from 'react';
+import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { translate } from '../../i18n/message';
+import { useSnackbarStore } from '../../api-handling/context/snackbar/useSnackbarStore';
+import Button from '../buttons/Button';
+
+const VARIANTS = {
+    error: {
+        Icon: CircleAlert,
+        card: 'bg-errorLightTone ring-errorBorderLight dark:bg-errorDarkTone dark:ring-errorBorderDark',
+        badge: 'bg-errorSolidLight dark:bg-errorSolidDark',
+        title: 'text-errorTextLight dark:text-errorTextDark',
+    },
+    warning: {
+        Icon: TriangleAlert,
+        card: 'bg-warningLightTone ring-warningBorderLight dark:bg-warningDarkTone dark:ring-warningBorderDark',
+        badge: 'bg-warningSolidLight dark:bg-warningSolidDark',
+        title: 'text-warningTextLight dark:text-warningTextDark',
+    },
+    info: {
+        Icon: Info,
+        card: 'bg-infoLightTone ring-infoBorderLight dark:bg-infoDarkTone dark:ring-infoBorderDark',
+        badge: 'bg-infoSolidLight dark:bg-infoSolidDark',
+        title: 'text-infoTextLight dark:text-infoTextDark',
+    },
+    success: {
+        Icon: CircleCheck,
+        card: 'bg-successLightTone ring-successBorderLight dark:bg-successDarkTone dark:ring-successBorderDark',
+        badge: 'bg-successSolidLight dark:bg-successSolidDark',
+        title: 'text-successTextLight dark:text-successTextDark',
+    },
+} as const;
 
 export default function Snackbar() {
+    const { t } = useTranslation();
     const open = useSnackbarStore((state) => state.open);
     const message = useSnackbarStore((state) => state.message);
     const hint = useSnackbarStore((state) => state.hint);
@@ -10,83 +41,65 @@ export default function Snackbar() {
     const duration = useSnackbarStore((state) => state.duration);
     const close = useSnackbarStore((state) => state.closeSnackBar);
 
-    const [visible, setVisible] = useState(false);
-    const [animating, setAnimating] = useState(false);
+    const [closing, setClosing] = useState(false);
 
     useEffect(() => {
-        if (open) {
-            setVisible(true);
-            setAnimating(false);
-        }
-    }, [open]);
-
-    useEffect(() => {
-        if (!open) return;
-        const timer = setTimeout(() => handleClose(), duration);
+        if (!open || type === 'error') return;
+        const timer = setTimeout(() => setClosing(true), duration);
         return () => clearTimeout(timer);
-    }, [open, duration]);
+    }, [open, type, duration, message]);
 
-    const handleClose = () => {
-        setAnimating(true);
-        setTimeout(() => {
-            setVisible(false);
-            setAnimating(false);
-            close();
-        }, 4000); 
+    const handleAnimationEnd = () => {
+        if (!closing) return;
+        setClosing(false);
+        close();
     };
 
-    if (!visible) return null;
+    if (!open) return null;
 
-    const config = {
-        error: { icon: <Ban size={18} />, bg: 'bg-errorLight   dark:bg-errorDark', label: 'Error' },
-        info: { icon: <Info size={18} />, bg: 'bg-infoLight    dark:bg-infoDark', label: 'Info' },
-        warning: { icon: <TriangleAlert size={18} />, bg: 'bg-warningLight dark:bg-warningDark', label: 'Warning' },
-        success: { icon: <CheckCheck size={18} />, bg: 'bg-successLight dark:bg-successDark', label: 'Success' },
-    } as const;
-
-    const { icon, bg, label } = config[type];
+    const { Icon, card, badge, title } = VARIANTS[type];
 
     return (
-        <div className={`
-            fixed top-6 left-1/2 -translate-x-1/2 z-[80]
-            ${animating ? 'animate-slide-out' : 'animate-slide-in'}
-        `}>
-            <div className="
-                flex items-stretch
-                min-w-[300px] max-w-[480px]
-                rounded-xs overflow-hidden
-                bg-paperLight dark:bg-paperDark
-                shadow-cardShadowLight dark:shadow-cardShadowDark
-                border border-dividerLight dark:border-dividerDark
-            ">
-                {/* Colored type strip */}
-                <div className={`flex items-center justify-center px-4 ${bg}`}>
-                    <span className="text-white dark:text-white">
-                        {icon}
-                    </span>
-                </div>
+        <div className="fixed inset-x-3 top-3 z-[80] flex justify-center pointer-events-none sm:inset-x-6 sm:top-6">
+            <div
+                role={type === 'error' ? 'alert' : 'status'}
+                aria-live={type === 'error' ? 'assertive' : 'polite'}
+                onAnimationEnd={handleAnimationEnd}
+                className={`
+                    pointer-events-auto
+                    flex w-full items-start gap-3 p-3
+                    sm:w-auto sm:min-w-[340px] sm:max-w-[440px] sm:gap-4 sm:p-4
+                    rounded-panel ring-1 ${card}
+                    shadow-soft-lg dark:shadow-deep-lg
+                    ${closing ? 'animate-fade-out' : 'animate-slide-down'}
+                `}
+            >
+                <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white ${badge}`}>
+                    <Icon size={18} strokeWidth={2} aria-hidden="true" />
+                </span>
 
-                {/* Text */}
-                <div className="flex flex-col justify-center flex-1 px-4 py-3 leading-snug">
-                    <span className="font-libre font-bold text-sm text-fontPrimaryLight dark:text-fontSecondaryDark">
-                        {label}
+                <div className="flex min-w-0 flex-1 flex-col pt-0.5">
+                    <span className={`font-libre text-[0.7rem] font-bold uppercase tracking-[0.12em] ${title}`}>
+                        {t(`snackbar.${type}`)}
                     </span>
-                    <span className="font-libre text-sm mt-0.5 text-fontPrimaryLight dark:text-fontSecondaryDark">
-                        {message}
-                    </span>
+                    <p className="mt-1 break-words font-libre text-sm leading-relaxed text-fontPrimaryLight dark:text-fontPrimaryDark">
+                        {message && translate(message)}
+                    </p>
                     {hint && (
-                        <span className="font-libre text-xs mt-1 italic text-fontPrimaryLight/60 dark:text-fontSecondaryDark/60">
-                            {hint}
-                        </span>
+                        <p className="mt-1.5 break-words font-libre text-xs italic leading-relaxed text-fontMutedLight dark:text-fontMutedDark">
+                            {translate(hint)}
+                        </p>
                     )}
                 </div>
-                <button
-                    onClick={handleClose}
-                    aria-label="Dismiss"
-                    className="flex items-center justify-center px-3 text-fontPrimaryLight/40 dark:text-fontSecondaryDark/40 hover:text-fontPrimaryLight dark:hover:text-fontSecondaryDark transition-colors"
-                >
-                    <X size={16} />
-                </button>
+
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    icon={X}
+                    aria-label={t('actions.dismissNotification')}
+                    onClick={() => setClosing(true)}
+                    className="-mr-1 -mt-1 h-10 w-10 shrink-0 sm:-mr-2 sm:-mt-2"
+                />
             </div>
         </div>
     );

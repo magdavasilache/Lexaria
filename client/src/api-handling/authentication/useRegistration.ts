@@ -1,26 +1,18 @@
 import { useMutation } from "@tanstack/react-query"
-import { RegisterFormState } from "../../types/auth-types/registerType"
-import { registrationMutation } from "../../api/registrationAPI"
+import { RegisterPayload } from "../../schemas/registerSchema"
+import { registerRequest } from "../../api/authAPI"
 import { useSnackbarStore } from "../context/snackbar/useSnackbarStore"
 import { useAuthStore } from "../context/authentication/useAuthStore"
 
 export const useRegistration = () => {
-  const setAccessToken = useAuthStore(state => state.setAccessToken)
-
+  const setSession = useAuthStore(state => state.setSession)
   const showSnackBar = useSnackbarStore(state => state.showSnackBar)
+
   return useMutation({
-    mutationFn: (data: RegisterFormState) => {
-      const result = registrationMutation(data)
-      return result
-    },
+    mutationFn: (data: RegisterPayload) => registerRequest(data),
     onSuccess: (data) => {
-      setAccessToken(data.token.access_token)
-      useAuthStore.setState({ user: data.user })
-      showSnackBar('Registration was successful!', 'success')
+      setSession(data.token, data.user)
+      showSnackBar({ key: "front/users:register.success" }, 'success')
     },
-    onError: () => {
-      const message = "Registration failed. Please try again."
-      showSnackBar(message, 'error')
-    }
   })
 }

@@ -1,0 +1,26 @@
+{
+  "activity": {
+    "title": "Activity",
+    "filters": "Filters",
+    "action": "Action",
+    "allActions": "All actions",
+    "outcome": "Outcome",
+    "allOutcomes": "All outcomes",
+    "success": "Success",
+    "failure": "Failed",
+    "from": "From",
+    "to": "To",
+    "resetFilters": "Reset filters",
+    "time": "Time",
+    "user": "User",
+    "description": "Description",
+    "request": "Request",
+    "anonymous": "Anonymous",
+    "empty": "No activity matches these filters.",
+    "loading": "Loading activity…",
+    "retry": "Try again",
+    "range": "{{from}}–{{to}} of {{total}}",
+    "previous": "Previous page",
+    "next": "Next page"
+  }
+}

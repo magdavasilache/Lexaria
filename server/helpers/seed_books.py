@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import date
 from sqlalchemy.orm import Session
 
 from server.database.models.author import Author
@@ -57,64 +57,56 @@ def seed_books(db: Session):
             title="V for Vendetta",
             author_id=alan_moore.id,
             country_id=uk.id,
-            images=["books/vendetta-coperta.jpg", "books/vendetta-spet.jpg", "books/vendetta-pagina.jpg"],
+            images=["vendetta-coperta.jpeg", "vendetta-spate.jpeg", "vendetta-pagina.jpeg"],
             pages=296,
             language_id=english.id,
             published_at=date(1988, 1, 1),
-            created_at=datetime.now(),
             synopsis="A dystopian graphic novel about a masked vigilante opposing totalitarian rule.",
             awards=[],
             settings=["London"],
             characters=["V", "Evey Hammond"],
-            user_id=9,
             genres=[dystopia, graphic_novel, political]
         ),
         Book(
             title="Music for Chameleons",
             author_id=truman_capote.id,
             country_id=usa.id,
-            images=["books/muzica-pentru-cameleoni-coperta.jpg", "books/muzica-pentru-cameleoni-spate.jpg", "books/muzica-pentru-cameleoni-pagina.jpg"],
+            images=["muzica-pentru-cameleoni-coperta.jpeg", "muzica-pentru-cameleoni-spate.jpeg", "muzica-pentru-cameleoni-pagina.jpeg"],
             pages=262,
             language_id=english.id,
             published_at=date(1980, 1, 1),
-            created_at=datetime.now(),
             synopsis="A collection of short stories and personal narratives blending fiction and nonfiction.",
             awards=[],
             settings=[],
             characters=[],
-            user_id=9,
             genres=[short_stories, nonfiction, literary]
         ),
         Book(
             title="The Silkworm",
             author_id=robert_galbraith.id,
             country_id=uk.id,
-            images=["books/viermele-de-matase-coperta.jpg", "books/viermele-de-matase-spate.jpg", "books/viermele-de-matase-pagina.jpeg"],
+            images=["viermele-de-matase-coperta.jpeg", "viermele-de-matase-spate.jpeg", "viermele-de-matase-pagina.jpeg"],
             pages=455,
             language_id=english.id,
             published_at=date(2014, 1, 1),
-            created_at=datetime.now(),
             synopsis="A detective investigates the murder of a novelist whose manuscript may have led to his death.",
             awards=[],
             settings=["London"],
             characters=["Cormoran Strike", "Robin Ellacott"],
-            user_id=9,
             genres=[crime, mystery, thriller]
         ),
         Book(
             title="The Polaniecki Family",
             author_id=henryk_sienkiewicz.id,
             country_id=poland.id,
-            images=["books/familia-polanieki-coperta.jpg", "books/familia-polanieki-spate.jpg", "books/familia-polanieki-pagina.jpg"],
+            images=["familia-polanieki-coperta.jpeg", "familia-polanieki-spate.jpeg", "familia-polanieki-pagina.jpeg"],
             pages=510,
             language_id=polish.id,
             published_at=date(1895, 1, 1),
-            created_at=datetime.now(),
             synopsis="A novel exploring family, love, and business in Polish society.",
             awards=[],
             settings=["Warsaw"],
             characters=["Stanislaw Polaniecki", "Marynia"],
-            user_id=9,
             genres=[classic, family, drama]
         ),
     ]

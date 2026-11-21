@@ -1,35 +1,34 @@
-import sys
-import os
+from pathlib import Path
+
 from fastapi import FastAPI
-from server.database.database import Base, get_db
-import server.models
-from server.utils.logger import logger
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+
+import server.models
+from server.core.config import settings
+from server.core.exception_handlers import register_exception_handlers
+from server.core.middleware import RequestContextMiddleware
+from server.core.responses import ApiResponse, ok
 from server.database.routes.main_router import main_router
 
-target_metadata = Base.metadata
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "server")))
-logger.info(os.getcwd())
 app = FastAPI(title="Lexaria Backend")
 
-static_path = os.path.join(os.path.dirname(__file__), "static")
-app.mount("/static", StaticFiles(directory=static_path), name="static")
+app.mount("/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static")
 
+register_exception_handlers(app)
+app.add_middleware(RequestContextMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
-    allow_methods=["*"],  
+    allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Request-ID"],
 )
 
 app.include_router(main_router)
 
-db_generator = get_db()
-db = next(db_generator)
 
-@app.get('/')
-def read_root():
-    return {"message": "The server is up and running!!!"}
+@app.get("/", response_model=ApiResponse[dict[str, str]])
+def read_root() -> ApiResponse[dict[str, str]]:
+    return ok({"status": "up"})

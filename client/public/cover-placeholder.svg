@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1350" viewBox="0 0 900 1350" role="img" aria-label="Lexaria placeholder for a book with no cover image">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FCF4ED"/><stop offset="1" stop-color="#E8D9CC"/></linearGradient>
+    <linearGradient id="spine" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#074F1E"/><stop offset=".28" stop-color="#0A7029"/><stop offset="1" stop-color="#053F17"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#3D2D21" flood-opacity=".22"/></filter>
+    <pattern id="grain" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M0 20h80M0 57h80" stroke="#8C6A50" stroke-opacity=".08"/><circle cx="14" cy="39" r="1.3" fill="#8C6A50" opacity=".16"/><circle cx="62" cy="9" r="1" fill="#8C6A50" opacity=".14"/></pattern>
+  </defs>
+  <rect width="900" height="1350" fill="url(#paper)"/>
+  <rect width="900" height="1350" fill="url(#grain)"/>
+  <circle cx="450" cy="545" r="300" fill="#D7EDDF" opacity=".58"/>
+  <g filter="url(#shadow)" transform="rotate(-3 450 675)">
+    <rect x="194" y="188" width="512" height="974" rx="16" fill="#3D2D21" opacity=".16" transform="translate(15 17)"/>
+    <rect x="194" y="188" width="512" height="974" rx="12" fill="url(#spine)"/>
+    <rect x="220" y="214" width="460" height="922" rx="5" fill="none" stroke="#D4A853" stroke-width="3" opacity=".92"/>
+    <rect x="235" y="229" width="430" height="892" rx="3" fill="none" stroke="#D4A853" stroke-width="1.5" opacity=".55"/>
+    <path d="M229 214v922" stroke="#03270E" stroke-width="13" opacity=".38"/>
+    <path d="M244 245v860" stroke="#8FCBA3" stroke-width="2" opacity=".42"/>
+    <path d="M260 275h380M260 1075h380" stroke="#D4A853" stroke-width="2" opacity=".78"/>
+    <text x="450" y="316" text-anchor="middle" fill="#F5E4C0" font-family="Georgia,serif" font-size="24" letter-spacing="7">LEXARIA</text>
+    <g transform="translate(450 600)" fill="none" stroke="#F5E4C0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-2 102V-78Q-95-127-180-86V92Q-92 53-2 102Z" fill="#F5E4C0" fill-opacity=".08"/>
+      <path d="M2 102V-78Q95-127 180-86V92Q92 53 2 102Z" fill="#F5E4C0" fill-opacity=".08"/>
+      <path d="M0-78v180" stroke="#D4A853" stroke-width="6"/>
+      <path d="M-148-48q57-22 112 3M-148-10q57-22 112 3M-148 28q57-22 112 3M148-48q-57-22-112 3M148-10q-57-22-112 3M148 28q-57-22-112 3" stroke-width="4" opacity=".78"/>
+    </g>
+    <g transform="translate(450 844)" fill="none" stroke="#D4A853" stroke-width="3">
+      <path d="M0-34v68M-34 0h68M-24-24l48 48M24-24l-48 48"/>
+      <circle r="47"/><circle r="59" opacity=".6"/>
+      <circle r="7" fill="#D4A853"/>
+    </g>
+    <text x="450" y="973" text-anchor="middle" fill="#F5E4C0" font-family="Georgia,serif" font-size="29" letter-spacing="3">NO COVER IMAGE</text>
+    <text x="450" y="1017" text-anchor="middle" fill="#D7EDDF" font-family="Georgia,serif" font-size="20" font-style="italic" opacity=".9">A story waiting to be found</text>
+    <path d="M420 1063q30 23 60 0" fill="none" stroke="#D4A853" stroke-width="2"/>
+  </g>
+</svg>

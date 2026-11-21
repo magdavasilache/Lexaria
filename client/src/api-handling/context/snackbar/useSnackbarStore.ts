@@ -1,19 +1,20 @@
 import { create } from "zustand";
+import { DisplayText } from "../../../i18n/message";
 
 interface SnackbarState {
     open: boolean;
-    message: string | null;
-    hint: string | null;
+    message: DisplayText | null;
+    hint: DisplayText | null;
     type: "success" | "error" | "warning" | "info";
     duration: number;
 }
 
 interface SnackbarActions {
     showSnackBar: (
-        message: string,
+        message: DisplayText,
         type?: SnackbarState["type"],
         duration?: number,
-        hint?: string | null
+        hint?: DisplayText | null
     ) => void;
     closeSnackBar: () => void;
 }

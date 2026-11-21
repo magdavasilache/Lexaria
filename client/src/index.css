@@ -2,17 +2,94 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes slide-in {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0%);
-      opacity: 1;
+/* Keyframes and animate-* classes live in tailwind.config.js. */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-backgroundLight text-fontPrimaryLight transition-colors duration-300;
+  }
+
+  .dark body {
+    @apply bg-backgroundDark text-fontPrimaryDark;
+  }
+
+  ::selection {
+    @apply bg-secondaryLight/40 text-fontPrimaryLight;
+  }
+
+  .dark ::selection {
+    @apply bg-primaryDark/40 text-fontPrimaryDark;
+  }
+
+  :focus-visible {
+    @apply outline-none shadow-focusLight;
+  }
+
+  .dark :focus-visible {
+    @apply shadow-focusDark;
+  }
+
+  /* Scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.parchment.500') transparent;
+  }
+
+  .dark * {
+    scrollbar-color: theme('colors.espresso.600') transparent;
+  }
+
+  /* Respect users who prefer less motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
-  
-  .animate-slide-in {
-    animation: slide-in 0.4s ease-out;
+}
+
+@layer components {
+  /* Loading placeholder with a moving sheen: <div class="skeleton h-4 w-32" /> */
+  .skeleton {
+    @apply relative overflow-hidden rounded-md bg-parchment-400/60 dark:bg-espresso-700;
   }
+
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 bg-shimmer bg-[length:200%_100%] animate-shimmer dark:bg-shimmer-dark;
+  }
+
+  /* Hover lift for cards and book covers */
+  .lift {
+    @apply transition-[transform,box-shadow] duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-soft-lg dark:hover:shadow-deep-lg;
+  }
+
+  /* Gilded text for headings and highlights */
+  .text-gold-foil {
+    @apply bg-gold-foil bg-clip-text text-transparent;
+  }
+
+  /* Staggered entrance: give children animate-fade-up and wrap them in .stagger */
+  .stagger > * {
+    animation-delay: calc(var(--stagger-index, 0) * 60ms);
+  }
+  .stagger > *:nth-child(1) { --stagger-index: 0; }
+  .stagger > *:nth-child(2) { --stagger-index: 1; }
+  .stagger > *:nth-child(3) { --stagger-index: 2; }
+  .stagger > *:nth-child(4) { --stagger-index: 3; }
+  .stagger > *:nth-child(5) { --stagger-index: 4; }
+  .stagger > *:nth-child(6) { --stagger-index: 5; }
+  .stagger > *:nth-child(7) { --stagger-index: 6; }
+  .stagger > *:nth-child(8) { --stagger-index: 7; }
+  .stagger > *:nth-child(n + 9) { --stagger-index: 8; }
+}

@@ -4,75 +4,106 @@ import LoginForm from "../forms/LoginForm";
 import { useThemeStore } from "../state_management/useThemeStore";
 import { useAuthStore } from "../api-handling/context/authentication/useAuthStore";
 import UserBar from "./UserBar";
-import IconButton from "./buttons/IconButton";
-import { EllipsisVertical } from 'lucide-react';
-import { useNavigate } from "react-router-dom";
-import { useBooksStore } from "../state_management/useBooksStore";
+import Button from "./buttons/Button";
+import { ChevronDown } from 'lucide-react';
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { Link, useNavigate } from "react-router-dom";
+import { resetBooksStore } from "../state_management/useBooksStore";
+import { BRAND_LOGO, DEFAULT_AVATAR } from "../utils/assets";
 
 export default function Navbar() {
-    const resetBookStore = useBooksStore(state => state.resetBookStore)
     const isAuthenticated = useAuthStore(state => state.isAuthenticated)
     const user = useAuthStore(state => state.user)
     const logout = useAuthStore(state => state.logout)
     const theme = useThemeStore(state => state.theme)
     const [showUserBar, setShowUserBar] = useState<boolean>(false)
     const userBarRef = useRef<HTMLDivElement>(null)
+    const triggerRef = useRef<HTMLButtonElement>(null)
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
-    const handleLogout = useCallback(() => {
-        resetBookStore()
-        logout()
+    const handleLogout = useCallback(async () => {
         setShowUserBar(false)
+        await logout()
+        resetBooksStore()
         navigate("/")
-    },[logout, navigate, resetBookStore]);
+    }, [logout, navigate]);
+
+    const closeUserBar = useCallback(() => {
+        setShowUserBar(false)
+        triggerRef.current?.focus()
+    }, [])
 
     const handleClickOutside = useCallback((e: MouseEvent) => {
         if (userBarRef.current && !userBarRef.current.contains(e.target as Node)) {
-          setShowUserBar(false);
+            setShowUserBar(false);
         }
-      }, []);
-
-    const svgPath = theme === "light" ? "/svg-light-theme.svg" : "/svg-dark-theme.svg";
+    }, []);
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
-      }, []);
-    
+    }, [handleClickOutside]);
+
     return (
-        <>
-            <nav className="bg-backgroundLight dark:bg-backgroundDark shadow-sm p-2 h-[60px] w-full sticky top-0 z-[50]">
-                <div className="container max-w-screen-xl mx-auto flex justify-between items-center w-full px-4">
-                    <div className="font-libre text-2xl flex items-center gap-2 text-fontPrimaryLight dark:text-fontSecondaryDark">
-                        <img src={svgPath} alt="bookish-app-logo" className="h-[30px] bg-paperLight dark:bg-paperDark rounded-full p-1" />
-                        <a href="/homepage" className="hover:opacity-90 transition mt-1">Lexaria</a>
+        <nav className="bg-backgroundLight dark:bg-backgroundDark shadow-sm py-2 h-[60px] w-full sticky top-0 z-50">
+            <div className="container max-w-screen-xl mx-auto flex justify-between items-center gap-3 w-full h-full px-3 sm:px-4">
+                <Link
+                    to={isAuthenticated ? "/homepage" : "/"}
+                    aria-label={t("navbar.home")}
+                    className="flex items-center h-full hover:opacity-90 transition-opacity rounded-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight dark:focus-visible:ring-primaryDark"
+                >
+                    <img src={BRAND_LOGO[theme]} alt="Lexaria" className="h-8 sm:h-10 w-auto" />
+                </Link>
+
+                {!isAuthenticated ? (
+                    <div className="flex items-center gap-1 shrink-0 sm:gap-2">
+                        <LanguageSwitcher />
+                        <LoginForm />
+                        <RegisterForm />
                     </div>
-
-                    <div>{/* Search bar will go here */}</div>
-
-                    {!isAuthenticated ? (
-                        <div className="flex gap-2">
-                            <LoginForm />
-                            <RegisterForm />
-                        </div>
-                    ) : (
-                        <div className="relative" ref={userBarRef}>
-                            <div className="flex items-center gap-2">
-                                <span className="text-sm font-libre text-fontPrimaryLight dark:text-fontSecondaryDark">Welcome back, {user ? user.username : 'N/A'}</span>
-                                <IconButton
-                                    className="z-50 transition" icon={EllipsisVertical} onClick={() => setShowUserBar(prev => !prev)} iconClassName="
-         text-fontPrimaryLight dark:text-fontSecondaryDark"/>
+                ) : (
+                    <div className="flex items-center gap-1 sm:gap-2 min-w-0">
+                        <LanguageSwitcher />
+                        {user && (
+                            <div className="relative min-w-0" ref={userBarRef}>
+                                <Button
+                                    ref={triggerRef}
+                                    variant="menu"
+                                    size="sm"
+                                    rightIcon={ChevronDown}
+                                    iconClassName={`transition-transform duration-200 ${showUserBar ? "rotate-180" : ""}`}
+                                    aria-label={t("navbar.openUserMenu")}
+                                    aria-haspopup="menu"
+                                    aria-expanded={showUserBar}
+                                    onClick={() => setShowUserBar(prev => !prev)}
+                                    className="min-h-10 pl-1 pr-2 max-w-full"
+                                >
+                                    <span className="flex items-center gap-2 min-w-0">
+                                        <img
+                                            src={user.avatar_url ?? DEFAULT_AVATAR}
+                                            alt=""
+                                            className="w-8 h-8 rounded-full object-cover shrink-0 ring-2 ring-panelBorderLight dark:ring-panelBorderDark bg-dividerLight dark:bg-dividerDark"
+                                        />
+                                        <span className="hidden md:block max-w-[10rem] truncate">{user.display_name ?? user.username}</span>
+                                    </span>
+                                </Button>
+                                {showUserBar && (
+                                    <div className="absolute right-0 top-full mt-2 z-[70] overflow-hidden bg-panelLight dark:bg-panelDark border border-panelBorderLight dark:border-panelBorderDark shadow-soft-lg dark:shadow-deep-lg rounded-panel origin-top-right animate-scale-in">
+                                        <UserBar
+                                            user={user}
+                                            logout={handleLogout}
+                                            onNavigate={() => setShowUserBar(false)}
+                                            onClose={closeUserBar}
+                                        />
+                                    </div>
+                                )}
                             </div>
-                            {showUserBar && (
-                                <div className="absolute right-0 mt-2 z-[70] bg-paperLight dark:bg-paperDark shadow-md p-4 rounded-sm">
-                                    <UserBar logout={handleLogout} />
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                </div>
-            </nav>
-        </>
+                        )}
+                    </div>
+                )}
+            </div>
+        </nav>
     );
 }

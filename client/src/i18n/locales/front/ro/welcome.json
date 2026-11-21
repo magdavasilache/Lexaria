@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "title": "Când tehnologia întâlnește arta",
+    "subtitle": "Lexaria este colțul acela de Internet în care te poți îndrăgosti de lectură mai mult ca oricând.",
+    "goToLibrary": "Mergi la biblioteca ta",
+    "getStarted": "Începe acum",
+    "haveAccount": "Am deja un cont"
+  },
+  "quotes": [
+    {
+      "text": "Nu e corabie ca o carte\nSă ne poarte-n țări departe",
+      "author": "Emily Dickinson",
+      "source": "There is no Frigate like a Book"
+    },
+    {
+      "text": "Lectura tuturor cărților bune este ca o conversație cu cele mai alese minți ale secolelor trecute.",
+      "author": "René Descartes",
+      "source": "Discurs asupra metodei"
+    },
+    {
+      "text": "Câți oameni nu și-au început o nouă eră a vieții de la lectura unei cărți.",
+      "author": "Henry David Thoreau",
+      "source": "Walden"
+    },
+    {
+      "text": "Declar că, la urma urmei, nu există plăcere mai mare decât cititul!",
+      "author": "Jane Austen",
+      "source": "Mândrie și prejudecată"
+    },
+    {
+      "text": "Și la ce bun o carte fără imagini și fără dialoguri?",
+      "author": "Lewis Carroll",
+      "source": "Alice în Țara Minunilor"
+    },
+    {
+      "text": "Cititul îl face pe om bogat, conversația îl face prompt, iar scrisul îl face precis.",
+      "author": "Francis Bacon",
+      "source": "Despre studii"
+    }
+  ],
+  "footer": {
+    "tagline": "Un loc pentru iubitorii de cărți: ține evidența lecturilor, scrie recenzii și găsește-ți următoarea poveste.",
+    "navLabel": "Subsol",
+    "explore": "Explorează",
+    "browseBooks": "Răsfoiește cărțile",
+    "goodreadsImport": "Import din Goodreads",
+    "about": "Despre",
+    "aboutText": "Un proiect personal de învățare, construit cu React și FastAPI.",
+    "copyright": "© {{year}} Lexaria · Proiectat și dezvoltat de {{author}}"
+  }
+}

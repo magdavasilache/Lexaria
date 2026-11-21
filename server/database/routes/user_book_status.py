@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from server.database.crud.helpers.create_access_token import get_authenticated_user
+from server.core.dependencies import get_authenticated_user
 from server.database.crud.user_book_status import create_or_update_user_book_status
 from server.database.database import get_db
 from server.database.models.user import User

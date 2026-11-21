@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from server.database.crud.helpers.create_access_token import get_authenticated_user
+from server.core.dependencies import get_admin_user, get_authenticated_user
 from server.database.database import get_db
 from sqlalchemy.orm import Session
 from server.database.crud.country import create_new_country, get_countries_for_forms
@@ -9,7 +9,7 @@ from server.utils.errors import raise_http_error
 
 router = APIRouter(prefix='/country', tags=["Country"], dependencies=[Depends(get_authenticated_user)])
 
-@router.post('/create-country', response_model=CreateCountryResponse)
+@router.post('/create-country', response_model=CreateCountryResponse, dependencies=[Depends(get_admin_user)])
 def create_country_request(create_country: CountryCreateSchema, db: Session = Depends(get_db)):
     try:
         country = create_new_country(db=db, country_create=create_country)

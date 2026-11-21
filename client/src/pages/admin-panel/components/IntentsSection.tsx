@@ -192,7 +192,7 @@ export default function IntentsSection() {
                             className={`flex items-center justify-between px-3 py-2 rounded-xs text-left text-sm transition-all group ${
                                 selectedId === intent.id
                                     ? "bg-primaryLight dark:bg-primaryDark text-white shadow-buttonShadow"
-                                    : "hover:bg-inputLight dark:hover:bg-inputDark opacity-80 hover:opacity-100 hover:text-fontPrimaryLight dark:hover:text-fontPrimaryDark"
+                                    : "hover:bg-inputLight dark:hover:bg-inputDark opacity-80 hover:opacity-100 hover:text-onInputLight dark:hover:text-onInputDark"
                             }`}
                         >
                             <span className="truncate flex-1">{intent.tag}</span>
@@ -240,7 +240,7 @@ export default function IntentsSection() {
                     <button
                         onClick={handleAddIntent}
                         disabled={createIntent.isPending || !newTag.trim()}
-                        className="text-sm px-3 py-1.5 rounded-xs bg-secondaryLight dark:bg-primaryDark dark:text-fontPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+                        className="text-sm px-3 py-1.5 rounded-xs bg-secondaryLight dark:bg-primaryDark text-onSecondaryLight dark:text-onPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
                     >
                         {createIntent.isPending ? <Spinner /> : "+ Add Intent"}
                     </button>
@@ -319,7 +319,7 @@ export default function IntentsSection() {
                             <button
                                 onClick={handleAddPattern}
                                 disabled={createPattern.isPending || !newPattern.trim()}
-                                className="text-sm px-4 py-1.5 rounded-xs bg-secondaryLight dark:bg-primaryDark dark:text-fontPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
+                                className="text-sm px-4 py-1.5 rounded-xs bg-secondaryLight dark:bg-primaryDark text-onSecondaryLight dark:text-onPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
                             >
                                 {createPattern.isPending ? <Spinner /> : "Add"}
                             </button>

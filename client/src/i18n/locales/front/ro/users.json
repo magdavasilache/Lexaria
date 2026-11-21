@@ -1,0 +1,46 @@
+{
+  "fields": {
+    "username": "Nume de utilizator",
+    "password": "Parolă",
+    "confirmPassword": "Confirmă parola"
+  },
+  "login": {
+    "open": "Autentificare",
+    "title": "Autentificare",
+    "description": "Bine ai revenit! Autentifică-te pentru a continua în biblioteca ta.",
+    "submit": "Autentifică-te",
+    "submitting": "Se autentifică…",
+    "success": "Autentificare reușită!",
+    "rememberMe": "Ține-mă minte",
+    "rememberMeHelp": "Rămâi autentificat pe acest dispozitiv până la 30 de zile. Lasă nebifat pe calculatoarele partajate."
+  },
+  "register": {
+    "open": "Înregistrare",
+    "title": "Creează un cont",
+    "description": "Ține evidența lecturilor, notează cărți și alătură-te conversației.",
+    "submit": "Creează contul",
+    "submitting": "Se creează contul…",
+    "success": "Înregistrare reușită!"
+  },
+  "usernameHelper": "{{usernameMin}}–{{usernameMax}} caractere: litere, cifre, puncte, cratime și underscore.",
+  "passwordRequirements": {
+    "label": "Cerințe pentru parolă",
+    "met": "(îndeplinită)",
+    "notMet": "(neîndeplinită)",
+    "length": "Cel puțin {{passwordMin}} caractere",
+    "uppercase": "O literă mare",
+    "lowercase": "O literă mică",
+    "number": "O cifră",
+    "special": "Un caracter special (ex. !, @, #, ?)"
+  },
+  "validation": {
+    "usernameMin": "Trebuie să aibă cel puțin {{usernameMin}} caractere.",
+    "usernameMax": "Trebuie să aibă cel mult {{usernameMax}} caractere.",
+    "usernamePattern": "Numele de utilizator poate conține doar litere, cifre, puncte, cratime și underscore.",
+    "loginPasswordMax": "Trebuie să aibă cel mult {{loginPasswordMax}} caractere.",
+    "passwordMaxBytes": "Parola poate avea cel mult {{passwordMaxBytes}} octeți.",
+    "passwordMissing": "Parola nu îndeplinește toate cerințele de mai sus.",
+    "confirmPassword": "Te rugăm să confirmi parola.",
+    "passwordsMismatch": "Parolele nu coincid."
+  }
+}

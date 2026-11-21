@@ -1,5 +1,4 @@
 from datetime import date, datetime
-from decimal import Decimal
 import logging
 from server.database.crud.helpers.tag_extractor import extract_tags
 from server.database.models.book import Book
@@ -10,8 +9,7 @@ from server.database.models.user_book_status import UserBookStatus
 from server.database.schemas.comment import CommentOut
 from server.database.schemas.review import BookReviewOut, GetReviewsResponse, ReviewCreate, ReviewCreateResponse, ReviewUpdate
 from server.database.schemas.user import UserOut
-from server.helpers.books.calculate_books_reviews_count import calculate_books_reviews_count
-from server.helpers.reviews.adjust_star_count import adjust_star_count
+from server.repositories.book_repository import refresh_ratings
 from server.utils.errors import raise_http_error
 from sqlalchemy.orm import Session, joinedload
 
@@ -32,8 +30,6 @@ def create_new_review(db: Session, review: ReviewCreate, user_id: int) -> Review
         .filter(UserBookStatus.user_id == user_id, UserBookStatus.status == 'read')
         .first()
     )
-    book_average = db_book.average_rating if db_book.average_rating else 0
-    book_reviews_count = calculate_books_reviews_count(book=db_book)
 
     existing_review = (
         db.query(Review)
@@ -58,23 +54,7 @@ def create_new_review(db: Session, review: ReviewCreate, user_id: int) -> Review
         )
         db.add(new_review)
         db.flush()
-
-        new_average = (Decimal(str(book_reviews_count)) * (Decimal(str(book_average))) + Decimal(str(review.rating))) / (Decimal(str(book_reviews_count)) + Decimal('1'))
-        db_book.average_rating = new_average
-        rating = review.rating
-
-        if rating == 0:
-            db_book.zero_stars_count += 1
-        elif rating in [1, 1.5]:
-            db_book.one_stars_count += 1
-        elif rating in [2, 2.5]:
-            db_book.two_stars_count += 1
-        elif rating in [3, 3.5]:
-            db_book.three_stars_count += 1
-        elif rating in [4, 4.5]:
-            db_book.four_stars_count += 1
-        elif rating in [5]:
-            db_book.five_stars_count += 1
+        refresh_ratings(db, [db_book.id])
 
         logger.debug(f"Writing a new review....")
 
@@ -125,24 +105,10 @@ def update_existing_review(db: Session, review: ReviewUpdate, user_id: int):
         if not existing_review:
             raise_http_error(status_code=400, detail="Could not find the review!", code="REVIEW_NOT_FOUND", hint="Try again later and if the problem persists, get in contact with the support!")
         
-        db_book: Book = existing_review.book
-        old_rating = existing_review.rating
-        new_rating = review.rating
-
-        existing_review.rating = new_rating
+        existing_review.rating = review.rating
         existing_review.review_content = review.review_content
         existing_review.end_date = review.end_date
-
-        total_reviews = calculate_books_reviews_count(book=db_book)
-        if total_reviews == 0:
-            db_book.average_rating = Decimal(str(new_rating))
-        else:
-            old_average = db_book.average_rating or Decimal("0")
-            new_average = (Decimal(str(old_average)) * Decimal(str(total_reviews)) - Decimal(str(old_rating)) + Decimal(str(new_rating))) / Decimal(str(total_reviews))
-            db_book.average_rating = new_average
-
-        adjust_star_count(db_book=db_book, rating_value=old_rating, delta=-1)
-        adjust_star_count(db_book=db_book, rating_value=new_rating, delta=1)
+        refresh_ratings(db, [existing_review.book_id])
 
         db.commit()
         db.refresh(existing_review)
@@ -174,8 +140,7 @@ def delete_existing_review(db: Session, review_id: int, user_id: int):
                 hint="Try again later and if the problem persists, get in contact with the support!"
             )
 
-        db_book: Book = existing_review.book
-        old_rating = existing_review.rating
+        book_id = existing_review.book_id
 
         comments_likes = [like for comment in existing_review.comments for like in comment.likes]
         for like in comments_likes:
@@ -188,17 +153,7 @@ def delete_existing_review(db: Session, review_id: int, user_id: int):
             db.delete(like)
 
         db.delete(existing_review)
-
-        total_reviews = calculate_books_reviews_count(book=db_book)  
-        if total_reviews <= 1: 
-            db_book.average_rating = Decimal("0")
-        else:
-            old_average = db_book.average_rating or Decimal("0")
-            new_average = (Decimal(str(old_average)) * Decimal(str(total_reviews)) - Decimal(str(old_rating))) / Decimal(str(total_reviews - 1))
-            db_book.average_rating = new_average
-
-        
-        adjust_star_count(db_book=db_book, rating_value=old_rating, delta=-1)
+        refresh_ratings(db, [book_id])
 
         db.commit()
 

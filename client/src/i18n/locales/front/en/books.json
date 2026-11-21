@@ -1,0 +1,26 @@
+{
+  "home": {
+    "title": "Discover your next read",
+    "subtitle": "Browse the library, filter by what you love, and pick a book to see more.",
+    "loading": "Loading books…",
+    "empty": "No books match your filters."
+  },
+  "filters": {
+    "title": "Filters",
+    "clearAll": "Clear all",
+    "author": "Author",
+    "addAuthor": "Add author…",
+    "language": "Language",
+    "addLanguage": "Add language…",
+    "rating": "Rating",
+    "stars_one": "{{count}} star",
+    "stars_other": "{{count}} stars"
+  },
+  "card": {
+    "close": "Close book details",
+    "by": "by {{author}}",
+    "language": "Language",
+    "pages": "Pages",
+    "tags": "Tags"
+  }
+}

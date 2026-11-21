@@ -47,12 +47,12 @@ export default function LanguageForm({ initialData, onSuccess }: Props) {
             <input
                 {...register("name", { required: true })}
                 placeholder="Language name"
-                className="px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border dark:text-fontPrimaryLight border-dividerLight dark:border-dividerDark outline-none"
+                className="px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border text-onInputLight dark:text-onInputDark border-dividerLight dark:border-dividerDark outline-none"
             />
             <button
                 type="submit"
                 disabled={isPending}
-                className="mt-auto px-4 py-2 rounded-xs bg-primaryLight dark:bg-primaryDark text-fontSecondaryLight dark:text-fontPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-50 disabled:scale-100 disabled:cursor-not-allowed"
+                className="mt-auto px-4 py-2 rounded-xs bg-primaryLight dark:bg-primaryDark text-onPrimaryLight dark:text-onPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-50 disabled:scale-100 disabled:cursor-not-allowed"
             >
                 {isPending ? "Saving..." : isEditing ? "Update" : "Save"}
             </button>

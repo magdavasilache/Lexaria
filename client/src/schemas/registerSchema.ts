@@ -1,17 +1,22 @@
 import { z } from 'zod';
+import { PASSWORD_REQUIREMENTS, PASSWORD_RULES, USERNAME_RULES, byteLength } from './userRules';
 
 export const registerSchema = z.object({
-  username: z.string().min(1, "The username is required!"),
+  username: z.string()
+    .trim()
+    .min(1, "front/validation:required")
+    .min(USERNAME_RULES.minLength, "front/users:validation.usernameMin")
+    .max(USERNAME_RULES.maxLength, "front/users:validation.usernameMax")
+    .regex(USERNAME_RULES.pattern, "front/users:validation.usernamePattern"),
   password: z.string()
-    .min(8, "Password must be at least 8 characters long")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number")
-    .regex(/[!@#\$%\^&\*\?_]/, "Password must contain at least one special character (!, @, #, ?, etc.)"),
-  confirmPassword: z.string().min(1, "Confirming the password is required!"),
+    .min(1, "front/validation:required")
+    .refine((value) => byteLength(value) <= PASSWORD_RULES.maxBytes, "front/users:validation.passwordMaxBytes")
+    .refine((value) => PASSWORD_REQUIREMENTS.every((requirement) => requirement.test(value)), "front/users:validation.passwordMissing"),
+  confirmPassword: z.string().min(1, "front/users:validation.confirmPassword"),
 }).refine(data => data.password === data.confirmPassword, {
   path: ["confirmPassword"],
-  message: "Passwords do not match!",
+  message: "front/users:validation.passwordsMismatch",
 });
 
 export type RegisterFormData = z.infer<typeof registerSchema>;
+export type RegisterPayload = Omit<RegisterFormData, "confirmPassword">;

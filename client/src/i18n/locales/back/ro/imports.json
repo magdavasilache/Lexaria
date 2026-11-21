@@ -1,0 +1,11 @@
+{
+  "fileType": "{{filename}} trebuie să fie un fișier JSON.",
+  "fileTooLarge": "{{filename}} depășește {{max_mb}} MB.",
+  "invalidJson": "{{filename}} nu conține un JSON valid.",
+  "unexpectedStructure": "{{filename}} nu pare a fi un export Goodreads.",
+  "rowSkipped": "Rândul {{row}} a fost omis: {{reason}}.",
+  "rowMissingTitle": "lipsește titlul cărții",
+  "rowInvalidRating": "nota nu este între 0 și 5",
+  "rowInvalidDate": "data nu este validă",
+  "rowInvalidStatus": "statusul de lectură nu este recunoscut"
+}

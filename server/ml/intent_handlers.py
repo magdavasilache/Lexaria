@@ -205,7 +205,7 @@ def handle_book_info(ctx: InferenceContext) -> str:
         parts.append(f"Genre: {genre_names}.")
 
     if book.average_rating:
-        parts.append(f"Rated {book.average_rating:.1f}★ from {book.five_stars_count + book.four_stars_count + book.three_stars_count + book.two_stars_count + book.one_stars_count} reviews.")
+        parts.append(f"Rated {book.average_rating:.1f}★ from {book.ratings_count} reviews.")
 
     readable_tags = {
         "dark": "has a dark tone",

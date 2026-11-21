@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from server.database.crud.helpers.create_access_token import get_authenticated_user
+from server.core.dependencies import get_admin_user, get_authenticated_user
 from server.database.database import get_db
 from sqlalchemy.orm import Session
 from server.database.crud.award import create_award, search_for_award
@@ -9,7 +9,7 @@ from server.utils.errors import raise_http_error
 
 router = APIRouter(prefix='/award', tags=["Award"], dependencies=[Depends(get_authenticated_user)])
 
-@router.post("/create_award", response_model=AwardUOut, responses={401: {"model": ErrorResponse}, 400: {"model": ErrorResponse}, 500: {"model": ErrorResponse}})
+@router.post("/create_award", response_model=AwardUOut, dependencies=[Depends(get_admin_user)], responses={401: {"model": ErrorResponse}, 400: {"model": ErrorResponse}, 500: {"model": ErrorResponse}})
 def create_award_route(award: AwardCreate, db: Session = Depends(get_db)):
     try:
         return create_award(db=db, award_create=award)

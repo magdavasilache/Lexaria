@@ -1,0 +1,11 @@
+{
+  "unexpected": "Something went wrong on our side.",
+  "tryLater": "Please try again later.",
+  "requestFailed": "Request failed.",
+  "badRequest": "Bad request.",
+  "notFound": "Resource not found.",
+  "methodNotAllowed": "This action is not allowed.",
+  "conflict": "This change conflicts with existing data.",
+  "forbidden": "You don't have permission to do this.",
+  "database": "A database error occurred."
+}

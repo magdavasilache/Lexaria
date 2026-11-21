@@ -1,0 +1,37 @@
+{
+  "actions": {
+    "userRegister": "Registration",
+    "userLogin": "Login",
+    "tokenRefresh": "Session refresh",
+    "accessDenied": "Access denied",
+    "userLogout": "Logout",
+    "userLogoutAll": "Logout everywhere",
+    "sessionReuse": "Session token reuse",
+    "bookCreate": "Book added",
+    "bookUpdate": "Book edited",
+    "bookDelete": "Book deleted",
+    "goodreadsImport": "Goodreads import"
+  },
+  "descriptions": {
+    "userRegistered": "{{username}} created an account.",
+    "registerFailed": "Registration failed for {{username}}: {{reason}}",
+    "userLoggedIn": "{{username}} logged in.",
+    "loginFailed": "Failed login attempt for {{username}}: {{reason}}",
+    "tokenRefreshed": "{{username}} refreshed their session.",
+    "tokenRefreshFailed": "Session refresh failed: {{reason}}",
+    "accessDenied": "{{username}} tried to access {{path}} without permission.",
+    "userLoggedOut": "{{username}} logged out.",
+    "logoutFailed": "Logout failed: {{reason}}",
+    "userLoggedOutAll": "{{username}} logged out of every device.",
+    "logoutAllFailed": "Logout from every device failed: {{reason}}",
+    "sessionReuse": "An old session token for {{username}} was reused; the session was revoked.",
+    "bookCreated": "{{username}} added the book \"{{title}}\".",
+    "bookCreateFailed": "{{username}} could not add the book \"{{title}}\": {{reason}}",
+    "bookUpdated": "{{username}} edited the book \"{{title}}\".",
+    "bookUpdateFailed": "{{username}} could not edit book #{{book_id}}: {{reason}}",
+    "bookDeleted": "{{username}} deleted the book \"{{title}}\".",
+    "bookDeleteFailed": "{{username}} could not delete book #{{book_id}}: {{reason}}",
+    "goodreadsImported": "{{username}} imported {{books}} new books, {{statuses}} reading statuses and {{reviews}} ratings from Goodreads.",
+    "goodreadsImportFailed": "Goodreads import failed for {{username}}: {{reason}}"
+  }
+}

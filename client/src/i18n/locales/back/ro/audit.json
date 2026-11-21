@@ -1,0 +1,37 @@
+{
+  "actions": {
+    "userRegister": "Înregistrare",
+    "userLogin": "Autentificare",
+    "tokenRefresh": "Reînnoire sesiune",
+    "accessDenied": "Acces refuzat",
+    "userLogout": "Deconectare",
+    "userLogoutAll": "Deconectare de pe toate dispozitivele",
+    "sessionReuse": "Reutilizare token de sesiune",
+    "bookCreate": "Carte adăugată",
+    "bookUpdate": "Carte editată",
+    "bookDelete": "Carte ștearsă",
+    "goodreadsImport": "Import Goodreads"
+  },
+  "descriptions": {
+    "userRegistered": "{{username}} și-a creat un cont.",
+    "registerFailed": "Înregistrare eșuată pentru {{username}}: {{reason}}",
+    "userLoggedIn": "{{username}} s-a autentificat.",
+    "loginFailed": "Încercare de autentificare eșuată pentru {{username}}: {{reason}}",
+    "tokenRefreshed": "{{username}} și-a reînnoit sesiunea.",
+    "tokenRefreshFailed": "Reînnoirea sesiunii a eșuat: {{reason}}",
+    "accessDenied": "{{username}} a încercat să acceseze {{path}} fără permisiune.",
+    "userLoggedOut": "{{username}} s-a deconectat.",
+    "logoutFailed": "Deconectarea a eșuat: {{reason}}",
+    "userLoggedOutAll": "{{username}} s-a deconectat de pe toate dispozitivele.",
+    "logoutAllFailed": "Deconectarea de pe toate dispozitivele a eșuat: {{reason}}",
+    "sessionReuse": "Un token vechi de sesiune pentru {{username}} a fost reutilizat; sesiunea a fost revocată.",
+    "bookCreated": "{{username}} a adăugat cartea „{{title}}”.",
+    "bookCreateFailed": "{{username}} nu a putut adăuga cartea „{{title}}”: {{reason}}",
+    "bookUpdated": "{{username}} a editat cartea „{{title}}”.",
+    "bookUpdateFailed": "{{username}} nu a putut edita cartea #{{book_id}}: {{reason}}",
+    "bookDeleted": "{{username}} a șters cartea „{{title}}”.",
+    "bookDeleteFailed": "{{username}} nu a putut șterge cartea #{{book_id}}: {{reason}}",
+    "goodreadsImported": "{{username}} a importat din Goodreads {{books}} cărți noi, {{statuses}} statusuri de lectură și {{reviews}} note.",
+    "goodreadsImportFailed": "Importul Goodreads a eșuat pentru {{username}}: {{reason}}"
+  }
+}

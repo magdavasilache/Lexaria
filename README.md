@@ -4,7 +4,7 @@ Lexaria is a full-stack web application built as a technical project focused on 
 
 The main goal of the project is to demonstrate clean separation of concerns between frontend and backend, efficient API handling using React Query and Zustand, and a FastAPI-based service layer.
 
-![Home](./client/assets/presentation/homepage.png)
+![Home]
 ## Key Focus
 
 - Frontend state management with Zustand

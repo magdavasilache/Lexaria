@@ -35,7 +35,7 @@ export default function TrainingSection() {
                     <button
                         onClick={handleStart}
                         disabled={status === "running"}
-                        className="text-sm px-4 py-1.5 rounded-xs bg-secondaryLight dark:bg-primaryDark dark:text-fontPrimaryDark shadow-buttonShadow text-fontPrimaryLight dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        className="text-sm px-4 py-1.5 rounded-xs bg-secondaryLight dark:bg-primaryDark dark:text-onPrimaryDark shadow-buttonShadow text-onSecondaryLight dark:shadow-buttonShadowDark hover:scale-105 transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                     >
                         {status === "running" ? "Training…" : "▶ Start Training"}
                     </button>
@@ -55,9 +55,9 @@ export default function TrainingSection() {
                 {status !== "idle" && (
                     <span className={`
                         text-xs px-2.5 py-1 rounded-full font-medium ml-auto
-                        ${status === "running" ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400" : ""}
-                        ${status === "done"    ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : ""}
-                        ${status === "error"   ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400" : ""}
+                        ${status === "running" ? "bg-warningLightTone text-warningTextLight dark:bg-warningDarkTone dark:text-warningTextDark" : ""}
+                        ${status === "done"    ? "bg-successLightTone text-successTextLight dark:bg-successDarkTone dark:text-successTextDark" : ""}
+                        ${status === "error"   ? "bg-errorLightTone text-errorTextLight dark:bg-errorDarkTone dark:text-errorTextDark" : ""}
                     `}>
                         {status === "running" && "● Training"}
                         {status === "done"    && "✓ Complete"}
@@ -76,15 +76,15 @@ export default function TrainingSection() {
                         <div
                             className={`
                                 h-full rounded-full transition-all duration-500
-                                ${status === "done"  ? "bg-green-500 dark:bg-green-400" : ""}
-                                ${status === "error" ? "bg-errorLight dark:bg-errorDark" : ""}
+                                ${status === "done"  ? "bg-successSolidLight dark:bg-successDark" : ""}
+                                ${status === "error" ? "bg-errorSolidLight dark:bg-errorSolidDark" : ""}
                                 ${status === "running" ? "bg-primaryLight dark:bg-primaryDark" : ""}
                             `}
                             style={{ width: `${progress}%` }}
                         />
                     </div>
                     {status === "done" && (
-                        <p className="text-xs text-green-600 dark:text-green-400">
+                        <p className="text-xs text-successTextLight dark:text-successDark">
                             Model saved and reloaded — new conversations will use it immediately.
                         </p>
                     )}
@@ -119,7 +119,7 @@ export default function TrainingSection() {
                             <div
                                 key={i}
                                 className={
-                                    line.startsWith("[✓]")    ? "text-green-600 dark:text-green-400" :
+                                    line.startsWith("[✓]")    ? "text-successTextLight dark:text-successDark" :
                                     line.startsWith("[ERROR]") ? "text-errorLight dark:text-errorDark" :
                                     line.startsWith("[WARN]")  ? "text-warningLight dark:text-warningDark" :
                                     line.startsWith("[INFO]")  ? "opacity-60" :

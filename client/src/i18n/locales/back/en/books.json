@@ -1,0 +1,13 @@
+{
+  "unsupportedImage": "{{filename}} is not a supported image. Use JPG, PNG or WebP.",
+  "imageTooLarge": "{{filename}} is larger than {{max_mb}} MB.",
+  "notFound": "This book doesn't exist or was removed.",
+  "authorNotFound": "The selected author doesn't exist.",
+  "languageNotFound": "The selected language doesn't exist.",
+  "countryNotFound": "The selected country doesn't exist.",
+  "genresNotFound": "Some selected genres don't exist (ids: {{ids}}).",
+  "awardsNotFound": "Some selected awards don't exist (ids: {{ids}}).",
+  "tooManyImages": "A book can have at most {{max}} images.",
+  "imageNotOnBook": "{{filename}} is not one of this book's images.",
+  "publishedTooFar": "The publication date can be at most one year from today."
+}

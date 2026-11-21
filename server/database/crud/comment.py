@@ -1,5 +1,5 @@
 from datetime import datetime
-from server.database.crud.user import get_user_by_id
+from server.repositories.user_repository import get_user_by_id
 from server.database.models.comment import Comment
 from server.database.models.user import User
 from server.database.schemas.comment import CommentCreate, CommentCreateResponse, CommentOut

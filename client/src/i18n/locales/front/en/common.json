@@ -1,0 +1,56 @@
+{
+  "actions": {
+    "cancel": "Cancel",
+    "dismissNotification": "Dismiss notification"
+  },
+  "snackbar": {
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Notice",
+    "success": "Success"
+  },
+  "network": {
+    "timeout": "Request timed out. Please check your connection.",
+    "offline": "Can't reach the server. Please check your connection."
+  },
+  "status": {
+    "400": "Bad request.",
+    "401": "Please log in again.",
+    "403": "You don't have permission to do this.",
+    "404": "Resource not found.",
+    "500": "Server error.",
+    "unexpected": "An unexpected error occurred."
+  },
+  "language": {
+    "label": "Language",
+    "switchTo": "Switch language to {{language}}",
+    "en": "English",
+    "ro": "Română"
+  },
+  "form": {
+    "requiredField": "Required field"
+  },
+  "navbar": {
+    "home": "Lexaria home",
+    "openUserMenu": "Open user menu",
+    "admin": "Admin",
+    "browseBooks": "Browse books",
+    "goodreadsImport": "Goodreads import",
+    "addBook": "Add book",
+    "adminPanel": "Admin panel",
+    "logout": "Log out"
+  },
+  "fields": {
+    "charactersLeft_one": "{{count}} character left",
+    "charactersLeft_other": "{{count}} characters left",
+    "decrement": "Decrease",
+    "increment": "Increase",
+    "dateFrom": "From",
+    "dateTo": "To",
+    "dateSpan_one": "{{count}} day",
+    "dateSpan_other": "{{count}} days",
+    "clear": "Clear selection",
+    "remove": "Remove {{label}}",
+    "noResults": "No results"
+  }
+}

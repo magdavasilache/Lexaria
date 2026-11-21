@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Plus, X } from "lucide-react";
+import Button from "../../global-components/buttons/Button";
 import { useGetLanguages } from "../../api-handling/rtk-hooks/language/useGetLanguages";
 import { useBooks } from "../../api-handling/rtk-hooks/useBooks";
 import AuthorForm from "../../forms/AuthorForm";
@@ -10,12 +13,15 @@ import BookForm from "../../forms/BookForm";
 import { AdminTable } from "./components/AdminTable";
 import BooksAdminTable from "./components/BooksAdminTable";
 import ChatbotAdminTab from "./ChatbotAdminTab";
+import ActivityAdminTab from "./ActivityAdminTab";
 
-const tabs = ["Authors", "Genres", "Languages", "Awards", "Countries", "Books", "Chatbot"];
+const tabs = ["Authors", "Genres", "Languages", "Awards", "Countries", "Books", "Chatbot", "Activity"];
+const READ_ONLY_TABS = new Set(["Chatbot", "Activity"]);
 
 type SlideMode = "add" | "edit" | null;
 
 export default function AdminPanel() {
+    const { t } = useTranslation("front/admin");
     const [activeTab, setActiveTab] = useState("Books");
     const [slideMode, setSlideMode] = useState<SlideMode>(null);
     const [editingItem, setEditingItem] = useState<any | null>(null);
@@ -31,7 +37,8 @@ export default function AdminPanel() {
         console.log("delete", item);
     };
 
-    const isChatbotTab = activeTab === "Chatbot";
+    const isReadOnlyTab = READ_ONLY_TABS.has(activeTab);
+    const tabLabel = (tab: string) => (tab === "Activity" ? t("activity.title") : tab);
 
     const singularLabel = activeTab !== "Countries"
         ? activeTab.slice(0, -1)
@@ -41,6 +48,8 @@ export default function AdminPanel() {
         switch (activeTab) {
             case "Chatbot":
                 return <ChatbotAdminTab />;
+            case "Activity":
+                return <ActivityAdminTab />;
             case "Books":
                 return (
                     <BooksAdminTable
@@ -81,61 +90,52 @@ export default function AdminPanel() {
     };
 
     return (
-        <div className="w-full h-screen flex bg-backgroundLight dark:bg-backgroundDark text-fontPrimaryLight dark:text-fontSecondaryDark">
+        <div className="w-full min-h-screen md:h-screen flex flex-col md:flex-row bg-backgroundLight dark:bg-backgroundDark text-fontPrimaryLight dark:text-fontPrimaryDark">
 
-            <aside className="w-[180px] shrink-0 h-full border-r border-dividerLight dark:border-dividerDark p-4 flex flex-col gap-1">
-                <p className="text-xs uppercase tracking-widest opacity-40 mb-3 px-2">Admin</p>
+            <aside className="w-full md:w-44 shrink-0 border-b md:border-b-0 md:border-r border-dividerLight dark:border-dividerDark p-3 md:p-4 flex flex-wrap md:flex-col md:flex-nowrap gap-1">
+                <p className="hidden md:block text-xs uppercase tracking-widest opacity-40 mb-3 px-2">Admin</p>
                 {tabs.map((tab) => (
-                    <button
+                    <Button
                         key={tab}
+                        variant={activeTab === tab ? "primary" : "ghost"}
+                        size="sm"
+                        aria-current={activeTab === tab ? "page" : undefined}
                         onClick={() => { setActiveTab(tab); closeSlide(); }}
-                        className={`
-                            px-3 py-2 rounded-xs text-left text-sm transition-all
-                            ${activeTab === tab
-                                ? "bg-primaryLight dark:bg-primaryDark text-white shadow-buttonShadow dark:shadow-buttonShadowDark"
-                                : "hover:bg-inputLight dark:hover:bg-inputDark opacity-70 hover:opacity-100"
-                            }
-                        `}
+                        className={`min-h-10 md:justify-start ${activeTab === tab ? "" : "opacity-70 hover:opacity-100"}`}
                     >
-                        {tab}
+                        {tabLabel(tab)}
                         {tab === "Chatbot" && (
                             <span className="ml-1.5 text-[10px] opacity-60 align-middle">✦</span>
                         )}
-                    </button>
+                    </Button>
                 ))}
             </aside>
 
-            <div className="flex-1 relative overflow-hidden flex flex-col">
-                <div className="px-6 py-4 flex justify-between items-center border-b border-dividerLight dark:border-dividerDark shrink-0">
-                    <h1 className="text-lg font-libre">{activeTab}</h1>
-                    {!isChatbotTab && (
-                        <button
-                            onClick={openAdd}
-                            className="px-4 py-2 text-sm rounded-xs bg-secondaryLight dark:bg-primaryDark dark:text-fontPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition"
-                        >
-                            + Add {singularLabel}
-                        </button>
+            <div className="flex-1 min-w-0 relative md:overflow-hidden flex flex-col">
+                <div className="px-4 md:px-6 py-3 md:py-4 flex flex-wrap gap-2 justify-between items-center border-b border-dividerLight dark:border-dividerDark shrink-0">
+                    <h1 className="text-base md:text-lg font-libre">{tabLabel(activeTab)}</h1>
+                    {!isReadOnlyTab && (
+                        <Button variant="secondary" size="sm" leftIcon={Plus} onClick={openAdd} className="min-h-10">
+                            Add {singularLabel}
+                        </Button>
                     )}
                 </div>
-                <div className="flex-1 overflow-hidden px-6 py-4">
+                <div className="flex-1 md:overflow-hidden px-4 md:px-6 py-4">
                     {renderTable()}
                 </div>
             </div>
 
-            {slideMode && !isChatbotTab && (
-                <div className="absolute top-0 z-[999] right-0 w-[40%] h-full bg-paperLight dark:bg-paperDark border-l border-dividerLight dark:border-dividerDark shadow-cardShadowLight dark:shadow-cardShadowDark animate-slide-in flex flex-col">
-                    <div className="flex justify-between items-center px-6 py-4 border-b border-dividerLight dark:border-dividerDark shrink-0">
+            {slideMode && !isReadOnlyTab && (
+                <div className="fixed md:absolute inset-0 md:inset-auto md:top-0 md:right-0 z-[999] w-full md:w-2/5 h-full bg-paperLight dark:bg-paperDark md:border-l border-dividerLight dark:border-dividerDark shadow-cardShadowLight dark:shadow-cardShadowDark animate-slide-in flex flex-col">
+                    <div className="flex justify-between items-center gap-2 px-4 md:px-6 py-3 md:py-4 border-b border-dividerLight dark:border-dividerDark shrink-0">
                         <h2 className="text-base font-libre">
                             {slideMode === "edit" ? `Edit ${singularLabel}` : `Add ${singularLabel}`}
                         </h2>
-                        <button
-                            onClick={closeSlide}
-                            className="text-sm opacity-60 hover:opacity-100 transition-opacity"
-                        >
-                            ✕ Close
-                        </button>
+                        <Button variant="ghost" size="sm" leftIcon={X} onClick={closeSlide} className="min-h-10">
+                            Close
+                        </Button>
                     </div>
-                    <div className="flex-1 overflow-y-auto px-6 py-4">
+                    <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4">
                         {renderForm()}
                     </div>
                 </div>

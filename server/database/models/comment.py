@@ -8,10 +8,10 @@ class Comment(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    review_id = Column(Integer, ForeignKey("reviews.id"), nullable=False)
+    review_id = Column(Integer, ForeignKey("reviews.id", ondelete="CASCADE"), nullable=False)
     comment_content = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now)
     
-    likes = relationship("CommentLike", back_populates="comment")
+    likes = relationship("CommentLike", back_populates="comment", passive_deletes=True)
     review = relationship("Review", back_populates="comments")
     user = relationship("User", back_populates="comments")

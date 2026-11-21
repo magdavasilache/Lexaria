@@ -9,7 +9,7 @@ from server.database.database import Base
 class ReviewLike(Base):
     __tablename__ = "review_likes"
     user_id = Column(ForeignKey("users.id"), primary_key=True)
-    review_id = Column(ForeignKey("reviews.id"), primary_key=True)
+    review_id = Column(ForeignKey("reviews.id", ondelete="CASCADE"), primary_key=True)
     timestamp = Column(DateTime, default=datetime.now)
 
     user = relationship("User", back_populates="liked_reviews")
@@ -18,7 +18,7 @@ class ReviewLike(Base):
 class CommentLike(Base):
     __tablename__ = "comment_likes"
     user_id = Column(ForeignKey("users.id"), primary_key=True)
-    comment_id = Column(ForeignKey("comments.id"), primary_key=True)
+    comment_id = Column(ForeignKey("comments.id", ondelete="CASCADE"), primary_key=True)
     timestamp = Column(DateTime, default=datetime.now)
 
     user = relationship("User", back_populates="liked_comments")

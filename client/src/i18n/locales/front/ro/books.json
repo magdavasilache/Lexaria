@@ -1,0 +1,27 @@
+{
+  "home": {
+    "title": "Descoperă-ți următoarea lectură",
+    "subtitle": "Răsfoiește biblioteca, filtrează după ce îți place și alege o carte ca să afli mai multe.",
+    "loading": "Se încarcă cărțile…",
+    "empty": "Nicio carte nu corespunde filtrelor tale."
+  },
+  "filters": {
+    "title": "Filtre",
+    "clearAll": "Șterge tot",
+    "author": "Autor",
+    "addAuthor": "Adaugă un autor…",
+    "language": "Limbă",
+    "addLanguage": "Adaugă o limbă…",
+    "rating": "Notă",
+    "stars_one": "{{count}} stea",
+    "stars_few": "{{count}} stele",
+    "stars_other": "{{count}} de stele"
+  },
+  "card": {
+    "close": "Închide detaliile cărții",
+    "by": "de {{author}}",
+    "language": "Limbă",
+    "pages": "Pagini",
+    "tags": "Etichete"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "title": "When technology meets the arts",
+    "subtitle": "Lexaria is that corner of the Internet where you can fall in love with reading more than ever before.",
+    "goToLibrary": "Go to your library",
+    "getStarted": "Get started",
+    "haveAccount": "I already have an account"
+  },
+  "quotes": [
+    {
+      "text": "There is no Frigate like a Book\nTo take us Lands away",
+      "author": "Emily Dickinson",
+      "source": "There is no Frigate like a Book"
+    },
+    {
+      "text": "The reading of all good books is like a conversation with the finest minds of past centuries.",
+      "author": "René Descartes",
+      "source": "Discourse on the Method"
+    },
+    {
+      "text": "How many a man has dated a new era in his life from the reading of a book.",
+      "author": "Henry David Thoreau",
+      "source": "Walden"
+    },
+    {
+      "text": "I declare after all there is no enjoyment like reading!",
+      "author": "Jane Austen",
+      "source": "Pride and Prejudice"
+    },
+    {
+      "text": "And what is the use of a book, without pictures or conversations?",
+      "author": "Lewis Carroll",
+      "source": "Alice's Adventures in Wonderland"
+    },
+    {
+      "text": "Reading maketh a full man; conference a ready man; and writing an exact man.",
+      "author": "Francis Bacon",
+      "source": "Of Studies"
+    }
+  ],
+  "footer": {
+    "tagline": "A home for book lovers: track what you read, share reviews and find your next story.",
+    "navLabel": "Footer",
+    "explore": "Explore",
+    "browseBooks": "Browse books",
+    "goodreadsImport": "Goodreads import",
+    "about": "About",
+    "aboutText": "A personal learning project built with React and FastAPI.",
+    "copyright": "© {{year}} Lexaria · Designed & developed by {{author}}"
+  }
+}

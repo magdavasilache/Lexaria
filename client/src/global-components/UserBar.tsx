@@ -1,24 +1,121 @@
-import { useNavigate } from "react-router-dom";
-import SimpleButton from "./buttons/SimpleButton";
+import { KeyboardEvent, useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { BookOpen, BookPlus, LogOut, ShieldCheck, Upload } from "lucide-react";
+import Button from "./buttons/Button";
+import { UserType, USER_ROLE } from "../types/auth-types/userTypes";
+import { DEFAULT_AVATAR } from "../utils/assets";
 
 interface Props {
+    user: UserType
     logout: () => void
+    onNavigate: () => void
+    onClose: () => void
 }
-export default function UserBar({ logout }: Props) {
+
+export default function UserBar({ user, logout, onNavigate, onClose }: Props) {
+    const { t } = useTranslation()
     const navigate = useNavigate()
+    const { pathname } = useLocation()
+    const menuRef = useRef<HTMLDivElement>(null)
+    const isAdmin = user.role === USER_ROLE.ADMIN
+    const name = user.display_name ?? user.username
 
-    const handleNavigateToImportPage = () => {
-        navigate("/goodreads-import")
+    const items = [
+        { path: "/homepage", label: t("navbar.browseBooks"), icon: BookOpen },
+        { path: "/goodreads-import", label: t("navbar.goodreadsImport"), icon: Upload },
+        ...(isAdmin
+            ? [
+                { path: "/add-book", label: t("navbar.addBook"), icon: BookPlus },
+                { path: "/admin-panel", label: t("navbar.adminPanel"), icon: ShieldCheck },
+            ]
+            : []),
+    ]
+
+    const menuItems = () => Array.from(menuRef.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]') ?? [])
+
+    useEffect(() => {
+        menuItems()[0]?.focus()
+    }, [])
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        const all = menuItems()
+        const index = all.indexOf(document.activeElement as HTMLButtonElement)
+        const moves: Record<string, number> = {
+            ArrowDown: (index + 1) % all.length,
+            ArrowUp: (index - 1 + all.length) % all.length,
+            Home: 0,
+            End: all.length - 1,
+        }
+        if (e.key in moves) {
+            e.preventDefault()
+            all[moves[e.key]]?.focus()
+        } else if (e.key === "Escape" || e.key === "Tab") {
+            onClose()
+        }
     }
 
-    const handleNavigateToAdminPanel = () => {
-        navigate("/admin-panel")
+    const goTo = (path: string) => {
+        onNavigate()
+        navigate(path)
     }
+
     return (
-        <div className="flex flex-col gap-2 w-[150px]">
-            <div><SimpleButton text="Logout" buttonFunction={logout} /></div>
-            <div><SimpleButton text="Admin Panel" buttonFunction={handleNavigateToAdminPanel} /></div>
-            <div><SimpleButton text="Goodreads Import" buttonFunction={handleNavigateToImportPage} /></div>
+        <div
+            ref={menuRef}
+            role="menu"
+            aria-label={t("navbar.openUserMenu")}
+            onKeyDown={handleKeyDown}
+            className="w-64 max-w-[calc(100vw-1.5rem)] font-libre"
+        >
+            <div className="flex items-center gap-3 px-4 py-3 bg-primaryLight dark:bg-primaryDark text-onPrimaryLight dark:text-onPrimaryDark">
+                <img
+                    src={user.avatar_url ?? DEFAULT_AVATAR}
+                    alt=""
+                    className="w-10 h-10 rounded-full object-cover shrink-0 ring-2 ring-onPrimaryLight/40 dark:ring-onPrimaryDark/30 bg-panelLight dark:bg-panelDark"
+                />
+                <div className="min-w-0">
+                    <p className="font-semibold truncate">{name}</p>
+                    <p className="text-xs truncate opacity-80">@{user.username}</p>
+                </div>
+                {isAdmin && (
+                    <span className="ml-auto shrink-0 px-2 py-0.5 rounded-full text-[0.65rem] uppercase tracking-wider bg-onPrimaryLight dark:bg-onPrimaryDark text-primaryLight dark:text-primaryDark">
+                        {t("navbar.admin")}
+                    </span>
+                )}
+            </div>
+
+            <div className="flex flex-col gap-0.5 p-1.5">
+                {items.map(({ path, label, icon }) => (
+                    <Button
+                        key={path}
+                        role="menuitem"
+                        variant="menu"
+                        fullWidth
+                        leftIcon={icon}
+                        tabIndex={-1}
+                        aria-current={pathname === path ? "page" : undefined}
+                        onClick={() => goTo(path)}
+                        className="min-h-10 text-sm"
+                    >
+                        {label}
+                    </Button>
+                ))}
+            </div>
+
+            <div className="p-1.5 border-t border-panelBorderLight dark:border-panelBorderDark">
+                <Button
+                    role="menuitem"
+                    variant="menuDanger"
+                    fullWidth
+                    leftIcon={LogOut}
+                    tabIndex={-1}
+                    onClick={logout}
+                    className="min-h-10 text-sm"
+                >
+                    {t("navbar.logout")}
+                </Button>
+            </div>
         </div>
     )
 }

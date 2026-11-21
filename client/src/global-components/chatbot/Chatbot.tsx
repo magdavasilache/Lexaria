@@ -16,7 +16,7 @@ export default function Chatbot() {
                     fixed bottom-20 right-4 z-50
                     bg-secondaryLight dark:bg-secondaryDark
                     hover:bg-secondaryLightDarkTone dark:hover:bg-secondaryDarkDarkTone
-                    text-fontPrimaryLight dark:text-fontPrimaryDark
+                    text-onSecondaryLight dark:text-onSecondaryDark
                     p-3 rounded-full shadow-md
                     hover:scale-105 active:scale-95
                     transition-all duration-200

@@ -7,8 +7,8 @@ from sqlalchemy.orm import relationship
 book_award = Table(
     "book_award",
     Base.metadata,
-    Column("book_id", Integer, ForeignKey("books.id"), primary_key=True),
-    Column("award_id", Integer, ForeignKey("awards.id"), primary_key=True),
+    Column("book_id", Integer, ForeignKey("books.id", ondelete="CASCADE"), primary_key=True),
+    Column("award_id", Integer, ForeignKey("awards.id", ondelete="CASCADE"), primary_key=True),
 )
 
 class Award(Base):

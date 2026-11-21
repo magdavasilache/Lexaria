@@ -1,4 +1,4 @@
-from server.database.crud.helpers.create_access_token import get_authenticated_user
+from server.core.dependencies import get_authenticated_user
 from server.database.models.user import User
 from server.database.schemas.comment import CommentCreate, CommentCreateResponse
 from fastapi import APIRouter, Depends

@@ -1,11 +1,11 @@
 import { useForm, Controller } from "react-hook-form";
-import SearchableSelect from "./components/SearchableSelect";
+import AutocompleteField from "./components/AutocompleteField";
+import Button from "../global-components/buttons/Button";
 import { useCreateCountry } from "../api-handling/rtk-hooks/country/useCreateCountry";
 import { useGetLanguages } from "../api-handling/rtk-hooks/language/useGetLanguages";
-import { Language } from "../types/language/languageTypes";
 
 export default function CountryForm() {
-    const { register, handleSubmit, reset, control, setValue } = useForm({
+    const { register, handleSubmit, reset, control } = useForm({
         defaultValues: {
             name: "",
             language_id: 0,
@@ -15,46 +15,39 @@ export default function CountryForm() {
     const createCountry = useCreateCountry();
     const { data: languages = [] } = useGetLanguages();
 
-    const onSubmit = (values: any) => {
+    const onSubmit = (values: { name: string; language_id: number }) => {
         console.log(values)
         createCountry.mutateAsync(values);
         reset();
     };
-
-    const handleChooseLanguage = (language: Language) => {
-        if (language) {
-            setValue('language_id', language.id)
-        }
-    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 h-full">
             <input
                 {...register("name", { required: true })}
                 placeholder="Country name"
-                className="px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border dark:text-fontPrimaryLight border-dividerLight dark:border-dividerDark outline-none"
+                className="px-3 py-2 rounded-xs bg-inputLight dark:bg-inputDark border text-onInputLight dark:text-onInputDark border-dividerLight dark:border-dividerDark outline-none"
             />
 
             <Controller
                 control={control}
                 name="language_id"
                 render={({ field }) => (
-                    <SearchableSelect
+                    <AutocompleteField
+                        label="Language"
                         options={languages}
-                        value={field.value}
-                        onChange={handleChooseLanguage}
-                        isForFiltering={false}
+                        value={field.value || null}
+                        onChange={(id) => field.onChange(id ?? 0)}
+                        onBlur={field.onBlur}
+                        ref={field.ref}
                         placeholder="Select language"
                     />
                 )}
             />
 
-            <button
-                type="submit"
-                className="mt-auto px-4 py-2 rounded-xs bg-primaryLight dark:bg-primaryDark text-fontSecondaryLight dark:text-fontPrimaryDark shadow-buttonShadow dark:shadow-buttonShadowDark hover:scale-105 transition"
-            >
+            <Button type="submit" className="mt-auto">
                 Save
-            </button>
+            </Button>
         </form>
     );
 }

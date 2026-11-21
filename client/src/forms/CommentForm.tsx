@@ -28,7 +28,7 @@ export default function CommentForm({ review_id, onClose }: Props) {
           w-full max-w-md rounded-sm p-6 shadow-cardShadowLight
           dark:shadow-cardShadowDark
           bg-paperLight dark:bg-paperDark
-          text-fontPrimaryLight dark:text-fontSecondaryDark
+          text-fontPrimaryLight dark:text-fontPrimaryDark
           border border-dividerLight dark:border-dividerDark
         "
       >
@@ -51,7 +51,7 @@ export default function CommentForm({ review_id, onClose }: Props) {
               w-full min-h-[120px] rounded-sm p-3 text-sm
               bg-inputLight dark:bg-inputDark
               border border-dividerLight dark:border-dividerDark
-              text-fontPrimaryLight dark:text-fontPrimaryDark
+              text-onInputLight dark:text-onInputDark
               focus:outline-none focus:ring-2
               focus:ring-primaryLight dark:focus:ring-primaryDark
             "
@@ -76,7 +76,7 @@ export default function CommentForm({ review_id, onClose }: Props) {
             className="
                 px-4 py-2 text-sm rounded-sm
                 bg-primaryLight dark:bg-primaryDark
-                text-fontSecondaryLight dark:text-fontPrimaryDark
+                text-onPrimaryLight dark:text-onPrimaryDark
                 hover:bg-primaryHoverLight dark:hover:bg-primaryHoverDark
                 active:bg-primaryActiveLight dark:active:bg-primaryActiveDark
                 disabled:bg-primaryDisabledLight dark:disabled:bg-primaryDisabledDark

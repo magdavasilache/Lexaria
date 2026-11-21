@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Lexaria default reader avatar">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#EEF7F1"/><stop offset="1" stop-color="#C9E7D3"/></linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0A7029"/><stop offset="1" stop-color="#053F17"/></linearGradient>
+    <clipPath id="circle"><circle cx="64" cy="64" r="64"/></clipPath>
+  </defs>
+  <g clip-path="url(#circle)">
+    <rect width="128" height="128" fill="url(#bg)"/>
+    <circle cx="64" cy="58" r="40" fill="#D7EDDF"/>
+    <path d="M18 132c0-27 20-45 46-45s46 18 46 45Z" fill="url(#body)"/>
+    <circle cx="64" cy="50" r="21" fill="url(#body)"/>
+    <path d="M64 101c-9-6-19-7-27-4V81c8-3 18-2 27 4 9-6 19-7 27-4v16c-8-3-18-2-27 4Z" fill="#F5E4C0" stroke="#D4A853" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M64 85v16" stroke="#D4A853" stroke-width="3" stroke-linecap="round"/>
+    <path d="M43 88c5-1 10 0 15 2M70 90c5-2 10-3 15-2" stroke="#BE9445" stroke-width="2" stroke-linecap="round" fill="none" opacity=".7"/>
+  </g>
+</svg>

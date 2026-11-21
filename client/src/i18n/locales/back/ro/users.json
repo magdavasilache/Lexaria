@@ -1,0 +1,12 @@
+{
+  "notAuthenticated": "Trebuie să fii autentificat pentru a face asta.",
+  "loginAndRetry": "Autentifică-te și încearcă din nou.",
+  "loginAgain": "Te rugăm să te autentifici din nou.",
+  "sessionExpired": "Sesiunea ta a expirat.",
+  "invalidToken": "Token invalid.",
+  "accountGone": "Contul tău nu mai există.",
+  "invalidCredentials": "Nume de utilizator sau parolă greșită.",
+  "invalidCredentialsHint": "Verifică ce ai scris sau creează-ți un cont dacă nu ai unul.",
+  "usernameExists": "Acest nume de utilizator este deja folosit.",
+  "usernameExistsHint": "Încearcă alt nume de utilizator."
+}

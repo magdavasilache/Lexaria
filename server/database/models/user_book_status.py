@@ -8,7 +8,7 @@ class UserBookStatus(Base):
     __tablename__ = "user_book_status"
 
     user_id = Column(ForeignKey("users.id"), primary_key=True)
-    book_id = Column(ForeignKey("books.id"), primary_key=True)
+    book_id = Column(ForeignKey("books.id", ondelete="CASCADE"), primary_key=True)
     status = Column(String, nullable=False)  
     added_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)

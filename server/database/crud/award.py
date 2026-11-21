@@ -1,4 +1,4 @@
-from server.database.crud.user import get_user_by_id
+from server.repositories.user_repository import get_user_by_id
 from server.database.models.award import Award
 from sqlalchemy.orm import Session
 

@@ -1,26 +1,70 @@
-from sqlalchemy import Column, Integer, String
-from server.database.database import Base
-from sqlalchemy.orm import relationship
-from server.database.models.likes import ReviewLike, CommentLike
-from server.database.models.genres import user_genres
+from datetime import datetime
+from enum import IntEnum
 
-#Roles: 
-#1 - Admin
-#2 - Free User
-#3 - Premium User
+from sqlalchemy import CheckConstraint, DateTime, Index, Integer, String, func
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from server.database.database import Base
+from server.database.models.genres import user_genres
+from server.database.models.likes import CommentLike, ReviewLike
+
+USERNAME_MIN_LENGTH = 3
+USERNAME_MAX_LENGTH = 30
+USERNAME_PATTERN = r"^[A-Za-z0-9_.-]+$"
+DISPLAY_NAME_MAX_LENGTH = 60
+AVATAR_URL_MAX_LENGTH = 500
+BIO_MAX_LENGTH = 500
+
+
+class UserRole(IntEnum):
+    ADMIN = 1
+    FREE = 2
+    PREMIUM = 3
+
 
 class User(Base):
     __tablename__ = "users"
+    __table_args__ = (
+        CheckConstraint(f"length(username) >= {USERNAME_MIN_LENGTH}", name="ck_users_username_min_length"),
+        CheckConstraint(
+            f"role IN ({', '.join(str(int(role)) for role in UserRole)})",
+            name="ck_users_role_valid",
+        ),
+    )
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
-    role = Column(Integer, default=2, nullable=True) 
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    username: Mapped[str] = mapped_column(String(USERNAME_MAX_LENGTH), unique=True, nullable=False)
+    hashed_password: Mapped[str] = mapped_column(String, nullable=False)
+    role: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=UserRole.FREE, server_default=str(int(UserRole.FREE))
+    )
+    display_name: Mapped[str | None] = mapped_column(String(DISPLAY_NAME_MAX_LENGTH))
+    avatar_url: Mapped[str | None] = mapped_column(String(AVATAR_URL_MAX_LENGTH))
+    bio: Mapped[str | None] = mapped_column(String(BIO_MAX_LENGTH))
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now()
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now()
+    )
 
-    books = relationship("Book", back_populates="user")
+    created_books = relationship("Book", back_populates="created_by", passive_deletes=True)
     user_book_statuses = relationship("UserBookStatus", back_populates="user", cascade="all, delete-orphan")
     favorite_genres = relationship("Genre", secondary=user_genres)
-    liked_reviews = relationship("ReviewLike", back_populates="user")
-    liked_comments = relationship("CommentLike", back_populates="user")
-    reviews = relationship("Review", back_populates="user")
-    comments = relationship("Comment", back_populates="user")
+    liked_reviews = relationship(ReviewLike, back_populates="user", cascade="all, delete-orphan")
+    liked_comments = relationship(CommentLike, back_populates="user", cascade="all, delete-orphan")
+    reviews = relationship("Review", back_populates="user", cascade="all, delete-orphan")
+    comments = relationship("Comment", back_populates="user", cascade="all, delete-orphan")
+    sessions = relationship("UserSession", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
+
+    @hybrid_property
+    def is_admin(self) -> bool:
+        return self.role == UserRole.ADMIN
+
+    @hybrid_property
+    def is_premium(self) -> bool:
+        return self.role == UserRole.PREMIUM
+
+
+Index("uq_users_username_lower", func.lower(User.username), unique=True)

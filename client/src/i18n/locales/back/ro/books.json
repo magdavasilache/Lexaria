@@ -1,0 +1,13 @@
+{
+  "unsupportedImage": "{{filename}} nu este o imagine acceptată. Folosește JPG, PNG sau WebP.",
+  "imageTooLarge": "{{filename}} depășește {{max_mb}} MB.",
+  "notFound": "Această carte nu există sau a fost ștearsă.",
+  "authorNotFound": "Autorul selectat nu există.",
+  "languageNotFound": "Limba selectată nu există.",
+  "countryNotFound": "Țara selectată nu există.",
+  "genresNotFound": "Unele genuri selectate nu există (id-uri: {{ids}}).",
+  "awardsNotFound": "Unele premii selectate nu există (id-uri: {{ids}}).",
+  "tooManyImages": "O carte poate avea cel mult {{max}} imagini.",
+  "imageNotOnBook": "{{filename}} nu este una dintre imaginile acestei cărți.",
+  "publishedTooFar": "Data publicării poate fi cel mult peste un an de azi."
+}

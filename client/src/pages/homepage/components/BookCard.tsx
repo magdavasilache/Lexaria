@@ -1,6 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { BookResponseBase } from "../../../types/book-types/bookTypes";
 import { memo, useMemo } from "react";
+import Button from "../../../global-components/buttons/Button";
+import { COVER_PLACEHOLDER } from "../../../utils/assets";
 
 interface Props {
     book: BookResponseBase;
@@ -8,7 +12,7 @@ interface Props {
 }
 
 const BookCard = memo(function BookCard({ book, onClose }: Props) {
-    const navigate = useNavigate();
+    const { t } = useTranslation("front/books");
 
     const truncatedSynopsis = useMemo(
         () => (book.synopsis ? `${book.synopsis.slice(0, 220)}...` : ""),
@@ -18,52 +22,43 @@ const BookCard = memo(function BookCard({ book, onClose }: Props) {
     const tags = useMemo(() => book.tags?.join(", "), [book.tags]);
 
     return (
-        <div className="h-auto w-full p-3 overflow-hidden">
-
-            {/* Close button */}
-            <button
+        <div className="h-auto w-full p-2 sm:p-3 overflow-hidden">
+            <Button
+                variant="ghost"
+                icon={ArrowLeft}
+                aria-label={t("card.close")}
                 onClick={onClose}
-                className="block mb-2 px-3 py-1 text-sm rounded-xs font-libre"
-                aria-label="Close book card"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
-                    className="size-6 text-fontPrimaryLight dark:text-fontSecondaryDark"
-                >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
-                </svg>
-            </button>
+                className="mb-2 min-h-10 min-w-10"
+            />
 
-            <div className="w-full flex flex-col items-start p-3 gap-4 bg-backgroundLight dark:bg-backgroundDark shadow-sm rounded-xs overflow-hidden">
+            <div className="w-full flex flex-col items-start p-3 gap-4 bg-panelLight dark:bg-panelDark border border-panelBorderLight dark:border-panelBorderDark shadow-soft-md dark:shadow-deep-md rounded-panel overflow-hidden">
+                <img
+                    src={book.image ?? COVER_PLACEHOLDER}
+                    alt={book.title}
+                    className="max-h-[60vh] max-w-full object-contain self-center sm:self-start"
+                />
 
-                {/* Image — already a data URI from getBooks, no URL construction needed */}
-                {book.image && (
-                    <img
-                        src={book.image}
-                        alt={book.title}
-                        className="max-h-[500px] max-w-full object-contain"
-                    />
-                )}
-
-                <div className="text-fontPrimaryLight dark:text-fontSecondaryDark">
-                    <h2
-                        onClick={() => navigate(`/book/${book.id}`)}
-                        className="font-libre text-2xl font-bold mb-1 underline hover:cursor-pointer"
-                    >
-                        {book.title}
+                <div className="min-w-0 w-full text-fontPrimaryLight dark:text-fontPrimaryDark">
+                    <h2 className="font-libre text-xl sm:text-2xl font-bold mb-1 break-words">
+                        <Link
+                            to={`/book/${book.id}`}
+                            className="underline rounded-control hover:text-primaryLight dark:hover:text-primaryDark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight dark:focus-visible:ring-primaryDark"
+                        >
+                            {book.title}
+                        </Link>
                     </h2>
 
                     {book.author_name && (
-                        <p className="font-libre mb-2 italic">by {book.author_name}</p>
+                        <p className="font-libre mb-2 italic">{t("card.by", { author: book.author_name })}</p>
                     )}
 
-                    <p className="font-libre text-sm mb-4">{truncatedSynopsis}</p>
+                    <p className="font-libre text-sm mb-4 break-words">{truncatedSynopsis}</p>
 
-                    <div className="font-libre text-sm space-y-1">
-                        {book.language_name && <p><strong>Language:</strong> {book.language_name}</p>}
-                        {book.pages && <p><strong>Pages:</strong> {book.pages}</p>}
-                        {tags && <p><strong>Tags:</strong> {tags}</p>}
-                    </div>
+                    <dl className="font-libre text-sm space-y-1">
+                        {book.language_name && <div><dt className="inline font-bold">{t("card.language")}:</dt> <dd className="inline">{book.language_name}</dd></div>}
+                        {book.pages && <div><dt className="inline font-bold">{t("card.pages")}:</dt> <dd className="inline">{book.pages}</dd></div>}
+                        {tags && <div><dt className="inline font-bold">{t("card.tags")}:</dt> <dd className="inline break-words">{tags}</dd></div>}
+                    </dl>
                 </div>
             </div>
         </div>

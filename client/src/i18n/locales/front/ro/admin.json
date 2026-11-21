@@ -1,0 +1,26 @@
+{
+  "activity": {
+    "title": "Activitate",
+    "filters": "Filtre",
+    "action": "Acțiune",
+    "allActions": "Toate acțiunile",
+    "outcome": "Rezultat",
+    "allOutcomes": "Toate rezultatele",
+    "success": "Reușit",
+    "failure": "Eșuat",
+    "from": "De la",
+    "to": "Până la",
+    "resetFilters": "Resetează filtrele",
+    "time": "Data",
+    "user": "Utilizator",
+    "description": "Descriere",
+    "request": "Cerere",
+    "anonymous": "Anonim",
+    "empty": "Nicio activitate nu corespunde filtrelor.",
+    "loading": "Se încarcă activitatea…",
+    "retry": "Încearcă din nou",
+    "range": "{{from}}–{{to}} din {{total}}",
+    "previous": "Pagina anterioară",
+    "next": "Pagina următoare"
+  }
+}
