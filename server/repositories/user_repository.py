@@ -1,4 +1,6 @@
-from sqlalchemy import func, select
+from datetime import datetime
+
+from sqlalchemy import func, select, update
 from sqlalchemy.orm import Session
 
 from server.database.models.user import User
@@ -17,3 +19,16 @@ def add_user(db: Session, user: User) -> User:
     db.add(user)
     db.flush()
     return user
+
+
+def list_users(db: Session) -> list[User]:
+    return list(db.scalars(select(User).order_by(User.created_at.desc(), User.id.desc())))
+
+
+def set_login_failures(db: Session, user_id: int, attempts: int, locked_until: datetime | None) -> None:
+    db.execute(
+        update(User)
+        .where(User.id == user_id)
+        .values(failed_login_attempts=attempts, locked_until=locked_until)
+        .execution_options(synchronize_session=False)
+    )

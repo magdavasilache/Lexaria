@@ -9,6 +9,8 @@
         "count_other": "{{total}} books in the library"
     },
     "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Title, author, ISBN or a word from the synopsis…",
         "author": "Author",
         "addAuthor": "Add author…",
         "genre": "Genre",
@@ -20,10 +22,19 @@
         "atLeastStars_other": "At least {{count}} stars",
         "sort": "Sort by",
         "sortOptions": {
+            "relevance": "Best match",
             "title": "Title (A–Z)",
             "rating": "Highest rated",
             "newest": "Recently added"
-        }
+        },
+        "mood": "Mood",
+        "pace": "Pace",
+        "pages": "Pages",
+        "minPages": "At least",
+        "maxPages": "At most",
+        "pagesRangeInvalid": "Must be at least the minimum.",
+        "avoid": "Avoid content",
+        "addAvoid": "Add a content warning…"
     },
     "card": {
         "close": "Close book details",
@@ -41,7 +52,10 @@
         "showLess": "Show less",
         "viewBook": "Open book page",
         "pageCount_one": "{{pages}} page",
-        "pageCount_other": "{{pages}} pages"
+        "pageCount_other": "{{pages}} pages",
+        "pace": "Pace",
+        "paceValue": "Pace: {{pace}}",
+        "moods": "Moods"
     },
     "page": {
         "notFound": "This book doesn't exist or was removed.",
@@ -267,6 +281,129 @@
             "booktok-popular": "Popular on BookTok",
             "underrated": "Underrated",
             "dnf-worthy": "Hard to finish"
+        }
+    },
+    "moods": {
+        "adventurous": "Adventurous",
+        "challenging": "Challenging",
+        "dark": "Dark",
+        "emotional": "Emotional",
+        "funny": "Funny",
+        "hopeful": "Hopeful",
+        "informative": "Informative",
+        "inspiring": "Inspiring",
+        "lighthearted": "Lighthearted",
+        "mysterious": "Mysterious",
+        "reflective": "Reflective",
+        "relaxing": "Relaxing",
+        "sad": "Sad",
+        "tense": "Tense"
+    },
+    "paces": {
+        "slow": "Slow",
+        "medium": "Medium",
+        "fast": "Fast"
+    },
+    "pacesInline": {
+        "slow": "slow",
+        "medium": "medium",
+        "fast": "fast"
+    },
+    "signals": {
+        "title": "Moods & pace",
+        "voters_one": "From {{count}} reader",
+        "voters_other": "From {{count}} readers",
+        "empty": "No readers have described this book yet.",
+        "paceLabel": "Pace",
+        "paceSummary": "Mostly {{pace}} paced",
+        "vote": "Describe the mood",
+        "editVote": "Edit your vote",
+        "voteHint": "Mark the book as currently reading, read or did not finish to describe its mood and pace.",
+        "voteTitle": "Moods & pace",
+        "voteDescription": "How did “{{title}}” feel to read?",
+        "moodsLabel": "Moods",
+        "moodsHelper": "Pick up to {{moodsPerVoteMax}}.",
+        "paceHelper": "Optional. Select it again to clear it.",
+        "save": "Save vote",
+        "saving": "Saving…",
+        "removeVote": "Remove vote",
+        "removing": "Removing…",
+        "saved": "Thanks, your vote was saved.",
+        "removed": "Your vote was removed.",
+        "validation": {
+            "empty": "Choose at least one mood or a pace.",
+            "tooManyMoods": "Pick at most {{moodsPerVoteMax}} moods."
+        }
+    },
+    "recommendations": {
+        "title": "Picked for you",
+        "loading": "Finding books for you…"
+    },
+    "similar": {
+        "title": "Similar books",
+        "loading": "Finding similar books…"
+    },
+    "warnings": {
+        "title": "Content warnings",
+        "reporters_one": "Reported by {{count}} reader",
+        "reporters_other": "Reported by {{count}} readers",
+        "empty": "No content warnings reported yet.",
+        "hiddenHint": "Hidden in case they give away the story.",
+        "show_one": "Show {{count}} content warning",
+        "show_other": "Show {{count}} content warnings",
+        "hide": "Hide content warnings",
+        "mentions_one": "reported by {{count}} reader",
+        "mentions_other": "reported by {{count}} readers",
+        "report": "Report content warnings",
+        "editReport": "Edit your report",
+        "reportHint": "Mark the book as currently reading, read or did not finish to report content warnings.",
+        "reportTitle": "Content warnings",
+        "reportDescription": "What should readers know before starting “{{title}}”?",
+        "reportLabel": "Warnings",
+        "reportHelper": "Pick how present each topic is. Select it again to clear it.",
+        "save": "Save report",
+        "saving": "Saving…",
+        "removeReport": "Remove report",
+        "removing": "Removing…",
+        "saved": "Thanks, your report was saved.",
+        "removed": "Your report was removed.",
+        "severities": {
+            "minor": "Minor",
+            "moderate": "Moderate",
+            "graphic": "Graphic"
+        },
+        "types": {
+            "addiction": "Addiction",
+            "animal_cruelty": "Animal cruelty",
+            "body_horror": "Body horror",
+            "bullying": "Bullying",
+            "cancer": "Cancer",
+            "child_abuse": "Child abuse",
+            "death": "Death",
+            "death_of_parent": "Death of a parent",
+            "domestic_abuse": "Domestic abuse",
+            "eating_disorder": "Eating disorder",
+            "gore": "Gore",
+            "gun_violence": "Gun violence",
+            "homophobia": "Homophobia",
+            "infidelity": "Infidelity",
+            "kidnapping": "Kidnapping",
+            "mental_illness": "Mental illness",
+            "misogyny": "Misogyny",
+            "pregnancy_loss": "Pregnancy loss",
+            "racism": "Racism",
+            "self_harm": "Self-harm",
+            "sexual_assault": "Sexual assault",
+            "sexual_content": "Sexual content",
+            "suicide": "Suicide",
+            "terminal_illness": "Terminal illness",
+            "torture": "Torture",
+            "transphobia": "Transphobia",
+            "violence": "Violence",
+            "war": "War"
+        },
+        "validation": {
+            "empty": "Choose at least one warning."
         }
     }
 }

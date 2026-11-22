@@ -17,7 +17,7 @@ from server.database.schemas.review import (
     ReviewOut,
     ReviewUpdate,
 )
-from server.repositories import book_repository, review_repository
+from server.repositories import book_repository, reader_signal_repository, review_repository
 from server.services import audit_service, book_service
 from server.services.review_tags import extract_tags
 
@@ -60,6 +60,7 @@ def _reviews_out(db: Session, reviews: list[Review], user: User) -> list[ReviewO
             content=review.content,
             start_date=review.start_date,
             end_date=review.end_date,
+            has_spoilers=review.has_spoilers,
             author=_author(review.user),
             likes_count=review.likes_count,
             liked_by_me=review.id in liked_reviews,
@@ -106,6 +107,7 @@ def _apply(review: Review, form: ReviewCreate) -> None:
     review.content = form.content
     review.start_date = form.start_date
     review.end_date = form.end_date
+    review.has_spoilers = form.has_spoilers
 
 
 def _refresh_tags(db: Session, review: Review) -> None:
@@ -147,6 +149,7 @@ def create_review(db: Session, book_id: int, form: ReviewCreate, user: User) -> 
         entry.set_entity("review", review.id)
         _refresh_tags(db, review)
         book_repository.refresh_ratings(db, [book_id])
+        reader_signal_repository.refresh(db, [book_id])
     return _review_out(db, review.id, user)
 
 
@@ -161,6 +164,7 @@ def update_review(db: Session, review_id: int, form: ReviewUpdate, user: User) -
         db.flush()
         _refresh_tags(db, review)
         book_repository.refresh_ratings(db, [review.book_id])
+        reader_signal_repository.refresh(db, [review.book_id])
     return _review_out(db, review_id, user)
 
 
@@ -174,6 +178,7 @@ def delete_review(db: Session, review_id: int, user: User) -> None:
         book_id = review.book_id
         review_repository.delete_item(db, review)
         book_repository.refresh_ratings(db, [book_id])
+        reader_signal_repository.refresh(db, [book_id])
 
 
 def create_comment(db: Session, review_id: int, form: CommentCreate, user: User) -> CommentOut:

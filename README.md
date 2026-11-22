@@ -34,7 +34,14 @@ The main goal of the project is to demonstrate clean separation of concerns betw
 
 ### AI Layer
 - Lightweight chatbot using intent matching and simple NLP rules
-- Trained model (`chatbot.pth`) used for basic classification
+- Multilingual sentence embeddings (`paraphrase-multilingual-MiniLM-L12-v2`) matched against an index of patterns (`server/ml/index.npz`)
+
+## Running locally
+
+- Backend: `server/dev.sh` (uvicorn with auto-reload on `server/`, ignoring `server/venv` and `server/static`). Extra uvicorn options pass through, e.g. `server/dev.sh --port 8001`.
+- Migrations: `server/venv/bin/python -m alembic upgrade head` from the repo root.
+- Chatbot data: `server/venv/bin/python -m server.ml.seed --train` loads `server/ml/seed/intents.json` and rebuilds the index (the model downloads about 470 MB once, into the Hugging Face cache).
+- Frontend: `npm run dev` in `client/`.
 
 ## Architecture Overview
 

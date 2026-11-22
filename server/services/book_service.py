@@ -29,6 +29,8 @@ from server.database.schemas.user_book_status import UserBookStatusOut
 from server.repositories import book_repository, reading_repository, reading_status_repository
 from server.services import audit_service
 from server.services.images import ImageFolder, delete_images, image_url, save_images
+from server.services.content_warning_views import warnings_out
+from server.services.reader_signal_views import signals_out, top_moods
 
 READER_TAGS_SHOWN = 8
 
@@ -51,7 +53,7 @@ def _descriptions(book: Book) -> list[BookDescriptionOut]:
     return [BookDescriptionOut.model_validate(description) for description in book.descriptions]
 
 
-def _list_item(book: Book) -> BookListItem:
+def list_item(book: Book) -> BookListItem:
     return BookListItem(
         id=book.id,
         title=book.title,
@@ -63,6 +65,8 @@ def _list_item(book: Book) -> BookListItem:
         genres=[GenreRef.model_validate(genre) for genre in book.genres],
         average_rating=_rating(book),
         ratings_count=book.ratings_count,
+        pace=book.pace,
+        top_moods=top_moods(book),
     )
 
 
@@ -98,6 +102,8 @@ def _detail(db: Session, book: Book, user: User) -> BookDetail:
             ReaderTag(tag=tag, count=count)
             for tag, count in book_repository.reader_tags(db, book.id, READER_TAGS_SHOWN)
         ],
+        reader_signals=signals_out(db, book, user),
+        content_warnings=warnings_out(db, book.id, user),
         user_book_status=UserBookStatusOut.model_validate(status) if status else None,
         active_reading=ReadingOut.model_validate(active_reading) if active_reading else None,
         created_at=book.created_at,
@@ -175,7 +181,7 @@ def _apply(db: Session, book: Book, form: BookCreate) -> None:
 
 def list_books(db: Session, query: BookListQuery) -> tuple[list[BookListItem], int]:
     books, total = book_repository.list_books(db, query)
-    return [_list_item(book) for book in books], total
+    return [list_item(book) for book in books], total
 
 
 def get_book(db: Session, book_id: int, user: User) -> BookDetail:

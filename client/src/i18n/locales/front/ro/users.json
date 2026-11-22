@@ -42,5 +42,67 @@
     "passwordMissing": "Parola nu îndeplinește toate cerințele de mai sus.",
     "confirmPassword": "Te rugăm să confirmi parola.",
     "passwordsMismatch": "Parolele nu coincid."
+  },
+  "avatar": {
+    "title": "Poză de profil",
+    "description": "Apare în meniu și lângă recenziile și comentariile tale.",
+    "picture": "Poză de profil",
+    "alt": "Poza de profil a lui {{name}}",
+    "choose": "Alege o poză",
+    "replace": "Alege alta",
+    "remove": "Șterge",
+    "keep": "Păstrează poza actuală",
+    "helper": "JPG, PNG sau WebP. Este decupată pătrat din centru și redimensionată la {{avatarSizePx}}×{{avatarSizePx}} px; cel mult {{avatarMaxMb}} MB după redimensionare.",
+    "removedNote": "Poza ta va fi ștearsă când salvezi.",
+    "save": "Salvează",
+    "saving": "Se salvează…",
+    "saved": "Poza de profil a fost actualizată.",
+    "removed": "Poza de profil a fost ștearsă.",
+    "validation": {
+      "type": "Alege o imagine JPG, PNG sau WebP.",
+      "size": "Poza trebuie să aibă cel mult {{avatarMaxMb}} MB.",
+      "unreadable": "Imaginea nu a putut fi citită. Încearcă alt fișier."
+    }
+  },
+  "ban": {
+    "title": "Interzice-l pe {{username}}",
+    "description": "Utilizatorul este deconectat de pe toate dispozitivele și nu se poate autentifica până la sfârșitul interdicției. Vede motivul când încearcă.",
+    "duration": "Durată",
+    "durationHelper": "Alege cât durează interdicția. O poți ridica oricând.",
+    "days_one": "{{count}} zi",
+    "days_few": "{{count}} zile",
+    "days_other": "{{count}} de zile",
+    "permanent": "Permanentă",
+    "reason": "Motiv",
+    "reasonHelper": "Cel mult {{banReasonMax}} de caractere. Utilizatorul vede acest text.",
+    "submit": "Interzice utilizatorul",
+    "submitting": "Se interzice…",
+    "banned": "{{username}} a fost interzis.",
+    "unbanned": "Interdicția pentru {{username}} a fost ridicată.",
+    "validation": {
+      "reasonMax": "Folosește cel mult {{banReasonMax}} de caractere.",
+      "duration": "Alege o durată între 1 și {{banDaysMax}} de zile sau permanentă."
+    }
+  },
+  "admin": {
+    "user": "Utilizator",
+    "role": "Rol",
+    "allRoles": "Toate rolurile",
+    "joined": "Înscris",
+    "status": "Stare",
+    "allStatuses": "Toate stările",
+    "active": "Activ",
+    "banned": "Interzis",
+    "locked": "Blocat",
+    "bannedUntil": "Interzis până la {{date}}",
+    "bannedPermanently": "Interzis permanent",
+    "lockedUntil": "Blocat până la {{date}}",
+    "ban": "Interzice-l pe {{username}}",
+    "unban": "Ridică interdicția pentru {{username}}"
+  },
+  "roles": {
+    "admin": "Administrator",
+    "free": "Cititor",
+    "premium": "Premium"
   }
 }

@@ -8,5 +8,8 @@
   "rowInvalidRating": "nota nu este între 0 și 5",
   "rowInvalidDate": "data nu este validă",
   "rowInvalidStatus": "statusul de lectură nu este recunoscut",
-  "rowReviewTooLong": "textul recenziei este prea lung"
+  "rowReviewTooLong": "textul recenziei este prea lung",
+  "isbnNotFound": "Open Library nu are nicio carte cu ISBN-ul {{isbn}}.",
+  "sourceUnavailable": "Open Library nu poate fi accesat. Încearcă din nou peste câteva momente.",
+  "coverSkipped": "Coperta nu a putut fi descărcată, așa că am adăugat cartea fără ea."
 }

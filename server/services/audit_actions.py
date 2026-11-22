@@ -50,6 +50,29 @@ AUDIT_ACTIONS: dict[AuditAction, AuditActionSpec] = {
         MessageKey.AUDIT_GOODREADS_IMPORTED,
         MessageKey.AUDIT_GOODREADS_IMPORT_FAILED,
     ),
+    AuditAction.BOOK_IMPORT: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_BOOK_IMPORT, MessageKey.AUDIT_BOOK_IMPORTED, MessageKey.AUDIT_BOOK_IMPORT_FAILED
+    ),
+    AuditAction.READER_VOTE_SET: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READER_VOTE_SET,
+        MessageKey.AUDIT_READER_VOTE_SAVED,
+        MessageKey.AUDIT_READER_VOTE_SAVE_FAILED,
+    ),
+    AuditAction.READER_VOTE_REMOVE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READER_VOTE_REMOVE,
+        MessageKey.AUDIT_READER_VOTE_REMOVED,
+        MessageKey.AUDIT_READER_VOTE_REMOVE_FAILED,
+    ),
+    AuditAction.CONTENT_WARNINGS_SET: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CONTENT_WARNINGS_SET,
+        MessageKey.AUDIT_CONTENT_WARNINGS_SAVED,
+        MessageKey.AUDIT_CONTENT_WARNINGS_SAVE_FAILED,
+    ),
+    AuditAction.CONTENT_WARNINGS_REMOVE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CONTENT_WARNINGS_REMOVE,
+        MessageKey.AUDIT_CONTENT_WARNINGS_REMOVED,
+        MessageKey.AUDIT_CONTENT_WARNINGS_REMOVE_FAILED,
+    ),
     AuditAction.REVIEW_CREATE: AuditActionSpec(
         MessageKey.AUDIT_ACTION_REVIEW_CREATE, MessageKey.AUDIT_REVIEW_CREATED, MessageKey.AUDIT_REVIEW_CREATE_FAILED
     ),
@@ -236,5 +259,115 @@ AUDIT_ACTIONS: dict[AuditAction, AuditActionSpec] = {
         MessageKey.AUDIT_ACTION_AWARD_DELETE,
         MessageKey.AUDIT_AWARD_DELETED,
         MessageKey.AUDIT_AWARD_DELETE_FAILED,
+    ),
+    AuditAction.CHATBOT_INTENT_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_INTENT_CREATE,
+        MessageKey.AUDIT_CHATBOT_INTENT_CREATE_DONE,
+        MessageKey.AUDIT_CHATBOT_INTENT_CREATE_FAILED,
+    ),
+    AuditAction.CHATBOT_INTENT_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_INTENT_UPDATE,
+        MessageKey.AUDIT_CHATBOT_INTENT_UPDATE_DONE,
+        MessageKey.AUDIT_CHATBOT_INTENT_UPDATE_FAILED,
+    ),
+    AuditAction.CHATBOT_INTENT_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_INTENT_DELETE,
+        MessageKey.AUDIT_CHATBOT_INTENT_DELETE_DONE,
+        MessageKey.AUDIT_CHATBOT_INTENT_DELETE_FAILED,
+    ),
+    AuditAction.CHATBOT_PATTERN_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_PATTERN_CREATE,
+        MessageKey.AUDIT_CHATBOT_PATTERN_CREATE_DONE,
+        MessageKey.AUDIT_CHATBOT_PATTERN_CREATE_FAILED,
+    ),
+    AuditAction.CHATBOT_PATTERN_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_PATTERN_UPDATE,
+        MessageKey.AUDIT_CHATBOT_PATTERN_UPDATE_DONE,
+        MessageKey.AUDIT_CHATBOT_PATTERN_UPDATE_FAILED,
+    ),
+    AuditAction.CHATBOT_PATTERN_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_PATTERN_DELETE,
+        MessageKey.AUDIT_CHATBOT_PATTERN_DELETE_DONE,
+        MessageKey.AUDIT_CHATBOT_PATTERN_DELETE_FAILED,
+    ),
+    AuditAction.CHATBOT_RESPONSE_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_RESPONSE_CREATE,
+        MessageKey.AUDIT_CHATBOT_RESPONSE_CREATE_DONE,
+        MessageKey.AUDIT_CHATBOT_RESPONSE_CREATE_FAILED,
+    ),
+    AuditAction.CHATBOT_RESPONSE_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_RESPONSE_UPDATE,
+        MessageKey.AUDIT_CHATBOT_RESPONSE_UPDATE_DONE,
+        MessageKey.AUDIT_CHATBOT_RESPONSE_UPDATE_FAILED,
+    ),
+    AuditAction.CHATBOT_RESPONSE_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_RESPONSE_DELETE,
+        MessageKey.AUDIT_CHATBOT_RESPONSE_DELETE_DONE,
+        MessageKey.AUDIT_CHATBOT_RESPONSE_DELETE_FAILED,
+    ),
+    AuditAction.CHATBOT_UNKNOWN_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_UNKNOWN_DELETE,
+        MessageKey.AUDIT_CHATBOT_UNKNOWN_DELETE_DONE,
+        MessageKey.AUDIT_CHATBOT_UNKNOWN_DELETE_FAILED,
+    ),
+    AuditAction.CHATBOT_UNKNOWN_PROMOTE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_UNKNOWN_PROMOTE,
+        MessageKey.AUDIT_CHATBOT_UNKNOWN_PROMOTE_DONE,
+        MessageKey.AUDIT_CHATBOT_UNKNOWN_PROMOTE_FAILED,
+    ),
+    AuditAction.CHATBOT_TRAIN: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_TRAIN,
+        MessageKey.AUDIT_CHATBOT_TRAIN_DONE,
+        MessageKey.AUDIT_CHATBOT_TRAIN_FAILED,
+    ),
+    AuditAction.CHATBOT_SEED: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_SEED,
+        MessageKey.AUDIT_CHATBOT_SEED_DONE,
+        MessageKey.AUDIT_CHATBOT_SEED_FAILED,
+    ),
+    AuditAction.CHATBOT_CONVERSATION_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_CONVERSATION_DELETE,
+        MessageKey.AUDIT_CHATBOT_CONVERSATION_DELETE_DONE,
+        MessageKey.AUDIT_CHATBOT_CONVERSATION_DELETE_FAILED,
+    ),
+    AuditAction.CHATBOT_FEEDBACK: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_FEEDBACK,
+        MessageKey.AUDIT_CHATBOT_FEEDBACK_DONE,
+        MessageKey.AUDIT_CHATBOT_FEEDBACK_FAILED,
+    ),
+    AuditAction.CHATBOT_FEEDBACK_PROMOTE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_FEEDBACK_PROMOTE,
+        MessageKey.AUDIT_CHATBOT_FEEDBACK_PROMOTE_DONE,
+        MessageKey.AUDIT_CHATBOT_FEEDBACK_PROMOTE_FAILED,
+    ),
+    AuditAction.CHATBOT_FEEDBACK_DISMISS: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_FEEDBACK_DISMISS,
+        MessageKey.AUDIT_CHATBOT_FEEDBACK_DISMISS_DONE,
+        MessageKey.AUDIT_CHATBOT_FEEDBACK_DISMISS_FAILED,
+    ),
+    AuditAction.CHATBOT_IMPORT: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHATBOT_IMPORT,
+        MessageKey.AUDIT_CHATBOT_IMPORT_DONE,
+        MessageKey.AUDIT_CHATBOT_IMPORT_FAILED,
+    ),
+    AuditAction.USER_AVATAR_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_USER_AVATAR_UPDATE,
+        MessageKey.AUDIT_USER_AVATAR_UPDATE_DONE,
+        MessageKey.AUDIT_USER_AVATAR_UPDATE_FAILED,
+    ),
+    AuditAction.USER_AVATAR_REMOVE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_USER_AVATAR_REMOVE,
+        MessageKey.AUDIT_USER_AVATAR_REMOVE_DONE,
+        MessageKey.AUDIT_USER_AVATAR_REMOVE_FAILED,
+    ),
+    AuditAction.USER_BAN: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_USER_BAN,
+        MessageKey.AUDIT_USER_BAN_DONE,
+        MessageKey.AUDIT_USER_BAN_FAILED,
+    ),
+    AuditAction.USER_UNBAN: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_USER_UNBAN,
+        MessageKey.AUDIT_USER_UNBAN_DONE,
+        MessageKey.AUDIT_USER_UNBAN_FAILED,
     ),
 }

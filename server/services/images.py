@@ -18,11 +18,23 @@ IMAGE_TYPES = {
 }
 IMAGE_MAX_BYTES = 5 * 1024 * 1024
 IMAGE_CHUNK_BYTES = 64 * 1024
+MB = 1024 * 1024
+
+
+def _matches_signature(content_type: str, head: bytes) -> bool:
+    if content_type == "image/jpeg":
+        return head.startswith(b"\xff\xd8\xff")
+    if content_type == "image/png":
+        return head.startswith(b"\x89PNG\r\n\x1a\n")
+    if content_type == "image/webp":
+        return head[:4] == b"RIFF" and head[8:12] == b"WEBP"
+    return False
 
 
 class ImageFolder(StrEnum):
     BOOKS = "books"
     AUTHORS = "author"
+    USERS = "users"
 
 
 def _directory(folder: ImageFolder) -> Path:
@@ -33,7 +45,21 @@ def image_url(folder: ImageFolder, name: str) -> str:
     return f"{STATIC_URL_PREFIX}/{folder.value}/{name}"
 
 
-def save_image(image: UploadFile, folder: ImageFolder, field: str) -> str:
+def image_name(folder: ImageFolder, url: str | None) -> str | None:
+    prefix = image_url(folder, "")
+    if not url or not url.startswith(prefix):
+        return None
+    return url.removeprefix(prefix) or None
+
+
+def save_image(
+    image: UploadFile,
+    folder: ImageFolder,
+    field: str,
+    *,
+    max_bytes: int = IMAGE_MAX_BYTES,
+    verify_content: bool = False,
+) -> str:
     filename = image.filename or ""
     extension = Path(filename).suffix.lower()
     if extension not in IMAGE_TYPES or image.content_type != IMAGE_TYPES[extension]:
@@ -46,17 +72,30 @@ def save_image(image: UploadFile, folder: ImageFolder, field: str) -> str:
     try:
         with file_path.open("wb") as buffer:
             while chunk := image.file.read(IMAGE_CHUNK_BYTES):
+                if written == 0 and verify_content and not _matches_signature(IMAGE_TYPES[extension], chunk):
+                    raise ValidationAppError(MessageKey.UNSUPPORTED_IMAGE, params={"filename": filename}, field=field)
                 written += len(chunk)
-                if written > IMAGE_MAX_BYTES:
+                if written > max_bytes:
                     raise ValidationAppError(
                         MessageKey.IMAGE_TOO_LARGE,
-                        params={"filename": filename, "max_mb": IMAGE_MAX_BYTES // (1024 * 1024)},
+                        params={"filename": filename, "max_mb": max_bytes // MB},
                         field=field,
                     )
                 buffer.write(chunk)
     except BaseException:
         file_path.unlink(missing_ok=True)
         raise
+    if written == 0:
+        file_path.unlink(missing_ok=True)
+        raise ValidationAppError(MessageKey.UNSUPPORTED_IMAGE, params={"filename": filename}, field=field)
+    return file_path.name
+
+
+def save_image_bytes(content: bytes, extension: str, folder: ImageFolder) -> str:
+    directory = _directory(folder)
+    directory.mkdir(parents=True, exist_ok=True)
+    file_path = directory / f"{uuid4().hex}{extension}"
+    file_path.write_bytes(content)
     return file_path.name
 
 

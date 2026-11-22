@@ -29,7 +29,8 @@
     "books": "Cărți",
     "chatbot": "Chatbot",
     "activity": "Activitate",
-    "editions": "Ediții"
+    "editions": "Ediții",
+    "users": "Utilizatori"
   },
   "add": {
     "authors": "Adaugă un autor",
@@ -37,7 +38,8 @@
     "languages": "Adaugă o limbă",
     "awards": "Adaugă un premiu",
     "countries": "Adaugă o țară",
-    "books": "Adaugă o carte"
+    "books": "Adaugă o carte",
+    "isbn": "Importă după ISBN"
   },
   "edit": {
     "authors": "Editează autorul",
@@ -50,18 +52,16 @@
     "tabs": {
       "intents": "Intenții",
       "responses": "Răspunsuri",
+      "test": "Testare",
       "training": "Antrenare",
-      "history": "Istoric"
+      "history": "Istoric",
+      "analytics": "Statistici"
     },
     "history": {
       "views": "Vizualizare istoric",
       "trainings": "Istoric antrenări",
       "unknowns": "Mesaje necunoscute",
-      "unknownCount_one": "{{count}} mesaj necunoscut",
-      "unknownCount_few": "{{count}} mesaje necunoscute",
-      "unknownCount_other": "{{count}} de mesaje necunoscute",
       "id": "ID",
-      "epochs": "Epoci",
       "status": "Stare",
       "allStatuses": "Toate stările",
       "success": "Reușit",
@@ -70,7 +70,30 @@
       "message": "Mesaj",
       "confidence": "Încredere",
       "addPattern": "Adaugă ca tipar",
-      "addPatternFor": "Adaugă „{{label}}” ca tipar"
+      "addPatternFor": "Adaugă „{{label}}” ca tipar",
+      "samples": "Tipare",
+      "accuracy": "Acuratețe",
+      "occurrences": "De câte ori",
+      "model": "Model",
+      "intents": "Intenții",
+      "feedback": "Evaluări",
+      "trainingsCount_one": "{{count}} antrenare",
+      "trainingsCount_few": "{{count}} antrenări",
+      "trainingsCount_other": "{{count}} de antrenări",
+      "unknownsCount_one": "{{count}} mesaj necunoscut",
+      "unknownsCount_few": "{{count}} mesaje necunoscute",
+      "unknownsCount_other": "{{count}} de mesaje necunoscute",
+      "feedbackCount_one": "{{count}} răspuns de analizat",
+      "feedbackCount_few": "{{count}} răspunsuri de analizat",
+      "feedbackCount_other": "{{count}} de răspunsuri de analizat",
+      "question": "Întrebare",
+      "reply": "Răspuns",
+      "intent": "Intenție",
+      "fallback": "Fără răspuns",
+      "noQuestion": "Întrebarea nu mai este disponibilă",
+      "feedbackEmpty": "Nu există răspunsuri evaluate negativ de analizat.",
+      "dismiss": "Respinge",
+      "dismissFor": "Respinge evaluarea pentru „{{label}}”"
     },
     "promote": {
       "title": "Adaugă ca tipar de antrenare",
@@ -82,7 +105,8 @@
       "intentOption_few": "{{tag}} ({{count}} tipare)",
       "intentOption_other": "{{tag}} ({{count}} de tipare)",
       "submit": "Adaugă tiparul",
-      "submitting": "Se adaugă…"
+      "submitting": "Se adaugă…",
+      "feedbackDescription": "Întrebarea cititorului este adăugată ca tipar la intenția aleasă, iar răspunsul iese din lista de analizat."
     },
     "intents": {
       "add": "Adaugă o intenție",
@@ -119,7 +143,17 @@
       "deleteTitle": "Șterge intenția",
       "deleteConfirm": "Ștergi „{{tag}}”? Tiparele și răspunsurile ei sunt șterse și ele. Acțiunea nu poate fi anulată.",
       "delete": "Șterge",
-      "deleting": "Se șterge…"
+      "deleting": "Se șterge…",
+      "patternHelper": "Ceva ce ar putea scrie un cititor, până la {{max}} caractere. Fiecare tipar aparține unei singure intenții.",
+      "handled": "Răspuns din cod",
+      "handledHint": "Răspunsurile vin din catalog și din rafturile cititorului; răspunsurile scrise nu sunt folosite.",
+      "export": "Exportă",
+      "exporting": "Se exportă…",
+      "import": "Importă",
+      "overlapSummary_one": "{{count}} tipar este foarte apropiat de un tipar al altei intenții din ultimul index. Reformulează-l sau mută-l, apoi reconstruiește indexul.",
+      "overlapSummary_few": "{{count}} tipare sunt foarte apropiate de tipare ale altor intenții din ultimul index. Reformulează-le sau mută-le, apoi reconstruiește indexul.",
+      "overlapSummary_other": "{{count}} de tipare sunt foarte apropiate de tipare ale altor intenții din ultimul index. Reformulează-le sau mută-le, apoi reconstruiește indexul.",
+      "overlap": "Apropiat de „{{pattern}}” din {{tag}} ({{value}})"
     },
     "responses": {
       "add": "Adaugă un răspuns",
@@ -138,15 +172,19 @@
       "deleteTitle": "Șterge răspunsul",
       "deleteConfirm": "Ștergi acest răspuns din „{{tag}}”? Acțiunea nu poate fi anulată.",
       "delete": "Șterge",
-      "deleting": "Se șterge…"
+      "deleting": "Se șterge…",
+      "language": "Limbă",
+      "languageHelper": "Cititorii primesc răspunsuri în limba interfeței sau în engleză când nu există.",
+      "allLanguages": "Toate limbile",
+      "languages": {
+        "en": "Engleză",
+        "ro": "Română"
+      },
+      "handledNote": "Această intenție primește răspuns din cod, pe baza catalogului, așa că răspunsurile ei nu sunt afișate cititorilor."
     },
     "training": {
-      "epochs": "Epoci",
-      "epochsHelper": "De câte ori se parcurg datele de antrenare.",
-      "epochsInteger": "Folosește un număr întreg.",
-      "epochsMin": "Trebuie să fie cel puțin {{epochsMin}}.",
-      "start": "Pornește antrenarea",
-      "running": "Se antrenează…",
+      "start": "Reconstruiește indexul",
+      "running": "Se reconstruiește…",
       "clear": "Golește jurnalul",
       "status": {
         "running": "În antrenare",
@@ -156,7 +194,7 @@
       "progress": "Progres",
       "percent": "{{value}}%",
       "note": {
-        "done": "Modelul a fost salvat și reîncărcat. Conversațiile noi îl folosesc imediat.",
+        "done": "Index salvat. Mesajele noi din chat îl folosesc imediat.",
         "error": "Antrenarea a eșuat. Verifică liniile de eroare din jurnal."
       },
       "line": "#",
@@ -166,20 +204,125 @@
       "levels": {
         "success": "Reușit",
         "error": "Eroare",
-        "warning": "Avertisment",
         "info": "Info",
         "log": "Jurnal"
       },
       "emptyIdle": "Jurnalul apare aici după ce pornește antrenarea.",
       "emptyConnecting": "Se conectează la fluxul de antrenare…",
       "log": {
-        "connectFailed": "Nu s-a putut face conexiunea cu serverul.",
-        "serverStatus": "Serverul a răspuns cu {{status}}.",
-        "noStream": "Răspunsul nu conține un flux.",
-        "reloaded": "Modelul a fost reîncărcat pe server.",
-        "reloadFailed": "Modelul a fost salvat, dar reîncărcarea a eșuat. Repornește serverul.",
+        "started": "Se indexează {{samples}} tipare din {{intents}} intenții cu {{model}}.",
+        "encode": "Tiparele au fost codificate.",
+        "evaluate": "Validarea încrucișată s-a încheiat.",
+        "done": "Index salvat: acuratețe {{accuracy}}% la validarea încrucișată, pe {{intents}} intenții.",
+        "confused": "Confundate des: {{expected}} → {{predicted}} ({{count}})",
         "interrupted": "Fluxul s-a întrerupt neașteptat."
-      }
+      },
+      "description": "Reconstruiește indexul după ce modifici tiparele. Fiecare tipar devine un vector de propoziție multilingv, apoi indexul este evaluat prin validare încrucișată în 5 pași."
+    },
+    "validation": {
+      "tagMax": "Folosește cel mult {{chatbotTagMax}} caractere.",
+      "tagPattern": "Folosește litere mici, cifre și liniuțe de jos, începând cu o literă.",
+      "patternMax": "Folosește cel mult {{chatbotPatternMax}} caractere.",
+      "responseMax": "Folosește cel mult {{chatbotResponseMax}} caractere.",
+      "importType": "Alege un fișier .json.",
+      "importSize": "Fișierul trebuie să aibă cel mult {{chatbotImportMaxMb}} MB.",
+      "importJson": "Acest fișier nu este un export de intenții valid. Trebuie să conțină o listă JSON de intenții."
+    },
+    "import": {
+      "title": "Importă intenții",
+      "description": "Încarcă intenții dintr-un fișier JSON în formatul de populare, de exemplu un export din altă bază de date.",
+      "file": "Fișier cu intenții",
+      "fileHelper": "Un export .json de cel mult {{max}} MB.",
+      "mode": "Mod de import",
+      "modes": {
+        "merge": "Combină",
+        "mergeHint": "Păstrează intențiile actuale și adaugă tiparele și răspunsurile care lipsesc.",
+        "replace": "Înlocuiește",
+        "replaceHint": "Intențiile devin exact cele din fișier. Intențiile care nu apar în fișier sunt șterse."
+      },
+      "submit": "Importă",
+      "submitting": "Se importă…",
+      "done": "Au fost importate {{intents}} intenții, {{patterns}} tipare și {{responses}} răspunsuri. Reconstruiește indexul ca să fie folosite.",
+      "rebuildNote": "Tiparele importate sunt folosite după ce reconstruiești indexul din fila Antrenare."
+    },
+    "test": {
+      "description": "Scrie un mesaj ca să vezi cum îl clasifică chatbotul. Nu se salvează nimic și nu se trimite niciun răspuns.",
+      "message": "Mesaj",
+      "placeholder": "ex. ce să citesc în continuare?",
+      "helper": "Scrie-l cum l-ar scrie un cititor, cel mult {{max}} de caractere.",
+      "submit": "Clasifică",
+      "submitting": "Se clasifică…",
+      "result": "Rezultatul clasificării",
+      "fallback": "Chatbotul nu ar ști ce să răspundă: nicio intenție nu este suficient de sigură.",
+      "answered": "Chatbotul ar răspunde cu {{tag}}.",
+      "masked": "Clasificat ca: „{{text}}”",
+      "addPattern": "Adaugă ca tipar",
+      "tooLong": "Tiparele au cel mult {{max}} de caractere. Scurtează mesajul ca să-l adaugi.",
+      "similarity": "Similaritate",
+      "margin": "Avans față de următoarea intenție",
+      "needed": "Necesar {{value}}",
+      "candidates": "Cele mai apropiate intenții",
+      "candidate": "{{tag}}: {{value}}",
+      "empty": "Aici apar cele mai apropiate intenții și scorurile lor.",
+      "promoteDescription": "Mesajul este adăugat ca tipar la intenția aleasă. Reconstruiește indexul ca să fie folosit.",
+      "added": "Adăugat ca tipar al intenției „{{tag}}”. Reconstruiește indexul ca să fie folosit."
+    },
+    "analytics": {
+      "rangeLabel": "Perioadă",
+      "range_one": "{{count}} săptămână",
+      "range_few": "{{count}} săptămâni",
+      "range_other": "{{count}} de săptămâni",
+      "metricsLabel": "Indicator afișat",
+      "metrics": {
+        "messages": "Răspunsuri",
+        "fallbackRate": "Rată fără răspuns",
+        "unknowns": "Mesaje necunoscute",
+        "helpful": "Utile"
+      },
+      "totals": {
+        "messagesHint": "Răspunsurile trimise de chatbot în această perioadă.",
+        "fallbackHint_one": "{{value}} răspuns a fost fără răspuns util.",
+        "fallbackHint_few": "{{value}} răspunsuri au fost fără răspuns util.",
+        "fallbackHint_other": "{{value}} de răspunsuri au fost fără răspuns util.",
+        "unknownsHint": "Mesaje noi pe care nu le-a putut clasifica.",
+        "helpfulHint": "{{up}} aprecieri, {{down}} evaluări negative."
+      },
+      "weekly": "Pe săptămâni",
+      "captions": {
+        "messages": "Răspunsurile trimise în fiecare săptămână.",
+        "fallbackRate": "Ponderea răspunsurilor din fiecare săptămână la care nicio intenție nu a fost suficient de sigură.",
+        "unknowns": "Mesajele necunoscute noi înregistrate în fiecare săptămână.",
+        "helpful": "Ponderea răspunsurilor evaluate din fiecare săptămână care au primit apreciere."
+      },
+      "empty": {
+        "messages": "Niciun răspuns în această perioadă.",
+        "fallbackRate": "Niciun mesaj fără răspuns în această perioadă.",
+        "unknowns": "Niciun mesaj necunoscut nou în această perioadă.",
+        "helpful": "Nicio apreciere în această perioadă."
+      },
+      "noData": {
+        "fallbackRate": "Niciun răspuns",
+        "helpful": "Nicio evaluare"
+      },
+      "units": {
+        "messages_one": "{{value}} răspuns",
+        "messages_few": "{{value}} răspunsuri",
+        "messages_other": "{{value}} de răspunsuri",
+        "unknowns_one": "{{value}} mesaj necunoscut",
+        "unknowns_few": "{{value}} mesaje necunoscute",
+        "unknowns_other": "{{value}} de mesaje necunoscute"
+      },
+      "weekOf": "Săptămâna din {{date}}",
+      "bar": "{{week}}: {{value}}",
+      "intents": "Distribuția intențiilor",
+      "intentsEmpty": "Niciun mesaj recunoscut în această perioadă.",
+      "intentRow_one": "{{tag}}: {{value}} răspuns",
+      "intentRow_few": "{{tag}}: {{value}} răspunsuri",
+      "intentRow_other": "{{tag}}: {{value}} de răspunsuri",
+      "otherIntents": "Alte intenții",
+      "error": "Statisticile nu au putut fi încărcate.",
+      "retry": "Încearcă din nou",
+      "loading": "Se încarcă statisticile…"
     }
   }
 }

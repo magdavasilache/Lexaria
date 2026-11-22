@@ -44,6 +44,13 @@ def normalize_isbn(value: str) -> str | None:
     return None
 
 
+def require_print_pages(value: int | None, info: ValidationInfo) -> int | None:
+    edition_format = info.data.get("format")
+    if value is None and edition_format is not None and edition_format not in PERCENT_FORMATS:
+        raise key_error(MessageKey.EDITION_PAGES_REQUIRED)
+    return value
+
+
 class EditionCreate(InputSchema):
     format: EditionFormat
     pages: Annotated[int | None, Field(ge=1, le=EDITION_PAGES_MAX, validate_default=True)] = None
@@ -56,10 +63,7 @@ class EditionCreate(InputSchema):
     @field_validator("pages")
     @classmethod
     def print_editions_have_pages(cls, value: int | None, info: ValidationInfo) -> int | None:
-        edition_format = info.data.get("format")
-        if value is None and edition_format is not None and edition_format not in PERCENT_FORMATS:
-            raise key_error(MessageKey.EDITION_PAGES_REQUIRED)
-        return value
+        return require_print_pages(value, info)
 
     @field_validator("translator", "publisher")
     @classmethod

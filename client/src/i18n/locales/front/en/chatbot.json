@@ -1,0 +1,42 @@
+{
+  "title": "Book assistant",
+  "subtitle": "Ask me anything about books",
+  "typing": "Typing…",
+  "welcome": "Hello! I'm here to help you find your next great read. Ask me about books, authors or genres.",
+  "open": "Open the book assistant",
+  "close": "Close the book assistant",
+  "newConversation": "Start a new conversation",
+  "message": "Message",
+  "placeholder": "Type a message…",
+  "hint": "Enter to send, Shift+Enter for a new line.",
+  "send": "Send message",
+  "messages": "Conversation",
+  "you": "You",
+  "assistant": "Assistant",
+  "intent": "{{intent}} · {{confidence}}",
+  "byAuthor": "by {{author}}",
+  "rating": "Rated {{rating}} out of 5",
+  "openBook": "Open \"{{title}}\"",
+  "validation": {
+    "messageMax": "Use at most {{chatMessageMax}} characters."
+  },
+  "deleteConversation": "Delete this conversation",
+  "deleteTitle": "Delete conversation",
+  "deleteConfirm": "Delete this conversation and its messages? This can't be undone.",
+  "delete": "Delete",
+  "deleting": "Deleting…",
+  "suggestions": "Suggested replies",
+  "actions": {
+    "shelved": "Added to {{shelf}}",
+    "shelveLabel": "Add \"{{title}}\" to {{shelf}}",
+    "start": "Start reading",
+    "startLabel": "Start a reading session for \"{{title}}\"",
+    "starting": "Starting…",
+    "started": "Reading session started"
+  },
+  "feedback": {
+    "label": "Rate this reply",
+    "up": "Helpful",
+    "down": "Not helpful"
+  }
+}

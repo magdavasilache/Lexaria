@@ -37,7 +37,10 @@
     "deleteConfirm": "Delete your review? Its comments and likes are deleted too. This can't be undone.",
     "deleting": "Deleting…",
     "keep": "Keep it",
-    "loading": "Loading your review…"
+    "loading": "Loading your review…",
+    "hideSelection": "Hide selected text as a spoiler",
+    "hasSpoilers": "This review contains spoilers",
+    "hasSpoilersHelper": "Readers will see a warning and choose whether to open it. Text between || and || is hidden even without this."
   },
   "card": {
     "rated": "Rated {{value}} out of 5",
@@ -57,7 +60,9 @@
     "delete": "Delete review",
     "deleteTitle": "Delete review",
     "deleteConfirm": "Delete the review by {{username}}? Its comments and likes are deleted too. This can't be undone.",
-    "readOn": "Read on {{date}}"
+    "readOn": "Read on {{date}}",
+    "spoilerWarning": "This review contains spoilers.",
+    "showSpoilers": "Show review"
   },
   "comments": {
     "label": "Comment on the review by {{username}}",

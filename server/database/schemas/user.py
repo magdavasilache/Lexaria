@@ -2,12 +2,16 @@ import re
 from datetime import datetime
 from typing import Annotated
 
+from fastapi import UploadFile
 from pydantic import Field, field_validator
 
 from server.core.message_keys import MessageKey, key_error
 
 from server.database.models.user import (
+    AVATAR_MAX_MB,
     AVATAR_URL_MAX_LENGTH,
+    BAN_DURATION_DAYS_MAX,
+    BAN_REASON_MAX_LENGTH,
     BIO_MAX_LENGTH,
     DISPLAY_NAME_MAX_LENGTH,
     USERNAME_MAX_LENGTH,
@@ -99,3 +103,27 @@ class UserRead(OutputSchema):
 class AuthResponse(OutputSchema):
     user: UserRead
     token: AccessTokenResponse
+
+
+class AvatarUpload(InputSchema):
+    image: Annotated[UploadFile, Field(description=f"Square JPG, PNG or WebP picture of at most {AVATAR_MAX_MB} MB.")]
+
+
+class BanCreate(InputSchema):
+    reason: Annotated[
+        str,
+        Field(min_length=1, max_length=BAN_REASON_MAX_LENGTH, description="Shown to the user when they try to log in."),
+    ]
+    duration_days: Annotated[
+        int | None,
+        Field(ge=1, le=BAN_DURATION_DAYS_MAX, description="Length of the ban in days; leave empty for a permanent ban."),
+    ] = None
+
+
+class UserAdminRead(UserRead):
+    banned_at: datetime | None
+    banned_until: datetime | None
+    ban_reason: Annotated[str | None, Field(max_length=BAN_REASON_MAX_LENGTH)]
+    locked_until: datetime | None
+    is_banned: bool
+    is_locked: bool

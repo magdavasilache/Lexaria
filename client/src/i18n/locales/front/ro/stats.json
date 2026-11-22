@@ -136,5 +136,25 @@
     "title": "Nicio lectură înregistrată în {{year}}",
     "hint": "Pornește o sesiune de pe pagina oricărei cărți sau termină o carte, iar statisticile vor apărea aici.",
     "browse": "Răsfoiește cărțile"
+  },
+  "moods": {
+    "title": "Stări",
+    "empty": "Niciuna dintre cărțile terminate în {{year}} nu are încă stări.",
+    "hint": "Contează întâi votul tău, apoi ce au simțit majoritatea cititorilor."
+  },
+  "paces": {
+    "title": "Ritm",
+    "empty": "Termină o carte în {{year}} ca să-i vezi ritmul.",
+    "unknown": "Ritm nenotat"
+  },
+  "lengths": {
+    "title": "Lungimea cărților",
+    "empty": "Termină o carte în {{year}} ca să vezi cât de lungi au fost cărțile tale.",
+    "hint": "Folosește numărul de pagini al ediției tale, dacă ai ales una.",
+    "short": "Sub {{limit}} de pagini",
+    "medium": "{{min}}–{{max}} de pagini",
+    "long": "{{min}}–{{max}} de pagini",
+    "epic": "{{min}}+ de pagini",
+    "unknown": "Număr de pagini necunoscut"
   }
 }

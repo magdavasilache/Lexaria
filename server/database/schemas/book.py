@@ -5,7 +5,7 @@ from typing import Annotated
 from fastapi import UploadFile
 import re
 
-from pydantic import Field, Json, field_validator
+from pydantic import Field, Json, field_validator, model_validator
 
 from server.core.message_keys import MessageKey, key_error
 from server.database.models.award import AWARD_NAME_MAX_LENGTH
@@ -23,7 +23,11 @@ from server.database.models.book import (
     TITLE_MAX_LENGTH,
 )
 from server.database.models.genres import GENRE_NAME_MAX_LENGTH
+from server.database.models.reader_signal import Mood, Pace
 from server.database.schemas.base import Id, InputSchema, OutputSchema, published_at_not_too_far
+from server.database.models.content_warning import ContentWarning
+from server.database.schemas.content_warning import ContentWarningsOut
+from server.database.schemas.reader_signal import ReaderSignalsOut
 from server.database.schemas.reading import ReadingOut
 from server.database.schemas.user_book_status import UserBookStatusOut
 
@@ -116,20 +120,51 @@ class BookUpdate(BookCreate):
 
 
 class BookSort(StrEnum):
+    RELEVANCE = "relevance"
     TITLE = "title"
     RATING = "rating"
     NEWEST = "newest"
 
 
 class BookListQuery(InputSchema):
-    q: Annotated[str | None, Field(max_length=TITLE_MAX_LENGTH, description="Part of the title.")] = None
+    q: Annotated[
+        str | None,
+        Field(
+            max_length=TITLE_MAX_LENGTH,
+            description="Words from the title, author name or synopsis, or an ISBN. Accents and small typos are ignored.",
+        ),
+    ] = None
     genre_ids: Annotated[list[Id], Field(max_length=FILTER_IDS_MAX)] = []
     author_ids: Annotated[list[Id], Field(max_length=FILTER_IDS_MAX)] = []
     language_ids: Annotated[list[Id], Field(max_length=FILTER_IDS_MAX)] = []
     min_rating: Annotated[int | None, Field(ge=1, le=RATING_MAX, description="Minimum average rating.")] = None
-    sort: BookSort = BookSort.TITLE
+    moods: Annotated[
+        list[Mood],
+        Field(max_length=len(Mood), description="Books that readers mostly describe with every one of these moods."),
+    ] = []
+    paces: Annotated[list[Pace], Field(max_length=len(Pace), description="Books whose pace is any of these.")] = []
+    avoid_warnings: Annotated[
+        list[ContentWarning],
+        Field(max_length=len(ContentWarning), description="Leave out books any reader reported with these warnings."),
+    ] = []
+    min_pages: Annotated[int | None, Field(ge=1, le=PAGES_MAX)] = None
+    max_pages: Annotated[int | None, Field(ge=1, le=PAGES_MAX)] = None
+    sort: Annotated[
+        BookSort, Field(description="`relevance` ranks search matches and falls back to `title` without `q`.")
+    ] = BookSort.RELEVANCE
     offset: Annotated[int, Field(ge=0)] = 0
     limit: Annotated[int, Field(ge=1, le=BOOK_PAGE_SIZE_MAX)] = BOOK_PAGE_SIZE_DEFAULT
+
+    @field_validator("moods", "paces", "avoid_warnings")
+    @classmethod
+    def drop_duplicate_values(cls, value: list) -> list:
+        return _unique(value)
+
+    @model_validator(mode="after")
+    def pages_range(self) -> "BookListQuery":
+        if self.min_pages is not None and self.max_pages is not None and self.max_pages < self.min_pages:
+            raise key_error(MessageKey.PAGES_RANGE_INVALID)
+        return self
 
 
 class GenreRef(OutputSchema):
@@ -164,6 +199,8 @@ class BookListItem(OutputSchema):
     genres: list[GenreRef]
     average_rating: float | None
     ratings_count: int
+    pace: Pace | None
+    top_moods: list[Mood]
 
 
 class BookDetail(OutputSchema):
@@ -189,6 +226,8 @@ class BookDetail(OutputSchema):
     ratings_count: int
     rating_histogram: list[RatingBucket]
     reader_tags: list[ReaderTag]
+    reader_signals: ReaderSignalsOut
+    content_warnings: ContentWarningsOut
     user_book_status: UserBookStatusOut | None
     active_reading: ReadingOut | None
     created_at: datetime

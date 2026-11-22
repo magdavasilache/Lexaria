@@ -27,6 +27,12 @@ class MessageKey(StrEnum):
     INVALID_CREDENTIALS_HINT = "users.invalidCredentialsHint"
     USERNAME_EXISTS = "users.usernameExists"
     USERNAME_EXISTS_HINT = "users.usernameExistsHint"
+    ACCOUNT_LOCKED = "users.accountLocked"
+    ACCOUNT_BANNED = "users.accountBanned"
+    ACCOUNT_SUSPENDED = "users.accountSuspended"
+    USER_NOT_FOUND = "users.userNotFound"
+    CANNOT_BAN_SELF = "users.cannotBanSelf"
+    CANNOT_BAN_ADMIN = "users.cannotBanAdmin"
 
     REQUIRED = "validation.required"
     NOT_ALLOWED = "validation.notAllowed"
@@ -65,6 +71,16 @@ class MessageKey(StrEnum):
     UNSUPPORTED_IMAGE = "books.unsupportedImage"
     IMAGE_TOO_LARGE = "books.imageTooLarge"
     BOOK_NOT_FOUND = "books.notFound"
+    READER_VOTE_EMPTY = "books.readerVoteEmpty"
+    READER_VOTE_NOT_ALLOWED = "books.readerVoteNotAllowed"
+    PAGES_RANGE_INVALID = "books.pagesRangeInvalid"
+    RECOMMEND_BECAUSE_LIKED = "books.recommendBecauseLiked"
+    RECOMMEND_SAME_AUTHOR = "books.recommendSameAuthor"
+    RECOMMEND_FAVOURITE_GENRE = "books.recommendFavouriteGenre"
+    RECOMMEND_TASTE = "books.recommendTaste"
+    RECOMMEND_POPULAR = "books.recommendPopular"
+    CONTENT_WARNING_DUPLICATE = "books.contentWarningDuplicate"
+    CONTENT_WARNING_NOT_ALLOWED = "books.contentWarningNotAllowed"
     AUTHOR_NOT_FOUND = "books.authorNotFound"
     LANGUAGE_NOT_FOUND = "books.languageNotFound"
     COUNTRY_NOT_FOUND = "books.countryNotFound"
@@ -126,6 +142,9 @@ class MessageKey(StrEnum):
     IMPORT_ROW_INVALID_DATE = "imports.rowInvalidDate"
     IMPORT_ROW_INVALID_STATUS = "imports.rowInvalidStatus"
     IMPORT_ROW_REVIEW_TOO_LONG = "imports.rowReviewTooLong"
+    IMPORT_ISBN_NOT_FOUND = "imports.isbnNotFound"
+    IMPORT_SOURCE_UNAVAILABLE = "imports.sourceUnavailable"
+    IMPORT_COVER_SKIPPED = "imports.coverSkipped"
 
     REVIEW_NOT_FOUND = "reviews.notFound"
     REVIEW_EXISTS = "reviews.alreadyReviewed"
@@ -168,6 +187,21 @@ class MessageKey(StrEnum):
     AUDIT_BOOK_DELETE_FAILED = "audit.descriptions.bookDeleteFailed"
     AUDIT_GOODREADS_IMPORTED = "audit.descriptions.goodreadsImported"
     AUDIT_GOODREADS_IMPORT_FAILED = "audit.descriptions.goodreadsImportFailed"
+    AUDIT_ACTION_BOOK_IMPORT = "audit.actions.bookImport"
+    AUDIT_BOOK_IMPORTED = "audit.descriptions.bookImported"
+    AUDIT_BOOK_IMPORT_FAILED = "audit.descriptions.bookImportFailed"
+    AUDIT_ACTION_READER_VOTE_SET = "audit.actions.readerVoteSet"
+    AUDIT_ACTION_READER_VOTE_REMOVE = "audit.actions.readerVoteRemove"
+    AUDIT_READER_VOTE_SAVED = "audit.descriptions.readerVoteSaved"
+    AUDIT_READER_VOTE_SAVE_FAILED = "audit.descriptions.readerVoteSaveFailed"
+    AUDIT_READER_VOTE_REMOVED = "audit.descriptions.readerVoteRemoved"
+    AUDIT_READER_VOTE_REMOVE_FAILED = "audit.descriptions.readerVoteRemoveFailed"
+    AUDIT_ACTION_CONTENT_WARNINGS_SET = "audit.actions.contentWarningsSet"
+    AUDIT_ACTION_CONTENT_WARNINGS_REMOVE = "audit.actions.contentWarningsRemove"
+    AUDIT_CONTENT_WARNINGS_SAVED = "audit.descriptions.contentWarningsSaved"
+    AUDIT_CONTENT_WARNINGS_SAVE_FAILED = "audit.descriptions.contentWarningsSaveFailed"
+    AUDIT_CONTENT_WARNINGS_REMOVED = "audit.descriptions.contentWarningsRemoved"
+    AUDIT_CONTENT_WARNINGS_REMOVE_FAILED = "audit.descriptions.contentWarningsRemoveFailed"
     AUDIT_ACTION_REVIEW_CREATE = "audit.actions.reviewCreate"
     AUDIT_REVIEW_CREATED = "audit.descriptions.reviewCreated"
     AUDIT_REVIEW_CREATE_FAILED = "audit.descriptions.reviewCreateFailed"
@@ -298,6 +332,181 @@ class MessageKey(StrEnum):
     AUDIT_AWARD_DELETED = "audit.descriptions.awardDeleted"
     AUDIT_AWARD_DELETE_FAILED = "audit.descriptions.awardDeleteFailed"
 
+    INTENT_NOT_FOUND = "chatbot.intentNotFound"
+    INTENT_EXISTS = "chatbot.intentExists"
+    INTENT_TAG_PATTERN = "chatbot.tagPattern"
+    PATTERN_NOT_FOUND = "chatbot.patternNotFound"
+    PATTERN_EXISTS = "chatbot.patternExists"
+    RESPONSE_NOT_FOUND = "chatbot.responseNotFound"
+    RESPONSE_EXISTS = "chatbot.responseExists"
+    UNKNOWN_MESSAGE_NOT_FOUND = "chatbot.unknownNotFound"
+    CONVERSATION_NOT_FOUND = "chatbot.conversationNotFound"
+    MESSAGE_NOT_FOUND = "chatbot.messageNotFound"
+    FEEDBACK_NOT_FOUND = "chatbot.feedbackNotFound"
+    FEEDBACK_NO_QUESTION = "chatbot.feedbackNoQuestion"
+    CHATBOT_NOT_TRAINED = "chatbot.notTrained"
+    CHATBOT_NOT_TRAINED_HINT = "chatbot.notTrainedHint"
+    CHATBOT_UNAVAILABLE = "chatbot.unavailable"
+    TRAINING_IN_PROGRESS = "chatbot.trainingInProgress"
+    TRAINING_NOT_ENOUGH_INTENTS = "chatbot.trainingNotEnoughIntents"
+    TRAINING_FAILED = "chatbot.trainingFailed"
+    REPLY_FALLBACK_REPHRASE = "chatbot.replies.fallbackRephrase"
+    REPLY_FALLBACK_TOPICS = "chatbot.replies.fallbackTopics"
+    REPLY_FALLBACK_LEARNING = "chatbot.replies.fallbackLearning"
+    REPLY_NO_RESPONSE = "chatbot.replies.noResponse"
+    REPLY_SIMILAR_ASK = "chatbot.replies.similarAsk"
+    REPLY_SIMILAR_NONE = "chatbot.replies.similarNone"
+    REPLY_SIMILAR_NONE_UNREAD = "chatbot.replies.similarNoneUnread"
+    REPLY_SIMILAR_FOUND = "chatbot.replies.similarFound"
+    REPLY_SIMILAR_FOUND_MOOD = "chatbot.replies.similarFoundMood"
+    REPLY_GENRE_ASK = "chatbot.replies.genreAsk"
+    REPLY_GENRE_MISSING = "chatbot.replies.genreMissing"
+    REPLY_GENRE_NONE = "chatbot.replies.genreNone"
+    REPLY_GENRE_FOUND = "chatbot.replies.genreFound"
+    REPLY_GENRE_FOUND_MOOD = "chatbot.replies.genreFoundMood"
+    REPLY_MOOD_ASK = "chatbot.replies.moodAsk"
+    REPLY_MOOD_NONE = "chatbot.replies.moodNone"
+    REPLY_MOOD_FOUND = "chatbot.replies.moodFound"
+    REPLY_AUTHOR_ASK = "chatbot.replies.authorAsk"
+    REPLY_AUTHOR_NO_BOOKS = "chatbot.replies.authorNoBooks"
+    REPLY_AUTHOR_BOOKS = "chatbot.replies.authorBooks"
+    REPLY_AUTHOR_RATING = "chatbot.replies.authorRating"
+    REPLY_BOOK_ASK = "chatbot.replies.bookAsk"
+    REPLY_BOOK_INFO = "chatbot.replies.bookInfo"
+    REPLY_BOOK_INFO_NO_AUTHOR = "chatbot.replies.bookInfoNoAuthor"
+    REPLY_BOOK_GENRES = "chatbot.replies.bookGenres"
+    REPLY_BOOK_RATING = "chatbot.replies.bookRating"
+    REPLY_BOOK_TRAITS = "chatbot.replies.bookTraits"
+    REPLY_SEARCH_ASK = "chatbot.replies.searchAsk"
+    REPLY_UNREAD_NO_HISTORY = "chatbot.replies.unreadNoHistory"
+    REPLY_UNREAD_NONE = "chatbot.replies.unreadNone"
+    REPLY_UNREAD_FOUND = "chatbot.replies.unreadFound"
+    REPLY_TOP_RATED_NONE = "chatbot.replies.topRatedNone"
+    REPLY_TOP_RATED_FOUND = "chatbot.replies.topRatedFound"
+    REPLY_TOP_RATED_GENRE_FOUND = "chatbot.replies.topRatedGenreFound"
+    REPLY_BY_AUTHOR_ASK = "chatbot.replies.byAuthorAsk"
+    REPLY_BY_AUTHOR_UNREAD = "chatbot.replies.byAuthorUnread"
+    REPLY_BY_AUTHOR_NONE = "chatbot.replies.byAuthorNone"
+    REPLY_BY_AUTHOR_SIMILAR = "chatbot.replies.byAuthorSimilar"
+    TRAIT_DARK = "chatbot.traits.dark"
+    TRAIT_SLOW_BURN = "chatbot.traits.slowBurn"
+    TRAIT_FOUND_FAMILY = "chatbot.traits.foundFamily"
+    TRAIT_FAST_PACED = "chatbot.traits.fastPaced"
+    TRAIT_LYRICAL_PROSE = "chatbot.traits.lyricalProse"
+    TRAIT_MORALLY_GREY = "chatbot.traits.morallyGrey"
+    TRAIT_HARD_SCI_FI = "chatbot.traits.hardSciFi"
+    AUDIT_ACTION_CHATBOT_INTENT_CREATE = "audit.actions.chatbotIntentCreate"
+    AUDIT_CHATBOT_INTENT_CREATE_DONE = "audit.descriptions.chatbotIntentCreated"
+    AUDIT_CHATBOT_INTENT_CREATE_FAILED = "audit.descriptions.chatbotIntentCreateFailed"
+    AUDIT_ACTION_CHATBOT_INTENT_UPDATE = "audit.actions.chatbotIntentUpdate"
+    AUDIT_CHATBOT_INTENT_UPDATE_DONE = "audit.descriptions.chatbotIntentUpdated"
+    AUDIT_CHATBOT_INTENT_UPDATE_FAILED = "audit.descriptions.chatbotIntentUpdateFailed"
+    AUDIT_ACTION_CHATBOT_INTENT_DELETE = "audit.actions.chatbotIntentDelete"
+    AUDIT_CHATBOT_INTENT_DELETE_DONE = "audit.descriptions.chatbotIntentDeleted"
+    AUDIT_CHATBOT_INTENT_DELETE_FAILED = "audit.descriptions.chatbotIntentDeleteFailed"
+    AUDIT_ACTION_CHATBOT_PATTERN_CREATE = "audit.actions.chatbotPatternCreate"
+    AUDIT_CHATBOT_PATTERN_CREATE_DONE = "audit.descriptions.chatbotPatternCreated"
+    AUDIT_CHATBOT_PATTERN_CREATE_FAILED = "audit.descriptions.chatbotPatternCreateFailed"
+    AUDIT_ACTION_CHATBOT_PATTERN_UPDATE = "audit.actions.chatbotPatternUpdate"
+    AUDIT_CHATBOT_PATTERN_UPDATE_DONE = "audit.descriptions.chatbotPatternUpdated"
+    AUDIT_CHATBOT_PATTERN_UPDATE_FAILED = "audit.descriptions.chatbotPatternUpdateFailed"
+    AUDIT_ACTION_CHATBOT_PATTERN_DELETE = "audit.actions.chatbotPatternDelete"
+    AUDIT_CHATBOT_PATTERN_DELETE_DONE = "audit.descriptions.chatbotPatternDeleted"
+    AUDIT_CHATBOT_PATTERN_DELETE_FAILED = "audit.descriptions.chatbotPatternDeleteFailed"
+    AUDIT_ACTION_CHATBOT_RESPONSE_CREATE = "audit.actions.chatbotResponseCreate"
+    AUDIT_CHATBOT_RESPONSE_CREATE_DONE = "audit.descriptions.chatbotResponseCreated"
+    AUDIT_CHATBOT_RESPONSE_CREATE_FAILED = "audit.descriptions.chatbotResponseCreateFailed"
+    AUDIT_ACTION_CHATBOT_RESPONSE_UPDATE = "audit.actions.chatbotResponseUpdate"
+    AUDIT_CHATBOT_RESPONSE_UPDATE_DONE = "audit.descriptions.chatbotResponseUpdated"
+    AUDIT_CHATBOT_RESPONSE_UPDATE_FAILED = "audit.descriptions.chatbotResponseUpdateFailed"
+    AUDIT_ACTION_CHATBOT_RESPONSE_DELETE = "audit.actions.chatbotResponseDelete"
+    AUDIT_CHATBOT_RESPONSE_DELETE_DONE = "audit.descriptions.chatbotResponseDeleted"
+    AUDIT_CHATBOT_RESPONSE_DELETE_FAILED = "audit.descriptions.chatbotResponseDeleteFailed"
+    AUDIT_ACTION_CHATBOT_UNKNOWN_DELETE = "audit.actions.chatbotUnknownDelete"
+    AUDIT_CHATBOT_UNKNOWN_DELETE_DONE = "audit.descriptions.chatbotUnknownDeleted"
+    AUDIT_CHATBOT_UNKNOWN_DELETE_FAILED = "audit.descriptions.chatbotUnknownDeleteFailed"
+    AUDIT_ACTION_CHATBOT_UNKNOWN_PROMOTE = "audit.actions.chatbotUnknownPromote"
+    AUDIT_CHATBOT_UNKNOWN_PROMOTE_DONE = "audit.descriptions.chatbotUnknownPromoted"
+    AUDIT_CHATBOT_UNKNOWN_PROMOTE_FAILED = "audit.descriptions.chatbotUnknownPromoteFailed"
+    AUDIT_ACTION_CHATBOT_TRAIN = "audit.actions.chatbotTrain"
+    AUDIT_CHATBOT_TRAIN_DONE = "audit.descriptions.chatbotTrained"
+    AUDIT_CHATBOT_TRAIN_FAILED = "audit.descriptions.chatbotTrainFailed"
+    REPLY_SHORT_FOUND = "chatbot.replies.shortFound"
+    REPLY_SHORT_NONE = "chatbot.replies.shortNone"
+    REPLY_SERIES_FOUND = "chatbot.replies.seriesFound"
+    REPLY_SERIES_GENRE_FOUND = "chatbot.replies.seriesGenreFound"
+    REPLY_SERIES_NONE = "chatbot.replies.seriesNone"
+    REPLY_LENGTH_ASK = "chatbot.replies.lengthAsk"
+    REPLY_LENGTH = "chatbot.replies.length"
+    REPLY_LENGTH_UNKNOWN = "chatbot.replies.lengthUnknown"
+    REPLY_GENRE_INFO = "chatbot.replies.genreInfo"
+    REPLY_GENRE_INFO_EMPTY = "chatbot.replies.genreInfoEmpty"
+    REPLY_SHELVES = "chatbot.replies.shelves"
+    REPLY_SHELVES_READING = "chatbot.replies.shelvesReading"
+    REPLY_SHELVES_NEXT = "chatbot.replies.shelvesNext"
+    REPLY_SHELVES_EMPTY = "chatbot.replies.shelvesEmpty"
+    AUDIT_ACTION_CHATBOT_SEED = "audit.actions.chatbotSeed"
+    AUDIT_CHATBOT_SEED_DONE = "audit.descriptions.chatbotSeeded"
+    AUDIT_CHATBOT_SEED_FAILED = "audit.descriptions.chatbotSeedFailed"
+    REPLY_NO_MORE = "chatbot.replies.noMore"
+    REPLY_FOLLOW_UP_NOTHING = "chatbot.replies.followUpNothing"
+    REPLY_MORE_FOUND = "chatbot.replies.moreFound"
+    SUGGEST_MORE = "chatbot.suggestions.more"
+    SUGGEST_SHORTER = "chatbot.suggestions.shorter"
+    SUGGEST_RECOMMEND = "chatbot.suggestions.recommend"
+    SUGGEST_HELP = "chatbot.suggestions.help"
+    SUGGEST_SHELVES = "chatbot.suggestions.shelves"
+    SUGGEST_GENRE = "chatbot.suggestions.genre"
+    SUGGEST_MOOD_DARK = "chatbot.suggestions.moodDark"
+    SUGGEST_MOOD_FUNNY = "chatbot.suggestions.moodFunny"
+    SUGGEST_MOOD_EMOTIONAL = "chatbot.suggestions.moodEmotional"
+    SUGGEST_MOOD_TENSE = "chatbot.suggestions.moodTense"
+    SUGGEST_STATS = "chatbot.suggestions.stats"
+    REPLY_TASTE_FOUND = "chatbot.replies.tasteFound"
+    REPLY_TASTE_NONE = "chatbot.replies.tasteNone"
+    REPLY_TASTE_EMPTY = "chatbot.replies.tasteEmpty"
+    REPLY_STATS_EMPTY = "chatbot.replies.statsEmpty"
+    REPLY_STATS_YEAR = "chatbot.replies.statsYear"
+    REPLY_STATS_CHALLENGE = "chatbot.replies.statsChallenge"
+    REPLY_STATS_NO_CHALLENGE = "chatbot.replies.statsNoChallenge"
+    REPLY_STATS_STREAK = "chatbot.replies.statsStreak"
+    REPLY_STATS_GENRE = "chatbot.replies.statsGenre"
+    STATS_METRIC_BOOKS = "chatbot.metrics.books"
+    STATS_METRIC_PAGES = "chatbot.metrics.pages"
+    STATS_METRIC_HOURS = "chatbot.metrics.hours"
+    STATS_PACE_AHEAD = "chatbot.pace.ahead"
+    STATS_PACE_ON_TRACK = "chatbot.pace.onTrack"
+    STATS_PACE_BEHIND = "chatbot.pace.behind"
+    STATS_PACE_COMPLETED = "chatbot.pace.completed"
+    STATS_PACE_MISSED = "chatbot.pace.missed"
+    AUDIT_ACTION_CHATBOT_CONVERSATION_DELETE = "audit.actions.chatbotConversationDelete"
+    AUDIT_CHATBOT_CONVERSATION_DELETE_DONE = "audit.descriptions.chatbotConversationDeleted"
+    AUDIT_CHATBOT_CONVERSATION_DELETE_FAILED = "audit.descriptions.chatbotConversationDeleteFailed"
+    AUDIT_ACTION_CHATBOT_FEEDBACK = "audit.actions.chatbotFeedback"
+    AUDIT_CHATBOT_FEEDBACK_DONE = "audit.descriptions.chatbotFeedbackGiven"
+    AUDIT_CHATBOT_FEEDBACK_FAILED = "audit.descriptions.chatbotFeedbackFailed"
+    AUDIT_ACTION_CHATBOT_FEEDBACK_PROMOTE = "audit.actions.chatbotFeedbackPromote"
+    AUDIT_CHATBOT_FEEDBACK_PROMOTE_DONE = "audit.descriptions.chatbotFeedbackPromoted"
+    AUDIT_CHATBOT_FEEDBACK_PROMOTE_FAILED = "audit.descriptions.chatbotFeedbackPromoteFailed"
+    AUDIT_ACTION_CHATBOT_FEEDBACK_DISMISS = "audit.actions.chatbotFeedbackDismiss"
+    AUDIT_CHATBOT_FEEDBACK_DISMISS_DONE = "audit.descriptions.chatbotFeedbackDismissed"
+    AUDIT_CHATBOT_FEEDBACK_DISMISS_FAILED = "audit.descriptions.chatbotFeedbackDismissFailed"
+    AUDIT_ACTION_CHATBOT_IMPORT = "audit.actions.chatbotImport"
+    AUDIT_CHATBOT_IMPORT_DONE = "audit.descriptions.chatbotImported"
+    AUDIT_CHATBOT_IMPORT_FAILED = "audit.descriptions.chatbotImportFailed"
+    AUDIT_ACTION_USER_AVATAR_UPDATE = "audit.actions.userAvatarUpdate"
+    AUDIT_USER_AVATAR_UPDATE_DONE = "audit.descriptions.userAvatarUpdated"
+    AUDIT_USER_AVATAR_UPDATE_FAILED = "audit.descriptions.userAvatarUpdateFailed"
+    AUDIT_ACTION_USER_AVATAR_REMOVE = "audit.actions.userAvatarRemove"
+    AUDIT_USER_AVATAR_REMOVE_DONE = "audit.descriptions.userAvatarRemoved"
+    AUDIT_USER_AVATAR_REMOVE_FAILED = "audit.descriptions.userAvatarRemoveFailed"
+    AUDIT_ACTION_USER_BAN = "audit.actions.userBan"
+    AUDIT_USER_BAN_DONE = "audit.descriptions.userBanned"
+    AUDIT_USER_BAN_FAILED = "audit.descriptions.userBanFailed"
+    AUDIT_ACTION_USER_UNBAN = "audit.actions.userUnban"
+    AUDIT_USER_UNBAN_DONE = "audit.descriptions.userUnbanned"
+    AUDIT_USER_UNBAN_FAILED = "audit.descriptions.userUnbanFailed"
+
 
 ENGLISH: dict[MessageKey, str] = {
     MessageKey.UNEXPECTED: "Something went wrong on our side.",
@@ -319,6 +528,12 @@ ENGLISH: dict[MessageKey, str] = {
     MessageKey.INVALID_CREDENTIALS_HINT: "Check your spelling, or register if you don't have an account yet.",
     MessageKey.USERNAME_EXISTS: "This username is already taken.",
     MessageKey.USERNAME_EXISTS_HINT: "Try another username.",
+    MessageKey.ACCOUNT_LOCKED: "Too many failed login attempts. Try again in {minutes} min.",
+    MessageKey.ACCOUNT_BANNED: "Your account has been banned. Reason: {reason}",
+    MessageKey.ACCOUNT_SUSPENDED: "Your account is suspended until {until}. Reason: {reason}",
+    MessageKey.USER_NOT_FOUND: "This user doesn't exist.",
+    MessageKey.CANNOT_BAN_SELF: "You can't ban your own account.",
+    MessageKey.CANNOT_BAN_ADMIN: "Administrators can't be banned.",
     MessageKey.REQUIRED: "This field is required.",
     MessageKey.NOT_ALLOWED: "This field is not allowed.",
     MessageKey.INVALID: "Invalid value.",
@@ -355,6 +570,16 @@ ENGLISH: dict[MessageKey, str] = {
     MessageKey.UNSUPPORTED_IMAGE: "{filename} is not a supported image. Use JPG, PNG or WebP.",
     MessageKey.IMAGE_TOO_LARGE: "{filename} is larger than {max_mb} MB.",
     MessageKey.BOOK_NOT_FOUND: "This book doesn't exist or was removed.",
+    MessageKey.READER_VOTE_EMPTY: "Choose at least one mood or a pace.",
+    MessageKey.READER_VOTE_NOT_ALLOWED: "Mark the book as currently reading, read or did not finish before describing its mood and pace.",
+    MessageKey.PAGES_RANGE_INVALID: "The maximum number of pages must be at least the minimum.",
+    MessageKey.RECOMMEND_BECAUSE_LIKED: "Because you enjoyed \"{title}\"",
+    MessageKey.RECOMMEND_SAME_AUTHOR: "More from {name}",
+    MessageKey.RECOMMEND_FAVOURITE_GENRE: "One of your favourite genres: {genre}",
+    MessageKey.RECOMMEND_TASTE: "Matches what you've enjoyed",
+    MessageKey.RECOMMEND_POPULAR: "Popular with readers",
+    MessageKey.CONTENT_WARNING_DUPLICATE: "Report each content warning only once.",
+    MessageKey.CONTENT_WARNING_NOT_ALLOWED: "Mark the book as currently reading, read or did not finish before reporting content warnings.",
     MessageKey.AUTHOR_NOT_FOUND: "The selected author doesn't exist.",
     MessageKey.LANGUAGE_NOT_FOUND: "The selected language doesn't exist.",
     MessageKey.COUNTRY_NOT_FOUND: "The selected country doesn't exist.",
@@ -405,6 +630,9 @@ ENGLISH: dict[MessageKey, str] = {
     MessageKey.IMPORT_ROW_INVALID_DATE: "the date is not valid",
     MessageKey.IMPORT_ROW_INVALID_STATUS: "the reading status is not recognised",
     MessageKey.IMPORT_ROW_REVIEW_TOO_LONG: "the review text is too long",
+    MessageKey.IMPORT_ISBN_NOT_FOUND: "Open Library has no book with ISBN {isbn}.",
+    MessageKey.IMPORT_SOURCE_UNAVAILABLE: "Open Library could not be reached. Try again in a moment.",
+    MessageKey.IMPORT_COVER_SKIPPED: "The cover could not be downloaded, so the book was added without it.",
     MessageKey.REVIEW_NOT_FOUND: "This review doesn't exist or was removed.",
     MessageKey.REVIEW_EXISTS: "You have already reviewed this book.",
     MessageKey.REVIEW_EXISTS_HINT: "Edit your existing review instead.",
@@ -445,6 +673,21 @@ ENGLISH: dict[MessageKey, str] = {
     MessageKey.AUDIT_BOOK_DELETE_FAILED: "{username} could not delete book #{book_id}: {reason}",
     MessageKey.AUDIT_GOODREADS_IMPORTED: "{username} imported {books} new books, {statuses} reading statuses and {reviews} ratings from Goodreads.",
     MessageKey.AUDIT_GOODREADS_IMPORT_FAILED: "Goodreads import failed for {username}: {reason}",
+    MessageKey.AUDIT_ACTION_BOOK_IMPORT: "Book imported by ISBN",
+    MessageKey.AUDIT_BOOK_IMPORTED: "{username} imported \"{title}\" (ISBN {isbn}) from Open Library.",
+    MessageKey.AUDIT_BOOK_IMPORT_FAILED: "{username} could not import ISBN {isbn}: {reason}",
+    MessageKey.AUDIT_ACTION_READER_VOTE_SET: "Mood and pace vote",
+    MessageKey.AUDIT_ACTION_READER_VOTE_REMOVE: "Mood and pace vote removed",
+    MessageKey.AUDIT_READER_VOTE_SAVED: "{username} described the mood and pace of \"{title}\".",
+    MessageKey.AUDIT_READER_VOTE_SAVE_FAILED: "{username} could not describe the mood and pace of book #{book_id}: {reason}",
+    MessageKey.AUDIT_READER_VOTE_REMOVED: "{username} removed their mood and pace vote for \"{title}\".",
+    MessageKey.AUDIT_READER_VOTE_REMOVE_FAILED: "{username} could not remove their mood and pace vote for book #{book_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CONTENT_WARNINGS_SET: "Content warnings reported",
+    MessageKey.AUDIT_ACTION_CONTENT_WARNINGS_REMOVE: "Content warnings removed",
+    MessageKey.AUDIT_CONTENT_WARNINGS_SAVED: "{username} reported content warnings for \"{title}\".",
+    MessageKey.AUDIT_CONTENT_WARNINGS_SAVE_FAILED: "{username} could not report content warnings for book #{book_id}: {reason}",
+    MessageKey.AUDIT_CONTENT_WARNINGS_REMOVED: "{username} removed their content warnings for \"{title}\".",
+    MessageKey.AUDIT_CONTENT_WARNINGS_REMOVE_FAILED: "{username} could not remove their content warnings for book #{book_id}: {reason}",
     MessageKey.AUDIT_ACTION_REVIEW_CREATE: "Review written",
     MessageKey.AUDIT_REVIEW_CREATED: "{username} reviewed \"{title}\".",
     MessageKey.AUDIT_REVIEW_CREATE_FAILED: "{username} could not review book #{book_id}: {reason}",
@@ -581,6 +824,180 @@ ENGLISH: dict[MessageKey, str] = {
     MessageKey.GENRE_EXISTS: "The genre \"{name}\" already exists.",
     MessageKey.AWARD_EXISTS: "The award \"{name}\" already exists for this year.",
     MessageKey.AWARD_YEAR_IN_FUTURE: "The year can't be in the future.",
+    MessageKey.INTENT_NOT_FOUND: "This chatbot intent doesn't exist or was removed.",
+    MessageKey.INTENT_EXISTS: "The intent \"{tag}\" already exists.",
+    MessageKey.INTENT_TAG_PATTERN: "Use lowercase letters, numbers and underscores, starting with a letter.",
+    MessageKey.PATTERN_NOT_FOUND: "This pattern doesn't exist or was removed.",
+    MessageKey.PATTERN_EXISTS: "This pattern is already used by the intent \"{tag}\".",
+    MessageKey.RESPONSE_NOT_FOUND: "This response doesn't exist or was removed.",
+    MessageKey.RESPONSE_EXISTS: "This intent already has this response.",
+    MessageKey.UNKNOWN_MESSAGE_NOT_FOUND: "This unknown message doesn't exist or was already handled.",
+    MessageKey.CONVERSATION_NOT_FOUND: "This conversation doesn't exist. Start a new one.",
+    MessageKey.MESSAGE_NOT_FOUND: "This chat message doesn't exist or can't be rated.",
+    MessageKey.FEEDBACK_NOT_FOUND: "This feedback doesn't exist or was already reviewed.",
+    MessageKey.FEEDBACK_NO_QUESTION: "The question behind this reply is no longer available.",
+    MessageKey.CHATBOT_NOT_TRAINED: "The chatbot hasn't been trained yet.",
+    MessageKey.CHATBOT_NOT_TRAINED_HINT: "An administrator can train it from the admin panel.",
+    MessageKey.CHATBOT_UNAVAILABLE: "The chatbot is unavailable right now. Try again later.",
+    MessageKey.TRAINING_IN_PROGRESS: "A training run is already in progress. Wait for it to finish.",
+    MessageKey.TRAINING_NOT_ENOUGH_INTENTS: "Add patterns to at least {min} intents before training.",
+    MessageKey.TRAINING_FAILED: "Training failed on the server.",
+    MessageKey.REPLY_FALLBACK_REPHRASE: "I'm not sure I understood that. Could you rephrase?",
+    MessageKey.REPLY_FALLBACK_TOPICS: "Hmm, I didn't quite catch that. Try asking about books, authors or recommendations!",
+    MessageKey.REPLY_FALLBACK_LEARNING: "I'm still learning! Could you ask me something about books?",
+    MessageKey.REPLY_NO_RESPONSE: "I know what you mean, but I don't have an answer for that yet.",
+    MessageKey.REPLY_SIMILAR_ASK: "Which book would you like recommendations similar to? Just name a title!",
+    MessageKey.REPLY_SIMILAR_NONE: "I found \"{title}\" but couldn't find similar books. Try browsing by genre!",
+    MessageKey.REPLY_SIMILAR_NONE_UNREAD: "I found \"{title}\" but couldn't find similar books you haven't read yet. Try browsing by genre!",
+    MessageKey.REPLY_SIMILAR_FOUND: "If you liked \"{title}\", you might enjoy these:",
+    MessageKey.REPLY_SIMILAR_FOUND_MOOD: "If you liked \"{title}\", you might enjoy these, with a {moods} feel:",
+    MessageKey.REPLY_GENRE_ASK: "Which genre are you in the mood for? Fantasy, sci-fi, horror, thriller…?",
+    MessageKey.REPLY_GENRE_MISSING: "I don't have a \"{genre}\" genre in the catalogue yet. Try fantasy, sci-fi or horror!",
+    MessageKey.REPLY_GENRE_NONE: "I don't have any {genre} books that match right now.",
+    MessageKey.REPLY_GENRE_FOUND: "Here are some {genre} recommendations:",
+    MessageKey.REPLY_GENRE_FOUND_MOOD: "Here are some {genre} recommendations on the {moods} side:",
+    MessageKey.REPLY_MOOD_ASK: "What kind of mood are you going for? Dark and gritty, uplifting, funny, tense…?",
+    MessageKey.REPLY_MOOD_NONE: "I couldn't find books tagged as {moods} yet. Try browsing by genre instead!",
+    MessageKey.REPLY_MOOD_FOUND: "For something {moods}, you might like these:",
+    MessageKey.REPLY_AUTHOR_ASK: "Which author would you like to know about?",
+    MessageKey.REPLY_AUTHOR_NO_BOOKS: "{name} has no books in the catalogue yet.",
+    MessageKey.REPLY_AUTHOR_BOOKS: "Here are the top books by {name} in the catalogue:",
+    MessageKey.REPLY_AUTHOR_RATING: "Their books average {rating}★.",
+    MessageKey.REPLY_BOOK_ASK: "Which book would you like to know about? Just give me the title.",
+    MessageKey.REPLY_BOOK_INFO: "\"{title}\" by {author}.",
+    MessageKey.REPLY_BOOK_INFO_NO_AUTHOR: "Here is \"{title}\".",
+    MessageKey.REPLY_BOOK_GENRES: "Genres: {genres}.",
+    MessageKey.REPLY_BOOK_RATING: "Readers rate it {rating}★ on average.",
+    MessageKey.REPLY_BOOK_TRAITS: "Readers say it {traits}.",
+    MessageKey.REPLY_SEARCH_ASK: "What are you looking for? Give me a title, an author or a genre.",
+    MessageKey.REPLY_UNREAD_NO_HISTORY: "I don't know your reading history yet. Mark some books as read and I'll leave them out!",
+    MessageKey.REPLY_UNREAD_NONE: "You've read a lot! I couldn't find unread books that match.",
+    MessageKey.REPLY_UNREAD_FOUND: "Here are some books you haven't read yet:",
+    MessageKey.REPLY_TOP_RATED_NONE: "I couldn't find top-rated books that match right now.",
+    MessageKey.REPLY_TOP_RATED_FOUND: "Our highest-rated books are:",
+    MessageKey.REPLY_TOP_RATED_GENRE_FOUND: "Our highest-rated {genre} books are:",
+    MessageKey.REPLY_BY_AUTHOR_ASK: "Which author's style do you enjoy? Name them and I'll find similar writers.",
+    MessageKey.REPLY_BY_AUTHOR_UNREAD: "You may not have read all of {name}'s work yet:",
+    MessageKey.REPLY_BY_AUTHOR_NONE: "I couldn't find authors similar to {name} yet. More reviews will help!",
+    MessageKey.REPLY_BY_AUTHOR_SIMILAR: "If you enjoy {name}'s style, you might also like:",
+    MessageKey.TRAIT_DARK: "has a dark tone",
+    MessageKey.TRAIT_SLOW_BURN: "is a slow burn",
+    MessageKey.TRAIT_FOUND_FAMILY: "features a found family",
+    MessageKey.TRAIT_FAST_PACED: "is fast-paced",
+    MessageKey.TRAIT_LYRICAL_PROSE: "has beautiful prose",
+    MessageKey.TRAIT_MORALLY_GREY: "has a morally complex main character",
+    MessageKey.TRAIT_HARD_SCI_FI: "is grounded in hard science",
+    MessageKey.AUDIT_ACTION_CHATBOT_INTENT_CREATE: "Chatbot intent added",
+    MessageKey.AUDIT_CHATBOT_INTENT_CREATE_DONE: "{username} added the chatbot intent \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_INTENT_CREATE_FAILED: "{username} could not add the chatbot intent \"{tag}\": {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_INTENT_UPDATE: "Chatbot intent edited",
+    MessageKey.AUDIT_CHATBOT_INTENT_UPDATE_DONE: "{username} edited the chatbot intent \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_INTENT_UPDATE_FAILED: "{username} could not edit chatbot intent #{intent_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_INTENT_DELETE: "Chatbot intent deleted",
+    MessageKey.AUDIT_CHATBOT_INTENT_DELETE_DONE: "{username} deleted the chatbot intent \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_INTENT_DELETE_FAILED: "{username} could not delete chatbot intent #{intent_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_PATTERN_CREATE: "Chatbot pattern added",
+    MessageKey.AUDIT_CHATBOT_PATTERN_CREATE_DONE: "{username} added a pattern to the chatbot intent \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_PATTERN_CREATE_FAILED: "{username} could not add a pattern to chatbot intent #{intent_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_PATTERN_UPDATE: "Chatbot pattern edited",
+    MessageKey.AUDIT_CHATBOT_PATTERN_UPDATE_DONE: "{username} edited a pattern of the chatbot intent \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_PATTERN_UPDATE_FAILED: "{username} could not edit chatbot pattern #{pattern_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_PATTERN_DELETE: "Chatbot pattern deleted",
+    MessageKey.AUDIT_CHATBOT_PATTERN_DELETE_DONE: "{username} deleted a pattern from the chatbot intent \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_PATTERN_DELETE_FAILED: "{username} could not delete chatbot pattern #{pattern_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_RESPONSE_CREATE: "Chatbot response added",
+    MessageKey.AUDIT_CHATBOT_RESPONSE_CREATE_DONE: "{username} added a response to the chatbot intent \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_RESPONSE_CREATE_FAILED: "{username} could not add a response to chatbot intent #{intent_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_RESPONSE_UPDATE: "Chatbot response edited",
+    MessageKey.AUDIT_CHATBOT_RESPONSE_UPDATE_DONE: "{username} edited a response of the chatbot intent \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_RESPONSE_UPDATE_FAILED: "{username} could not edit chatbot response #{response_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_RESPONSE_DELETE: "Chatbot response deleted",
+    MessageKey.AUDIT_CHATBOT_RESPONSE_DELETE_DONE: "{username} deleted a response from the chatbot intent \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_RESPONSE_DELETE_FAILED: "{username} could not delete chatbot response #{response_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_UNKNOWN_DELETE: "Unknown chatbot message dismissed",
+    MessageKey.AUDIT_CHATBOT_UNKNOWN_DELETE_DONE: "{username} dismissed unknown chatbot message #{message_id}.",
+    MessageKey.AUDIT_CHATBOT_UNKNOWN_DELETE_FAILED: "{username} could not dismiss unknown chatbot message #{message_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_UNKNOWN_PROMOTE: "Unknown chatbot message added as pattern",
+    MessageKey.AUDIT_CHATBOT_UNKNOWN_PROMOTE_DONE: "{username} added unknown chatbot message #{message_id} as a pattern of \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_UNKNOWN_PROMOTE_FAILED: "{username} could not add unknown chatbot message #{message_id} as a pattern: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_TRAIN: "Chatbot index rebuilt",
+    MessageKey.AUDIT_CHATBOT_TRAIN_DONE: "{username} rebuilt the chatbot index from {samples} patterns.",
+    MessageKey.AUDIT_CHATBOT_TRAIN_FAILED: "{username} could not rebuild the chatbot index: {reason}",
+    MessageKey.REPLY_SHORT_FOUND: "Here are some shorter reads, up to {pages} pages:",
+    MessageKey.REPLY_SHORT_NONE: "I couldn't find books of up to {pages} pages that match right now.",
+    MessageKey.REPLY_SERIES_FOUND: "Here are some series worth starting:",
+    MessageKey.REPLY_SERIES_GENRE_FOUND: "Here are some {genre} series worth starting:",
+    MessageKey.REPLY_SERIES_NONE: "I don't have any series that match right now.",
+    MessageKey.REPLY_LENGTH_ASK: "Which book? Give me the title and I'll tell you how long it is.",
+    MessageKey.REPLY_LENGTH: "Number of pages in \"{title}\": {pages}.",
+    MessageKey.REPLY_LENGTH_UNKNOWN: "I don't know how long \"{title}\" is yet.",
+    MessageKey.REPLY_GENRE_INFO: "{genre} books in the catalogue: {count}. The top-rated ones:",
+    MessageKey.REPLY_GENRE_INFO_EMPTY: "There are no {genre} books in the catalogue yet.",
+    MessageKey.REPLY_SHELVES: "Your shelves: read {read}, reading now {reading}, want to read {want}.",
+    MessageKey.REPLY_SHELVES_READING: "You're currently reading:",
+    MessageKey.REPLY_SHELVES_NEXT: "Next on your list:",
+    MessageKey.REPLY_SHELVES_EMPTY: "Your shelves are empty. Open a book and pick a shelf to get started.",
+    MessageKey.AUDIT_ACTION_CHATBOT_SEED: "Chatbot seeded",
+    MessageKey.AUDIT_CHATBOT_SEED_DONE: "The chatbot was seeded with {intents} intents, {patterns} patterns and {responses} responses.",
+    MessageKey.AUDIT_CHATBOT_SEED_FAILED: "The chatbot could not be seeded: {reason}",
+    MessageKey.REPLY_NO_MORE: "That's everything I have for that. Try another genre or mood!",
+    MessageKey.REPLY_FOLLOW_UP_NOTHING: "Ask me for a recommendation first, then I can find more like it.",
+    MessageKey.REPLY_MORE_FOUND: "Here are a few more:",
+    MessageKey.SUGGEST_MORE: "Show me more",
+    MessageKey.SUGGEST_SHORTER: "Something shorter",
+    MessageKey.SUGGEST_RECOMMEND: "Recommend me a book",
+    MessageKey.SUGGEST_HELP: "What can you do?",
+    MessageKey.SUGGEST_SHELVES: "What's on my shelves?",
+    MessageKey.SUGGEST_GENRE: "Recommend a {genre} book",
+    MessageKey.SUGGEST_MOOD_DARK: "Something dark",
+    MessageKey.SUGGEST_MOOD_FUNNY: "Something funny",
+    MessageKey.SUGGEST_MOOD_EMOTIONAL: "Something emotional",
+    MessageKey.SUGGEST_MOOD_TENSE: "Something tense",
+    MessageKey.SUGGEST_STATS: "How is my reading going?",
+    MessageKey.REPLY_TASTE_FOUND: "Picked for you, based on what you've enjoyed:",
+    MessageKey.REPLY_TASTE_NONE: "I couldn't find new books that match your taste right now. Try asking for a genre or a mood!",
+    MessageKey.REPLY_TASTE_EMPTY: "I don't know your taste yet. Rate a few books 4★ or higher and I'll pick books for you.",
+    MessageKey.REPLY_STATS_EMPTY: "You haven't logged any reading in {year} yet. Books finished all time: {total}.",
+    MessageKey.REPLY_STATS_YEAR: "Your {year} so far: books finished {finished}, pages read {pages}.",
+    MessageKey.REPLY_STATS_CHALLENGE: "Challenge {metric}: {value} of {target}, {status}.",
+    MessageKey.REPLY_STATS_NO_CHALLENGE: "You haven't set a reading challenge for {year}; you can set one on the stats page.",
+    MessageKey.REPLY_STATS_STREAK: "Current reading streak in days: {days}.",
+    MessageKey.REPLY_STATS_GENRE: "Your top genre this year: {genre}.",
+    MessageKey.STATS_METRIC_BOOKS: "books",
+    MessageKey.STATS_METRIC_PAGES: "pages",
+    MessageKey.STATS_METRIC_HOURS: "hours",
+    MessageKey.STATS_PACE_AHEAD: "ahead of pace",
+    MessageKey.STATS_PACE_ON_TRACK: "on track",
+    MessageKey.STATS_PACE_BEHIND: "behind pace",
+    MessageKey.STATS_PACE_COMPLETED: "completed",
+    MessageKey.STATS_PACE_MISSED: "missed",
+    MessageKey.AUDIT_ACTION_CHATBOT_CONVERSATION_DELETE: "Chat conversation deleted",
+    MessageKey.AUDIT_CHATBOT_CONVERSATION_DELETE_DONE: "{username} deleted chat conversation #{conversation_id}.",
+    MessageKey.AUDIT_CHATBOT_CONVERSATION_DELETE_FAILED: "{username} could not delete chat conversation #{conversation_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_FEEDBACK: "Chatbot reply rated",
+    MessageKey.AUDIT_CHATBOT_FEEDBACK_DONE: "{username} rated chatbot reply #{message_id}.",
+    MessageKey.AUDIT_CHATBOT_FEEDBACK_FAILED: "{username} could not rate chatbot reply #{message_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_FEEDBACK_PROMOTE: "Rated chatbot question added as pattern",
+    MessageKey.AUDIT_CHATBOT_FEEDBACK_PROMOTE_DONE: "{username} added the question behind chatbot reply #{message_id} as a pattern of \"{tag}\".",
+    MessageKey.AUDIT_CHATBOT_FEEDBACK_PROMOTE_FAILED: "{username} could not add the question behind chatbot reply #{message_id} as a pattern: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_FEEDBACK_DISMISS: "Chatbot feedback dismissed",
+    MessageKey.AUDIT_CHATBOT_FEEDBACK_DISMISS_DONE: "{username} dismissed the feedback on chatbot reply #{message_id}.",
+    MessageKey.AUDIT_CHATBOT_FEEDBACK_DISMISS_FAILED: "{username} could not dismiss the feedback on chatbot reply #{message_id}: {reason}",
+    MessageKey.AUDIT_ACTION_CHATBOT_IMPORT: "Chatbot intents imported",
+    MessageKey.AUDIT_CHATBOT_IMPORT_DONE: "{username} imported {intents} intents, {patterns} patterns and {responses} responses.",
+    MessageKey.AUDIT_CHATBOT_IMPORT_FAILED: "{username} could not import chatbot intents: {reason}",
+    MessageKey.AUDIT_ACTION_USER_AVATAR_UPDATE: "Profile picture changed",
+    MessageKey.AUDIT_USER_AVATAR_UPDATE_DONE: "{username} changed their profile picture.",
+    MessageKey.AUDIT_USER_AVATAR_UPDATE_FAILED: "{username} could not change their profile picture: {reason}",
+    MessageKey.AUDIT_ACTION_USER_AVATAR_REMOVE: "Profile picture removed",
+    MessageKey.AUDIT_USER_AVATAR_REMOVE_DONE: "{username} removed their profile picture.",
+    MessageKey.AUDIT_USER_AVATAR_REMOVE_FAILED: "{username} could not remove their profile picture: {reason}",
+    MessageKey.AUDIT_ACTION_USER_BAN: "User banned",
+    MessageKey.AUDIT_USER_BAN_DONE: "{username} banned {target}.",
+    MessageKey.AUDIT_USER_BAN_FAILED: "{username} could not ban user #{user_id}: {reason}",
+    MessageKey.AUDIT_ACTION_USER_UNBAN: "User unbanned",
+    MessageKey.AUDIT_USER_UNBAN_DONE: "{username} lifted the ban on {target}.",
+    MessageKey.AUDIT_USER_UNBAN_FAILED: "{username} could not lift the ban on user #{user_id}: {reason}",
 }
 
 _KEYS = {key.value: key for key in MessageKey}

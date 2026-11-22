@@ -1,0 +1,42 @@
+{
+  "title": "Asistent de lectură",
+  "subtitle": "Întreabă-mă orice despre cărți",
+  "typing": "Scrie…",
+  "welcome": "Salut! Sunt aici să te ajut să găsești următoarea carte bună. Întreabă-mă despre cărți, autori sau genuri.",
+  "open": "Deschide asistentul de lectură",
+  "close": "Închide asistentul de lectură",
+  "newConversation": "Începe o conversație nouă",
+  "message": "Mesaj",
+  "placeholder": "Scrie un mesaj…",
+  "hint": "Enter pentru a trimite, Shift+Enter pentru un rând nou.",
+  "send": "Trimite mesajul",
+  "messages": "Conversație",
+  "you": "Tu",
+  "assistant": "Asistent",
+  "intent": "{{intent}} · {{confidence}}",
+  "byAuthor": "de {{author}}",
+  "rating": "Notă {{rating}} din 5",
+  "openBook": "Deschide „{{title}}”",
+  "validation": {
+    "messageMax": "Folosește cel mult {{chatMessageMax}} caractere."
+  },
+  "deleteConversation": "Șterge această conversație",
+  "deleteTitle": "Șterge conversația",
+  "deleteConfirm": "Ștergi această conversație și mesajele ei? Acțiunea nu poate fi anulată.",
+  "delete": "Șterge",
+  "deleting": "Se șterge…",
+  "suggestions": "Răspunsuri sugerate",
+  "actions": {
+    "shelved": "Adăugată în „{{shelf}}”",
+    "shelveLabel": "Adaugă „{{title}}” în „{{shelf}}”",
+    "start": "Începe lectura",
+    "startLabel": "Începe o sesiune de lectură pentru „{{title}}”",
+    "starting": "Se pornește…",
+    "started": "Sesiune de lectură pornită"
+  },
+  "feedback": {
+    "label": "Evaluează acest răspuns",
+    "up": "Util",
+    "down": "Nu a fost util"
+  }
+}

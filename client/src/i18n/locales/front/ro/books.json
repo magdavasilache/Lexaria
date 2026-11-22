@@ -10,6 +10,8 @@
         "count_other": "{{total}} de cărți în bibliotecă"
     },
     "filters": {
+        "search": "Caută",
+        "searchPlaceholder": "Titlu, autor, ISBN sau un cuvânt din rezumat…",
         "author": "Autor",
         "addAuthor": "Adaugă un autor…",
         "genre": "Gen",
@@ -22,10 +24,19 @@
         "atLeastStars_other": "Cel puțin {{count}} de stele",
         "sort": "Sortează după",
         "sortOptions": {
+            "relevance": "Cea mai bună potrivire",
             "title": "Titlu (A–Z)",
             "rating": "Cele mai apreciate",
             "newest": "Adăugate recent"
-        }
+        },
+        "mood": "Stare",
+        "pace": "Ritm",
+        "pages": "Pagini",
+        "minPages": "Cel puțin",
+        "maxPages": "Cel mult",
+        "pagesRangeInvalid": "Trebuie să fie cel puțin cât minimul.",
+        "avoid": "Evită conținutul",
+        "addAvoid": "Adaugă un avertisment…"
     },
     "card": {
         "close": "Închide detaliile cărții",
@@ -45,7 +56,10 @@
         "viewBook": "Deschide pagina cărții",
         "pageCount_one": "{{pages}} pagină",
         "pageCount_few": "{{pages}} pagini",
-        "pageCount_other": "{{pages}} de pagini"
+        "pageCount_other": "{{pages}} de pagini",
+        "pace": "Ritm",
+        "paceValue": "Ritm: {{pace}}",
+        "moods": "Stări"
     },
     "page": {
         "notFound": "Această carte nu există sau a fost ștearsă.",
@@ -275,6 +289,133 @@
             "booktok-popular": "Popular pe BookTok",
             "underrated": "Subestimat",
             "dnf-worthy": "Greu de terminat"
+        }
+    },
+    "moods": {
+        "adventurous": "Aventuroasă",
+        "challenging": "Solicitantă",
+        "dark": "Întunecată",
+        "emotional": "Emoționantă",
+        "funny": "Amuzantă",
+        "hopeful": "Plină de speranță",
+        "informative": "Informativă",
+        "inspiring": "Inspirațională",
+        "lighthearted": "Lejeră",
+        "mysterious": "Misterioasă",
+        "reflective": "Meditativă",
+        "relaxing": "Relaxantă",
+        "sad": "Tristă",
+        "tense": "Tensionată"
+    },
+    "paces": {
+        "slow": "Lent",
+        "medium": "Moderat",
+        "fast": "Alert"
+    },
+    "pacesInline": {
+        "slow": "lent",
+        "medium": "moderat",
+        "fast": "alert"
+    },
+    "signals": {
+        "title": "Stări și ritm",
+        "voters_one": "De la {{count}} cititor",
+        "voters_few": "De la {{count}} cititori",
+        "voters_other": "De la {{count}} de cititori",
+        "empty": "Niciun cititor nu a descris încă această carte.",
+        "paceLabel": "Ritm",
+        "paceSummary": "Ritm mai ales {{pace}}",
+        "vote": "Descrie starea",
+        "editVote": "Modifică votul",
+        "voteHint": "Marchează cartea ca în curs de citire, citită sau abandonată ca să-i descrii starea și ritmul.",
+        "voteTitle": "Stări și ritm",
+        "voteDescription": "Cum s-a simțit lectura „{{title}}”?",
+        "moodsLabel": "Stări",
+        "moodsHelper": "Alege cel mult {{moodsPerVoteMax}}.",
+        "paceHelper": "Opțional. Selectează-l din nou ca să-l ștergi.",
+        "save": "Salvează votul",
+        "saving": "Se salvează…",
+        "removeVote": "Șterge votul",
+        "removing": "Se șterge…",
+        "saved": "Mulțumim, votul a fost salvat.",
+        "removed": "Votul a fost șters.",
+        "validation": {
+            "empty": "Alege cel puțin o stare sau un ritm.",
+            "tooManyMoods": "Alege cel mult {{moodsPerVoteMax}} stări."
+        }
+    },
+    "recommendations": {
+        "title": "Alese pentru tine",
+        "loading": "Căutăm cărți pentru tine…"
+    },
+    "similar": {
+        "title": "Cărți asemănătoare",
+        "loading": "Căutăm cărți asemănătoare…"
+    },
+    "warnings": {
+        "title": "Avertismente de conținut",
+        "reporters_one": "Raportate de {{count}} cititor",
+        "reporters_few": "Raportate de {{count}} cititori",
+        "reporters_other": "Raportate de {{count}} de cititori",
+        "empty": "Niciun avertisment de conținut raportat încă.",
+        "hiddenHint": "Ascunse, ca să nu dezvăluie povestea.",
+        "show_one": "Arată {{count}} avertisment",
+        "show_few": "Arată {{count}} avertismente",
+        "show_other": "Arată {{count}} de avertismente",
+        "hide": "Ascunde avertismentele",
+        "mentions_one": "raportat de {{count}} cititor",
+        "mentions_few": "raportat de {{count}} cititori",
+        "mentions_other": "raportat de {{count}} de cititori",
+        "report": "Raportează avertismente",
+        "editReport": "Modifică raportul",
+        "reportHint": "Marchează cartea ca în curs de citire, citită sau abandonată ca să raportezi avertismente de conținut.",
+        "reportTitle": "Avertismente de conținut",
+        "reportDescription": "Ce ar trebui să știe cititorii înainte să înceapă „{{title}}”?",
+        "reportLabel": "Avertismente",
+        "reportHelper": "Alege cât de prezentă este fiecare temă. Selecteaz-o din nou ca s-o ștergi.",
+        "save": "Salvează raportul",
+        "saving": "Se salvează…",
+        "removeReport": "Șterge raportul",
+        "removing": "Se șterge…",
+        "saved": "Mulțumim, raportul a fost salvat.",
+        "removed": "Raportul a fost șters.",
+        "severities": {
+            "minor": "Ușor",
+            "moderate": "Moderat",
+            "graphic": "Explicit"
+        },
+        "types": {
+            "addiction": "Dependență",
+            "animal_cruelty": "Cruzime față de animale",
+            "body_horror": "Body horror",
+            "bullying": "Bullying",
+            "cancer": "Cancer",
+            "child_abuse": "Abuz asupra copiilor",
+            "death": "Moarte",
+            "death_of_parent": "Moartea unui părinte",
+            "domestic_abuse": "Violență domestică",
+            "eating_disorder": "Tulburări de alimentație",
+            "gore": "Scene sângeroase",
+            "gun_violence": "Violență armată",
+            "homophobia": "Homofobie",
+            "infidelity": "Infidelitate",
+            "kidnapping": "Răpire",
+            "mental_illness": "Boli psihice",
+            "misogyny": "Misoginie",
+            "pregnancy_loss": "Pierderea unei sarcini",
+            "racism": "Rasism",
+            "self_harm": "Autovătămare",
+            "sexual_assault": "Agresiune sexuală",
+            "sexual_content": "Conținut sexual",
+            "suicide": "Sinucidere",
+            "terminal_illness": "Boală terminală",
+            "torture": "Tortură",
+            "transphobia": "Transfobie",
+            "violence": "Violență",
+            "war": "Război"
+        },
+        "validation": {
+            "empty": "Alege cel puțin un avertisment."
         }
     }
 }

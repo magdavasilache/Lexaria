@@ -17,5 +17,15 @@
     "currently_reading": "Citesc acum",
     "read": "Citită",
     "did_not_finish": "Abandonată"
-  }
+  },
+  "readerVoteEmpty": "Alege cel puțin o stare sau un ritm.",
+  "readerVoteNotAllowed": "Marchează cartea ca în curs de citire, citită sau abandonată înainte să-i descrii starea și ritmul.",
+  "pagesRangeInvalid": "Numărul maxim de pagini trebuie să fie cel puțin egal cu minimul.",
+  "recommendBecauseLiked": "Pentru că ți-a plăcut „{{title}}”",
+  "recommendSameAuthor": "Mai mult de la {{name}}",
+  "recommendFavouriteGenre": "Unul dintre genurile tale preferate: {{genre}}",
+  "recommendTaste": "Se potrivește cu ce ți-a plăcut",
+  "recommendPopular": "Apreciată de cititori",
+  "contentWarningDuplicate": "Raportează fiecare avertisment o singură dată.",
+  "contentWarningNotAllowed": "Marchează cartea ca în curs de citire, citită sau abandonată înainte să raportezi avertismente de conținut."
 }

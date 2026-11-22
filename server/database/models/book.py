@@ -21,6 +21,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from server.database.database import Base
 from server.database.models.award import book_award
 from server.database.models.genres import book_genres
+from server.database.models.reader_signal import PACE_MAX_LENGTH, Pace
 
 TITLE_MAX_LENGTH = 255
 SYNOPSIS_MAX_LENGTH = 5000
@@ -47,6 +48,10 @@ class Book(Base):
             name="ck_books_average_rating_range",
         ),
         CheckConstraint("ratings_count >= 0", name="ck_books_ratings_count_non_negative"),
+        CheckConstraint(
+            f"pace IN ({', '.join(repr(pace.value) for pace in Pace)})", name="ck_books_pace_valid"
+        ),
+        CheckConstraint("mood_voters >= 0", name="ck_books_mood_voters_non_negative"),
         Index("ix_books_author_id", "author_id"),
         Index("ix_books_language_id", "language_id"),
         Index("ix_books_average_rating", "average_rating"),
@@ -72,6 +77,8 @@ class Book(Base):
     is_series: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default=text("false"))
     average_rating: Mapped[Decimal | None] = mapped_column(Numeric(3, 2))
     ratings_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default=text("0"))
+    pace: Mapped[str | None] = mapped_column(String(PACE_MAX_LENGTH))
+    mood_voters: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default=text("0"))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now()
@@ -90,6 +97,9 @@ class Book(Base):
     readings = relationship("Reading", back_populates="book", cascade="all, delete-orphan", passive_deletes=True)
     reviews = relationship("Review", back_populates="book", cascade="all, delete-orphan", passive_deletes=True)
     tags = relationship("BookTag", back_populates="book", cascade="all, delete-orphan", passive_deletes=True)
+    signals = relationship(
+        "BookSignal", back_populates="book", cascade="all, delete-orphan", passive_deletes=True, order_by="BookSignal.value"
+    )
     descriptions = relationship(
         "BookDescription",
         back_populates="book",

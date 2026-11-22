@@ -1,0 +1,1044 @@
+[
+  {
+    "tag": "greetings",
+    "type": "informational",
+    "patterns": [
+      "Hi",
+      "Hello",
+      "Hey",
+      "Hey there",
+      "Hello there",
+      "Good morning",
+      "Good afternoon",
+      "Good evening",
+      "Hi, how are you?",
+      "How are you doing?",
+      "Nice to meet you",
+      "What's up?",
+      "Howdy",
+      "Greetings",
+      "Yo",
+      "Hiya",
+      "Hi there, good to see you",
+      "Hello, anyone there?",
+      "Morning!",
+      "Salut",
+      "Bună",
+      "Bună ziua",
+      "Bună dimineața",
+      "Bună seara",
+      "Hei",
+      "Ce faci?",
+      "Ce mai faci?",
+      "Încântat de cunoștință",
+      "Servus",
+      "Salutare",
+      "Salutare, ce mai e nou?",
+      "Bună, e cineva aici?",
+      "Neața",
+      "Hei, ce mai e nou?"
+    ],
+    "responses": {
+      "en": [
+        "Hello! Ready to find your next great read?",
+        "Hi there! Ask me for a recommendation, or tell me about a book you loved.",
+        "Hey! What are you in the mood to read today?"
+      ],
+      "ro": [
+        "Salut! Gata să găsim următoarea ta carte bună?",
+        "Bună! Cere-mi o recomandare sau spune-mi despre o carte care ți-a plăcut.",
+        "Hei! Ce ai chef să citești azi?"
+      ]
+    }
+  },
+  {
+    "tag": "farewell",
+    "type": "informational",
+    "patterns": [
+      "Bye",
+      "Goodbye",
+      "See you later",
+      "See you soon",
+      "See you next time",
+      "Talk to you later",
+      "I have to go now",
+      "That's all for now",
+      "Catch you later",
+      "Have a nice day",
+      "Good night",
+      "Bye for now",
+      "I'm off now",
+      "Alright, I'm leaving",
+      "Okay, gotta go",
+      "La revedere",
+      "Pa",
+      "Pa pa",
+      "Ne vedem",
+      "Pe curând",
+      "Pe data viitoare",
+      "Trebuie să plec",
+      "Atât deocamdată",
+      "O zi bună",
+      "Noapte bună",
+      "Plec acum",
+      "Gata, eu plec"
+    ],
+    "responses": {
+      "en": [
+        "Goodbye! Happy reading.",
+        "See you soon. Enjoy your book!",
+        "Bye! Come back whenever you need a new read."
+      ],
+      "ro": [
+        "La revedere! Lectură plăcută.",
+        "Pe curând. Spor la citit!",
+        "Pa! Revino oricând ai nevoie de o carte nouă."
+      ]
+    }
+  },
+  {
+    "tag": "thanks",
+    "type": "informational",
+    "patterns": [
+      "Thanks",
+      "Thank you",
+      "Thank you so much",
+      "Thanks a lot",
+      "Much appreciated",
+      "That's helpful",
+      "Great, thanks",
+      "Perfect, thank you",
+      "Cheers",
+      "You're the best",
+      "Mulțumesc",
+      "Mersi",
+      "Mulțumesc mult",
+      "Mersi frumos",
+      "Îți mulțumesc",
+      "Mi-a fost de folos",
+      "Super, mersi",
+      "Perfect, mulțumesc"
+    ],
+    "responses": {
+      "en": [
+        "You're welcome! Anything else you'd like to read?",
+        "Happy to help. Enjoy your reading!",
+        "Any time! Ask me again whenever you need a new book."
+      ],
+      "ro": [
+        "Cu plăcere! Mai vrei să cauți ceva de citit?",
+        "Mă bucur că am putut ajuta. Lectură plăcută!",
+        "Oricând! Întreabă-mă din nou când ai nevoie de o carte nouă."
+      ]
+    }
+  },
+  {
+    "tag": "bot_identity",
+    "type": "informational",
+    "patterns": [
+      "Who are you?",
+      "What are you?",
+      "Are you a bot?",
+      "Are you a real person?",
+      "What's your name?",
+      "What can you do?",
+      "How do you work?",
+      "Are you human?",
+      "Tell me about yourself",
+      "What is this assistant?",
+      "Are you an AI?",
+      "Am I talking to a computer?",
+      "Are you a chatbot?",
+      "What kind of program are you?",
+      "Is this an automated assistant?",
+      "Cine ești?",
+      "Ce ești tu?",
+      "Ești un robot?",
+      "Ești o persoană reală?",
+      "Cum te numești?",
+      "Ce poți face?",
+      "Cum funcționezi?",
+      "Spune-mi despre tine",
+      "Ești inteligență artificială?",
+      "Vorbesc cu un calculator?",
+      "Ești un chatbot?",
+      "Ce fel de program ești?"
+    ],
+    "responses": {
+      "en": [
+        "I'm Lexaria's book assistant, a small bot that knows the catalogue and your shelves. I can recommend books by genre, mood or author, tell you about a book or an author, and explain how the app works.",
+        "I'm a bot, not a person. I match what you write to a topic and answer from Lexaria's catalogue and your reading history."
+      ],
+      "ro": [
+        "Sunt asistentul de lectură Lexaria, un bot mic care cunoaște catalogul și rafturile tale. Pot recomanda cărți după gen, atmosferă sau autor, pot spune detalii despre o carte sau un autor și pot explica cum funcționează aplicația.",
+        "Sunt un bot, nu o persoană. Potrivesc ce scrii cu un subiect și răspund din catalogul Lexaria și din istoricul tău de lectură."
+      ]
+    }
+  },
+  {
+    "tag": "help",
+    "type": "informational",
+    "patterns": [
+      "Help",
+      "Help me",
+      "I need help",
+      "What can I ask you?",
+      "How do I use this?",
+      "I don't know where to start",
+      "Give me some examples",
+      "What should I ask?",
+      "Guide me",
+      "Show me what you can do",
+      "What kind of questions can I ask?",
+      "What do you know about?",
+      "What are you good at?",
+      "Can you show me some examples of questions?",
+      "Ajutor",
+      "Ajută-mă",
+      "Am nevoie de ajutor",
+      "Ce te pot întreba?",
+      "Cum te folosesc?",
+      "Nu știu de unde să încep",
+      "Dă-mi niște exemple",
+      "Ghidează-mă",
+      "Ce întrebări îți pot pune?",
+      "La ce te pricepi?",
+      "Ce știi să faci?",
+      "Arată-mi exemple de întrebări",
+      "Ce fel de întrebări pot să-ți pun?"
+    ],
+    "responses": {
+      "en": [
+        "Try things like: 'recommend a dark book', 'something short to read', 'books like the last one I loved', 'what is this book about?', 'who wrote it?', or 'what's on my shelves?'.",
+        "Tell me a genre, a mood or a book you enjoyed and I'll find something similar. I can also explain shelves, reading sessions, challenges and the Goodreads import."
+      ],
+      "ro": [
+        "Încearcă, de exemplu: „recomandă-mi o carte întunecată”, „ceva scurt de citit”, „despre ce este cartea asta?”, „cine a scris-o?” sau „ce am pe rafturi?”.",
+        "Spune-mi un gen, o atmosferă sau o carte care ți-a plăcut și îți găsesc ceva asemănător. Pot explica și rafturile, sesiunile de lectură, provocările și importul din Goodreads."
+      ]
+    }
+  },
+  {
+    "tag": "fallback",
+    "type": "fallback",
+    "patterns": [
+      "Book me a flight",
+      "What's the weather like?",
+      "Tell me a joke",
+      "What's the capital of France?",
+      "Order a pizza",
+      "Play some music",
+      "What time is it?",
+      "Who won the football match?",
+      "Solve this equation",
+      "Translate this sentence",
+      "Can you buy me a ticket?",
+      "Book a table at a restaurant",
+      "What's the stock price today?",
+      "Set an alarm for me",
+      "Call my mom",
+      "Rezervă-mi un zbor",
+      "Cum e vremea?",
+      "Spune-mi o glumă",
+      "Care este capitala Franței?",
+      "Comandă o pizza",
+      "Pune niște muzică",
+      "Cât e ceasul?",
+      "Cine a câștigat meciul?",
+      "Cumpără-mi un bilet",
+      "Rezervă o masă la restaurant",
+      "Setează-mi o alarmă",
+      "Sună-mi mama"
+    ],
+    "responses": {
+      "en": [
+        "That's outside what I know. I'm best with books, authors and reading.",
+        "I can't help with that one, but I can find you something to read!"
+      ],
+      "ro": [
+        "Asta nu știu. Mă pricep cel mai bine la cărți, autori și lectură.",
+        "Cu asta nu te pot ajuta, dar îți pot găsi ceva de citit!"
+      ]
+    }
+  },
+  {
+    "tag": "availability_info",
+    "type": "informational",
+    "patterns": [
+      "Where can I buy this book?",
+      "Is this book in stock?",
+      "Can I borrow this book here?",
+      "Do you sell books?",
+      "How much does this book cost?",
+      "Can I download this book?",
+      "Where can I find a copy?",
+      "Is there an ebook version I can get here?",
+      "Where can I get this book?",
+      "Can I purchase books here?",
+      "Unde pot cumpăra cartea asta?",
+      "Cartea e pe stoc?",
+      "Pot împrumuta cartea aici?",
+      "Vindeți cărți?",
+      "Cât costă cartea asta?",
+      "Pot descărca această carte?",
+      "Unde găsesc un exemplar?",
+      "De unde pot cumpăra o carte?",
+      "Pot cumpăra cărți aici?",
+      "De unde iau cartea asta?"
+    ],
+    "responses": {
+      "en": [
+        "Lexaria tracks what you read; it doesn't sell or lend books. Look for a copy at your library or a bookshop, then add it to your shelves here."
+      ],
+      "ro": [
+        "Lexaria ține evidența a ceea ce citești; nu vinde și nu împrumută cărți. Caută un exemplar la bibliotecă sau într-o librărie, apoi adaugă-l pe rafturile tale aici."
+      ]
+    }
+  },
+  {
+    "tag": "app_shelves",
+    "type": "informational",
+    "patterns": [
+      "How do I add a book to my shelf?",
+      "How do shelves work?",
+      "How do I mark a book as read?",
+      "How can I save a book for later?",
+      "How do I remove a book from my shelf?",
+      "How do I change a book's status?",
+      "Where is my want to read list?",
+      "How do I mark that I stopped reading a book?",
+      "Cum adaug o carte pe raft?",
+      "Cum funcționează rafturile?",
+      "Cum marchez o carte ca citită?",
+      "Cum salvez o carte pentru mai târziu?",
+      "Cum scot o carte de pe raft?",
+      "Cum schimb statusul unei cărți?",
+      "Unde e lista mea de citit?"
+    ],
+    "responses": {
+      "en": [
+        "Open a book's page and pick a shelf from the status menu: Want to read, Currently reading, Read or Did not finish. Pick 'Remove from shelf' in the same menu to take it off."
+      ],
+      "ro": [
+        "Deschide pagina unei cărți și alege un raft din meniul de status: De citit, Citesc acum, Citită sau Abandonată. Din același meniu, „Scoate de pe raft” o elimină."
+      ]
+    }
+  },
+  {
+    "tag": "app_import",
+    "type": "informational",
+    "patterns": [
+      "How do I import my Goodreads library?",
+      "Can I bring my books from Goodreads?",
+      "How do I import my reading history?",
+      "Import from Goodreads",
+      "Can I upload my Goodreads export?",
+      "How do I move my data from another app?",
+      "Cum import biblioteca din Goodreads?",
+      "Pot aduce cărțile din Goodreads?",
+      "Cum import istoricul de lectură?",
+      "Import din Goodreads",
+      "Pot încărca exportul din Goodreads?",
+      "Cum îmi mut datele din altă aplicație?"
+    ],
+    "responses": {
+      "en": [
+        "Export your library from Goodreads (My Books → Import and export), then open 'Goodreads import' in Lexaria and upload the file. Your shelves and ratings come across."
+      ],
+      "ro": [
+        "Exportă biblioteca din Goodreads (My Books → Import and export), apoi deschide „Import Goodreads” în Lexaria și încarcă fișierul. Rafturile și notele tale sunt preluate."
+      ]
+    }
+  },
+  {
+    "tag": "app_reading_session",
+    "type": "informational",
+    "patterns": [
+      "How do I track my reading time?",
+      "How do reading sessions work?",
+      "How do I start a reading session?",
+      "Can I time how long I read?",
+      "How do I log my progress?",
+      "How do I update the page I'm on?",
+      "How do I pause my reading timer?",
+      "Cum îmi urmăresc timpul de lectură?",
+      "Cum funcționează sesiunile de lectură?",
+      "Cum pornesc o sesiune de lectură?",
+      "Pot cronometra cât citesc?",
+      "Cum îmi notez progresul?",
+      "Cum actualizez pagina la care am ajuns?"
+    ],
+    "responses": {
+      "en": [
+        "Start a reading session from a book you're reading. The timer keeps running while you browse; pause or end it when you stop, and enter the page you reached to update your progress."
+      ],
+      "ro": [
+        "Pornește o sesiune de lectură de la o carte pe care o citești. Cronometrul merge în timp ce navighezi; pune pauză sau oprește-l când te oprești și introdu pagina la care ai ajuns ca să-ți actualizezi progresul."
+      ]
+    }
+  },
+  {
+    "tag": "app_challenge",
+    "type": "informational",
+    "patterns": [
+      "How do I set a reading goal?",
+      "How do reading challenges work?",
+      "Can I set a yearly goal?",
+      "How do I change my reading challenge?",
+      "Where can I see my reading stats?",
+      "How do I set a daily reading goal?",
+      "Cum îmi setez un obiectiv de lectură?",
+      "Cum funcționează provocările de lectură?",
+      "Pot seta un obiectiv anual?",
+      "Cum îmi schimb provocarea de lectură?",
+      "Unde îmi văd statisticile de lectură?",
+      "Cum setez un obiectiv zilnic de lectură?"
+    ],
+    "responses": {
+      "en": [
+        "Open the Stats page to set a yearly challenge (books, pages or hours) and see your progress, streak and favourite genres. Your daily goal in minutes is set there too."
+      ],
+      "ro": [
+        "Deschide pagina Statistici ca să setezi o provocare anuală (cărți, pagini sau ore) și să-ți vezi progresul, seria de zile și genurile preferate. Tot acolo îți setezi obiectivul zilnic în minute."
+      ]
+    }
+  },
+  {
+    "tag": "recommend_book",
+    "type": "action",
+    "patterns": [
+      "Recommend me a book",
+      "What should I read next?",
+      "Give me something worth reading",
+      "I need a new book",
+      "Suggest a good book",
+      "Any book recommendations?",
+      "I'm looking for my next favourite book",
+      "What's a good book to read?",
+      "I don't know what to read",
+      "Can you suggest something to read?",
+      "Pick a book for me",
+      "Surprise me with a book",
+      "What should I read now?",
+      "What book should I pick up next?",
+      "Got any good books for me?",
+      "Recommend me something to read",
+      "Help me choose my next book",
+      "What's worth reading right now?",
+      "Give me a book suggestion",
+      "Recomandă-mi o carte",
+      "Ce să citesc în continuare?",
+      "Dă-mi ceva care merită citit",
+      "Am nevoie de o carte nouă",
+      "Sugerează-mi o carte bună",
+      "Ai vreo recomandare?",
+      "Nu știu ce să citesc",
+      "Alege tu o carte pentru mine",
+      "Surprinde-mă cu o carte",
+      "Ce carte să citesc acum?",
+      "Ce să citesc acum?",
+      "Ce carte să iau acum?",
+      "Ai o carte bună pentru mine?",
+      "Ajută-mă să-mi aleg următoarea carte",
+      "Dă-mi o sugestie de carte"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "recommend_for_you",
+    "type": "action",
+    "patterns": [
+      "Recommend something based on my taste",
+      "What would I like?",
+      "Pick something I would enjoy",
+      "Based on my ratings, what should I read?",
+      "Find me books like the ones I loved",
+      "Suggest something for my taste",
+      "What fits my reading taste?",
+      "Recommend books based on what I've read",
+      "Personal recommendations please",
+      "Something tailored to me",
+      "What else would I enjoy?",
+      "Use my ratings to recommend a book",
+      "Recomandă-mi ceva după gusturile mele",
+      "Ce mi-ar plăcea?",
+      "Alege ceva care mi-ar plăcea",
+      "După notele mele, ce să citesc?",
+      "Găsește-mi cărți ca cele care mi-au plăcut",
+      "Sugerează-mi ceva pe gustul meu",
+      "Ce se potrivește gusturilor mele?",
+      "Recomandă-mi cărți după ce am citit",
+      "Vreau recomandări personalizate",
+      "Ce altceva mi-ar plăcea?",
+      "Folosește notele mele ca să-mi recomanzi o carte"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "recommend_by_genre",
+    "type": "action",
+    "patterns": [
+      "Recommend a fantasy book",
+      "Suggest a mystery novel",
+      "I want to read a thriller",
+      "Any good crime books?",
+      "Give me a classic to read",
+      "I'm in the mood for a horror book",
+      "Recommend me something in this genre",
+      "What are the best dystopian books?",
+      "Suggest some literary fiction",
+      "I'd like a graphic novel",
+      "Recommend nonfiction",
+      "I want to read science fiction",
+      "Suggest a good mystery",
+      "Any mystery books you'd recommend?",
+      "I'm looking for a crime novel",
+      "Recommend a dystopian novel",
+      "What's a good thriller?",
+      "Suggest a classic novel",
+      "Recomandă-mi o carte fantasy",
+      "Sugerează-mi un roman polițist",
+      "Vreau să citesc un thriller",
+      "Ai cărți bune de crimă?",
+      "Dă-mi un clasic de citit",
+      "Vreau o carte horror",
+      "Care sunt cele mai bune distopii?",
+      "Vreau un roman grafic",
+      "Recomandă-mi ceva non-ficțiune",
+      "Vreau un roman polițist",
+      "Ai un roman polițist bun?",
+      "Recomandă-mi o distopie",
+      "Vreau o carte de groază",
+      "Sugerează-mi un roman clasic"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "recommend_by_mood",
+    "type": "action",
+    "patterns": [
+      "I want something dark",
+      "Recommend something funny",
+      "I need an uplifting book",
+      "Something emotional please",
+      "I want a tense, gripping read",
+      "Give me something cozy",
+      "I'm in the mood for something sad",
+      "Recommend a heartwarming story",
+      "Something melancholic",
+      "I want a book that makes me laugh",
+      "A creepy book for tonight",
+      "Something hopeful",
+      "Something dark and sad",
+      "I want to cry over a book",
+      "Give me something light and funny",
+      "A gripping page-turner",
+      "Vreau ceva întunecat",
+      "Recomandă-mi ceva amuzant",
+      "Am nevoie de o carte care să mă înveselească",
+      "Ceva emoționant, te rog",
+      "Vreau o lectură tensionată",
+      "Dă-mi ceva liniștitor",
+      "Vreau ceva trist",
+      "O poveste care să-mi încălzească inima",
+      "Ceva melancolic",
+      "O carte care să mă facă să râd",
+      "Vreau ceva trist și emoționant",
+      "Ceva amuzant, te rog",
+      "O carte sumbră",
+      "Ceva palpitant",
+      "Vreau să plâng la o carte"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "recommend_by_author",
+    "type": "action",
+    "patterns": [
+      "Recommend something by this author",
+      "What else did this author write?",
+      "More books by the same writer",
+      "Where should I start with this author?",
+      "I love this writer, what should I read next?",
+      "Suggest authors with a similar style",
+      "Who writes like this author?",
+      "I want more from this author",
+      "What else has this author written?",
+      "Other books by this writer",
+      "Show me more from the same author",
+      "Recomandă-mi ceva de acest autor",
+      "Ce a mai scris acest autor?",
+      "Mai multe cărți de același scriitor",
+      "Cu ce să încep de la acest autor?",
+      "Îmi place mult acest scriitor, ce să citesc în continuare?",
+      "Cine scrie ca acest autor?",
+      "Ce alte cărți a mai scris?",
+      "Alte cărți ale aceluiași autor"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "recommend_similar",
+    "type": "action",
+    "patterns": [
+      "Books similar to this one",
+      "Something like the book I just finished",
+      "I loved this book, what's similar?",
+      "Recommend books like this",
+      "What should I read after this book?",
+      "Find me something in the same vein",
+      "If I liked this, what else would I like?",
+      "More books like that",
+      "I really liked this book, anything similar?",
+      "What's similar to this book?",
+      "I enjoyed this book, what else would I like?",
+      "Books like this book, please",
+      "Cărți asemănătoare cu aceasta",
+      "Ceva ca la cartea pe care tocmai am terminat-o",
+      "Mi-a plăcut cartea asta, ce e asemănător?",
+      "Recomandă-mi cărți ca aceasta",
+      "Ce să citesc după cartea asta?",
+      "Dacă mi-a plăcut asta, ce altceva mi-ar plăcea?",
+      "Mi-a plăcut mult această carte, ceva asemănător?",
+      "Ce seamănă cu această carte?",
+      "Cărți ca această carte, te rog"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "recommend_short",
+    "type": "action",
+    "patterns": [
+      "Recommend a short book",
+      "I need a quick read",
+      "Something I can finish in a weekend",
+      "A book under 300 pages",
+      "Give me a short novel",
+      "Something light and short",
+      "I don't have much time, suggest a short book",
+      "A novella please",
+      "Give me something quick to read",
+      "Something short I can read in one sitting",
+      "Recommend a short read",
+      "A small book for the train",
+      "A book I can read in an afternoon",
+      "Something I can finish quickly",
+      "Recomandă-mi o carte scurtă",
+      "Am nevoie de o lectură rapidă",
+      "Ceva ce pot termina într-un weekend",
+      "O carte sub 300 de pagini",
+      "Dă-mi un roman scurt",
+      "Nu am mult timp, sugerează-mi o carte scurtă",
+      "O nuvelă, te rog",
+      "Ceva rapid de citit",
+      "O carte mică pentru drum",
+      "Ceva ce pot citi dintr-o suflare",
+      "O carte pe care o termin repede"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "recommend_series",
+    "type": "action",
+    "patterns": [
+      "Recommend a book series",
+      "I want to start a new series",
+      "Suggest a good series to binge",
+      "Any series worth reading?",
+      "Give me a trilogy",
+      "A long series to get lost in",
+      "What series should I start?",
+      "Recomandă-mi o serie de cărți",
+      "Vreau să încep o serie nouă",
+      "Sugerează-mi o serie bună",
+      "Ai vreo serie care merită citită?",
+      "Dă-mi o trilogie",
+      "Ce serie să încep?"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "filter_unread",
+    "type": "action",
+    "patterns": [
+      "Something I haven't read yet",
+      "Recommend books I haven't read",
+      "What haven't I read?",
+      "Only books that are new to me",
+      "Show me books I've never read",
+      "Something not on my read shelf",
+      "Ceva ce n-am citit încă",
+      "Recomandă-mi cărți pe care nu le-am citit",
+      "Ce n-am citit?",
+      "Doar cărți noi pentru mine",
+      "Arată-mi cărți pe care nu le-am citit niciodată"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "filter_by_rating",
+    "type": "action",
+    "patterns": [
+      "What are the best rated books?",
+      "Show me the highest rated books",
+      "Top rated books",
+      "Which books do readers love most?",
+      "The most acclaimed books in the catalogue",
+      "Best books of all time here",
+      "Which books have the best reviews?",
+      "Care sunt cele mai bine cotate cărți?",
+      "Arată-mi cărțile cu cele mai mari note",
+      "Cele mai apreciate cărți",
+      "Ce cărți iubesc cititorii cel mai mult?",
+      "Cărțile cu cele mai bune recenzii"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "book_info",
+    "type": "informational",
+    "patterns": [
+      "What is this book about?",
+      "Tell me about this book",
+      "Describe this book",
+      "What's the plot of this book?",
+      "Give me a summary of this book",
+      "Is this book any good?",
+      "What genre is this book?",
+      "How is this book rated?",
+      "What do readers say about this book?",
+      "What is it about?",
+      "What's the story about?",
+      "Can you summarise it?",
+      "What happens in this book?",
+      "Tell me more about it",
+      "Despre ce este cartea asta?",
+      "Spune-mi despre această carte",
+      "Descrie cartea asta",
+      "Care e intriga acestei cărți?",
+      "Dă-mi un rezumat al cărții",
+      "E bună cartea asta?",
+      "Ce gen este această carte?",
+      "Ce notă are cartea asta?",
+      "Despre ce e vorba în carte?",
+      "Ce se întâmplă în cartea asta?",
+      "Poți să o rezumi?",
+      "Spune-mi mai multe despre ea"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "book_search",
+    "type": "action",
+    "patterns": [
+      "Find a book",
+      "Search for a book",
+      "Look up a title",
+      "Find books about a topic",
+      "Do you have this book?",
+      "Search the catalogue",
+      "Is this book in the catalogue?",
+      "Look for a book by its title",
+      "Caută o carte",
+      "Găsește o carte",
+      "Caută un titlu",
+      "Găsește cărți despre un subiect",
+      "Aveți cartea asta?",
+      "Caută în catalog",
+      "E cartea asta în catalog?"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "book_length",
+    "type": "informational",
+    "patterns": [
+      "How long is this book?",
+      "How many pages does it have?",
+      "Is this book long?",
+      "How many pages is this novel?",
+      "Is it a long read?",
+      "What's the page count?",
+      "How long would it take to read?",
+      "Cât de lungă este cartea asta?",
+      "Câte pagini are?",
+      "E lungă cartea asta?",
+      "Câte pagini are romanul?",
+      "Care e numărul de pagini?",
+      "Cât durează să o citesc?"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "author_info",
+    "type": "informational",
+    "patterns": [
+      "Who wrote this book?",
+      "Tell me about this author",
+      "Who is this writer?",
+      "What books has this author written?",
+      "Who is the author?",
+      "Information about an author",
+      "What is this author known for?",
+      "Which of this author's books is the best?",
+      "Cine a scris cartea asta?",
+      "Spune-mi despre acest autor",
+      "Cine este acest scriitor?",
+      "Ce cărți a scris acest autor?",
+      "Cine este autorul?",
+      "Pentru ce este cunoscut acest autor?"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "genre_info",
+    "type": "informational",
+    "patterns": [
+      "What is this genre?",
+      "Tell me about this genre",
+      "Which books are in this genre?",
+      "How many books of this genre do you have?",
+      "What genres are there?",
+      "Explain this genre to me",
+      "What are the best books in this genre?",
+      "Ce este acest gen?",
+      "Spune-mi despre acest gen",
+      "Ce cărți sunt în acest gen?",
+      "Câte cărți din acest gen aveți?",
+      "Ce genuri există?",
+      "Explică-mi acest gen"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "my_shelves",
+    "type": "informational",
+    "patterns": [
+      "What's on my shelves?",
+      "What am I reading right now?",
+      "Show me my reading list",
+      "What's next on my list?",
+      "What books did I save for later?",
+      "Show my shelves",
+      "What am I currently reading?",
+      "What am I reading at the moment?",
+      "Which books am I reading?",
+      "What's on my reading list?",
+      "How many books are on my shelves?",
+      "Show me my books",
+      "Ce am pe rafturi?",
+      "Ce citesc acum?",
+      "Arată-mi lista de lectură",
+      "Ce urmează pe lista mea?",
+      "Ce cărți am salvat pentru mai târziu?",
+      "Arată-mi rafturile",
+      "Ce citesc în momentul ăsta?",
+      "Ce cărți citesc?",
+      "Ce am pe lista de lectură?",
+      "Arată-mi cărțile mele"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "my_stats",
+    "type": "informational",
+    "patterns": [
+      "How many books have I read?",
+      "How many books did I read this year?",
+      "How many pages have I read this year?",
+      "How is my reading going?",
+      "Show my reading stats",
+      "How am I doing on my reading challenge?",
+      "Am I on track with my challenge?",
+      "What's my reading streak?",
+      "How many days in a row have I read?",
+      "What's my favourite genre this year?",
+      "What genre did I read most this year?",
+      "Give me my reading statistics",
+      "How much have I read so far?",
+      "Câte cărți am citit?",
+      "Câte cărți am citit anul acesta?",
+      "Câte pagini am citit anul acesta?",
+      "Cum merge cititul meu?",
+      "Arată-mi statisticile de lectură",
+      "Cum stau cu provocarea de lectură?",
+      "Sunt în ritm cu provocarea?",
+      "Care e seria mea de lectură?",
+      "Câte zile la rând am citit?",
+      "Care e genul meu preferat anul acesta?",
+      "Ce gen am citit cel mai mult anul acesta?",
+      "Cât am citit până acum?"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "more_results",
+    "type": "action",
+    "patterns": [
+      "Another one",
+      "Show me more",
+      "More please",
+      "Give me more options",
+      "Any others?",
+      "What else?",
+      "Something else",
+      "Different ones please",
+      "I've read those, more?",
+      "Next",
+      "Got any more?",
+      "Show me other books",
+      "Încă una",
+      "Arată-mi mai multe",
+      "Mai multe, te rog",
+      "Dă-mi mai multe variante",
+      "Altele?",
+      "Ce altceva mai ai?",
+      "Altceva",
+      "Le-am citit, mai ai?",
+      "Următoarea",
+      "Mai ai?",
+      "Arată-mi alte cărți"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "refine_shorter",
+    "type": "action",
+    "patterns": [
+      "Something shorter",
+      "Shorter please",
+      "Those are too long",
+      "Any shorter ones?",
+      "Is there a shorter option?",
+      "Too long for me",
+      "A shorter one",
+      "Something with fewer pages",
+      "Ceva mai scurt",
+      "Mai scurtă, te rog",
+      "Sunt prea lungi",
+      "Ai unele mai scurte?",
+      "E vreo variantă mai scurtă?",
+      "Prea lungă pentru mine",
+      "Una mai scurtă",
+      "Ceva cu mai puține pagini"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "affirm",
+    "type": "action",
+    "patterns": [
+      "Yes",
+      "Yes please",
+      "Yeah",
+      "Sure",
+      "Okay",
+      "Sounds good",
+      "Go on",
+      "Yep",
+      "Of course",
+      "Why not",
+      "Da",
+      "Da, te rog",
+      "Sigur",
+      "Bine",
+      "Sună bine",
+      "Continuă",
+      "Desigur",
+      "De ce nu",
+      "Ok"
+    ],
+    "responses": {
+      "en": [],
+      "ro": []
+    }
+  },
+  {
+    "tag": "deny",
+    "type": "informational",
+    "patterns": [
+      "No",
+      "No thanks",
+      "Nope",
+      "Not really",
+      "Not now",
+      "I'm good",
+      "Never mind",
+      "Not interested",
+      "Nu",
+      "Nu, mersi",
+      "Nu chiar",
+      "Nu acum",
+      "Sunt bine așa",
+      "Las-o baltă",
+      "Nu mă interesează"
+    ],
+    "responses": {
+      "en": [
+        "Okay! Tell me what you'd like instead: a genre, a mood or a book you loved.",
+        "No problem. Ask me anything else about books."
+      ],
+      "ro": [
+        "Bine! Spune-mi ce ai vrea în schimb: un gen, o atmosferă sau o carte care ți-a plăcut.",
+        "Nicio problemă. Întreabă-mă orice altceva despre cărți."
+      ]
+    }
+  }
+]

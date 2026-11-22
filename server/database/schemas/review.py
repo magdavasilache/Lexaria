@@ -25,6 +25,9 @@ class ReviewCreate(InputSchema):
     content: Annotated[str | None, Field(max_length=REVIEW_CONTENT_MAX_LENGTH)] = None
     start_date: date | None = None
     end_date: date | None = None
+    has_spoilers: Annotated[
+        bool, Field(description="Hide the whole review until the reader chooses to see it. Wrap single passages in ||…||.")
+    ] = False
 
     @field_validator("rating")
     @classmethod
@@ -108,6 +111,7 @@ class ReviewOut(OutputSchema):
     content: Annotated[str | None, Field(max_length=REVIEW_CONTENT_MAX_LENGTH)]
     start_date: date | None
     end_date: date | None
+    has_spoilers: bool
     author: ReviewerOut
     likes_count: int
     liked_by_me: bool

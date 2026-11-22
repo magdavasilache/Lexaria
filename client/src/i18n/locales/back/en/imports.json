@@ -8,5 +8,8 @@
   "rowInvalidRating": "the rating is not between 0 and 5",
   "rowInvalidDate": "the date is not valid",
   "rowInvalidStatus": "the reading status is not recognised",
-  "rowReviewTooLong": "the review text is too long"
+  "rowReviewTooLong": "the review text is too long",
+  "isbnNotFound": "Open Library has no book with ISBN {{isbn}}.",
+  "sourceUnavailable": "Open Library could not be reached. Try again in a moment.",
+  "coverSkipped": "The cover could not be downloaded, so the book was added without it."
 }

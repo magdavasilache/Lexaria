@@ -17,5 +17,15 @@
     "currently_reading": "Currently reading",
     "read": "Read",
     "did_not_finish": "Did not finish"
-  }
+  },
+  "readerVoteEmpty": "Choose at least one mood or a pace.",
+  "readerVoteNotAllowed": "Mark the book as currently reading, read or did not finish before describing its mood and pace.",
+  "pagesRangeInvalid": "The maximum number of pages must be at least the minimum.",
+  "recommendBecauseLiked": "Because you enjoyed \"{{title}}\"",
+  "recommendSameAuthor": "More from {{name}}",
+  "recommendFavouriteGenre": "One of your favourite genres: {{genre}}",
+  "recommendTaste": "Matches what you've enjoyed",
+  "recommendPopular": "Popular with readers",
+  "contentWarningDuplicate": "Report each content warning only once.",
+  "contentWarningNotAllowed": "Mark the book as currently reading, read or did not finish before reporting content warnings."
 }

@@ -43,7 +43,8 @@
     "readingGoal": "Obiectiv zilnic de lectură",
     "readingGoalValue": "{{minutes}} min/zi",
     "readingGoalNotSet": "Nestabilit",
-    "stats": "Statistici de lectură"
+    "stats": "Statistici de lectură",
+    "profilePicture": "Poză de profil"
   },
   "fields": {
     "charactersLeft_one": "{{count}} caracter rămas",
@@ -113,9 +114,42 @@
     "book": "Carte",
     "goodreadsImport": "Import Goodreads",
     "adminPanel": "Panou de administrare",
-    "stats": "Statistici de lectură"
+    "stats": "Statistici de lectură",
+    "forbidden": "Acces interzis",
+    "notFound": "Pagina nu a fost găsită",
+    "error": "A apărut o problemă"
   },
   "theme": {
     "toggle": "Schimbă tema"
+  },
+  "errors": {
+    "forbidden": {
+      "code": "403",
+      "title": "Nu ai acces la această pagină",
+      "description": "Această secțiune este rezervată administratorilor. Dacă crezi că ar trebui să ai acces, roagă un administrator să îți verifice contul."
+    },
+    "notFound": {
+      "code": "404",
+      "title": "Pagina nu a fost găsită",
+      "description": "Pagina pe care o cauți nu există sau a fost mutată."
+    },
+    "page": {
+      "title": "Pagina nu a putut fi încărcată",
+      "description": "A apărut o problemă la afișarea acestei pagini. Încearcă din nou sau întoarce-te la pagina principală."
+    },
+    "app": {
+      "title": "Lexaria a întâmpinat o problemă",
+      "description": "O eroare neașteptată a oprit aplicația. Reîncarcă pentru a continua."
+    },
+    "requestId": "Referință: {{id}}",
+    "actions": {
+      "home": "Mergi la pagina principală",
+      "back": "Înapoi",
+      "retry": "Încearcă din nou",
+      "reload": "Reîncarcă"
+    }
+  },
+  "spoiler": {
+    "reveal": "Arată spoilerul ascuns"
   }
 }

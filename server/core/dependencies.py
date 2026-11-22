@@ -6,6 +6,7 @@ from server.core.errors import AuthError, ErrorCode, ForbiddenError
 from server.core.message_keys import MessageKey
 from server.database.database import get_db
 from server.database.models.audit_log import AuditAction, AuditOutcome
+from server.database.models.chatbot import DEFAULT_RESPONSE_LANGUAGE, ResponseLanguage
 from server.database.models.user import User
 from server.services import audit_service, auth_service
 
@@ -38,3 +39,11 @@ def get_admin_user(
         db.commit()
         raise error
     return user
+
+
+def get_request_language(request: Request) -> ResponseLanguage:
+    for part in request.headers.get("accept-language", "").split(","):
+        code = part.split(";")[0].strip().lower().split("-")[0]
+        if code in ResponseLanguage:
+            return ResponseLanguage(code)
+    return DEFAULT_RESPONSE_LANGUAGE

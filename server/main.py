@@ -1,3 +1,5 @@
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -10,8 +12,17 @@ from server.core.exception_handlers import register_exception_handlers
 from server.core.middleware import RequestContextMiddleware
 from server.core.responses import ApiResponse, ok
 from server.database.routes.main_router import main_router
+from server.services import book_embeddings
 
-app = FastAPI(title="Lexaria Backend")
+
+@asynccontextmanager
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+    if settings.warm_up_embeddings:
+        book_embeddings.start_warm_up()
+    yield
+
+
+app = FastAPI(title="Lexaria Backend", lifespan=lifespan)
 
 app.mount("/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static")
 

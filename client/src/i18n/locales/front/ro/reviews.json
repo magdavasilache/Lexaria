@@ -39,7 +39,10 @@
     "deleteConfirm": "Ștergi recenzia ta? Se șterg și comentariile și aprecierile ei. Acțiunea nu poate fi anulată.",
     "deleting": "Se șterge…",
     "keep": "Păstreaz-o",
-    "loading": "Se încarcă recenzia ta…"
+    "loading": "Se încarcă recenzia ta…",
+    "hideSelection": "Ascunde textul selectat ca spoiler",
+    "hasSpoilers": "Recenzia conține spoilere",
+    "hasSpoilersHelper": "Cititorii vor vedea un avertisment și vor alege dacă o deschid. Textul dintre || și || este ascuns oricum."
   },
   "card": {
     "rated": "Notă: {{value}} din 5",
@@ -61,7 +64,9 @@
     "delete": "Șterge recenzia",
     "deleteTitle": "Șterge recenzia",
     "deleteConfirm": "Ștergi recenzia lui {{username}}? Se șterg și comentariile și aprecierile ei. Acțiunea nu poate fi anulată.",
-    "readOn": "Citită pe {{date}}"
+    "readOn": "Citită pe {{date}}",
+    "spoilerWarning": "Această recenzie conține spoilere.",
+    "showSpoilers": "Arată recenzia"
   },
   "comments": {
     "label": "Comentează la recenzia lui {{username}}",

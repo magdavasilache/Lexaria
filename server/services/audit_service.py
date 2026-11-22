@@ -1,4 +1,4 @@
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 
@@ -21,6 +21,10 @@ class AuditEntry:
     params: dict[str, MessageParam] = field(default_factory=dict)
     entity_type: str | None = None
     entity_id: int | None = None
+    failure_hooks: list[Callable[[], None]] = field(default_factory=list)
+
+    def on_failure(self, hook: Callable[[], None]) -> None:
+        self.failure_hooks.append(hook)
 
     def set_actor(self, user: User) -> None:
         self.user_id = user.id
@@ -80,6 +84,8 @@ def track(
         yield entry
     except AppError as error:
         db.rollback()
+        for hook in entry.failure_hooks:
+            hook()
         record(db, action, outcome=AuditOutcome.FAILURE, entry=entry, error=error)
         db.commit()
         raise

@@ -1,13 +1,13 @@
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
-import { BOOK_RULES, IMPORT_RULES } from "../schemas/bookRules";
-import { CATALOG_RULES } from "../schemas/catalogRules";
-import { EDITION_RULES, READING_RULES } from "../schemas/readingRules";
-import { REVIEW_RULES } from "../schemas/reviewRules";
-import { CHALLENGE_RULES } from "../schemas/statsRules";
-import { PASSWORD_RULES, USERNAME_RULES } from "../schemas/userRules";
-import { TRAINING_RULES } from "../schemas/chatbotRules";
+import { BOOK_RULES, IMPORT_RULES } from "../features/books/schemas/bookRules";
+import { CATALOG_RULES } from "../features/catalog/schemas/catalogRules";
+import { EDITION_RULES, READING_RULES } from "../features/reading/schemas/readingRules";
+import { REVIEW_RULES } from "../features/reviews/schemas/reviewRules";
+import { CHALLENGE_RULES } from "../features/stats/schemas/statsRules";
+import { AVATAR_RULES, BAN_RULES, PASSWORD_RULES, USERNAME_RULES } from "../features/auth/schemas/userRules";
+import { CHATBOT_RULES } from "../features/chatbot/schemas/chatbotRules";
 
 export const LANGUAGES = ["en", "ro"] as const;
 export type Language = (typeof LANGUAGES)[number];
@@ -44,12 +44,20 @@ i18n
     interpolation: {
       escapeValue: false,
       defaultVariables: {
-        epochsMin: TRAINING_RULES.epochsMin,
+        chatbotTagMax: CHATBOT_RULES.tagMaxLength,
+        chatbotPatternMax: CHATBOT_RULES.patternMaxLength,
+        chatbotResponseMax: CHATBOT_RULES.responseMaxLength,
+        chatbotImportMaxMb: CHATBOT_RULES.importFileMaxMb,
+        chatMessageMax: CHATBOT_RULES.messageMaxLength,
         usernameMin: USERNAME_RULES.minLength,
         usernameMax: USERNAME_RULES.maxLength,
         passwordMin: PASSWORD_RULES.minLength,
         passwordMaxBytes: PASSWORD_RULES.maxBytes,
         loginPasswordMax: PASSWORD_RULES.loginMaxLength,
+        avatarMaxMb: AVATAR_RULES.maxMb,
+        avatarSizePx: AVATAR_RULES.sizePx,
+        banReasonMax: BAN_RULES.reasonMaxLength,
+        banDaysMax: BAN_RULES.durationDaysMax,
         bookTitleMax: BOOK_RULES.titleMaxLength,
         bookSynopsisMax: BOOK_RULES.synopsisMaxLength,
         bookPagesMax: BOOK_RULES.pagesMax,
@@ -57,6 +65,7 @@ i18n
         bookListMaxItems: BOOK_RULES.listMaxItems,
         bookImagesMax: BOOK_RULES.imagesMax,
         bookImageMaxMb: BOOK_RULES.imageMaxMb,
+        moodsPerVoteMax: BOOK_RULES.moodsPerVoteMax,
         importFileMaxMb: IMPORT_RULES.fileMaxMb,
         reviewContentMax: REVIEW_RULES.contentMaxLength,
         commentMax: REVIEW_RULES.commentMaxLength,

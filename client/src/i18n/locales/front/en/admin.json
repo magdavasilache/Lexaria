@@ -28,7 +28,8 @@
     "books": "Books",
     "chatbot": "Chatbot",
     "activity": "Activity",
-    "editions": "Editions"
+    "editions": "Editions",
+    "users": "Users"
   },
   "add": {
     "authors": "Add author",
@@ -36,7 +37,8 @@
     "languages": "Add language",
     "awards": "Add award",
     "countries": "Add country",
-    "books": "Add book"
+    "books": "Add book",
+    "isbn": "Import by ISBN"
   },
   "edit": {
     "authors": "Edit author",
@@ -49,17 +51,16 @@
     "tabs": {
       "intents": "Intents",
       "responses": "Responses",
+      "test": "Test",
       "training": "Training",
-      "history": "History"
+      "history": "History",
+      "analytics": "Analytics"
     },
     "history": {
       "views": "History view",
       "trainings": "Training history",
       "unknowns": "Unknown messages",
-      "unknownCount_one": "{{count}} unknown message",
-      "unknownCount_other": "{{count}} unknown messages",
       "id": "ID",
-      "epochs": "Epochs",
       "status": "Status",
       "allStatuses": "All statuses",
       "success": "Success",
@@ -68,7 +69,27 @@
       "message": "Message",
       "confidence": "Confidence",
       "addPattern": "Add as pattern",
-      "addPatternFor": "Add \"{{label}}\" as a pattern"
+      "addPatternFor": "Add \"{{label}}\" as a pattern",
+      "samples": "Patterns",
+      "accuracy": "Accuracy",
+      "occurrences": "Times asked",
+      "model": "Model",
+      "intents": "Intents",
+      "feedback": "Feedback",
+      "trainingsCount_one": "{{count}} training run",
+      "trainingsCount_other": "{{count}} training runs",
+      "unknownsCount_one": "{{count}} unknown message",
+      "unknownsCount_other": "{{count}} unknown messages",
+      "feedbackCount_one": "{{count}} reply to review",
+      "feedbackCount_other": "{{count}} replies to review",
+      "question": "Question",
+      "reply": "Reply",
+      "intent": "Intent",
+      "fallback": "Fallback",
+      "noQuestion": "Question no longer available",
+      "feedbackEmpty": "No thumbs-down replies to review.",
+      "dismiss": "Dismiss",
+      "dismissFor": "Dismiss the feedback on \"{{label}}\""
     },
     "promote": {
       "title": "Add as training pattern",
@@ -79,7 +100,8 @@
       "intentOption_one": "{{tag}} ({{count}} pattern)",
       "intentOption_other": "{{tag}} ({{count}} patterns)",
       "submit": "Add pattern",
-      "submitting": "Adding…"
+      "submitting": "Adding…",
+      "feedbackDescription": "The reader's question is added as a pattern to the intent you pick and the reply leaves the review queue."
     },
     "intents": {
       "add": "Add intent",
@@ -115,7 +137,16 @@
       "deleteTitle": "Delete intent",
       "deleteConfirm": "Delete \"{{tag}}\"? Its patterns and responses are deleted too. This can't be undone.",
       "delete": "Delete",
-      "deleting": "Deleting…"
+      "deleting": "Deleting…",
+      "patternHelper": "Something a reader might type, up to {{max}} characters. Each pattern belongs to one intent.",
+      "handled": "Answered by code",
+      "handledHint": "Replies come from the catalogue and the reader's shelves; responses are not used.",
+      "export": "Export",
+      "exporting": "Exporting…",
+      "import": "Import",
+      "overlapSummary_one": "{{count}} pattern is very close to a pattern of another intent in the last index build. Rephrase or move it, then rebuild the index.",
+      "overlapSummary_other": "{{count}} patterns are very close to patterns of other intents in the last index build. Rephrase or move them, then rebuild the index.",
+      "overlap": "Close to “{{pattern}}” in {{tag}} ({{value}})"
     },
     "responses": {
       "add": "Add response",
@@ -134,15 +165,19 @@
       "deleteTitle": "Delete response",
       "deleteConfirm": "Delete this response from \"{{tag}}\"? This can't be undone.",
       "delete": "Delete",
-      "deleting": "Deleting…"
+      "deleting": "Deleting…",
+      "language": "Language",
+      "languageHelper": "Readers get replies in their interface language, or English when there is none.",
+      "allLanguages": "All languages",
+      "languages": {
+        "en": "English",
+        "ro": "Romanian"
+      },
+      "handledNote": "This intent is answered by code from the catalogue, so its responses are not shown to readers."
     },
     "training": {
-      "epochs": "Epochs",
-      "epochsHelper": "How many passes over the training data.",
-      "epochsInteger": "Use a whole number.",
-      "epochsMin": "Must be at least {{epochsMin}}.",
-      "start": "Start training",
-      "running": "Training…",
+      "start": "Rebuild index",
+      "running": "Rebuilding…",
       "clear": "Clear logs",
       "status": {
         "running": "Training",
@@ -152,7 +187,7 @@
       "progress": "Progress",
       "percent": "{{value}}%",
       "note": {
-        "done": "Model saved and reloaded. New conversations use it immediately.",
+        "done": "Index saved. New chat messages use it immediately.",
         "error": "Training failed. Check the error lines in the log."
       },
       "line": "#",
@@ -162,20 +197,120 @@
       "levels": {
         "success": "Success",
         "error": "Error",
-        "warning": "Warning",
         "info": "Info",
         "log": "Log"
       },
       "emptyIdle": "Logs appear here once training starts.",
       "emptyConnecting": "Connecting to the training stream…",
       "log": {
-        "connectFailed": "Could not connect to the server.",
-        "serverStatus": "The server responded with {{status}}.",
-        "noStream": "The response has no stream.",
-        "reloaded": "Model reloaded on the server.",
-        "reloadFailed": "Model saved but the reload failed. Restart the server.",
+        "started": "Indexing {{samples}} patterns from {{intents}} intents with {{model}}.",
+        "encode": "Patterns encoded.",
+        "evaluate": "Cross-validation finished.",
+        "done": "Index saved: {{accuracy}}% cross-validated accuracy over {{intents}} intents.",
+        "confused": "Often confused: {{expected}} → {{predicted}} ({{count}})",
         "interrupted": "The stream was interrupted unexpectedly."
-      }
+      },
+      "description": "Rebuild the index after changing patterns. Every pattern is turned into a multilingual sentence vector, then the index is scored with 5-fold cross-validation."
+    },
+    "validation": {
+      "tagMax": "Use at most {{chatbotTagMax}} characters.",
+      "tagPattern": "Use lowercase letters, numbers and underscores, starting with a letter.",
+      "patternMax": "Use at most {{chatbotPatternMax}} characters.",
+      "responseMax": "Use at most {{chatbotResponseMax}} characters.",
+      "importType": "Choose a .json file.",
+      "importSize": "The file must be at most {{chatbotImportMaxMb}} MB.",
+      "importJson": "This file isn't a valid intents export. It must contain a JSON list of intents."
+    },
+    "import": {
+      "title": "Import intents",
+      "description": "Load intents from a JSON file in the seed format, such as an export from another database.",
+      "file": "Intents file",
+      "fileHelper": "A .json export of up to {{max}} MB.",
+      "mode": "How to import",
+      "modes": {
+        "merge": "Merge",
+        "mergeHint": "Keep the current intents and add the patterns and responses that are missing.",
+        "replace": "Replace",
+        "replaceHint": "Make the intents match the file exactly. Intents that aren't in the file are deleted."
+      },
+      "submit": "Import",
+      "submitting": "Importing…",
+      "done": "Imported {{intents}} intents, {{patterns}} patterns and {{responses}} responses. Rebuild the index to use them.",
+      "rebuildNote": "Imported patterns are used once you rebuild the index on the Training tab."
+    },
+    "test": {
+      "description": "Type a message to see how the chatbot classifies it. Nothing is stored and no reply is sent.",
+      "message": "Message",
+      "placeholder": "e.g. what should I read next?",
+      "helper": "Write it as a reader would, up to {{max}} characters.",
+      "submit": "Classify",
+      "submitting": "Classifying…",
+      "result": "Classification result",
+      "fallback": "The chatbot would fall back: no intent is confident enough.",
+      "answered": "The chatbot would answer with {{tag}}.",
+      "masked": "Classified as: “{{text}}”",
+      "addPattern": "Add as pattern",
+      "tooLong": "Patterns are limited to {{max}} characters. Shorten the message to add it.",
+      "similarity": "Similarity",
+      "margin": "Margin over the next intent",
+      "needed": "Needs {{value}}",
+      "candidates": "Closest intents",
+      "candidate": "{{tag}}: {{value}}",
+      "empty": "The closest intents and their scores appear here.",
+      "promoteDescription": "The message is added as a pattern of the intent you pick. Rebuild the index to use it.",
+      "added": "Added as a pattern of \"{{tag}}\". Rebuild the index to use it."
+    },
+    "analytics": {
+      "rangeLabel": "Period",
+      "range_one": "{{count}} week",
+      "range_other": "{{count}} weeks",
+      "metricsLabel": "Chart metric",
+      "metrics": {
+        "messages": "Replies",
+        "fallbackRate": "Fallback rate",
+        "unknowns": "Unknown messages",
+        "helpful": "Helpful"
+      },
+      "totals": {
+        "messagesHint": "Replies the chatbot sent in this period.",
+        "fallbackHint_one": "{{value}} reply was a fallback.",
+        "fallbackHint_other": "{{value}} replies were fallbacks.",
+        "unknownsHint": "New messages it couldn't classify.",
+        "helpfulHint": "{{up}} thumbs up, {{down}} thumbs down."
+      },
+      "weekly": "By week",
+      "captions": {
+        "messages": "Replies sent each week.",
+        "fallbackRate": "Share of replies each week where no intent was confident enough.",
+        "unknowns": "New unknown messages recorded each week.",
+        "helpful": "Share of rated replies each week that got a thumbs up."
+      },
+      "empty": {
+        "messages": "No replies in this period.",
+        "fallbackRate": "No fallbacks in this period.",
+        "unknowns": "No new unknown messages in this period.",
+        "helpful": "No thumbs-up ratings in this period."
+      },
+      "noData": {
+        "fallbackRate": "No replies",
+        "helpful": "No ratings"
+      },
+      "units": {
+        "messages_one": "{{value}} reply",
+        "messages_other": "{{value}} replies",
+        "unknowns_one": "{{value}} unknown message",
+        "unknowns_other": "{{value}} unknown messages"
+      },
+      "weekOf": "Week of {{date}}",
+      "bar": "{{week}}: {{value}}",
+      "intents": "Intent mix",
+      "intentsEmpty": "No recognised messages in this period.",
+      "intentRow_one": "{{tag}}: {{value}} reply",
+      "intentRow_other": "{{tag}}: {{value}} replies",
+      "otherIntents": "Other intents",
+      "error": "The analytics couldn't be loaded.",
+      "retry": "Try again",
+      "loading": "Loading analytics…"
     }
   }
 }

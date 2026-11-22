@@ -131,5 +131,25 @@
     "title": "No reading recorded in {{year}}",
     "hint": "Start a session from any book page or finish a book, and your stats will appear here.",
     "browse": "Browse books"
+  },
+  "moods": {
+    "title": "Moods",
+    "empty": "None of the books you finished in {{year}} have moods yet.",
+    "hint": "Your own vote counts first, then what most readers felt."
+  },
+  "paces": {
+    "title": "Pace",
+    "empty": "Finish a book in {{year}} to see its pace.",
+    "unknown": "Pace not rated"
+  },
+  "lengths": {
+    "title": "Book length",
+    "empty": "Finish a book in {{year}} to see how long your books were.",
+    "hint": "Uses your edition's page count when you picked one.",
+    "short": "Under {{limit}} pages",
+    "medium": "{{min}}–{{max}} pages",
+    "long": "{{min}}–{{max}} pages",
+    "epic": "{{min}}+ pages",
+    "unknown": "Page count unknown"
   }
 }

@@ -8,5 +8,11 @@
   "invalidCredentials": "Nume de utilizator sau parolă greșită.",
   "invalidCredentialsHint": "Verifică ce ai scris sau creează-ți un cont dacă nu ai unul.",
   "usernameExists": "Acest nume de utilizator este deja folosit.",
-  "usernameExistsHint": "Încearcă alt nume de utilizator."
+  "usernameExistsHint": "Încearcă alt nume de utilizator.",
+  "accountLocked": "Prea multe încercări eșuate de autentificare. Încearcă din nou peste {{minutes}} min.",
+  "accountBanned": "Contul tău a fost interzis. Motiv: {{reason}}",
+  "accountSuspended": "Contul tău este suspendat până la {{until}}. Motiv: {{reason}}",
+  "userNotFound": "Acest utilizator nu există.",
+  "cannotBanSelf": "Nu îți poți interzice propriul cont.",
+  "cannotBanAdmin": "Administratorii nu pot fi interziși."
 }

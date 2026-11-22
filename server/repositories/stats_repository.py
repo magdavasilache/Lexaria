@@ -6,6 +6,7 @@ from sqlalchemy import Row, exists, func, select
 from sqlalchemy.orm import Session, selectinload
 
 from server.database.models.book import Book
+from server.database.models.reader_signal import BookMoodVote, BookPaceVote
 from server.database.models.reading import Reading, ReadingState
 from server.database.models.reading_session import ReadingSession
 from server.database.models.review import Review
@@ -15,7 +16,11 @@ from server.database.models.user_book_status import ReadingStatus, UserBookStatu
 def finished_readings(db: Session, user_id: int, start: datetime, end: datetime) -> Sequence[Reading]:
     return db.scalars(
         select(Reading)
-        .options(selectinload(Reading.edition), selectinload(Reading.book).selectinload(Book.genres))
+        .options(
+            selectinload(Reading.edition),
+            selectinload(Reading.book).selectinload(Book.genres),
+            selectinload(Reading.book).selectinload(Book.signals),
+        )
         .where(
             Reading.user_id == user_id,
             Reading.state == ReadingState.FINISHED.value,
@@ -83,3 +88,23 @@ def first_activity(db: Session, user_id: int) -> datetime | None:
     ]
     present = [moment for moment in starts if moment is not None]
     return min(present) if present else None
+
+
+def own_votes(db: Session, user_id: int, book_ids: set[int]) -> tuple[dict[int, set[str]], dict[int, str]]:
+    if not book_ids:
+        return {}, {}
+    moods: dict[int, set[str]] = {}
+    for book_id, mood in db.execute(
+        select(BookMoodVote.book_id, BookMoodVote.mood).where(
+            BookMoodVote.user_id == user_id, BookMoodVote.book_id.in_(book_ids)
+        )
+    ):
+        moods.setdefault(book_id, set()).add(mood)
+    paces = dict(
+        db.execute(
+            select(BookPaceVote.book_id, BookPaceVote.pace).where(
+                BookPaceVote.user_id == user_id, BookPaceVote.book_id.in_(book_ids)
+            )
+        ).all()
+    )
+    return moods, paces

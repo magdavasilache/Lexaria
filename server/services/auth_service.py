@@ -1,3 +1,4 @@
+import math
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 
@@ -5,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from server.core.config import settings
-from server.core.errors import AuthError, ConflictError, ErrorCode
+from server.core.errors import AppError, AuthError, ConflictError, ErrorCode, ForbiddenError, TooManyRequestsError
 from server.core.message_keys import MessageKey
 from server.core.request_context import current_request_context
 from server.core.security import (
@@ -27,7 +28,7 @@ from server.database.models.user import User
 from server.database.models.user_session import SESSION_USER_AGENT_MAX_LENGTH, UserSession, as_utc
 from server.database.schemas.user import AccessTokenResponse, AuthResponse, LoginForm, UserCreate, UserRead
 from server.repositories.session_repository import add_session, delete_stale_sessions, get_session, revoke_user_sessions
-from server.repositories.user_repository import add_user, get_user_by_username
+from server.repositories.user_repository import add_user, get_user_by_username, set_login_failures
 from server.services import audit_service
 
 
@@ -118,6 +119,44 @@ def _invalid_credentials() -> AuthError:
     )
 
 
+def _lock_minutes(locked_until: datetime, now: datetime) -> int:
+    return max(math.ceil((as_utc(locked_until) - now).total_seconds() / 60), 1)
+
+
+def _locked(locked_until: datetime, now: datetime) -> TooManyRequestsError:
+    return TooManyRequestsError(
+        MessageKey.ACCOUNT_LOCKED,
+        params={"minutes": _lock_minutes(locked_until, now)},
+        code=ErrorCode.ACCOUNT_LOCKED,
+    )
+
+
+def _failed_login(db: Session, entry: audit_service.AuditEntry, user: User, now: datetime) -> AppError:
+    attempts = user.failed_login_attempts + 1
+    user_id = user.id
+    if attempts >= settings.login_max_attempts:
+        locked_until = now + timedelta(minutes=settings.login_lock_minutes)
+        entry.on_failure(lambda: set_login_failures(db, user_id, 0, locked_until))
+        return _locked(locked_until, now)
+    entry.on_failure(lambda: set_login_failures(db, user_id, attempts, None))
+    return _invalid_credentials()
+
+
+def format_ban_until(value: datetime) -> str:
+    return as_utc(value).strftime("%Y-%m-%d %H:%M UTC")
+
+
+def _banned(user: User) -> ForbiddenError:
+    reason = user.ban_reason or ""
+    if user.banned_until is None:
+        return ForbiddenError(MessageKey.ACCOUNT_BANNED, params={"reason": reason}, code=ErrorCode.ACCOUNT_BANNED)
+    return ForbiddenError(
+        MessageKey.ACCOUNT_SUSPENDED,
+        params={"reason": reason, "until": format_ban_until(user.banned_until)},
+        code=ErrorCode.ACCOUNT_BANNED,
+    )
+
+
 def _not_authenticated() -> AuthError:
     return AuthError(MessageKey.NOT_AUTHENTICATED, code=ErrorCode.NOT_AUTHENTICATED, hint_key=MessageKey.LOGIN_AGAIN)
 
@@ -147,9 +186,16 @@ def login(db: Session, form: LoginForm) -> SessionStart:
         if user is None:
             burn_password_check(form.password)
             raise _invalid_credentials()
+        now = _now()
+        if user.is_locked_at(now):
+            raise _locked(user.locked_until, now)
         if not verify_password(form.password, user.hashed_password):
-            raise _invalid_credentials()
+            raise _failed_login(db, entry, user, now)
         entry.set_actor(user)
+        if user.is_banned_at(now):
+            raise _banned(user)
+        user.failed_login_attempts = 0
+        user.locked_until = None
         session, token = _open_session(db, user, remember=form.remember_me)
     return _start(user, session, token)
 

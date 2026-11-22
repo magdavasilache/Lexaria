@@ -6,6 +6,7 @@ from pydantic import Field, model_validator
 
 from server.core.message_keys import MessageKey, key_error
 from server.database.models.edition import EditionFormat
+from server.database.models.reader_signal import Mood, Pace
 from server.database.models.reading_challenge import (
     BOOKS_TARGET_MAX,
     CHALLENGE_YEAR_MAX,
@@ -100,6 +101,31 @@ class FormatSlice(OutputSchema):
     books: int
 
 
+class MoodSlice(OutputSchema):
+    mood: Mood
+    books: int
+
+
+class PaceSlice(OutputSchema):
+    pace: Pace | None
+    books: int
+
+
+class LengthBucket(StrEnum):
+    SHORT = "short"
+    MEDIUM = "medium"
+    LONG = "long"
+    EPIC = "epic"
+    UNKNOWN = "unknown"
+
+
+class LengthSlice(OutputSchema):
+    length: LengthBucket
+    min_pages: int | None
+    max_pages: int | None
+    books: int
+
+
 class DayActivity(OutputSchema):
     day: date
     minutes: int
@@ -120,5 +146,8 @@ class StatsOut(OutputSchema):
     months: list[MonthBucket]
     genres: list[GenreSlice]
     formats: list[FormatSlice]
+    moods: list[MoodSlice]
+    paces: list[PaceSlice]
+    lengths: list[LengthSlice]
     streak: StreakOut
     challenge: ChallengeProgress | None

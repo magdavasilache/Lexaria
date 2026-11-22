@@ -43,7 +43,8 @@
     "readingGoal": "Daily reading goal",
     "readingGoalValue": "{{minutes}} min/day",
     "readingGoalNotSet": "Not set",
-    "stats": "Reading stats"
+    "stats": "Reading stats",
+    "profilePicture": "Profile picture"
   },
   "fields": {
     "charactersLeft_one": "{{count}} character left",
@@ -110,9 +111,42 @@
     "book": "Book",
     "goodreadsImport": "Goodreads Import",
     "adminPanel": "Admin Panel",
-    "stats": "Reading Stats"
+    "stats": "Reading Stats",
+    "forbidden": "Access denied",
+    "notFound": "Page not found",
+    "error": "Something went wrong"
   },
   "theme": {
     "toggle": "Change theme"
+  },
+  "errors": {
+    "forbidden": {
+      "code": "403",
+      "title": "You don't have access to this page",
+      "description": "This area is reserved for administrators. If you think you should have access, ask an administrator to check your account."
+    },
+    "notFound": {
+      "code": "404",
+      "title": "Page not found",
+      "description": "The page you're looking for doesn't exist or has been moved."
+    },
+    "page": {
+      "title": "This page couldn't be loaded",
+      "description": "Something went wrong while showing this page. Try again, or go back to the homepage."
+    },
+    "app": {
+      "title": "Lexaria ran into a problem",
+      "description": "Something unexpected stopped the app. Reload to continue."
+    },
+    "requestId": "Reference: {{id}}",
+    "actions": {
+      "home": "Go to homepage",
+      "back": "Go back",
+      "retry": "Try again",
+      "reload": "Reload"
+    }
+  },
+  "spoiler": {
+    "reveal": "Show hidden spoiler"
   }
 }

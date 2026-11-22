@@ -8,5 +8,11 @@
   "invalidCredentials": "Invalid username or password.",
   "invalidCredentialsHint": "Check your spelling, or register if you don't have an account yet.",
   "usernameExists": "This username is already taken.",
-  "usernameExistsHint": "Try another username."
+  "usernameExistsHint": "Try another username.",
+  "accountLocked": "Too many failed login attempts. Try again in {{minutes}} min.",
+  "accountBanned": "Your account has been banned. Reason: {{reason}}",
+  "accountSuspended": "Your account is suspended until {{until}}. Reason: {{reason}}",
+  "userNotFound": "This user doesn't exist.",
+  "cannotBanSelf": "You can't ban your own account.",
+  "cannotBanAdmin": "Administrators can't be banned."
 }

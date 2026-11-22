@@ -2,6 +2,7 @@ from datetime import date, datetime
 from decimal import Decimal
 
 from sqlalchemy import (
+    Boolean,
     CheckConstraint,
     Date,
     DateTime,
@@ -13,6 +14,7 @@ from sqlalchemy import (
     UniqueConstraint,
     func,
     select,
+    text,
 )
 from sqlalchemy.orm import Mapped, column_property, mapped_column, relationship
 
@@ -51,6 +53,7 @@ class Review(Base):
     content: Mapped[str | None] = mapped_column(String(REVIEW_CONTENT_MAX_LENGTH))
     start_date: Mapped[date | None] = mapped_column(Date)
     end_date: Mapped[date | None] = mapped_column(Date)
+    has_spoilers: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default=text("false"))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now()

@@ -42,5 +42,67 @@
     "passwordMissing": "Password doesn't meet all the requirements above.",
     "confirmPassword": "Please confirm your password.",
     "passwordsMismatch": "Passwords do not match."
+  },
+  "avatar": {
+    "title": "Profile picture",
+    "description": "Shown in the menu and next to your reviews and comments.",
+    "picture": "Profile picture",
+    "alt": "Profile picture of {{name}}",
+    "choose": "Choose picture",
+    "replace": "Choose another",
+    "remove": "Remove",
+    "keep": "Keep current picture",
+    "helper": "JPG, PNG or WebP. It is cropped to a square from the centre and resized to {{avatarSizePx}}×{{avatarSizePx}} px; at most {{avatarMaxMb}} MB after resizing.",
+    "removedNote": "Your picture will be removed when you save.",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Profile picture updated.",
+    "removed": "Profile picture removed.",
+    "validation": {
+      "type": "Choose a JPG, PNG or WebP image.",
+      "size": "The picture must be at most {{avatarMaxMb}} MB.",
+      "unreadable": "This image couldn't be read. Try another file."
+    }
+  },
+  "ban": {
+    "title": "Ban {{username}}",
+    "description": "The user is logged out everywhere and can't log in until the ban ends. They see the reason when they try.",
+    "duration": "Duration",
+    "durationHelper": "Pick how long the ban lasts. You can lift it at any time.",
+    "days_one": "{{count}} day",
+    "days_few": "{{count}} days",
+    "days_other": "{{count}} days",
+    "permanent": "Permanent",
+    "reason": "Reason",
+    "reasonHelper": "Up to {{banReasonMax}} characters. The user sees this text.",
+    "submit": "Ban user",
+    "submitting": "Banning…",
+    "banned": "{{username}} was banned.",
+    "unbanned": "The ban on {{username}} was lifted.",
+    "validation": {
+      "reasonMax": "Use at most {{banReasonMax}} characters.",
+      "duration": "Choose a duration of 1 to {{banDaysMax}} days, or permanent."
+    }
+  },
+  "admin": {
+    "user": "User",
+    "role": "Role",
+    "allRoles": "All roles",
+    "joined": "Joined",
+    "status": "Status",
+    "allStatuses": "All statuses",
+    "active": "Active",
+    "banned": "Banned",
+    "locked": "Locked",
+    "bannedUntil": "Banned until {{date}}",
+    "bannedPermanently": "Banned permanently",
+    "lockedUntil": "Locked until {{date}}",
+    "ban": "Ban {{username}}",
+    "unban": "Lift the ban on {{username}}"
+  },
+  "roles": {
+    "admin": "Admin",
+    "free": "Reader",
+    "premium": "Premium"
   }
 }

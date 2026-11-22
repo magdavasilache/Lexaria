@@ -6,14 +6,23 @@ import '@fontsource/libre-caslon-text/700.css'
 import '@fontsource/explora/400.css'
 import './index.css'
 import './i18n'
-import App from './App.tsx'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from './api/queryClient'
+import { ErrorBoundary } from 'react-error-boundary'
+import App from './app/App.tsx'
+import AppErrorFallback from './app/errors/AppErrorFallback'
+import { queryClient } from './app/queryClient'
+import { reportRenderError } from './app/errors/errorReporting'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-      <QueryClientProvider client={queryClient}>
-          <App />
-      </QueryClientProvider>
-  </StrictMode>,
+createRoot(document.getElementById('root')!, {
+    onUncaughtError: reportRenderError('uncaught'),
+    onCaughtError: reportRenderError('caught'),
+    onRecoverableError: reportRenderError('recoverable'),
+}).render(
+    <StrictMode>
+        <ErrorBoundary FallbackComponent={AppErrorFallback}>
+            <QueryClientProvider client={queryClient}>
+                <App />
+            </QueryClientProvider>
+        </ErrorBoundary>
+    </StrictMode>,
 )

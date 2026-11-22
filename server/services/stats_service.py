@@ -16,7 +16,11 @@ from server.database.schemas.stats import (
     DayActivity,
     FormatSlice,
     GenreSlice,
+    LengthBucket,
+    LengthSlice,
     MonthBucket,
+    MoodSlice,
+    PaceSlice,
     PaceStatus,
     StatsOut,
     StatsQuery,
@@ -24,13 +28,22 @@ from server.database.schemas.stats import (
     StreakOut,
     TargetProgress,
 )
+from server.database.models.reader_signal import Mood, Pace
 from server.repositories import challenge_repository, stats_repository
 from server.services.challenge_service import YEARS_AHEAD
+from server.services.reader_signal_views import top_moods
 
 TOP_GENRES = 8
 STREAK_STRIP_DAYS = 7
 PACE_TOLERANCE = 0.02
 SECONDS_PER_HOUR = 3600
+LENGTH_BUCKETS: tuple[tuple[LengthBucket, int, int | None], ...] = (
+    (LengthBucket.SHORT, 1, 199),
+    (LengthBucket.MEDIUM, 200, 299),
+    (LengthBucket.LONG, 300, 499),
+    (LengthBucket.EPIC, 500, None),
+)
+PACE_ORDER = {pace: index for index, pace in enumerate(Pace)}
 
 
 def _year_window(year: int, zone: ZoneInfo) -> tuple[datetime, datetime]:
@@ -84,6 +97,51 @@ def _formats(readings: list[Reading]) -> list[FormatSlice]:
         FormatSlice(format=edition_format, books=books)
         for edition_format, books in sorted(counts.items(), key=lambda item: (-item[1], item[0] or ""))
     ]
+
+
+def _moods(readings: list[Reading], own: dict[int, set[str]]) -> list[MoodSlice]:
+    counts: Counter[Mood] = Counter()
+    for reading in readings:
+        mine = own.get(reading.book_id)
+        counts.update({Mood(mood) for mood in mine} if mine else set(top_moods(reading.book)))
+    return [MoodSlice(mood=mood, books=books) for mood, books in sorted(counts.items(), key=lambda item: (-item[1], item[0]))]
+
+
+def _paces(readings: list[Reading], own: dict[int, str]) -> list[PaceSlice]:
+    counts: Counter[Pace | None] = Counter()
+    for reading in readings:
+        value = own.get(reading.book_id) or reading.book.pace
+        counts[Pace(value) if value else None] += 1
+    ranked = sorted(counts.items(), key=lambda item: PACE_ORDER.get(item[0], len(PACE_ORDER)))
+    return [PaceSlice(pace=pace, books=books) for pace, books in ranked]
+
+
+def _reading_pages(reading: Reading) -> int | None:
+    if reading.edition is not None and reading.edition.pages:
+        return reading.edition.pages
+    return reading.book.pages
+
+
+def _length(pages: int | None) -> LengthBucket:
+    for bucket, low, high in LENGTH_BUCKETS:
+        if pages is not None and pages >= low and (high is None or pages <= high):
+            return bucket
+    return LengthBucket.UNKNOWN
+
+
+def _lengths(readings: list[Reading]) -> list[LengthSlice]:
+    counts = Counter(_length(_reading_pages(reading)) for reading in readings)
+    if not readings:
+        return []
+    slices = [
+        LengthSlice(length=bucket, min_pages=low, max_pages=high, books=counts[bucket])
+        for bucket, low, high in LENGTH_BUCKETS
+    ]
+    if counts[LengthBucket.UNKNOWN]:
+        slices.append(
+            LengthSlice(length=LengthBucket.UNKNOWN, min_pages=None, max_pages=None, books=counts[LengthBucket.UNKNOWN])
+        )
+    return slices
 
 
 def _run(days: set[date], first: date, step: int) -> int:
@@ -165,7 +223,9 @@ def get_stats(db: Session, query: StatsQuery, user: User) -> StatsOut:
     for started_at, duration in stats_repository.session_days(db, user.id):
         seconds_by_day[_local(started_at, zone).date()] += duration or 0
 
-    ratings = stats_repository.own_ratings(db, user.id, {reading.book_id for reading in readings})
+    book_ids = {reading.book_id for reading in readings}
+    ratings = stats_repository.own_ratings(db, user.id, book_ids)
+    own_moods, own_paces = stats_repository.own_votes(db, user.id, book_ids)
     seconds = sum(session.duration_seconds or 0 for session in sessions)
     totals = StatsTotals(
         books=len(readings),
@@ -185,6 +245,9 @@ def get_stats(db: Session, query: StatsQuery, user: User) -> StatsOut:
         months=_months(readings, sessions, zone),
         genres=_genres(readings),
         formats=_formats(readings),
+        moods=_moods(readings, own_moods),
+        paces=_paces(readings, own_paces),
+        lengths=_lengths(readings),
         streak=_streak(seconds_by_day, today),
         challenge=_progress(challenge, totals, seconds, today) if challenge else None,
     )
