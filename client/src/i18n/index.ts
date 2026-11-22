@@ -2,7 +2,10 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 import { BOOK_RULES, IMPORT_RULES } from "../schemas/bookRules";
+import { CATALOG_RULES } from "../schemas/catalogRules";
+import { EDITION_RULES, READING_RULES } from "../schemas/readingRules";
 import { REVIEW_RULES } from "../schemas/reviewRules";
+import { CHALLENGE_RULES } from "../schemas/statsRules";
 import { PASSWORD_RULES, USERNAME_RULES } from "../schemas/userRules";
 import { TRAINING_RULES } from "../schemas/chatbotRules";
 
@@ -57,6 +60,24 @@ i18n
         importFileMaxMb: IMPORT_RULES.fileMaxMb,
         reviewContentMax: REVIEW_RULES.contentMaxLength,
         commentMax: REVIEW_RULES.commentMaxLength,
+        readingNoteMax: READING_RULES.noteMaxLength,
+        readingMaxSessionHours: READING_RULES.maxSessionHours,
+        readingGoalMin: READING_RULES.goalMinutesMin,
+        readingGoalMax: READING_RULES.goalMinutesMax,
+        editionTextMax: EDITION_RULES.translatorMaxLength,
+        editionPagesMax: EDITION_RULES.pagesMax,
+        challengeBooksMax: CHALLENGE_RULES.booksMax,
+        challengePagesMax: CHALLENGE_RULES.pagesMax,
+        challengeHoursMax: CHALLENGE_RULES.hoursMax,
+        languageNameMax: CATALOG_RULES.languageNameMaxLength,
+        genreNameMax: CATALOG_RULES.genreNameMaxLength,
+        countryNameMax: CATALOG_RULES.countryNameMaxLength,
+        awardNameMax: CATALOG_RULES.awardNameMaxLength,
+        awardDescriptionMax: CATALOG_RULES.awardDescriptionMaxLength,
+        awardYearMin: CATALOG_RULES.awardYearMin,
+        authorNameMax: CATALOG_RULES.authorNameMaxLength,
+        authorAboutMax: CATALOG_RULES.authorAboutMaxLength,
+        authorImageMaxMb: CATALOG_RULES.imageMaxMb,
       },
     },
   });

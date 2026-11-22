@@ -65,6 +65,7 @@ class User(Base):
     comments = relationship("Comment", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     sessions = relationship("UserSession", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     readings = relationship("Reading", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
+    challenges = relationship("ReadingChallenge", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
 
     @hybrid_property
     def is_admin(self) -> bool:

@@ -4,7 +4,9 @@ import type { BookDetail } from "../../../types/book-types/bookTypes";
 import type { ReadingStatus, UserBookStatus } from "../../../types/user-book-status-types/UserBookStatusTypes";
 import { useReviewsStore } from "../../context/reviews/useReviewsStore";
 import { useSnackbarStore } from "../../context/snackbar/useSnackbarStore";
+import { readingKeys } from "../reading/readingKeys";
 import { bookKeys } from "./bookKeys";
+import { statsKeys } from "../stats/statsKeys";
 
 export const useReadingStatus = (bookId: number) => {
     const queryClient = useQueryClient();
@@ -37,6 +39,10 @@ export const useReadingStatus = (bookId: number) => {
         onError: (_, __, context) => setCachedStatus(() => context?.previous ?? null),
         onSuccess: (result, status) => {
             setCachedStatus(() => result);
+            queryClient.invalidateQueries({ queryKey: key });
+            queryClient.invalidateQueries({ queryKey: readingKeys.activeSession() });
+            queryClient.invalidateQueries({ queryKey: readingKeys.journey(bookId) });
+            queryClient.invalidateQueries({ queryKey: statsKeys.all });
             showSnackBar({ key: status === null ? "front/books:status.removed" : "front/books:status.updated" }, "success");
             if (status === "read") setOpenReviewForm(true);
         },

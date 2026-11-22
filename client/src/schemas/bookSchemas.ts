@@ -31,8 +31,8 @@ export const bookFormSchema = z
     is_series: z.boolean(),
     settings: listField,
     characters: listField,
-    genre_ids: z.array(z.number().int().positive()),
-    award_ids: z.array(z.number().int().positive()),
+    genre_ids: z.array(z.number().int().positive()).max(BOOK_RULES.listMaxItems, "front/books:form.validation.listMaxItems"),
+    award_ids: z.array(z.number().int().positive()).max(BOOK_RULES.listMaxItems, "front/books:form.validation.listMaxItems"),
     kept_images: z.array(z.string()),
     images: z
       .array(z.instanceof(File))

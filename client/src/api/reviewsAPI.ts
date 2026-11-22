@@ -1,8 +1,18 @@
 import type { ApiResponse } from "./apiTypes";
 import { authorizedAxios } from "./authorizedAxios";
-import type { CommentOut, LikeOut, ReviewOut, ReviewPage, ReviewPayload, ReviewSort } from "../types/reviews/reviewTypes";
+import type {
+    CommentOut,
+    CommentPayload,
+    CommentUpdatePayload,
+    LikeOut,
+    ReviewListQuery,
+    ReviewOut,
+    ReviewPage,
+    ReviewPayload,
+    ReviewUpdatePayload,
+} from "../types/reviews/reviewTypes";
 
-type ListParams = { bookId: number; sort: ReviewSort; stars: number | null; offset: number; limit: number };
+type ListParams = ReviewListQuery & { bookId: number };
 
 export const getBookReviewsQuery = async ({ bookId, stars, ...params }: ListParams): Promise<ReviewPage> => {
     const response = await authorizedAxios("books").get<ApiResponse<ReviewOut[]>>(`/${bookId}/reviews`, {
@@ -24,7 +34,7 @@ export const createReviewMutation = async ({ bookId, data }: { bookId: number; d
     return response.data.data as ReviewOut;
 };
 
-export const updateReviewMutation = async ({ reviewId, data }: { reviewId: number; data: ReviewPayload }): Promise<ReviewOut> => {
+export const updateReviewMutation = async ({ reviewId, data }: { reviewId: number; data: ReviewUpdatePayload }): Promise<ReviewOut> => {
     const response = await authorizedAxios("reviews").put<ApiResponse<ReviewOut>>(`/${reviewId}`, data, { handlesFieldErrors: true });
     return response.data.data as ReviewOut;
 };
@@ -34,12 +44,14 @@ export const deleteReviewMutation = async (reviewId: number): Promise<void> => {
 };
 
 export const createCommentMutation = async ({ reviewId, content }: { reviewId: number; content: string }): Promise<CommentOut> => {
-    const response = await authorizedAxios("reviews").post<ApiResponse<CommentOut>>(`/${reviewId}/comments`, { content }, { handlesFieldErrors: true });
+    const payload: CommentPayload = { content };
+    const response = await authorizedAxios("reviews").post<ApiResponse<CommentOut>>(`/${reviewId}/comments`, payload, { handlesFieldErrors: true });
     return response.data.data as CommentOut;
 };
 
 export const updateCommentMutation = async ({ commentId, content }: { commentId: number; content: string }): Promise<CommentOut> => {
-    const response = await authorizedAxios("comments").put<ApiResponse<CommentOut>>(`/${commentId}`, { content }, { handlesFieldErrors: true });
+    const payload: CommentUpdatePayload = { content };
+    const response = await authorizedAxios("comments").put<ApiResponse<CommentOut>>(`/${commentId}`, payload, { handlesFieldErrors: true });
     return response.data.data as CommentOut;
 };
 

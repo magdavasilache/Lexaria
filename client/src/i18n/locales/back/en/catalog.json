@@ -1,0 +1,9 @@
+{
+  "genreNotFound": "This genre doesn't exist or was removed.",
+  "awardNotFound": "This award doesn't exist or was removed.",
+  "languageExists": "The language \"{{name}}\" already exists.",
+  "countryExists": "The country \"{{name}}\" already exists.",
+  "genreExists": "The genre \"{{name}}\" already exists.",
+  "awardExists": "The award \"{{name}}\" already exists for this year.",
+  "awardYearInFuture": "The year can't be in the future."
+}

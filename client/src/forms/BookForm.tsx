@@ -20,9 +20,7 @@ import { BookFormValues, bookFormSchema } from "../schemas/bookSchemas";
 import { BOOK_RULES, DESCRIPTION_LANGUAGES, latestPublishedDate, splitList } from "../schemas/bookRules";
 import { useBook } from "../api-handling/rtk-hooks/books/useBook";
 import { useCreateBook, useUpdateBook } from "../api-handling/rtk-hooks/books/useBookMutations";
-import { useGetFormAuthors } from "../api-handling/rtk-hooks/author/useGetFormAuthors";
-import { useGetFormCountries } from "../api-handling/rtk-hooks/country/useGetFormCountries";
-import { useGetLanguages } from "../api-handling/rtk-hooks/language/useGetLanguages";
+import { authorOptions, awardOptions, useAuthors, useAwards, useCountries, useGenres, useLanguages } from "../api-handling/rtk-hooks/catalog/useCatalog";
 import type { BookDetail } from "../types/book-types/bookTypes";
 import { serverAssetUrl } from "../utils/assets";
 import { languageName } from "../utils/descriptions";
@@ -46,7 +44,7 @@ const EMPTY_VALUES: BookFormValues = {
 
 const SERVER_FIELDS = [
     "title", "author_id", "language_id", "country_id", "pages", "published_at", "descriptions",
-    "is_series", "settings", "characters", "kept_images", "images",
+    "is_series", "settings", "characters", "genre_ids", "award_ids", "kept_images", "images",
 ] as const;
 
 const toFormValues = (book: BookDetail): BookFormValues => ({
@@ -98,9 +96,11 @@ export default function BookForm({ open, onClose, bookId = null }: Props) {
     const formId = useId();
     const editing = bookId !== null;
     const { data: book, isLoading: bookLoading, isError: bookError } = useBook(open ? bookId : null);
-    const authors = useGetFormAuthors().data ?? [];
-    const languages = useGetLanguages().data ?? [];
-    const countries = useGetFormCountries().data ?? [];
+    const authors = authorOptions(useAuthors(open).data);
+    const languages = useLanguages(open).data ?? [];
+    const countries = useCountries(open).data ?? [];
+    const genres = useGenres(open).data ?? [];
+    const awards = awardOptions(useAwards(open).data);
     const createBook = useCreateBook();
     const updateBook = useUpdateBook();
 
@@ -272,6 +272,49 @@ export default function BookForm({ open, onClose, bookId = null }: Props) {
                         <div className="flex items-end">
                             <CheckboxField label={t("form.fields.isSeries")} {...register("is_series")} />
                         </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <Controller
+                            name="genre_ids"
+                            control={control}
+                            render={({ field }) => (
+                                <AutocompleteField
+                                    multiple
+                                    label={t("form.fields.genres")}
+                                    options={genres}
+                                    placeholder={t("form.placeholders.genres")}
+                                    helperText={t("form.helpers.genres")}
+                                    error={errors.genre_ids}
+                                    status={fieldStatus("genre_ids")}
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    onBlur={field.onBlur}
+                                    name={field.name}
+                                    ref={field.ref}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="award_ids"
+                            control={control}
+                            render={({ field }) => (
+                                <AutocompleteField
+                                    multiple
+                                    label={t("form.fields.awards")}
+                                    options={awards}
+                                    placeholder={t("form.placeholders.awards")}
+                                    helperText={t("form.helpers.awards")}
+                                    error={errors.award_ids}
+                                    status={fieldStatus("award_ids")}
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    onBlur={field.onBlur}
+                                    name={field.name}
+                                    ref={field.ref}
+                                />
+                            )}
+                        />
                     </div>
 
                     <fieldset className="m-0 flex flex-col gap-3 border-0 p-0">

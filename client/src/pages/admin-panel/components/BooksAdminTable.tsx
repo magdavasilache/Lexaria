@@ -6,8 +6,7 @@ import DataTable, { Column, TableFilter } from "../../../global-components/table
 import type { BookListItem } from "../../../types/book-types/bookTypes";
 import type { AutocompleteOption } from "../../../forms/components/AutocompleteField";
 import { serverAssetUrl, useCoverPlaceholder } from "../../../utils/assets";
-import { useGetFormAuthors } from "../../../api-handling/rtk-hooks/author/useGetFormAuthors";
-import { useGetLanguages } from "../../../api-handling/rtk-hooks/language/useGetLanguages";
+import { authorOptions, useAuthors, useLanguages } from "../../../api-handling/rtk-hooks/catalog/useCatalog";
 import { BOOK_RULES } from "../../../schemas/bookRules";
 
 const GENRES_SHOWN = 3;
@@ -27,8 +26,8 @@ export default function BooksAdminTable({ books, isLoading, onEdit, onDelete }: 
     const { t, i18n } = useTranslation("front/books");
     const navigate = useNavigate();
     const placeholder = useCoverPlaceholder();
-    const { data: authors = [] } = useGetFormAuthors();
-    const { data: languages = [] } = useGetLanguages();
+    const authors = authorOptions(useAuthors().data);
+    const { data: languages = [] } = useLanguages();
     const ratingFormat = new Intl.NumberFormat(i18n.resolvedLanguage, { minimumFractionDigits: 1, maximumFractionDigits: 2 });
 
     const genres = useMemo(() => {

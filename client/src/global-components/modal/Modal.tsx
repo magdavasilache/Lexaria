@@ -1,8 +1,9 @@
-import { KeyboardEvent, ReactNode, RefObject, useEffect, useId, useRef } from "react";
+import { ReactNode, RefObject, useId, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { LucideIcon, X } from "lucide-react";
 import Button from "../buttons/Button";
+import { firstFocusable, useDialogBehavior } from "./useDialogBehavior";
 
 export type ModalSize = "sm" | "md" | "lg" | "xl";
 
@@ -28,9 +29,6 @@ const SIZES: Record<ModalSize, string> = {
     xl: "max-w-3xl",
 };
 
-const FOCUSABLE =
-    'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
 export default function Modal({
     open,
     onClose,
@@ -51,47 +49,14 @@ export default function Modal({
     const bodyRef = useRef<HTMLDivElement>(null);
     const { t } = useTranslation("front/common");
 
-    useEffect(() => {
-        if (!open) return;
-
-        const previouslyFocused = document.activeElement as HTMLElement | null;
-        const previousOverflow = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
-
-        const target = initialFocusRef?.current ?? bodyRef.current?.querySelector<HTMLElement>(FOCUSABLE) ?? panelRef.current;
-        target?.focus();
-
-        return () => {
-            document.body.style.overflow = previousOverflow;
-            previouslyFocused?.focus?.();
-        };
-    }, [open, initialFocusRef]);
+    const handleKeyDown = useDialogBehavior({
+        open,
+        panelRef,
+        initialFocus: () => initialFocusRef?.current ?? firstFocusable(bodyRef.current),
+        onEscape: dismissible ? onClose : undefined,
+    });
 
     if (!open) return null;
-
-    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === "Escape" && dismissible) {
-            event.stopPropagation();
-            onClose();
-            return;
-        }
-        if (event.key !== "Tab" || !panelRef.current) return;
-
-        const focusable = Array.from(panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
-        if (focusable.length === 0) {
-            event.preventDefault();
-            return;
-        }
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (event.shiftKey && document.activeElement === first) {
-            event.preventDefault();
-            last.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-            event.preventDefault();
-            first.focus();
-        }
-    };
 
     return createPortal(
         <div

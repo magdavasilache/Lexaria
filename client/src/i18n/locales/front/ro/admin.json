@@ -16,9 +16,6 @@
   },
   "panel": {
     "heading": "Administrare",
-    "close": "Închide",
-    "notConfigured": "Această secțiune nu are încă un tabel.",
-    "nameColumn": "Nume",
     "count_one": "{{count}} înregistrare",
     "count_few": "{{count}} înregistrări",
     "count_other": "{{count}} de înregistrări"
@@ -31,7 +28,8 @@
     "countries": "Țări",
     "books": "Cărți",
     "chatbot": "Chatbot",
-    "activity": "Activitate"
+    "activity": "Activitate",
+    "editions": "Ediții"
   },
   "add": {
     "authors": "Adaugă un autor",
@@ -46,8 +44,7 @@
     "genres": "Editează genul",
     "languages": "Editează limba",
     "awards": "Editează premiul",
-    "countries": "Editează țara",
-    "books": "Editează cartea"
+    "countries": "Editează țara"
   },
   "chatbot": {
     "tabs": {

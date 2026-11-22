@@ -1,32 +1,28 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Activity, Award, BookOpen, Bot, Globe, Languages, LucideIcon, Plus, ShieldCheck, Tags, Trash2, UserRound, X } from "lucide-react";
+import { Activity, Award, BookCopy, BookOpen, Bot, Globe, Languages, LucideIcon, Plus, ShieldCheck, Tags, Trash2, UserRound } from "lucide-react";
 import Button from "../../global-components/buttons/Button";
 import Modal from "../../global-components/modal/Modal";
-import { useGetLanguages } from "../../api-handling/rtk-hooks/language/useGetLanguages";
-import { useGetFormAuthors } from "../../api-handling/rtk-hooks/author/useGetFormAuthors";
-import { useGetFormCountries } from "../../api-handling/rtk-hooks/country/useGetFormCountries";
+import { useAuthors, useAwards, useCountries, useGenres, useLanguages } from "../../api-handling/rtk-hooks/catalog/useCatalog";
 import { useAdminBooks } from "../../api-handling/rtk-hooks/books/useAdminBooks";
 import { useDeleteBook } from "../../api-handling/rtk-hooks/books/useBookMutations";
-import AuthorForm from "../../forms/AuthorForm";
-import GenreForm from "../../forms/GenreForm";
-import LanguageForm from "../../forms/LanguageForm";
-import AwardForm from "../../forms/AwardForm";
-import CountryForm from "../../forms/CountryForm";
+import { useAdminEditions } from "../../api-handling/rtk-hooks/reading/useEditions";
 import BookForm from "../../forms/BookForm";
-import type { Language } from "../../types/language/languageTypes";
 import type { BookListItem } from "../../types/book-types/bookTypes";
-import DataTable, { Column } from "../../global-components/table/DataTable";
+import type { CatalogKind } from "../../types/catalog-types/catalogTypes";
 import BooksAdminTable from "./components/BooksAdminTable";
+import CatalogAdminTab from "./components/catalog/CatalogAdminTab";
+import EditionsAdminTable from "./components/EditionsAdminTable";
 import ChatbotAdminTab from "./ChatbotAdminTab";
 import ActivityAdminTab from "./ActivityAdminTab";
 import { useScopedFilters } from "../../state_management/useFiltersStore";
 import { useDocumentTitle } from "../../utils/useDocumentTitle";
 
-const TABS = ["authors", "genres", "languages", "awards", "countries", "books", "chatbot", "activity"] as const;
+const TABS = ["authors", "genres", "languages", "awards", "countries", "books", "editions", "chatbot", "activity"] as const;
 type Tab = (typeof TABS)[number];
-type EditableTab = Exclude<Tab, "chatbot" | "activity">;
+type EditableTab = Exclude<Tab, "editions" | "chatbot" | "activity">;
+const CATALOG_TABS: readonly Tab[] = ["authors", "genres", "languages", "awards", "countries"] satisfies readonly CatalogKind[];
 
 const TAB_ICONS: Record<Tab, LucideIcon> = {
     authors: UserRound,
@@ -35,16 +31,16 @@ const TAB_ICONS: Record<Tab, LucideIcon> = {
     awards: Award,
     countries: Globe,
     books: BookOpen,
+    editions: BookCopy,
     chatbot: Bot,
     activity: Activity,
 };
 
-const isEditable = (tab: Tab): tab is EditableTab => tab !== "chatbot" && tab !== "activity";
+const isEditable = (tab: Tab): tab is EditableTab => tab !== "editions" && tab !== "chatbot" && tab !== "activity";
+const isCatalog = (tab: Tab): tab is CatalogKind => CATALOG_TABS.includes(tab);
 
 const DEFAULT_VIEW: { tab: Tab } = { tab: "books" };
 
-type SlideMode = "add" | "edit" | null;
-type NamedRow = { id: number; name: string };
 type BookModal = { mode: "add" } | { mode: "edit"; bookId: number } | null;
 
 export default function AdminPanel() {
@@ -53,30 +49,33 @@ export default function AdminPanel() {
     const [searchParams, setSearchParams] = useSearchParams();
     const { filters: { tab: storedTab }, setFilters: setView } = useScopedFilters("admin.panel", DEFAULT_VIEW);
     const activeTab = TABS.includes(storedTab) ? storedTab : DEFAULT_VIEW.tab;
-    const [slideMode, setSlideMode] = useState<SlideMode>(null);
-    const [editingLanguage, setEditingLanguage] = useState<Language | null>(null);
+    const [addingEntry, setAddingEntry] = useState(false);
     const [bookModal, setBookModal] = useState<BookModal>(null);
     const [bookToDelete, setBookToDelete] = useState<BookListItem | null>(null);
 
-    const { data: languages = [], isLoading: langsLoading } = useGetLanguages();
-    const { data: authors = [], isLoading: authorsLoading } = useGetFormAuthors();
-    const { data: countries = [], isLoading: countriesLoading } = useGetFormCountries();
+    const { data: languages } = useLanguages();
+    const { data: authors } = useAuthors();
+    const { data: countries } = useCountries();
+    const { data: genres } = useGenres();
+    const { data: awards } = useAwards();
     const { data: books = [], isLoading: booksLoading } = useAdminBooks(activeTab === "books");
+    const { data: editions = [], isLoading: editionsLoading } = useAdminEditions(activeTab === "editions");
 
     const counts: Partial<Record<Tab, number | undefined>> = {
-        authors: authorsLoading ? undefined : authors.length,
-        languages: langsLoading ? undefined : languages.length,
-        countries: countriesLoading ? undefined : countries.length,
+        authors: authors?.length,
+        genres: genres?.length,
+        languages: languages?.length,
+        awards: awards?.length,
+        countries: countries?.length,
         books: booksLoading ? undefined : books.length,
+        editions: editionsLoading ? undefined : editions.length,
     };
     const activeCount = counts[activeTab];
-    const nameColumns: Column<NamedRow>[] = [{ key: "name", label: t("panel.nameColumn") }];
     const deleteBook = useDeleteBook();
 
     const addBookRequested = searchParams.get("new") === "book";
     const shownBookModal: BookModal = addBookRequested ? { mode: "add" } : bookModal;
 
-    const closeSlide = () => { setSlideMode(null); setEditingLanguage(null); };
     const closeBookModal = () => {
         setBookModal(null);
         if (addBookRequested) setSearchParams({}, { replace: true });
@@ -84,7 +83,7 @@ export default function AdminPanel() {
 
     const openAdd = () => {
         if (activeTab === "books") setBookModal({ mode: "add" });
-        else { setEditingLanguage(null); setSlideMode("add"); }
+        else setAddingEntry(true);
     };
 
     const confirmDelete = async () => {
@@ -98,11 +97,14 @@ export default function AdminPanel() {
     };
 
     const renderTable = () => {
+        if (isCatalog(activeTab)) return <CatalogAdminTab kind={activeTab} adding={addingEntry} onAddClose={() => setAddingEntry(false)} />;
         switch (activeTab) {
             case "chatbot":
                 return <ChatbotAdminTab />;
             case "activity":
                 return <ActivityAdminTab />;
+            case "editions":
+                return <EditionsAdminTable />;
             case "books":
                 return (
                     <BooksAdminTable
@@ -112,35 +114,6 @@ export default function AdminPanel() {
                         onDelete={setBookToDelete}
                     />
                 );
-            case "languages":
-                return (
-                    <DataTable
-                        stateKey="admin.languages"
-                        data={languages}
-                        columns={nameColumns}
-                        isLoading={langsLoading}
-                        searchKeys={["name"]}
-                        rowLabel={(language) => language.name}
-                        onEdit={(language) => { setEditingLanguage(language); setSlideMode("edit"); }}
-                    />
-                );
-            case "authors":
-                return <DataTable stateKey="admin.authors" data={authors} columns={nameColumns} isLoading={authorsLoading} searchKeys={["name"]} />;
-            case "countries":
-                return <DataTable stateKey="admin.countries" data={countries} columns={nameColumns} isLoading={countriesLoading} searchKeys={["name"]} />;
-            default:
-                return <p className="text-sm text-fontMutedLight dark:text-fontMutedDark">{t("panel.notConfigured")}</p>;
-        }
-    };
-
-    const renderForm = () => {
-        switch (activeTab) {
-            case "authors": return <AuthorForm />;
-            case "genres": return <GenreForm />;
-            case "languages": return <LanguageForm onSuccess={closeSlide} initialData={editingLanguage} />;
-            case "awards": return <AwardForm />;
-            case "countries": return <CountryForm />;
-            default: return null;
         }
     };
 
@@ -160,7 +133,7 @@ export default function AdminPanel() {
                             size="sm"
                             leftIcon={TAB_ICONS[tab]}
                             aria-current={activeTab === tab ? "page" : undefined}
-                            onClick={() => { setView({ tab }); closeSlide(); }}
+                            onClick={() => { setView({ tab }); setAddingEntry(false); }}
                             className="min-h-10 shrink-0 md:justify-start"
                         >
                             {t(`tabs.${tab}`)}
@@ -190,20 +163,6 @@ export default function AdminPanel() {
                     {renderTable()}
                 </div>
             </div>
-
-            {slideMode && isEditable(activeTab) && activeTab !== "books" && (
-                <div className="fixed md:absolute inset-0 md:inset-auto md:top-0 md:right-0 z-[999] w-full md:w-2/5 h-full bg-paperLight dark:bg-paperDark md:border-l border-dividerLight dark:border-dividerDark shadow-cardShadowLight dark:shadow-cardShadowDark animate-slide-in flex flex-col">
-                    <div className="flex justify-between items-center gap-2 px-4 md:px-6 py-3 md:py-4 border-b border-dividerLight dark:border-dividerDark shrink-0">
-                        <h2 className="text-base font-libre">{t(`${slideMode}.${activeTab}`)}</h2>
-                        <Button variant="ghost" size="sm" leftIcon={X} onClick={closeSlide} className="min-h-10">
-                            {t("panel.close")}
-                        </Button>
-                    </div>
-                    <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4">
-                        {renderForm()}
-                    </div>
-                </div>
-            )}
 
             <BookForm
                 open={shownBookModal !== null}

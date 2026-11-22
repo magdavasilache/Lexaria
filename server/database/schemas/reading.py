@@ -1,8 +1,9 @@
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
 from typing import Annotated, Literal
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import AfterValidator, Field, field_validator, model_validator
 
 from server.core.message_keys import MessageKey, key_error
 from server.database.models.edition import EDITION_PAGES_MAX
@@ -11,15 +12,30 @@ from server.database.models.reading_event import NOTE_MAX_LENGTH, ReadingEventTy
 from server.database.models.reading_session import PERCENT_MAX, PERCENT_MIN
 from server.database.models.user import READING_GOAL_MINUTES_MAX, READING_GOAL_MINUTES_MIN
 from server.database.models.user_book_status import ReadingStatus
-from server.database.schemas.base import InputSchema, OutputSchema
-from server.database.schemas.book import Id
+from server.database.schemas.base import Id, InputSchema, OutputSchema
 from server.database.schemas.edition import EditionOut
 
 CLOCK_SKEW = timedelta(minutes=1)
+TIMEZONE_MAX_LENGTH = 64
 
 Page = Annotated[int, Field(ge=0, le=EDITION_PAGES_MAX)]
 Percent = Annotated[Decimal, Field(ge=PERCENT_MIN, le=PERCENT_MAX, max_digits=5, decimal_places=2)]
 NoteContent = Annotated[str, Field(min_length=1, max_length=NOTE_MAX_LENGTH)]
+
+
+def _known_time_zone(value: str) -> str:
+    try:
+        ZoneInfo(value)
+    except (ZoneInfoNotFoundError, ValueError):
+        raise key_error(MessageKey.TIMEZONE_INVALID) from None
+    return value
+
+
+TimeZone = Annotated[
+    str,
+    Field(min_length=1, max_length=TIMEZONE_MAX_LENGTH, description="IANA time zone, e.g. Europe/Bucharest."),
+    AfterValidator(_known_time_zone),
+]
 
 
 def _not_in_future(value: datetime | None) -> datetime | None:
@@ -115,6 +131,16 @@ class ReadingGoalOut(OutputSchema):
     daily_reading_goal_minutes: int | None
 
 
+class ReadingTodayQuery(InputSchema):
+    tz: TimeZone = "UTC"
+
+
+class ReadingTodayOut(OutputSchema):
+    day: date
+    today_seconds: int
+    daily_reading_goal_minutes: int | None
+
+
 class SessionOut(OutputSchema):
     id: int
     reading_id: int
@@ -153,8 +179,6 @@ class ActiveSessionOut(SessionOut):
     book_title: str
     cover_url: str | None
     reading: ReadingOut
-    today_seconds: int
-    daily_reading_goal_minutes: int | None
 
 
 class ReadingEventOut(OutputSchema):

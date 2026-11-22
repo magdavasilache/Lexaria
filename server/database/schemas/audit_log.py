@@ -7,7 +7,6 @@ from server.core.message_keys import MessageKey, MessageParam, key_error
 from server.database.models.audit_log import (
     AUDIT_ACTION_MAX_LENGTH,
     AUDIT_KEY_MAX_LENGTH,
-    AUDIT_OUTCOME_MAX_LENGTH,
     AUDIT_PATH_MAX_LENGTH,
     ENTITY_TYPE_MAX_LENGTH,
     ERROR_CODE_MAX_LENGTH,
@@ -62,7 +61,7 @@ class AuditLogRead(OutputSchema):
     description_key: Annotated[str, Field(max_length=AUDIT_KEY_MAX_LENGTH)]
     params: dict[str, MessageParam]
     description: str
-    outcome: Annotated[str, Field(max_length=AUDIT_OUTCOME_MAX_LENGTH)]
+    outcome: AuditOutcome
     error_code: Annotated[str | None, Field(max_length=ERROR_CODE_MAX_LENGTH)]
     entity_type: Annotated[str | None, Field(max_length=ENTITY_TYPE_MAX_LENGTH)]
     entity_id: int | None

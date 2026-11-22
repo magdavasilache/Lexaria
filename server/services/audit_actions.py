@@ -88,4 +88,153 @@ AUDIT_ACTIONS: dict[AuditAction, AuditActionSpec] = {
         MessageKey.AUDIT_READING_STATUS_REMOVED,
         MessageKey.AUDIT_READING_STATUS_REMOVE_FAILED,
     ),
+    AuditAction.EDITION_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_EDITION_CREATE, MessageKey.AUDIT_EDITION_CREATED, MessageKey.AUDIT_EDITION_CREATE_FAILED
+    ),
+    AuditAction.EDITION_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_EDITION_UPDATE, MessageKey.AUDIT_EDITION_UPDATED, MessageKey.AUDIT_EDITION_UPDATE_FAILED
+    ),
+    AuditAction.EDITION_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_EDITION_DELETE, MessageKey.AUDIT_EDITION_DELETED, MessageKey.AUDIT_EDITION_DELETE_FAILED
+    ),
+    AuditAction.READING_SESSION_START: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_SESSION_START,
+        MessageKey.AUDIT_READING_SESSION_STARTED,
+        MessageKey.AUDIT_READING_SESSION_START_FAILED,
+    ),
+    AuditAction.READING_SESSION_PAUSE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_SESSION_PAUSE,
+        MessageKey.AUDIT_READING_SESSION_PAUSED,
+        MessageKey.AUDIT_READING_SESSION_PAUSE_FAILED,
+    ),
+    AuditAction.READING_SESSION_RESUME: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_SESSION_RESUME,
+        MessageKey.AUDIT_READING_SESSION_RESUMED,
+        MessageKey.AUDIT_READING_SESSION_RESUME_FAILED,
+    ),
+    AuditAction.READING_SESSION_END: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_SESSION_END,
+        MessageKey.AUDIT_READING_SESSION_ENDED,
+        MessageKey.AUDIT_READING_SESSION_END_FAILED,
+    ),
+    AuditAction.READING_SESSION_DISCARD: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_SESSION_DISCARD,
+        MessageKey.AUDIT_READING_SESSION_DISCARDED,
+        MessageKey.AUDIT_READING_SESSION_DISCARD_FAILED,
+    ),
+    AuditAction.READING_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_UPDATE,
+        MessageKey.AUDIT_READING_UPDATED,
+        MessageKey.AUDIT_READING_UPDATE_FAILED,
+    ),
+    AuditAction.READING_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_DELETE,
+        MessageKey.AUDIT_READING_DELETED,
+        MessageKey.AUDIT_READING_DELETE_FAILED,
+    ),
+    AuditAction.READING_NOTE_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_NOTE_CREATE,
+        MessageKey.AUDIT_READING_NOTE_CREATED,
+        MessageKey.AUDIT_READING_NOTE_CREATE_FAILED,
+    ),
+    AuditAction.READING_NOTE_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_NOTE_UPDATE,
+        MessageKey.AUDIT_READING_NOTE_UPDATED,
+        MessageKey.AUDIT_READING_NOTE_UPDATE_FAILED,
+    ),
+    AuditAction.READING_NOTE_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_NOTE_DELETE,
+        MessageKey.AUDIT_READING_NOTE_DELETED,
+        MessageKey.AUDIT_READING_NOTE_DELETE_FAILED,
+    ),
+    AuditAction.READING_GOAL_SET: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_READING_GOAL_SET,
+        MessageKey.AUDIT_READING_GOAL_SET,
+        MessageKey.AUDIT_READING_GOAL_SET_FAILED,
+    ),
+    AuditAction.CHALLENGE_SET: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHALLENGE_SET,
+        MessageKey.AUDIT_CHALLENGE_SET,
+        MessageKey.AUDIT_CHALLENGE_SET_FAILED,
+    ),
+    AuditAction.CHALLENGE_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_CHALLENGE_DELETE,
+        MessageKey.AUDIT_CHALLENGE_DELETED,
+        MessageKey.AUDIT_CHALLENGE_DELETE_FAILED,
+    ),
+    AuditAction.AUTHOR_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_AUTHOR_CREATE,
+        MessageKey.AUDIT_AUTHOR_CREATED,
+        MessageKey.AUDIT_AUTHOR_CREATE_FAILED,
+    ),
+    AuditAction.AUTHOR_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_AUTHOR_UPDATE,
+        MessageKey.AUDIT_AUTHOR_UPDATED,
+        MessageKey.AUDIT_AUTHOR_UPDATE_FAILED,
+    ),
+    AuditAction.AUTHOR_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_AUTHOR_DELETE,
+        MessageKey.AUDIT_AUTHOR_DELETED,
+        MessageKey.AUDIT_AUTHOR_DELETE_FAILED,
+    ),
+    AuditAction.LANGUAGE_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_LANGUAGE_CREATE,
+        MessageKey.AUDIT_LANGUAGE_CREATED,
+        MessageKey.AUDIT_LANGUAGE_CREATE_FAILED,
+    ),
+    AuditAction.LANGUAGE_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_LANGUAGE_UPDATE,
+        MessageKey.AUDIT_LANGUAGE_UPDATED,
+        MessageKey.AUDIT_LANGUAGE_UPDATE_FAILED,
+    ),
+    AuditAction.LANGUAGE_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_LANGUAGE_DELETE,
+        MessageKey.AUDIT_LANGUAGE_DELETED,
+        MessageKey.AUDIT_LANGUAGE_DELETE_FAILED,
+    ),
+    AuditAction.COUNTRY_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_COUNTRY_CREATE,
+        MessageKey.AUDIT_COUNTRY_CREATED,
+        MessageKey.AUDIT_COUNTRY_CREATE_FAILED,
+    ),
+    AuditAction.COUNTRY_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_COUNTRY_UPDATE,
+        MessageKey.AUDIT_COUNTRY_UPDATED,
+        MessageKey.AUDIT_COUNTRY_UPDATE_FAILED,
+    ),
+    AuditAction.COUNTRY_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_COUNTRY_DELETE,
+        MessageKey.AUDIT_COUNTRY_DELETED,
+        MessageKey.AUDIT_COUNTRY_DELETE_FAILED,
+    ),
+    AuditAction.GENRE_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_GENRE_CREATE,
+        MessageKey.AUDIT_GENRE_CREATED,
+        MessageKey.AUDIT_GENRE_CREATE_FAILED,
+    ),
+    AuditAction.GENRE_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_GENRE_UPDATE,
+        MessageKey.AUDIT_GENRE_UPDATED,
+        MessageKey.AUDIT_GENRE_UPDATE_FAILED,
+    ),
+    AuditAction.GENRE_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_GENRE_DELETE,
+        MessageKey.AUDIT_GENRE_DELETED,
+        MessageKey.AUDIT_GENRE_DELETE_FAILED,
+    ),
+    AuditAction.AWARD_CREATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_AWARD_CREATE,
+        MessageKey.AUDIT_AWARD_CREATED,
+        MessageKey.AUDIT_AWARD_CREATE_FAILED,
+    ),
+    AuditAction.AWARD_UPDATE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_AWARD_UPDATE,
+        MessageKey.AUDIT_AWARD_UPDATED,
+        MessageKey.AUDIT_AWARD_UPDATE_FAILED,
+    ),
+    AuditAction.AWARD_DELETE: AuditActionSpec(
+        MessageKey.AUDIT_ACTION_AWARD_DELETE,
+        MessageKey.AUDIT_AWARD_DELETED,
+        MessageKey.AUDIT_AWARD_DELETE_FAILED,
+    ),
 }

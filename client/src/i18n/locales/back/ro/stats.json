@@ -1,0 +1,5 @@
+{
+  "challengeEmpty": "Stabilește cel puțin un obiectiv: cărți, pagini sau ore.",
+  "challengeNotFound": "Nu ai o provocare de lectură pentru {{year}}.",
+  "challengeYearTooFar": "Poți stabili o provocare până în {{max}}."
+}

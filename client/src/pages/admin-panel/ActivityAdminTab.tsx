@@ -6,7 +6,7 @@ import DataTable, { Column, TableFilter } from "../../global-components/table/Da
 import { useDataTableState } from "../../global-components/table/useDataTableState";
 import { useAuditActions, useAuditLogs } from "../../api-handling/rtk-hooks/audit-log/useAuditLogs";
 import { serverKey, serverParams, translate } from "../../i18n/message";
-import { AUDIT_OUTCOMES, AuditLog, AuditOutcome } from "../../types/audit-log/auditLogTypes";
+import { AUDIT_OUTCOMES, AuditAction, AuditLog, AuditOutcome } from "../../types/audit-log/auditLogTypes";
 
 const STATE_KEY = "admin.activity";
 const PAGE_SIZE = 25;
@@ -24,7 +24,7 @@ const requestOf = (log: AuditLog) => [log.method, log.path].filter(Boolean).join
 export default function ActivityAdminTab() {
     const { t, i18n } = useTranslation("front/admin");
     const { state } = useDataTableState(STATE_KEY, PAGE_SIZE);
-    const action = (state.values.action as string | undefined) ?? "";
+    const action = (state.values.action as AuditAction | "" | undefined) ?? "";
     const outcome = (state.values.outcome as AuditOutcome | "" | undefined) ?? "";
     const dateFrom = (state.values.dateFrom as string | undefined) ?? "";
     const dateTo = (state.values.dateTo as string | undefined) ?? "";

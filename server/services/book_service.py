@@ -14,6 +14,7 @@ from server.database.models.language import Language
 from server.database.models.user import User
 from server.database.schemas.book import (
     AwardRef,
+    GenreRef,
     BookDescriptionOut,
     BookCreate,
     BookDetail,
@@ -23,11 +24,11 @@ from server.database.schemas.book import (
     RatingBucket,
     ReaderTag,
 )
-from server.database.schemas.genre import GenreOut
+from server.database.schemas.reading import ReadingOut
 from server.database.schemas.user_book_status import UserBookStatusOut
-from server.repositories import book_repository, reading_status_repository
+from server.repositories import book_repository, reading_repository, reading_status_repository
 from server.services import audit_service
-from server.services.book_images import delete_book_images, image_url, save_book_images
+from server.services.images import ImageFolder, delete_images, image_url, save_images
 
 READER_TAGS_SHOWN = 8
 
@@ -39,9 +40,7 @@ _REFERENCES: tuple[tuple[str, type, MessageKey, ErrorCode], ...] = (
 
 
 def _author_name(book: Book) -> str | None:
-    if book.author is None:
-        return None
-    return " ".join(part for part in (book.author.first_name, book.author.last_name) if part)
+    return book.author.full_name if book.author else None
 
 
 def _rating(book: Book) -> float | None:
@@ -58,10 +57,10 @@ def _list_item(book: Book) -> BookListItem:
         title=book.title,
         author_name=_author_name(book),
         language_name=book.language.name if book.language else None,
-        cover_url=image_url(book.images[0]) if book.images else None,
+        cover_url=image_url(ImageFolder.BOOKS, book.images[0]) if book.images else None,
         pages=book.pages,
         descriptions=_descriptions(book),
-        genres=[GenreOut.model_validate(genre) for genre in book.genres],
+        genres=[GenreRef.model_validate(genre) for genre in book.genres],
         average_rating=_rating(book),
         ratings_count=book.ratings_count,
     )
@@ -70,6 +69,7 @@ def _list_item(book: Book) -> BookListItem:
 def _detail(db: Session, book: Book, user: User) -> BookDetail:
     histogram = book_repository.rating_histogram(db, book.id)
     status = reading_status_repository.get_status(db, user.id, book.id)
+    active_reading = reading_repository.get_active_reading(db, user.id, book.id)
     return BookDetail(
         id=book.id,
         title=book.title,
@@ -80,14 +80,14 @@ def _detail(db: Session, book: Book, user: User) -> BookDetail:
         country_id=book.country_id,
         country_name=book.country.name if book.country else None,
         images=list(book.images),
-        image_urls=[image_url(name) for name in book.images],
+        image_urls=[image_url(ImageFolder.BOOKS, name) for name in book.images],
         pages=book.pages,
         published_at=book.published_at,
         descriptions=_descriptions(book),
         settings=list(book.settings),
         characters=list(book.characters),
         is_series=book.is_series,
-        genres=[GenreOut.model_validate(genre) for genre in book.genres],
+        genres=[GenreRef.model_validate(genre) for genre in book.genres],
         awards=[AwardRef.model_validate(award) for award in book.awards],
         average_rating=_rating(book),
         ratings_count=book.ratings_count,
@@ -99,6 +99,7 @@ def _detail(db: Session, book: Book, user: User) -> BookDetail:
             for tag, count in book_repository.reader_tags(db, book.id, READER_TAGS_SHOWN)
         ],
         user_book_status=UserBookStatusOut.model_validate(status) if status else None,
+        active_reading=ReadingOut.model_validate(active_reading) if active_reading else None,
         created_at=book.created_at,
         updated_at=book.updated_at,
     )
@@ -106,6 +107,13 @@ def _detail(db: Session, book: Book, user: User) -> BookDetail:
 
 def _book_not_found(book_id: int) -> NotFoundError:
     return NotFoundError(MessageKey.BOOK_NOT_FOUND, params={"book_id": book_id}, code=ErrorCode.BOOK_NOT_FOUND)
+
+
+def require_book(db: Session, book_id: int) -> Book:
+    book = db.get(Book, book_id)
+    if book is None:
+        raise _book_not_found(book_id)
+    return book
 
 
 def _load(db: Session, book_id: int) -> Book:
@@ -181,12 +189,12 @@ def create_book(db: Session, form: BookCreate, user: User) -> BookDetail:
         with audit_service.track(db, AuditAction.BOOK_CREATE, actor=user, params=params) as entry:
             book = Book(created_by_id=user.id)
             _apply(db, book, form)
-            saved = save_book_images(form.images)
+            saved = save_images(form.images, ImageFolder.BOOKS, "images")
             book.images = saved
             book_repository.add_book(db, book)
             entry.set_entity("book", book.id)
     except BaseException:
-        delete_book_images(saved)
+        delete_images(saved, ImageFolder.BOOKS)
         raise
     return get_book(db, book.id, user)
 
@@ -220,14 +228,14 @@ def update_book(db: Session, book_id: int, form: BookUpdate, user: User) -> Book
             _check_images(book, form)
             _apply(db, book, form)
             entry.params["title"] = book.title
-            saved = save_book_images(form.images)
+            saved = save_images(form.images, ImageFolder.BOOKS, "images")
             removed = [name for name in book.images if name not in form.kept_images]
             book.images = [*form.kept_images, *saved]
             db.flush()
     except BaseException:
-        delete_book_images(saved)
+        delete_images(saved, ImageFolder.BOOKS)
         raise
-    delete_book_images(removed)
+    delete_images(removed, ImageFolder.BOOKS)
     db.expire_all()
     return get_book(db, book_id, user)
 
@@ -240,4 +248,4 @@ def delete_book(db: Session, book_id: int, user: User) -> None:
         entry.params["title"] = book.title
         images = list(book.images)
         book_repository.delete_book(db, book)
-    delete_book_images(images)
+    delete_images(images, ImageFolder.BOOKS)

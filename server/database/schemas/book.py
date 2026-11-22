@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 from enum import StrEnum
 from typing import Annotated
 
@@ -8,6 +8,7 @@ import re
 from pydantic import Field, Json, field_validator
 
 from server.core.message_keys import MessageKey, key_error
+from server.database.models.award import AWARD_NAME_MAX_LENGTH
 from server.database.models.book import (
     BOOK_IMAGES_MAX,
     DESCRIPTION_LANGUAGE_MAX_LENGTH,
@@ -21,16 +22,15 @@ from server.database.models.book import (
     SYNOPSIS_MAX_LENGTH,
     TITLE_MAX_LENGTH,
 )
-from server.database.schemas.base import InputSchema, OutputSchema
-from server.database.schemas.genre import GenreOut
+from server.database.models.genres import GENRE_NAME_MAX_LENGTH
+from server.database.schemas.base import Id, InputSchema, OutputSchema, published_at_not_too_far
+from server.database.schemas.reading import ReadingOut
 from server.database.schemas.user_book_status import UserBookStatusOut
 
 BOOK_PAGE_SIZE_DEFAULT = 24
 BOOK_PAGE_SIZE_MAX = 100
 FILTER_IDS_MAX = 50
-PUBLISHED_AT_MAX_DAYS_AHEAD = 365
 
-Id = Annotated[int, Field(ge=1)]
 ListItem = Annotated[str, Field(min_length=1, max_length=LIST_ITEM_MAX_LENGTH)]
 ImageName = Annotated[str, Field(min_length=1, max_length=IMAGE_NAME_MAX_LENGTH)]
 Title = Annotated[str, Field(min_length=1, max_length=TITLE_MAX_LENGTH)]
@@ -38,12 +38,6 @@ Title = Annotated[str, Field(min_length=1, max_length=TITLE_MAX_LENGTH)]
 
 def _unique(values: list) -> list:
     return list(dict.fromkeys(values))
-
-
-def published_at_not_too_far(value: date | None) -> date | None:
-    if value is not None and value > date.today() + timedelta(days=PUBLISHED_AT_MAX_DAYS_AHEAD):
-        raise key_error(MessageKey.PUBLISHED_TOO_FAR)
-    return value
 
 
 DescriptionLanguage = Annotated[str, Field(min_length=2, max_length=DESCRIPTION_LANGUAGE_MAX_LENGTH)]
@@ -138,9 +132,14 @@ class BookListQuery(InputSchema):
     limit: Annotated[int, Field(ge=1, le=BOOK_PAGE_SIZE_MAX)] = BOOK_PAGE_SIZE_DEFAULT
 
 
+class GenreRef(OutputSchema):
+    id: int
+    name: Annotated[str, Field(max_length=GENRE_NAME_MAX_LENGTH)]
+
+
 class AwardRef(OutputSchema):
     id: int
-    name: str
+    name: Annotated[str, Field(max_length=AWARD_NAME_MAX_LENGTH)]
     year: int | None
 
 
@@ -162,7 +161,7 @@ class BookListItem(OutputSchema):
     cover_url: str | None
     pages: int | None
     descriptions: list[BookDescriptionOut]
-    genres: list[GenreOut]
+    genres: list[GenreRef]
     average_rating: float | None
     ratings_count: int
 
@@ -184,12 +183,13 @@ class BookDetail(OutputSchema):
     settings: list[str]
     characters: list[str]
     is_series: bool
-    genres: list[GenreOut]
+    genres: list[GenreRef]
     awards: list[AwardRef]
     average_rating: float | None
     ratings_count: int
     rating_histogram: list[RatingBucket]
     reader_tags: list[ReaderTag]
     user_book_status: UserBookStatusOut | None
+    active_reading: ReadingOut | None
     created_at: datetime
     updated_at: datetime

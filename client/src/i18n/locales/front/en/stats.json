@@ -1,0 +1,135 @@
+{
+  "title": "Reading stats",
+  "subtitle": "Your reading in {{year}}, counted in your time zone.",
+  "yearLabel": "Year",
+  "loading": "Loading your stats…",
+  "totals": {
+    "label": "Totals for {{year}}",
+    "books": "Books finished",
+    "allTime": "{{value}} all time",
+    "pages": "Pages read",
+    "pagesHint": "From sessions with a start and end",
+    "time": "Time read",
+    "sessions_one": "{{value}} session",
+    "sessions_other": "{{value}} sessions",
+    "days": "Reading days",
+    "daysHint": "Days with a finished session",
+    "rating": "Average rating",
+    "ratingValue": "{{value}} / 5",
+    "ratingHint": "Your ratings of books finished this year",
+    "noRating": "No ratings yet"
+  },
+  "metrics": {
+    "books": "Books",
+    "pages": "Pages",
+    "hours": "Hours"
+  },
+  "units": {
+    "books_one": "{{value}} book",
+    "books_other": "{{value}} books",
+    "pages_one": "{{value}} page",
+    "pages_other": "{{value}} pages",
+    "hours_one": "{{value}} hour",
+    "hours_other": "{{value}} hours"
+  },
+  "challenge": {
+    "title": "{{year}} challenge",
+    "empty": "You haven't set a challenge for {{year}}.",
+    "emptyHint": "Pick a target for books, pages or hours and follow your pace through the year.",
+    "set": "Set a challenge",
+    "edit": "Edit challenge",
+    "valueOfTarget": "{{value}} / {{target}}",
+    "meterText": "{{value}} of {{target}}",
+    "paceKey": "The tick marks where an even pace would put you today."
+  },
+  "pace": {
+    "on_track": "On track",
+    "completed": "Completed",
+    "ahead": "{{amount}} ahead",
+    "behind": "{{amount}} behind",
+    "missed": "Missed by {{amount}}"
+  },
+  "form": {
+    "title": "{{year}} reading challenge",
+    "description": "Set any mix of targets. Leave a field empty to skip it.",
+    "targetsHint": "Set at least one target.",
+    "booksHelper": "From 1 to {{challengeBooksMax}} books",
+    "pagesHelper": "From 1 to {{challengePagesMax}} pages",
+    "hoursHelper": "From 1 to {{challengeHoursMax}} hours",
+    "submit": "Save challenge",
+    "submitting": "Saving…",
+    "delete": "Delete challenge",
+    "deleteConfirm": "Delete your {{year}} challenge? Your reading history stays.",
+    "keep": "Keep it",
+    "deleting": "Deleting…"
+  },
+  "validation": {
+    "targetRequired": "Set at least one target: books, pages or hours.",
+    "booksRange": "Enter a whole number from 1 to {{challengeBooksMax}}.",
+    "pagesRange": "Enter a whole number from 1 to {{challengePagesMax}}.",
+    "hoursRange": "Enter a whole number from 1 to {{challengeHoursMax}}."
+  },
+  "snackbar": {
+    "challengeSaved": "Your {{year}} challenge is saved.",
+    "challengeDeleted": "Your {{year}} challenge was deleted."
+  },
+  "streak": {
+    "title": "Streak",
+    "current": "Current streak",
+    "longest": "Longest streak",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "lastDays": "Last 7 days",
+    "today": "Today",
+    "start": "Finish a session today to start a streak.",
+    "keep": "Finish a session today to keep your streak going.",
+    "kept": "You've read today. Your streak is safe.",
+    "day": "{{day}}: {{value}}",
+    "noReading": "No reading"
+  },
+  "chart": {
+    "title": "By month",
+    "metricsLabel": "Chart measure",
+    "metrics": {
+      "books": "Books",
+      "pages": "Pages",
+      "time": "Hours"
+    },
+    "caption": {
+      "books": "Books finished per month in {{year}}",
+      "pages": "Pages read per month in {{year}}",
+      "time": "Hours read per month in {{year}}"
+    },
+    "empty": {
+      "books": "No books finished in {{year}} yet.",
+      "pages": "No pages logged in {{year}} yet.",
+      "time": "No reading time logged in {{year}} yet."
+    },
+    "bar": "{{month}}: {{value}}",
+    "tableCaption": "Reading per month in {{year}}",
+    "table": {
+      "month": "Month",
+      "books": "Books finished",
+      "pages": "Pages read",
+      "time": "Hours read"
+    }
+  },
+  "genres": {
+    "title": "Top genres",
+    "empty": "Finish a book in {{year}} to see your genres.",
+    "hint": "Rereads count again; a book can have several genres."
+  },
+  "formats": {
+    "title": "Formats",
+    "empty": "Finish a book in {{year}} to see the formats you read.",
+    "unknown": "No edition chosen"
+  },
+  "breakdown": {
+    "row": "{{name}}: {{value}}"
+  },
+  "empty": {
+    "title": "No reading recorded in {{year}}",
+    "hint": "Start a session from any book page or finish a book, and your stats will appear here.",
+    "browse": "Browse books"
+  }
+}

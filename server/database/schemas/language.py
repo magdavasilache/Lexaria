@@ -1,24 +1,16 @@
-from typing import Optional
-from pydantic import BaseModel
-from server.database.schemas.global_schemas import RequestResponse
+from typing import Annotated
 
-class LanguageBase(BaseModel):
-    name: str
+from pydantic import Field
 
-class LanguageCreate(LanguageBase):
-    pass
+from server.database.models.language import LANGUAGE_NAME_MAX_LENGTH
+from server.database.schemas.base import InputSchema, OutputSchema, name_field
 
-class LanguageOut(LanguageBase):
+
+class LanguageIn(InputSchema):
+    name: name_field(LANGUAGE_NAME_MAX_LENGTH)
+
+
+class LanguageOut(OutputSchema):
     id: int
-
-    class Config:
-        from_attributes = True
-
-class CreateLanguageResponse(RequestResponse):
-    data: Optional[LanguageOut] = None
-
-class GetLanguagesResponse(RequestResponse):
-    data: Optional[list[LanguageOut]] = None
-
-class DeleteLanguageResponse(RequestResponse):
-    data: bool
+    name: Annotated[str, Field(max_length=LANGUAGE_NAME_MAX_LENGTH)]
+    books_count: int

@@ -1,29 +1,21 @@
-from typing import Optional
-from pydantic import BaseModel
+from typing import Annotated
 
-from server.database.schemas.global_schemas import RequestResponse
+from pydantic import Field
+
+from server.database.models.country import COUNTRY_NAME_MAX_LENGTH
+from server.database.models.language import LANGUAGE_NAME_MAX_LENGTH
+from server.database.schemas.base import Id, InputSchema, OutputSchema, name_field
 
 
-class CountryBase(BaseModel):
-    name: str
+class CountryIn(InputSchema):
+    name: name_field(COUNTRY_NAME_MAX_LENGTH)
+    language_id: Id | None = None
 
-class CountryCreateSchema(CountryBase):
-    language_id: Optional[int] = None
 
-class CountryOut(CountryBase):
+class CountryOut(OutputSchema):
     id: int
-
-    class Config:
-        from_attributes = True
-
-class CreateCountryResponse(RequestResponse):
-    data: Optional[CountryOut] = None
-
-class FormCountryOut(CountryBase):
-    id: int
-
-    class Config:
-        from_attributes = True
-
-class GetFormCountriesResponse(RequestResponse):
-    data: Optional[list[FormCountryOut]] = None
+    name: Annotated[str, Field(max_length=COUNTRY_NAME_MAX_LENGTH)]
+    language_id: int | None
+    language_name: Annotated[str | None, Field(max_length=LANGUAGE_NAME_MAX_LENGTH)]
+    books_count: int
+    authors_count: int

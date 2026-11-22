@@ -290,6 +290,7 @@ export default {
         linkLight: forest[700],
         linkHoverLight: forest[800],
         dividerLight: '#E8DDD5',
+        chartLight: forest[600],
         borderStrongLight: parchment[500],
 
         onPrimaryLight: '#F0FDF4',
@@ -384,6 +385,7 @@ export default {
         linkDark: rose[300],
         linkHoverDark: rose[200],
         dividerDark: espresso[700],
+        chartDark: rose[500],
         borderStrongDark: espresso[600],
 
         onPrimaryDark: '#1F1F1F',
@@ -578,6 +580,7 @@ export default {
         'page-turn': 'page-turn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both',
         'typing-dot': 'typing-dot 1.2s ease-in-out infinite',
         'spin-slow': 'spin 3s linear infinite',
+        'spin-calm': 'spin 14s linear infinite',
       },
 
       borderRadius: {

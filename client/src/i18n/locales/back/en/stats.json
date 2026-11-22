@@ -1,0 +1,5 @@
+{
+  "challengeEmpty": "Set at least one target: books, pages or hours.",
+  "challengeNotFound": "You have no reading challenge for {{year}}.",
+  "challengeYearTooFar": "You can set a challenge up to {{max}}."
+}

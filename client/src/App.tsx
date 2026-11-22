@@ -10,16 +10,20 @@ import BookPage from "./pages/book-page/BookPage";
 import GoodreadsImportPage from "./pages/goodreads-import-page/GoodreadImportPage";
 import { memo } from "react";
 import AdminPanel from "./pages/admin-panel/AdminPanel";
+import StatsPage from "./pages/stats-page/StatsPage";
 import Chatbot from "./global-components/chatbot/Chatbot";
 import { useSessionKeeper } from "./api-handling/authentication/useSessionKeeper";
 import { ProtectedRoute } from "./pages/homepage/ProtectedRoute";
+import ReadingSessionOverlay from "./global-components/reading-session/ReadingSessionOverlay";
+import { useTranslation } from "react-i18next";
 
 const ThemeButton = memo(function ThemeButton({ onClick }: { onClick: () => void }) {
+    const { t } = useTranslation()
     return (
         <Button
             onClick={onClick}
             icon={Palette}
-            aria-label="Change theme"
+            aria-label={t("theme.toggle")}
             variant="secondary"
             size="lg"
             className="fixed bottom-4 right-4 z-50 hover:scale-105"
@@ -40,6 +44,7 @@ function App() {
                     <Route path="/homepage" element={<HomePage />} />
                     <Route path="/book/:id" element={<BookPage />} />
                     <Route path="/goodreads-import" element={<GoodreadsImportPage />} />
+                    <Route path="/stats" element={<StatsPage />} />
                 </Route>
                 <Route element={<ProtectedRoute requireAdmin />}>
                     <Route path="/admin-panel" element={<AdminPanel />} />
@@ -47,7 +52,7 @@ function App() {
             </Routes>
             <ThemeButton onClick={toggleTheme} />
             <Chatbot />
-
+            <ReadingSessionOverlay />
         </BrowserRouter>
     )
 }

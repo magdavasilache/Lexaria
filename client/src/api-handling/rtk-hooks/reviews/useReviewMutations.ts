@@ -11,6 +11,7 @@ import {
 import { useSnackbarStore } from "../../context/snackbar/useSnackbarStore";
 import { bookKeys } from "../books/bookKeys";
 import { reviewKeys, updateComment, updateReviews } from "./reviewKeys";
+import { statsKeys } from "../stats/statsKeys";
 
 const useRefreshBook = () => {
   const queryClient = useQueryClient();
@@ -19,6 +20,7 @@ const useRefreshBook = () => {
     queryClient.invalidateQueries({ queryKey: bookKeys.detail(bookId) });
     queryClient.invalidateQueries({ queryKey: bookKeys.lists() });
     queryClient.invalidateQueries({ queryKey: bookKeys.admin() });
+    queryClient.invalidateQueries({ queryKey: statsKeys.all });
   };
 };
 

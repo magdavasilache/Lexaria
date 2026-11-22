@@ -1,8 +1,7 @@
-import { ArrowUpDown, Languages, Star, UserRound } from "lucide-react";
+import { ArrowUpDown, Languages, Star, Tags, UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useBooksStore } from "../../../state_management/useBooksStore";
-import { useGetFormAuthors } from "../../../api-handling/rtk-hooks/author/useGetFormAuthors";
-import { useGetLanguages } from "../../../api-handling/rtk-hooks/language/useGetLanguages";
+import { authorOptions, useAuthors, useGenres, useLanguages } from "../../../api-handling/rtk-hooks/catalog/useCatalog";
 import AutocompleteField from "../../../forms/components/AutocompleteField";
 import SelectField from "../../../forms/components/SelectField";
 import Button from "../../../global-components/buttons/Button";
@@ -17,8 +16,9 @@ export default function BookFilters() {
     const filters = useBooksStore((s) => s.filters);
     const setFilters = useBooksStore((s) => s.setFilters);
     const clearFilters = useBooksStore((s) => s.clearFilters);
-    const authors = useGetFormAuthors().data;
-    const languages = useGetLanguages().data;
+    const authors = authorOptions(useAuthors().data);
+    const languages = useLanguages().data;
+    const genres = useGenres().data;
 
     const activeCount =
         filters.genre_ids.length +
@@ -38,10 +38,22 @@ export default function BookFilters() {
                         multiple
                         label={t("filters.author")}
                         hideLabel
-                        options={authors ?? []}
+                        options={authors}
                         value={filters.author_ids}
                         placeholder={t("filters.addAuthor")}
                         onChange={(ids) => setFilters({ author_ids: ids })}
+                    />
+                </FilterSection>
+
+                <FilterSection icon={Tags} label={t("filters.genre")}>
+                    <AutocompleteField
+                        multiple
+                        label={t("filters.genre")}
+                        hideLabel
+                        options={genres ?? []}
+                        value={filters.genre_ids}
+                        placeholder={t("filters.addGenre")}
+                        onChange={(ids) => setFilters({ genre_ids: ids })}
                     />
                 </FilterSection>
 

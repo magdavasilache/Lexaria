@@ -4,6 +4,7 @@ from typing import Annotated
 from pydantic import Field, ValidationInfo, field_validator
 
 from server.core.message_keys import MessageKey, key_error
+from server.database.models.book import TITLE_MAX_LENGTH
 from server.database.models.edition import (
     EDITION_PAGES_MAX,
     ISBN_INPUT_MAX_LENGTH,
@@ -13,8 +14,11 @@ from server.database.models.edition import (
     TRANSLATOR_MAX_LENGTH,
     EditionFormat,
 )
-from server.database.schemas.base import InputSchema, OutputSchema
-from server.database.schemas.book import Id, published_at_not_too_far
+from server.database.models.user import USERNAME_MAX_LENGTH
+from server.database.schemas.base import Id, InputSchema, OutputSchema, published_at_not_too_far
+
+EDITION_PAGE_SIZE_DEFAULT = 50
+EDITION_PAGE_SIZE_MAX = 100
 
 
 def _isbn10_check_digit_valid(digits: str) -> bool:
@@ -97,3 +101,13 @@ class EditionOut(OutputSchema):
     created_by_id: int | None
     created_at: datetime
     updated_at: datetime
+
+
+class EditionListQuery(InputSchema):
+    offset: Annotated[int, Field(ge=0)] = 0
+    limit: Annotated[int, Field(ge=1, le=EDITION_PAGE_SIZE_MAX)] = EDITION_PAGE_SIZE_DEFAULT
+
+
+class EditionAdminOut(EditionOut):
+    book_title: Annotated[str, Field(max_length=TITLE_MAX_LENGTH)]
+    created_by_username: Annotated[str | None, Field(max_length=USERNAME_MAX_LENGTH)]

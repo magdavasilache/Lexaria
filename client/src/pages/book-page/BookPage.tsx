@@ -7,6 +7,9 @@ import Button from "../../global-components/buttons/Button"
 import { StarsDisplay } from "../../forms/components/RatingField"
 import ImageCarousel from "./components/ImageCarousel"
 import StatusBookSetter from "./components/StatusBookSetter"
+import StartSessionButton from "./components/reading/StartSessionButton"
+import ReadingProgress from "./components/reading/ReadingProgress"
+import ReadingJourney from "./components/journey/ReadingJourney"
 import ReadingStats from "./components/ReadingStats"
 import ReaderTags from "./components/ReaderTags"
 import ReviewsSection from "./components/review_section/ReviewsSection"
@@ -65,6 +68,8 @@ export default function BookPage() {
                         <ImageCarousel title={book.title} imageUrls={book.image_urls} />
                     </div>
                     <StatusBookSetter bookId={book.id} status={book.user_book_status?.status} />
+                    <StartSessionButton bookId={book.id} reading={book.active_reading} />
+                    {book.active_reading && <ReadingProgress reading={book.active_reading} />}
                     <ReviewForm bookId={book.id} />
                     <MyRating bookId={book.id} />
                 </aside>
@@ -75,6 +80,7 @@ export default function BookPage() {
                         <Synopsis book={book} />
                         <BookDetails book={book} />
                     </article>
+                    <ReadingJourney bookId={book.id} />
                     <div className="lg:hidden">{sidebar}</div>
                     <ReviewsSection bookId={book.id} stars={stars} onClearStars={() => setStars(null)} />
                 </main>

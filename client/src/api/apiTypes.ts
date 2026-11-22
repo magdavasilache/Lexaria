@@ -1,4 +1,5 @@
 import type { AxiosError } from "axios";
+import type { components, operations } from "./schema";
 import { Message, MessageParams, serverKey, serverParams } from "../i18n/message";
 
 export type ApiErrorItem = {
@@ -17,6 +18,10 @@ export type ApiWarning = {
   params: MessageParams;
   message: string;
 };
+
+export type Schema<Name extends keyof components["schemas"]> = components["schemas"][Name];
+
+export type QueryParams<Operation extends keyof operations> = NonNullable<operations[Operation]["parameters"]["query"]>;
 
 export type ApiResponse<T> = {
   success: boolean;

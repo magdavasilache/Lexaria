@@ -12,6 +12,8 @@
     "filters": {
         "author": "Autor",
         "addAuthor": "Adaugă un autor…",
+        "genre": "Gen",
+        "addGenre": "Adaugă un gen…",
         "language": "Limbă",
         "addLanguage": "Adaugă o limbă…",
         "rating": "Notă minimă",
@@ -134,14 +136,18 @@
             "characters": "Personaje",
             "images": "Imagini",
             "synopsisLanguage": "Limba rezumatului",
-            "synopsisIn": "Rezumat în {{language}}"
+            "synopsisIn": "Rezumat în {{language}}",
+            "genres": "Genuri",
+            "awards": "Premii"
         },
         "placeholders": {
             "author": "Alege un autor…",
             "language": "Alege o limbă…",
             "country": "Alege o țară…",
             "settings": "Londra, Paris",
-            "characters": "Elizabeth Bennet, domnul Darcy"
+            "characters": "Elizabeth Bennet, domnul Darcy",
+            "genres": "Adaugă un gen…",
+            "awards": "Adaugă un premiu…"
         },
         "helpers": {
             "title": "Cel mult {{bookTitleMax}} de caractere.",
@@ -152,7 +158,9 @@
             "images": "JPG, PNG sau WebP, cel mult {{bookImageMaxMb}} MB fiecare, maximum {{bookImagesMax}} imagini. Prima este coperta.",
             "descriptions": "Cititorii văd rezumatul întâi în limba lor, apoi în engleză.",
             "writtenIn": "Scris în: {{languages}}.",
-            "notWrittenYet": "Încă nu există rezumat. Alege o limbă și scrie unul."
+            "notWrittenYet": "Încă nu există rezumat. Alege o limbă și scrie unul.",
+            "genres": "Opțional. Cel mult {{bookListMaxItems}} de genuri. Adaugă-le pe cele care lipsesc în fila Genuri.",
+            "awards": "Opțional. Cel mult {{bookListMaxItems}} de premii. Adaugă-le pe cele care lipsesc în fila Premii."
         },
         "images": {
             "add": "Adaugă imagini",

@@ -1,0 +1,130 @@
+{
+  "form": {
+    "submitAdd": "Adaugă",
+    "submitEdit": "Salvează modificările",
+    "submitting": "Se salvează…",
+    "fields": {
+      "name": "Nume",
+      "officialLanguage": "Limba oficială",
+      "year": "An",
+      "description": "Descriere",
+      "firstName": "Prenume",
+      "lastName": "Nume de familie",
+      "birthdate": "Data nașterii",
+      "country": "Țară",
+      "about": "Despre",
+      "image": "Portret"
+    },
+    "placeholders": {
+      "language": "Alege o limbă…",
+      "country": "Alege o țară…"
+    },
+    "helpers": {
+      "languagesName": "Cel mult {{languageNameMax}} de caractere, de ex. Română. Fiecare limbă poate fi adăugată o singură dată.",
+      "genresName": "Cel mult {{genreNameMax}} de caractere, de ex. Realism magic. Fiecare gen poate fi adăugat o singură dată.",
+      "countriesName": "Cel mult {{countryNameMax}} de caractere, de ex. România. Fiecare țară poate fi adăugată o singură dată.",
+      "officialLanguage": "Opțional.",
+      "awardsName": "Cel mult {{awardNameMax}} de caractere, de ex. Premiul Hugo pentru cel mai bun roman.",
+      "year": "Între {{awardYearMin}} și anul curent. Opțional.",
+      "description": "Opțional, cel mult {{awardDescriptionMax}} de caractere.",
+      "firstName": "Cel mult {{authorNameMax}} de caractere. Pentru un singur nume, precum Homer, completează doar acest câmp.",
+      "lastName": "Opțional, cel mult {{authorNameMax}} de caractere. Autorii sunt ordonați după numele de familie.",
+      "birthdate": "Opțional. Nu poate fi în viitor.",
+      "country": "Opțional.",
+      "about": "Opțional, cel mult {{authorAboutMax}} de caractere.",
+      "image": "Opțional. JPG, PNG sau WebP, cel mult {{authorImageMaxMb}} MB."
+    },
+    "image": {
+      "choose": "Alege o imagine",
+      "replace": "Înlocuiește imaginea",
+      "remove": "Elimină imaginea",
+      "keep": "Păstrează imaginea actuală",
+      "removedNote": "Portretul este eliminat când salvezi.",
+      "alt": "Portretul lui {{name}}",
+      "newAuthor": "noul autor"
+    }
+  },
+  "admin": {
+    "columns": {
+      "name": "Nume",
+      "books": "Cărți",
+      "authors": "Autori",
+      "language": "Limbă",
+      "country": "Țară",
+      "year": "An",
+      "birthdate": "Născut",
+      "portrait": "Portret"
+    },
+    "empty": {
+      "authors": "Încă nu există autori.",
+      "genres": "Încă nu există genuri.",
+      "languages": "Încă nu există limbi.",
+      "awards": "Încă nu există premii.",
+      "countries": "Încă nu există țări."
+    },
+    "deleteTitle": {
+      "authors": "Șterge autorul",
+      "genres": "Șterge genul",
+      "languages": "Șterge limba",
+      "awards": "Șterge premiul",
+      "countries": "Șterge țara"
+    },
+    "deleteConfirm": {
+      "authors": "Ștergi „{{name}}”? Cărțile sale rămân în catalog fără autor. Acțiunea nu poate fi anulată.",
+      "genres": "Ștergi „{{name}}”? Genul este eliminat de la toate cărțile și din genurile preferate ale cititorilor. Acțiunea nu poate fi anulată.",
+      "languages": "Ștergi „{{name}}”? Cărțile, edițiile și țările care o folosesc rămân fără limbă. Acțiunea nu poate fi anulată.",
+      "awards": "Ștergi „{{name}}”? Premiul este eliminat de la toate cărțile care l-au câștigat. Acțiunea nu poate fi anulată.",
+      "countries": "Ștergi „{{name}}”? Cărțile și autorii din această țară rămân fără țară. Acțiunea nu poate fi anulată."
+    },
+    "usedByBooks_one": "Apare la {{count}} carte.",
+    "usedByBooks_few": "Apare la {{count}} cărți.",
+    "usedByBooks_other": "Apare la {{count}} de cărți.",
+    "usedByAuthors_one": "Apare la {{count}} autor.",
+    "usedByAuthors_few": "Apare la {{count}} autori.",
+    "usedByAuthors_other": "Apare la {{count}} de autori.",
+    "usedByAwardBooks_one": "Acordat la {{count}} carte.",
+    "usedByAwardBooks_few": "Acordat la {{count}} cărți.",
+    "usedByAwardBooks_other": "Acordat la {{count}} de cărți.",
+    "usedByAuthorBooks_one": "Are {{count}} carte în catalog.",
+    "usedByAuthorBooks_few": "Are {{count}} cărți în catalog.",
+    "usedByAuthorBooks_other": "Are {{count}} de cărți în catalog.",
+    "delete": "Șterge",
+    "deleting": "Se șterge…"
+  },
+  "snackbar": {
+    "created": {
+      "authors": "Autorul „{{name}}” a fost adăugat.",
+      "genres": "Genul „{{name}}” a fost adăugat.",
+      "languages": "Limba „{{name}}” a fost adăugată.",
+      "awards": "Premiul „{{name}}” a fost adăugat.",
+      "countries": "Țara „{{name}}” a fost adăugată."
+    },
+    "updated": {
+      "authors": "Autorul „{{name}}” a fost salvat.",
+      "genres": "Genul „{{name}}” a fost salvat.",
+      "languages": "Limba „{{name}}” a fost salvată.",
+      "awards": "Premiul „{{name}}” a fost salvat.",
+      "countries": "Țara „{{name}}” a fost salvată."
+    },
+    "deleted": {
+      "authors": "Autorul „{{name}}” a fost șters.",
+      "genres": "Genul „{{name}}” a fost șters.",
+      "languages": "Limba „{{name}}” a fost ștearsă.",
+      "awards": "Premiul „{{name}}” a fost șters.",
+      "countries": "Țara „{{name}}” a fost ștearsă."
+    }
+  },
+  "validation": {
+    "countryNameMax": "Folosește cel mult {{countryNameMax}} de caractere.",
+    "awardNameMax": "Folosește cel mult {{awardNameMax}} de caractere.",
+    "awardYear": "Introdu un an între {{awardYearMin}} și anul curent.",
+    "descriptionMax": "Folosește cel mult {{awardDescriptionMax}} de caractere.",
+    "authorNameMax": "Folosește cel mult {{authorNameMax}} de caractere.",
+    "birthdateFuture": "Data nașterii nu poate fi în viitor.",
+    "aboutMax": "Folosește cel mult {{authorAboutMax}} de caractere.",
+    "imageType": "Folosește o imagine JPG, PNG sau WebP.",
+    "imageSize": "Imaginea poate avea cel mult {{authorImageMaxMb}} MB.",
+    "languagesNameMax": "Folosește cel mult {{languageNameMax}} de caractere.",
+    "genresNameMax": "Folosește cel mult {{genreNameMax}} de caractere."
+  }
+}

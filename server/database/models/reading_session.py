@@ -6,16 +6,13 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from server.database.database import Base
 from server.database.models.edition import EDITION_PAGES_MAX
+from server.database.models.user_session import as_utc
 
 PERCENT_MIN = Decimal("0")
 PERCENT_MAX = Decimal("100")
 MAX_SESSION_HOURS = 12
 
 _ACTIVE = "ended_at IS NULL"
-
-
-def _aware(moment: datetime) -> datetime:
-    return moment if moment.tzinfo else moment.replace(tzinfo=timezone.utc)
 
 
 def percent_range_check(column: str, table: str) -> CheckConstraint:
@@ -87,7 +84,7 @@ class ReadingSession(Base):
         return self.paused_at is not None
 
     def seconds_until(self, moment: datetime) -> int:
-        return max(0, int((_aware(moment) - _aware(self.started_at)).total_seconds()) - self.paused_seconds)
+        return max(0, int((as_utc(moment) - as_utc(self.started_at)).total_seconds()) - self.paused_seconds)
 
     @property
     def elapsed_seconds(self) -> int:

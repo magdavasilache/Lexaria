@@ -39,7 +39,11 @@
     "goodreadsImport": "Import din Goodreads",
     "addBook": "Adaugă o carte",
     "adminPanel": "Panou de administrare",
-    "logout": "Deconectare"
+    "logout": "Deconectare",
+    "readingGoal": "Obiectiv zilnic de lectură",
+    "readingGoalValue": "{{minutes}} min/zi",
+    "readingGoalNotSet": "Nestabilit",
+    "stats": "Statistici de lectură"
   },
   "fields": {
     "charactersLeft_one": "{{count}} caracter rămas",
@@ -108,6 +112,10 @@
     "home": "Acasă",
     "book": "Carte",
     "goodreadsImport": "Import Goodreads",
-    "adminPanel": "Panou de administrare"
+    "adminPanel": "Panou de administrare",
+    "stats": "Statistici de lectură"
+  },
+  "theme": {
+    "toggle": "Schimbă tema"
   }
 }

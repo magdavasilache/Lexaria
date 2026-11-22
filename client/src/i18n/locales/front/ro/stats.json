@@ -1,0 +1,140 @@
+{
+  "title": "Statistici de lectură",
+  "subtitle": "Lecturile tale din {{year}}, calculate în fusul tău orar.",
+  "yearLabel": "Anul",
+  "loading": "Se încarcă statisticile…",
+  "totals": {
+    "label": "Totaluri pentru {{year}}",
+    "books": "Cărți terminate",
+    "allTime": "{{value}} în total",
+    "pages": "Pagini citite",
+    "pagesHint": "Din sesiunile cu început și sfârșit",
+    "time": "Timp de lectură",
+    "sessions_one": "{{value}} sesiune",
+    "sessions_few": "{{value}} sesiuni",
+    "sessions_other": "{{value}} de sesiuni",
+    "days": "Zile de lectură",
+    "daysHint": "Zile cu o sesiune încheiată",
+    "rating": "Nota medie",
+    "ratingValue": "{{value}} / 5",
+    "ratingHint": "Notele tale pentru cărțile terminate în acest an",
+    "noRating": "Nicio notă încă"
+  },
+  "metrics": {
+    "books": "Cărți",
+    "pages": "Pagini",
+    "hours": "Ore"
+  },
+  "units": {
+    "books_one": "{{value}} carte",
+    "books_few": "{{value}} cărți",
+    "books_other": "{{value}} de cărți",
+    "pages_one": "{{value}} pagină",
+    "pages_few": "{{value}} pagini",
+    "pages_other": "{{value}} de pagini",
+    "hours_one": "{{value}} oră",
+    "hours_few": "{{value}} ore",
+    "hours_other": "{{value}} de ore"
+  },
+  "challenge": {
+    "title": "Provocarea pentru {{year}}",
+    "empty": "Nu ai stabilit o provocare pentru {{year}}.",
+    "emptyHint": "Alege un obiectiv de cărți, pagini sau ore și urmărește-ți ritmul pe parcursul anului.",
+    "set": "Stabilește o provocare",
+    "edit": "Editează provocarea",
+    "valueOfTarget": "{{value}} / {{target}}",
+    "meterText": "{{value}} din {{target}}",
+    "paceKey": "Reperul arată unde ai fi azi într-un ritm constant."
+  },
+  "pace": {
+    "on_track": "Pe drumul cel bun",
+    "completed": "Îndeplinită",
+    "ahead": "Cu {{amount}} înainte",
+    "behind": "Cu {{amount}} în urmă",
+    "missed": "Neîndeplinită, cu {{amount}} sub obiectiv"
+  },
+  "form": {
+    "title": "Provocarea de lectură pentru {{year}}",
+    "description": "Stabilește orice combinație de obiective. Lasă un câmp gol ca să-l omiți.",
+    "targetsHint": "Stabilește cel puțin un obiectiv.",
+    "booksHelper": "Între 1 și {{challengeBooksMax}} de cărți",
+    "pagesHelper": "Între 1 și {{challengePagesMax}} de pagini",
+    "hoursHelper": "Între 1 și {{challengeHoursMax}} de ore",
+    "submit": "Salvează provocarea",
+    "submitting": "Se salvează…",
+    "delete": "Șterge provocarea",
+    "deleteConfirm": "Ștergi provocarea pentru {{year}}? Istoricul lecturilor rămâne.",
+    "keep": "Păstrează",
+    "deleting": "Se șterge…"
+  },
+  "validation": {
+    "targetRequired": "Stabilește cel puțin un obiectiv: cărți, pagini sau ore.",
+    "booksRange": "Introdu un număr întreg între 1 și {{challengeBooksMax}}.",
+    "pagesRange": "Introdu un număr întreg între 1 și {{challengePagesMax}}.",
+    "hoursRange": "Introdu un număr întreg între 1 și {{challengeHoursMax}}."
+  },
+  "snackbar": {
+    "challengeSaved": "Provocarea pentru {{year}} a fost salvată.",
+    "challengeDeleted": "Provocarea pentru {{year}} a fost ștearsă."
+  },
+  "streak": {
+    "title": "Serie",
+    "current": "Seria curentă",
+    "longest": "Cea mai lungă serie",
+    "days_one": "{{count}} zi",
+    "days_few": "{{count}} zile",
+    "days_other": "{{count}} de zile",
+    "lastDays": "Ultimele 7 zile",
+    "today": "Azi",
+    "start": "Încheie o sesiune azi ca să începi o serie.",
+    "keep": "Încheie o sesiune azi ca să-ți continui seria.",
+    "kept": "Ai citit azi. Seria ta e în siguranță.",
+    "day": "{{day}}: {{value}}",
+    "noReading": "Fără lectură"
+  },
+  "chart": {
+    "title": "Pe luni",
+    "metricsLabel": "Măsura graficului",
+    "metrics": {
+      "books": "Cărți",
+      "pages": "Pagini",
+      "time": "Ore"
+    },
+    "caption": {
+      "books": "Cărți terminate pe lună în {{year}}",
+      "pages": "Pagini citite pe lună în {{year}}",
+      "time": "Ore de lectură pe lună în {{year}}"
+    },
+    "empty": {
+      "books": "Nicio carte terminată în {{year}} deocamdată.",
+      "pages": "Nicio pagină înregistrată în {{year}} deocamdată.",
+      "time": "Niciun timp de lectură înregistrat în {{year}} deocamdată."
+    },
+    "bar": "{{month}}: {{value}}",
+    "tableCaption": "Lectura pe luni în {{year}}",
+    "table": {
+      "month": "Luna",
+      "books": "Cărți terminate",
+      "pages": "Pagini citite",
+      "time": "Ore de lectură"
+    }
+  },
+  "genres": {
+    "title": "Genuri preferate",
+    "empty": "Termină o carte în {{year}} ca să-ți vezi genurile.",
+    "hint": "Recitirile se numără din nou; o carte poate avea mai multe genuri."
+  },
+  "formats": {
+    "title": "Formate",
+    "empty": "Termină o carte în {{year}} ca să vezi formatele citite.",
+    "unknown": "Nicio ediție aleasă"
+  },
+  "breakdown": {
+    "row": "{{name}}: {{value}}"
+  },
+  "empty": {
+    "title": "Nicio lectură înregistrată în {{year}}",
+    "hint": "Pornește o sesiune de pe pagina oricărei cărți sau termină o carte, iar statisticile vor apărea aici.",
+    "browse": "Răsfoiește cărțile"
+  }
+}

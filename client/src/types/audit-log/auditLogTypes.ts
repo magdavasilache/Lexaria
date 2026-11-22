@@ -1,44 +1,12 @@
-import type { MessageParams } from "../../i18n/message";
+import type { QueryParams, Schema } from "../../api/apiTypes";
 
-export const AUDIT_OUTCOMES = ["success", "failure"] as const;
-export type AuditOutcome = (typeof AUDIT_OUTCOMES)[number];
+export type AuditAction = Schema<"AuditAction">;
+export type AuditOutcome = Schema<"AuditOutcome">;
+export const AUDIT_OUTCOMES = ["success", "failure"] as const satisfies readonly AuditOutcome[];
 
-export type AuditLog = {
-  id: number;
-  created_at: string;
-  user_id: number | null;
-  username: string | null;
-  method: string | null;
-  path: string | null;
-  action: string;
-  action_key: string | null;
-  action_message: string | null;
-  description_key: string;
-  params: MessageParams;
-  description: string;
-  outcome: AuditOutcome;
-  error_code: string | null;
-  entity_type: string | null;
-  entity_id: number | null;
-  request_id: string | null;
-  ip_address: string | null;
-  user_agent: string | null;
-};
-
-export type AuditActionOption = {
-  id: string;
-  key: string;
-  message: string;
-};
-
-export type AuditLogFilters = {
-  action?: string;
-  outcome?: AuditOutcome;
-  date_from?: string;
-  date_to?: string;
-  offset: number;
-  limit: number;
-};
+export type AuditLog = Schema<"AuditLogRead">;
+export type AuditActionOption = Schema<"AuditActionRead">;
+export type AuditLogFilters = QueryParams<"list_audit_logs_admin_audit_logs_get">;
 
 export type AuditLogPage = {
   items: AuditLog[];

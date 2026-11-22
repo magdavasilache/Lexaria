@@ -11,6 +11,8 @@
     "filters": {
         "author": "Author",
         "addAuthor": "Add author…",
+        "genre": "Genre",
+        "addGenre": "Add genre…",
         "language": "Language",
         "addLanguage": "Add language…",
         "rating": "Minimum rating",
@@ -127,14 +129,18 @@
             "characters": "Characters",
             "images": "Images",
             "synopsisLanguage": "Synopsis language",
-            "synopsisIn": "Synopsis in {{language}}"
+            "synopsisIn": "Synopsis in {{language}}",
+            "genres": "Genres",
+            "awards": "Awards"
         },
         "placeholders": {
             "author": "Select an author…",
             "language": "Select a language…",
             "country": "Select a country…",
             "settings": "London, Paris",
-            "characters": "Elizabeth Bennet, Mr. Darcy"
+            "characters": "Elizabeth Bennet, Mr. Darcy",
+            "genres": "Add a genre…",
+            "awards": "Add an award…"
         },
         "helpers": {
             "title": "Up to {{bookTitleMax}} characters.",
@@ -145,7 +151,9 @@
             "images": "JPG, PNG or WebP, up to {{bookImageMaxMb}} MB each, at most {{bookImagesMax}} images. The first one is the cover.",
             "descriptions": "Readers see the synopsis in their own language first, then English.",
             "writtenIn": "Written in: {{languages}}.",
-            "notWrittenYet": "No synopsis yet. Pick a language and write one."
+            "notWrittenYet": "No synopsis yet. Pick a language and write one.",
+            "genres": "Optional. Up to {{bookListMaxItems}} genres. Add missing ones in the Genres tab.",
+            "awards": "Optional. Up to {{bookListMaxItems}} awards. Add missing ones in the Awards tab."
         },
         "images": {
             "add": "Add images",

@@ -1,9 +1,10 @@
 from datetime import datetime
-from sqlalchemy import Column, DateTime, Float, ForeignKey, Index, Integer, String, Table
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, DateTime, Float, ForeignKey, Index, Integer, String, Table, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from server.database.database import Base
 
+GENRE_NAME_MAX_LENGTH = 50
 
 book_genres = Table(
     "book_genres",
@@ -13,18 +14,23 @@ book_genres = Table(
     Index("ix_book_genres_genre_id", "genre_id"),
 )
 
+
 class Genre(Base):
     __tablename__ = "genres"
-    id = Column(Integer, primary_key=True)
-    name = Column(String, unique=True)
 
-    books = relationship("Book", secondary=book_genres, back_populates="genres")
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(GENRE_NAME_MAX_LENGTH), nullable=False)
+
+    books = relationship("Book", secondary=book_genres, back_populates="genres", passive_deletes=True)
+
+
+Index("uq_genres_name_lower", func.lower(Genre.name), unique=True)
 
 user_genres = Table(
     "user_genres",
     Base.metadata,
-    Column("user_id", ForeignKey("users.id"), primary_key=True),
-    Column("genre_id", ForeignKey("genres.id"), primary_key=True),
+    Column("user_id", ForeignKey("users.id", ondelete="CASCADE"), primary_key=True),
+    Column("genre_id", ForeignKey("genres.id", ondelete="CASCADE"), primary_key=True),
 )
 
 # BookTags -> these are secret tags that will be extracted from the reviews, so that the filtering can be more effective,

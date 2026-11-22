@@ -1,0 +1,9 @@
+{
+  "genreNotFound": "Acest gen nu există sau a fost șters.",
+  "awardNotFound": "Acest premiu nu există sau a fost șters.",
+  "languageExists": "Limba „{{name}}” există deja.",
+  "countryExists": "Țara „{{name}}” există deja.",
+  "genreExists": "Genul „{{name}}” există deja.",
+  "awardExists": "Premiul „{{name}}” există deja pentru acest an.",
+  "awardYearInFuture": "Anul nu poate fi în viitor."
+}

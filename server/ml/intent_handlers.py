@@ -13,7 +13,7 @@ def _format_books(books: list, include_rating: bool = True) -> str:
         return None
     parts = []
     for b in books[:3]:
-        part = f"'{b.title}' by {b.author.first_name} {b.author.last_name}"
+        part = f"'{b.title}' by {b.author.full_name}"
         if include_rating and b.average_rating:
             part += f" ({b.average_rating:.1f}★)"
         parts.append(part)
@@ -183,7 +183,7 @@ def handle_author_info(ctx: InferenceContext, db: Session) -> str:
         .scalar()
     )
 
-    parts = [f"{author.first_name} {author.last_name} has {book_count} book{'s' if book_count != 1 else ''} in our catalogue."]
+    parts = [f"{author.full_name} has {book_count} book{'s' if book_count != 1 else ''} in our catalogue."]
     if top_titles:
         parts.append(f"Their top titles are: {top_titles}.")
     if avg_rating:
@@ -198,7 +198,7 @@ def handle_book_info(ctx: InferenceContext) -> str:
     if not book:
         return "Which book would you like to know about? Just give me the title."
 
-    parts = [f"'{book.title}' by {book.author.first_name} {book.author.last_name}."]
+    parts = [f"'{book.title}' by {book.author.full_name}."]
 
     if book.genres:
         genre_names = ", ".join(g.name for g in book.genres)
@@ -290,7 +290,7 @@ def handle_recommend_by_author(ctx: InferenceContext, db: Session) -> str:
     unread_by_author = _filter_unread(author.books, ctx)
     if unread_by_author:
         result = _format_books(unread_by_author[:3])
-        return f"You might not have read all of {author.first_name} {author.last_name}'s work yet: {result}."
+        return f"You might not have read all of {author.full_name}'s work yet: {result}."
 
     author_tag_names = list({
         tag.tag
@@ -306,10 +306,10 @@ def handle_recommend_by_author(ctx: InferenceContext, db: Session) -> str:
     similar_books = _filter_unread(similar_books, ctx)
 
     if not similar_books:
-        return f"I couldn't find authors similar to {author.first_name} {author.last_name} yet — more reviews will help!"
+        return f"I couldn't find authors similar to {author.full_name} yet — more reviews will help!"
 
     result = _format_books(similar_books[:3])
-    return f"If you enjoy {author.first_name} {author.last_name}'s style, you might also like: {result}."
+    return f"If you enjoy {author.full_name}'s style, you might also like: {result}."
 
 
 INTENT_HANDLERS: dict = {

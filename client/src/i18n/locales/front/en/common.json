@@ -39,7 +39,11 @@
     "goodreadsImport": "Goodreads import",
     "addBook": "Add book",
     "adminPanel": "Admin panel",
-    "logout": "Log out"
+    "logout": "Log out",
+    "readingGoal": "Daily reading goal",
+    "readingGoalValue": "{{minutes}} min/day",
+    "readingGoalNotSet": "Not set",
+    "stats": "Reading stats"
   },
   "fields": {
     "charactersLeft_one": "{{count}} character left",
@@ -105,6 +109,10 @@
     "home": "Home",
     "book": "Book",
     "goodreadsImport": "Goodreads Import",
-    "adminPanel": "Admin Panel"
+    "adminPanel": "Admin Panel",
+    "stats": "Reading Stats"
+  },
+  "theme": {
+    "toggle": "Change theme"
   }
 }

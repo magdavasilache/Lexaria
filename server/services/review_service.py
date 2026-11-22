@@ -3,12 +3,11 @@ from sqlalchemy.orm import Session
 from server.core.errors import ConflictError, ErrorCode, ForbiddenError, NotFoundError
 from server.core.message_keys import MessageKey
 from server.database.models.audit_log import AuditAction
-from server.database.models.book import Book
 from server.database.models.comment import Comment
 from server.database.models.review import Review
 from server.database.models.user import User, UserRole
 from server.database.schemas.review import (
-    AuthorOut,
+    ReviewerOut,
     CommentCreate,
     CommentOut,
     CommentUpdate,
@@ -19,7 +18,7 @@ from server.database.schemas.review import (
     ReviewUpdate,
 )
 from server.repositories import book_repository, review_repository
-from server.services import audit_service
+from server.services import audit_service, book_service
 from server.services.review_tags import extract_tags
 
 TAG_MIN_CONFIDENCE = 0.6
@@ -29,8 +28,8 @@ def _is_admin(user: User) -> bool:
     return user.role == UserRole.ADMIN
 
 
-def _author(user: User) -> AuthorOut:
-    return AuthorOut.model_validate(user)
+def _author(user: User) -> ReviewerOut:
+    return ReviewerOut.model_validate(user)
 
 
 def _comment_out(comment: Comment, user: User, liked: set[int]) -> CommentOut:
@@ -79,13 +78,6 @@ def _review_out(db: Session, review_id: int, user: User) -> ReviewOut:
     return _reviews_out(db, [_load_review(db, review_id)], user)[0]
 
 
-def _load_book(db: Session, book_id: int) -> Book:
-    book = db.get(Book, book_id)
-    if book is None:
-        raise NotFoundError(MessageKey.BOOK_NOT_FOUND, params={"book_id": book_id}, code=ErrorCode.BOOK_NOT_FOUND)
-    return book
-
-
 def _load_review(db: Session, review_id: int) -> Review:
     review = review_repository.get_review(db, review_id)
     if review is None:
@@ -131,13 +123,13 @@ def _review_exists(book_id: int) -> ConflictError:
 
 
 def list_reviews(db: Session, book_id: int, query: ReviewListQuery, user: User) -> tuple[list[ReviewOut], int]:
-    _load_book(db, book_id)
+    book_service.require_book(db, book_id)
     reviews, total = review_repository.list_for_book(db, book_id, query)
     return _reviews_out(db, list(reviews), user), total
 
 
 def get_my_review(db: Session, book_id: int, user: User) -> ReviewOut | None:
-    _load_book(db, book_id)
+    book_service.require_book(db, book_id)
     review = review_repository.get_user_review(db, user.id, book_id)
     return _reviews_out(db, [review], user)[0] if review else None
 
@@ -145,7 +137,7 @@ def get_my_review(db: Session, book_id: int, user: User) -> ReviewOut | None:
 def create_review(db: Session, book_id: int, form: ReviewCreate, user: User) -> ReviewOut:
     params = {"username": user.username, "book_id": book_id}
     with audit_service.track(db, AuditAction.REVIEW_CREATE, actor=user, params=params) as entry:
-        book = _load_book(db, book_id)
+        book = book_service.require_book(db, book_id)
         entry.params["title"] = book.title
         if review_repository.get_user_review(db, user.id, book_id) is not None:
             raise _review_exists(book_id)

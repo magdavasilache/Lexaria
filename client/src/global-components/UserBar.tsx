@@ -1,28 +1,33 @@
 import { KeyboardEvent, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { BookOpen, BookPlus, LogOut, ShieldCheck, Upload } from "lucide-react";
+import { BookOpen, BookPlus, ChartColumn, LogOut, ShieldCheck, Target, Upload } from "lucide-react";
 import Button from "./buttons/Button";
 import { UserType, USER_ROLE } from "../types/auth-types/userTypes";
 import { DEFAULT_AVATAR } from "../utils/assets";
+import { useReadingToday } from "../api-handling/rtk-hooks/reading/useReadingGoal";
 
 interface Props {
     user: UserType
     logout: () => void
     onNavigate: () => void
     onClose: () => void
+    onOpenGoal: () => void
 }
 
-export default function UserBar({ user, logout, onNavigate, onClose }: Props) {
+export default function UserBar({ user, logout, onNavigate, onClose, onOpenGoal }: Props) {
     const { t } = useTranslation()
     const navigate = useNavigate()
     const { pathname } = useLocation()
     const menuRef = useRef<HTMLDivElement>(null)
     const isAdmin = user.role === USER_ROLE.ADMIN
     const name = user.display_name ?? user.username
+    const { data: today } = useReadingToday()
+    const goalMinutes = today?.daily_reading_goal_minutes ?? null
 
     const items = [
         { path: "/homepage", label: t("navbar.browseBooks"), icon: BookOpen },
+        { path: "/stats", label: t("navbar.stats"), icon: ChartColumn },
         { path: "/goodreads-import", label: t("navbar.goodreadsImport"), icon: Upload },
         ...(isAdmin
             ? [
@@ -101,6 +106,24 @@ export default function UserBar({ user, logout, onNavigate, onClose }: Props) {
                         {label}
                     </Button>
                 ))}
+                <Button
+                    role="menuitem"
+                    variant="menu"
+                    fullWidth
+                    leftIcon={Target}
+                    tabIndex={-1}
+                    onClick={onOpenGoal}
+                    className="min-h-10 text-sm [&>span]:min-w-0 [&>span]:flex-1"
+                >
+                    <span className="flex items-center justify-between gap-2">
+                        <span className="truncate">{t("navbar.readingGoal")}</span>
+                        {today && (
+                            <span className="shrink-0 text-xs tabular-nums text-fontMutedLight dark:text-fontMutedDark">
+                                {goalMinutes === null ? t("navbar.readingGoalNotSet") : t("navbar.readingGoalValue", { minutes: goalMinutes })}
+                            </span>
+                        )}
+                    </span>
+                </Button>
             </div>
 
             <div className="p-1.5 border-t border-panelBorderLight dark:border-panelBorderDark">

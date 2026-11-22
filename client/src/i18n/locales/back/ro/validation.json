@@ -32,5 +32,6 @@
     "lowercase": "o literă mică",
     "number": "o cifră",
     "special": "un caracter special (ex. !, @, #, ?)"
-  }
+  },
+  "dateInFuture": "Data nu poate fi în viitor."
 }

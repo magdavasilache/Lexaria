@@ -22,6 +22,7 @@ const ISO_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const YEARS_PER_PAGE = 12;
 const GAP = 4;
 const EDGE = 8;
+const MIN_HEIGHT = 160;
 const FOCUSABLE = "button:not([disabled]):not([tabindex='-1']), [tabindex='0']";
 
 const pad = (value: number) => String(value).padStart(2, "0");
@@ -62,7 +63,7 @@ export default function DateCalendar({ value, min, max, clearable, autoFocus, an
   const [view, setView] = useState<View>("days");
   const gridRef = useRef<HTMLDivElement>(null);
   const shouldFocus = useRef(autoFocus);
-  const openUp = useRef<boolean | null>(null);
+  const [openUp, setOpenUp] = useState(false);
   const [position, setPosition] = useState<CSSProperties | null>(null);
 
   useLayoutEffect(() => {
@@ -72,26 +73,29 @@ export default function DateCalendar({ value, min, max, clearable, autoFocus, an
       if (!anchor || !panel) return;
       const rect = anchor.getBoundingClientRect();
       const { innerWidth, innerHeight } = window;
-      if (openUp.current === null) {
-        const spaceBelow = innerHeight - rect.bottom - GAP - EDGE;
-        const spaceAbove = rect.top - GAP - EDGE;
-        openUp.current = panel.offsetHeight > spaceBelow && spaceAbove > spaceBelow;
-      }
+      const naturalHeight = panel.scrollHeight + panel.offsetHeight - panel.clientHeight;
+      const spaceBelow = Math.max(0, innerHeight - rect.bottom - GAP - EDGE);
+      const spaceAbove = Math.max(0, rect.top - GAP - EDGE);
+      const up = naturalHeight > spaceBelow && spaceAbove > spaceBelow;
+      setOpenUp(up);
       const left = Math.max(EDGE, Math.min(rect.left, innerWidth - panel.offsetWidth - EDGE));
+      const maxHeight = Math.max(MIN_HEIGHT, up ? spaceAbove : spaceBelow);
       setPosition(
-        openUp.current
-          ? { left, bottom: Math.max(EDGE, innerHeight - rect.top + GAP) }
-          : { left, top: Math.max(EDGE, rect.bottom + GAP) }
+        up
+          ? { left, maxHeight, bottom: Math.min(innerHeight - EDGE - maxHeight, Math.max(EDGE, innerHeight - rect.top + GAP)) }
+          : { left, maxHeight, top: Math.min(innerHeight - EDGE - maxHeight, Math.max(EDGE, rect.bottom + GAP)) }
       );
     };
     place();
     window.addEventListener("resize", place);
     window.addEventListener("scroll", place, true);
+    window.visualViewport?.addEventListener("resize", place);
     return () => {
       window.removeEventListener("resize", place);
       window.removeEventListener("scroll", place, true);
+      window.visualViewport?.removeEventListener("resize", place);
     };
-  }, [anchorRef, panelRef]);
+  }, [anchorRef, panelRef, view]);
 
   useEffect(() => {
     if (selected) setCursor(selected);
@@ -188,7 +192,7 @@ export default function DateCalendar({ value, min, max, clearable, autoFocus, an
       onMouseDown={(event) => event.preventDefault()}
       onKeyDown={handleKeyDown}
       style={position ?? { left: 0, top: 0 }}
-      className={`fixed z-[90] w-[18.5rem] max-w-[calc(100vw-1.5rem)] rounded-panel border border-panelBorderLight bg-panelLight p-2 font-libre text-fontPrimaryLight shadow-soft-lg animate-scale-in dark:border-panelBorderDark dark:bg-panelDark dark:text-fontPrimaryDark dark:shadow-deep-lg sm:p-3 ${position ? "" : "invisible"} ${openUp.current ? "origin-bottom" : "origin-top"}`}
+      className={`fixed z-[90] w-[18.5rem] max-w-[calc(100vw-1.5rem)] overflow-y-auto overscroll-contain rounded-panel border border-panelBorderLight bg-panelLight p-2 font-libre text-fontPrimaryLight shadow-soft-lg animate-scale-in dark:border-panelBorderDark dark:bg-panelDark dark:text-fontPrimaryDark dark:shadow-deep-lg sm:p-3 ${position ? "" : "invisible"} ${openUp ? "origin-bottom" : "origin-top"}`}
     >
       <div className="mb-2 flex items-center justify-between gap-1">
         <Button variant="ghost" size="sm" icon={ChevronLeft} aria-label={navLabels[0]} onClick={() => shift(-1)} className="h-10 w-10" />

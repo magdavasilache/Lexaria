@@ -1,9 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112" role="img" aria-label="Lexaria open-book mark">
-<rect x="1.5" y="1.5" width="109" height="109" rx="24" fill="#FFFBF7" stroke="#D4A853" stroke-width="3"/>
-<g transform="translate(8 7)" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 91V43C12 19 29 5 48 5s36 14 36 38v48" stroke="#D4A853" stroke-width="2.2"/>
-  <path d="M48 42C37 34 25 33 17 37v36c11-4 21-2 31 5 10-7 20-9 31-5V37c-8-4-20-3-31 5Z" stroke="#074F1E" stroke-width="3.2"/>
-  <path d="M48 42v36" stroke="#074F1E" stroke-width="2.5"/>
-  <path d="M22 45c7-2 14-1 20 3M22 53c7-2 14-1 20 3M55 48c7-4 14-5 20-3M55 56c7-4 14-5 20-3" stroke="#8FCBA3" stroke-width="1.8"/>
-  <path d="M48 30c0-8 4-13 10-17M53 25c-7 0-11-3-13-8 7-1 12 2 13 8ZM57 20c0-6 3-10 8-12 1 6-2 10-8 12Z" stroke="#D4A853" stroke-width="2"/>
-</g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Lexaria">
+<rect x="1.5" y="1.5" width="61" height="61" rx="14" fill="#074F1E" stroke="#FFFBF7" stroke-width="3"/>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M32 28c-6.5-5-13.5-5.5-19-3v22c7-2.5 13-1.5 19 3 6-4.5 12-5.5 19-3V25c-5.5-2.5-12.5-2-19 3Z" stroke="#FFFBF7" stroke-width="3.5"/>
+  <path d="M32 28v22" stroke="#FFFBF7" stroke-width="3"/>
+  <path d="M32 24c0-5 2.5-8.5 7-11 .5 5-2 9-7 11Z" fill="#D4A853" stroke="#D4A853" stroke-width="1.5"/>
+</g>
+</svg>

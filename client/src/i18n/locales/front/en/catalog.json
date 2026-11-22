@@ -1,0 +1,126 @@
+{
+  "form": {
+    "submitAdd": "Add",
+    "submitEdit": "Save changes",
+    "submitting": "Saving…",
+    "fields": {
+      "name": "Name",
+      "officialLanguage": "Official language",
+      "year": "Year",
+      "description": "Description",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "birthdate": "Date of birth",
+      "country": "Country",
+      "about": "About",
+      "image": "Portrait"
+    },
+    "placeholders": {
+      "language": "Select a language…",
+      "country": "Select a country…"
+    },
+    "helpers": {
+      "languagesName": "Up to {{languageNameMax}} characters, e.g. Romanian. Each language can be added once.",
+      "genresName": "Up to {{genreNameMax}} characters, e.g. Magical realism. Each genre can be added once.",
+      "countriesName": "Up to {{countryNameMax}} characters, e.g. Romania. Each country can be added once.",
+      "officialLanguage": "Optional.",
+      "awardsName": "Up to {{awardNameMax}} characters, e.g. Hugo Award for Best Novel.",
+      "year": "From {{awardYearMin}} to this year. Optional.",
+      "description": "Optional, up to {{awardDescriptionMax}} characters.",
+      "firstName": "Up to {{authorNameMax}} characters. For a single name, such as Homer, fill in only this field.",
+      "lastName": "Optional, up to {{authorNameMax}} characters. Authors are sorted by last name.",
+      "birthdate": "Optional. Can't be in the future.",
+      "country": "Optional.",
+      "about": "Optional, up to {{authorAboutMax}} characters.",
+      "image": "Optional. JPG, PNG or WebP, up to {{authorImageMaxMb}} MB."
+    },
+    "image": {
+      "choose": "Choose image",
+      "replace": "Replace image",
+      "remove": "Remove image",
+      "keep": "Keep current image",
+      "removedNote": "The portrait is removed when you save.",
+      "alt": "Portrait of {{name}}",
+      "newAuthor": "the new author"
+    }
+  },
+  "admin": {
+    "columns": {
+      "name": "Name",
+      "books": "Books",
+      "authors": "Authors",
+      "language": "Language",
+      "country": "Country",
+      "year": "Year",
+      "birthdate": "Born",
+      "portrait": "Portrait"
+    },
+    "empty": {
+      "authors": "No authors yet.",
+      "genres": "No genres yet.",
+      "languages": "No languages yet.",
+      "awards": "No awards yet.",
+      "countries": "No countries yet."
+    },
+    "deleteTitle": {
+      "authors": "Delete author",
+      "genres": "Delete genre",
+      "languages": "Delete language",
+      "awards": "Delete award",
+      "countries": "Delete country"
+    },
+    "deleteConfirm": {
+      "authors": "Delete \"{{name}}\"? Their books stay in the catalog without an author. This can't be undone.",
+      "genres": "Delete \"{{name}}\"? It is removed from every book and from readers' favorite genres. This can't be undone.",
+      "languages": "Delete \"{{name}}\"? Books, editions and countries that use it are left without a language. This can't be undone.",
+      "awards": "Delete \"{{name}}\"? It is removed from every book that won it. This can't be undone.",
+      "countries": "Delete \"{{name}}\"? Books and authors from this country are left without one. This can't be undone."
+    },
+    "usedByBooks_one": "Used by {{count}} book.",
+    "usedByBooks_other": "Used by {{count}} books.",
+    "usedByAuthors_one": "Used by {{count}} author.",
+    "usedByAuthors_other": "Used by {{count}} authors.",
+    "usedByAwardBooks_one": "Given to {{count}} book.",
+    "usedByAwardBooks_other": "Given to {{count}} books.",
+    "usedByAuthorBooks_one": "Has {{count}} book in the catalog.",
+    "usedByAuthorBooks_other": "Has {{count}} books in the catalog.",
+    "delete": "Delete",
+    "deleting": "Deleting…"
+  },
+  "snackbar": {
+    "created": {
+      "authors": "Author \"{{name}}\" was added.",
+      "genres": "Genre \"{{name}}\" was added.",
+      "languages": "Language \"{{name}}\" was added.",
+      "awards": "Award \"{{name}}\" was added.",
+      "countries": "Country \"{{name}}\" was added."
+    },
+    "updated": {
+      "authors": "Author \"{{name}}\" was saved.",
+      "genres": "Genre \"{{name}}\" was saved.",
+      "languages": "Language \"{{name}}\" was saved.",
+      "awards": "Award \"{{name}}\" was saved.",
+      "countries": "Country \"{{name}}\" was saved."
+    },
+    "deleted": {
+      "authors": "Author \"{{name}}\" was deleted.",
+      "genres": "Genre \"{{name}}\" was deleted.",
+      "languages": "Language \"{{name}}\" was deleted.",
+      "awards": "Award \"{{name}}\" was deleted.",
+      "countries": "Country \"{{name}}\" was deleted."
+    }
+  },
+  "validation": {
+    "countryNameMax": "Use at most {{countryNameMax}} characters.",
+    "awardNameMax": "Use at most {{awardNameMax}} characters.",
+    "awardYear": "Enter a year from {{awardYearMin}} to this year.",
+    "descriptionMax": "Use at most {{awardDescriptionMax}} characters.",
+    "authorNameMax": "Use at most {{authorNameMax}} characters.",
+    "birthdateFuture": "The date of birth can't be in the future.",
+    "aboutMax": "Use at most {{authorAboutMax}} characters.",
+    "imageType": "Use a JPG, PNG or WebP image.",
+    "imageSize": "The image must be at most {{authorImageMaxMb}} MB.",
+    "languagesNameMax": "Use at most {{languageNameMax}} characters.",
+    "genresNameMax": "Use at most {{genreNameMax}} characters."
+  }
+}

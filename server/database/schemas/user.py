@@ -99,7 +99,3 @@ class UserRead(OutputSchema):
 class AuthResponse(OutputSchema):
     user: UserRead
     token: AccessTokenResponse
-
-
-class UserOut(OutputSchema):
-    username: Annotated[str, Field(max_length=USERNAME_MAX_LENGTH)]

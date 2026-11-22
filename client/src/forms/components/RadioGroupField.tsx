@@ -11,6 +11,7 @@ export type RadioOption = {
   description?: ReactNode;
   icon?: LucideIcon;
   disabled?: boolean;
+  action?: ReactNode;
 };
 
 type RadioGroupFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value" | "defaultValue"> & {
@@ -55,13 +56,13 @@ export default function RadioGroupField({ label, hideLabel, options, layout = "l
   return (
     <FieldShell as="fieldset" label={label} hideLabel={hideLabel} required={required} helperText={helperText} error={error} inputId={groupId} helperId={helperId} errorId={errorId}>
       <div className={`${LAYOUTS[layout]} ${error?.message ? "animate-shake" : ""}`}>
-        {options.map(({ value, label: optionLabel, description, icon: Icon, disabled }) => {
+        {options.map(({ value, label: optionLabel, description, icon: Icon, disabled, action }) => {
           const optionId = `${groupId}-${value}`;
-          return (
+          const option = (
             <label
               key={value}
               htmlFor={optionId}
-              className={`group/radio flex cursor-pointer items-start gap-2.5 transition-all duration-200 ease-out-expo has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50 ${OPTION_LAYOUTS[layout]} ${layout === "cards" ? cardBorder : ""}`}
+              className={`group/radio flex cursor-pointer items-start gap-2.5 transition-all duration-200 ease-out-expo has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50 ${OPTION_LAYOUTS[layout]} ${layout === "cards" ? cardBorder : ""} ${action ? "h-full pr-12" : ""}`}
             >
               <span className={`relative flex h-5 w-5 shrink-0 ${layout === "list" ? "mt-2" : "mt-0.5"}`}>
                 <input
@@ -87,6 +88,14 @@ export default function RadioGroupField({ label, hideLabel, options, layout = "l
                 {description && <span className="text-xs text-fontMutedLight dark:text-fontMutedDark">{description}</span>}
               </span>
             </label>
+          );
+          return action ? (
+            <div key={value} className="relative">
+              {option}
+              <div className="absolute right-1 top-1">{action}</div>
+            </div>
+          ) : (
+            option
           );
         })}
       </div>

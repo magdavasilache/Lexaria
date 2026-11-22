@@ -5,7 +5,7 @@ import { useThemeStore } from "../state_management/useThemeStore";
 import { useAuthStore } from "../api-handling/context/authentication/useAuthStore";
 import UserBar from "./UserBar";
 import Button from "./buttons/Button";
-import { BookOpen, ChevronDown, ShieldCheck, Upload } from 'lucide-react';
+import { BookOpen, ChartColumn, ChevronDown, ShieldCheck, Upload } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -14,6 +14,8 @@ import { resetAllFilters } from "../state_management/useFiltersStore";
 import { PAGE_CONTAINER } from "../utils/layout";
 import { BRAND_LOGO, DEFAULT_AVATAR } from "../utils/assets";
 import { USER_ROLE } from "../types/auth-types/userTypes";
+import ReadingGoalForm from "../forms/ReadingGoalForm";
+import { useReadingToday } from "../api-handling/rtk-hooks/reading/useReadingGoal";
 
 export default function Navbar() {
     const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -21,6 +23,8 @@ export default function Navbar() {
     const logout = useAuthStore(state => state.logout)
     const theme = useThemeStore(state => state.theme)
     const [showUserBar, setShowUserBar] = useState<boolean>(false)
+    const [goalOpen, setGoalOpen] = useState(false)
+    const { data: today } = useReadingToday(isAuthenticated && goalOpen)
     const userBarRef = useRef<HTMLDivElement>(null)
     const triggerRef = useRef<HTMLButtonElement>(null)
     const navigate = useNavigate()
@@ -28,6 +32,7 @@ export default function Navbar() {
     const { t } = useTranslation()
     const links = [
         { path: "/homepage", label: t("navbar.browseBooks"), icon: BookOpen },
+        { path: "/stats", label: t("navbar.stats"), icon: ChartColumn },
         { path: "/goodreads-import", label: t("navbar.goodreadsImport"), icon: Upload },
         ...(user?.role === USER_ROLE.ADMIN ? [{ path: "/admin-panel", label: t("navbar.adminPanel"), icon: ShieldCheck }] : []),
     ]
@@ -45,6 +50,11 @@ export default function Navbar() {
         triggerRef.current?.focus()
     }, [])
 
+    const openGoal = useCallback(() => {
+        closeUserBar()
+        setGoalOpen(true)
+    }, [closeUserBar])
+
     const handleClickOutside = useCallback((e: MouseEvent) => {
         if (userBarRef.current && !userBarRef.current.contains(e.target as Node)) {
             setShowUserBar(false);
@@ -57,7 +67,7 @@ export default function Navbar() {
     }, [handleClickOutside]);
 
     return (
-        <nav className="h-[60px] w-full sticky top-0 z-50 border-t-2 border-b border-t-primaryLight dark:border-t-primaryDark border-b-panelBorderLight dark:border-b-panelBorderDark bg-panelLight/95 dark:bg-panelDark/95 backdrop-blur-md shadow-soft-sm dark:shadow-deep-sm">
+        <nav className="h-[60px] w-full sticky top-0 z-50 border-b border-b-panelBorderLight dark:border-b-panelBorderDark bg-panelLight/95 dark:bg-panelDark/95 backdrop-blur-md shadow-soft-sm dark:shadow-deep-sm">
             <div className={`${PAGE_CONTAINER} flex h-full items-center justify-between gap-3`}>
                 <div className="flex h-full min-w-0 items-center gap-4 lg:gap-6">
                     <Link
@@ -128,6 +138,7 @@ export default function Navbar() {
                                             logout={handleLogout}
                                             onNavigate={() => setShowUserBar(false)}
                                             onClose={closeUserBar}
+                                            onOpenGoal={openGoal}
                                         />
                                     </div>
                                 )}
@@ -136,6 +147,9 @@ export default function Navbar() {
                     </div>
                 )}
             </div>
+            {goalOpen && today && (
+                <ReadingGoalForm minutes={today.daily_reading_goal_minutes} onClose={() => setGoalOpen(false)} />
+            )}
         </nav>
     );
 }

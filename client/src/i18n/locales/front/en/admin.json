@@ -16,9 +16,6 @@
   },
   "panel": {
     "heading": "Admin",
-    "close": "Close",
-    "notConfigured": "There's no table for this section yet.",
-    "nameColumn": "Name",
     "count_one": "{{count}} entry",
     "count_other": "{{count}} entries"
   },
@@ -30,7 +27,8 @@
     "countries": "Countries",
     "books": "Books",
     "chatbot": "Chatbot",
-    "activity": "Activity"
+    "activity": "Activity",
+    "editions": "Editions"
   },
   "add": {
     "authors": "Add author",
@@ -45,8 +43,7 @@
     "genres": "Edit genre",
     "languages": "Edit language",
     "awards": "Edit award",
-    "countries": "Edit country",
-    "books": "Edit book"
+    "countries": "Edit country"
   },
   "chatbot": {
     "tabs": {

@@ -82,7 +82,7 @@ class CommentUpdate(CommentCreate):
     pass
 
 
-class AuthorOut(OutputSchema):
+class ReviewerOut(OutputSchema):
     id: int
     username: Annotated[str, Field(max_length=USERNAME_MAX_LENGTH)]
     avatar_url: Annotated[str | None, Field(max_length=AVATAR_URL_MAX_LENGTH)]
@@ -92,7 +92,7 @@ class CommentOut(OutputSchema):
     id: int
     review_id: int
     content: Annotated[str, Field(max_length=COMMENT_CONTENT_MAX_LENGTH)]
-    author: AuthorOut
+    author: ReviewerOut
     likes_count: int
     liked_by_me: bool
     can_edit: bool
@@ -108,7 +108,7 @@ class ReviewOut(OutputSchema):
     content: Annotated[str | None, Field(max_length=REVIEW_CONTENT_MAX_LENGTH)]
     start_date: date | None
     end_date: date | None
-    author: AuthorOut
+    author: ReviewerOut
     likes_count: int
     liked_by_me: bool
     can_edit: bool
